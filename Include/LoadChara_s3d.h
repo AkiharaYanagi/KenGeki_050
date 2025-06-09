@@ -1,6 +1,6 @@
 ﻿//=================================================================================================
 //
-//	Compend ヘッダ
+// LoadChara_s3d ヘッダファイル
 //
 //=================================================================================================
 #pragma once
@@ -8,8 +8,9 @@
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "Define_Siv3D.h"
-#include "Sequence.h"
+#include "IOCharaDefine.h"
+#include "LoadCharaFunc.h"
+#include "LoadCharaUtl.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -17,22 +18,25 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-
-	class Compend
+	//------------------------------------------------------
+	// .datファイルからCharaを読み込む
+	//------------------------------------------------------
+	class LoadChara_s3d
 	{
-		PAP_Tx		mpap_txMain;	//イメージ テクスチャ配列
-		PAP_Sqc		mpap_Sqc;		//シークエンス配列
+		//try用
+		void _Load ( const tstring & filename,  Chara & chara );
+
+		//内部使用関数群
+		LoadCharaFunc	m_func;
+		LoadCharaUtl	m_utl;
 
 	public:
-		Compend ();
-		Compend( const Compend& rhs ) = delete;
-		~Compend ();
-
-		void SetpSqc ( UP_AP_Sqc papSqc );
+		LoadChara_s3d ( const tstring & filename,  Chara & chara );
+		LoadChara_s3d ( const LoadChara_s3d& rhs ) = delete;
+		~LoadChara_s3d ();
 	};
-
-	using P_CCompend = std::shared_ptr < Compend >;
 
 
 }	//namespace GAME
+
 

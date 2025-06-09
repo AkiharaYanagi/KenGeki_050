@@ -63,14 +63,13 @@ namespace GAME
 	//		┣コンペンド	ビヘイビア
 	//		┣コンペンド	ガーニッシュ
 	// 
-	// ->編集時に分割し、実行上は統合する
+	// ->編集時に分割(名前で分類)し、実行上は統合(ID)する
 	//==================================================================================
 
 	class Chara
 	{
 		Compend		behavior;
 		Compend		garnish;
-
 #if 0
 
 //		Behavior		m_bhvMain;		//メイン スクリプト
@@ -80,10 +79,11 @@ namespace GAME
 //		Garnish			m_bhvEf;		//EF スクリプト
 		PAP_Tx			mpap_txEf;		//EFイメージ テクスチャ配列
 		PAP_Effect		mpap_Ef;		//エフェクト配列
+#endif // 0
 
-		VP_Command		m_vpCommand;	//コマンド配列
-		VP_Branch		m_vpBranch;		//ブランチ配列
-		VP_Route		m_vpRoute;		//ルート配列
+		AP_Cmd		ma_pCmd;	//コマンド配列
+		AP_Brc		ma_pBrc;	//ブランチ配列
+		AP_Rut		ma_pRut;	//ルート配列
 
 	public:
 		Chara ();
@@ -92,6 +92,24 @@ namespace GAME
 
 		void Clear ();
 
+
+		Compend & GetBehavior () { return behavior; }
+		Compend & GetGarnish  () { return garnish; }
+
+#if 0
+
+		//アクション配列にまとめて設定
+		void SetpAction ( UP_AP_Sqc papAction );
+//		void AddpSequence ( std::shared_ptr < P_Sqc [] > arypSequence, rsize_t size );
+//		void AddpSequence ( const std::vector < P_Sqc > & arypSequence, rsize_t size );P_Sqc
+
+		//エフェクト配列にまとめて設定
+		void SetpEffect ( UP_AP_Sqc papEffect );
+
+#endif // 0
+
+
+#if 0
 		//-----------------------------------------------------------------
 		//メインイメージ テクスチャ配列ポインタ
 //		PVP_TxBs GetpvpMainTexture () const { return m_pvpTxMain; }
@@ -101,7 +119,7 @@ namespace GAME
 		void AddpMainTexture ( P_Tx pTexture ) { mpap_txMain->push_back ( pTexture ); }
 
 		//メインイメージ テクスチャポインタの取得
-		P_Tx GetpMainTexture ( UINT index ) const { return mpap_txMain->at ( index ); }
+		P_Tx GetpMainTexture ( UINT32 index ) const { return mpap_txMain->at ( index ); }
 
 		//テクスチャ配列の設定
 		void SetpapTx_Main ( PAP_Tx paptx ) { mpap_txMain = paptx; }
@@ -121,21 +139,21 @@ namespace GAME
 
 		//---------------------------------------------------------------------
 		//名前からアクションIDを取得する(無いときはNO_ACTION(0x7FFF0001)を返す)
-		UINT GetActionID ( const s3d::String & name ) const;
+		UINT32 GetActionID ( const s3d::String & name ) const;
 
 		//指定アクション名が存在するかどうか
 		bool ExistAction ( const s3d::String & name ) const;
 
 		//アクションポインタを取得
-		P_Action GetpAction ( UINT index ) const { return mpap_Action->at ( index ); }
+		P_Action GetpAction ( UINT32 index ) const { return mpap_Action->at ( index ); }
 		P_Action GetpAction ( const s3d::String & name ) const { return GetpAction ( GetActionID ( name ) ); }
 
 		//---------------------------------------------------------------------
 		//スクリプトポインタを取得
-		P_Script GetpScript ( UINT indexAction, UINT indexScript ) { return mpap_Action->at ( indexAction )->GetpScript( indexScript ); }
+		P_Script GetpScript ( UINT32 indexAction, UINT32 indexScript ) { return mpap_Action->at ( indexAction )->GetpScript( indexScript ); }
 
 		//次スクリプトが存在するかどうか
-		bool IsNextScript ( UINT indexAction, UINT indexScript ) const
+		bool IsNextScript ( UINT32 indexAction, UINT32 indexScript ) const
 		{
 			return mpap_Action->at ( indexAction )->IsNextScript( indexScript );
 		}
@@ -155,7 +173,7 @@ namespace GAME
 		bool ExistEffect ( const s3d::String & name ) const;
 
 		//Efイメージ テクスチャポインタの取得
-		P_Tx GetpEfTexture ( UINT index ) { return mpap_txEf->at ( index ); }
+		P_Tx GetpEfTexture ( UINT32 index ) { return mpap_txEf->at ( index ); }
 
 		//テクスチャ配列の設定
 		void SetpapTx_Ef ( PAP_Tx paptx ) { mpap_txEf = paptx; }
@@ -168,33 +186,50 @@ namespace GAME
 		PAP_Effect GetpvpEffect () { return mpap_Ef; }
 
 		//エフェクトポインタを取得
-		P_Effect GetpEffect ( UINT index ) { return mpap_Ef->at ( index ); }
+		P_Effect GetpEffect ( UINT32 index ) { return mpap_Ef->at ( index ); }
+#endif // 
+
+
 
 		//---------------------------------------------------------------------
 		//コマンド配列に追加
+		void AddpCommand ( P_Cmd pCmd ) { ma_pCmd.push_back ( pCmd ); }
+		void SetaCommand ( UP_AP_Cmd paCmd );
+
+		//ブランチ配列に追加
+		void AddpBranch ( P_Brc pBrc ) { ma_pBrc.push_back ( pBrc ); }
+		void SetaBranch ( UP_AP_Brc paBrc );
+
+		//ルート配列に追加
+		void AddpRoute ( P_Rut pRut ) { ma_pRut.push_back ( pRut ); }
+		void SetaRoute ( UP_AP_Rut paRut );
+
+#if 0
+		//---------------------------------------------------------------------
+		//コマンド配列に追加
 		void AddpCommand ( P_Command pCommand ) { m_vpCommand.push_back ( pCommand ); }
-		void AddaCommand ( std::unique_ptr < P_Command [] > aryCmd, UINT size );
+		void AddaCommand ( std::unique_ptr < P_Command [] > aryCmd, UINT32 size );
 
 		//コマンドを取得
-		P_Command GetpCommand ( UINT indexCommand ) const { return m_vpCommand[indexCommand]; }
+		P_Command GetpCommand ( UINT32 indexCommand ) const { return m_vpCommand[indexCommand]; }
 		const VP_Command & GetvpCommand () const { return m_vpCommand; }
 
 
 		//ブランチ配列に追加
 		void AddpBranch ( P_Branch pBranch ) { m_vpBranch.push_back ( pBranch ); }
-		void AddaBranch ( std::unique_ptr < P_Branch [] > aryBrc, UINT size );
+		void AddaBranch ( std::unique_ptr < P_Branch [] > aryBrc, UINT32 size );
 
 		//ブランチを取得
-		P_Branch GetpBranch ( UINT indexBranch ) const { return m_vpBranch[indexBranch]; }
+		P_Branch GetpBranch ( UINT32 indexBranch ) const { return m_vpBranch[indexBranch]; }
 		const VP_Branch & GetvpBranch () const { return m_vpBranch; }
 
 
 		//ルート配列に追加
 		void AddpRoute ( P_Route pRoute ) { m_vpRoute.push_back ( pRoute ); }
-		void AddaRoute ( std::unique_ptr < P_Route [] > aryRut, UINT size );
+		void AddaRoute ( std::unique_ptr < P_Route [] > aryRut, UINT32 size );
 
 		//ルートを取得
-		P_Route GetpRoute ( UINT indexRoute ) const { return m_vpRoute[indexRoute]; }
+		P_Route GetpRoute ( UINT32 indexRoute ) const { return m_vpRoute[indexRoute]; }
 		const VP_Route & GetvpRoute () const { return m_vpRoute; }
 
 #endif // 0

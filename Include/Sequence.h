@@ -20,15 +20,19 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+	using Prp_ACT_CTG = Property < ACTION_CATEGORY >;
+	using Prp_ACT_PST = Property < ACTION_POSTURE >;
+
 	//-----------------------------------------------------------------
 	//		フレームの一連、アクションとエフェクトに派生
 	//-----------------------------------------------------------------
 	class Sequence
 	{
-		s3d::String		m_name { U"new_sequence" };			//名前
-		PAP_Frame		m_papFrame;		//フレーム配列
-		UINT			m_next { 0 };		//次シークエンスID
-		s3d::String		m_nextName { U"next_sequence" };		//次シークエンス名
+	public:
+		enum SQC_CONST { VRS_SIZE = 16, };		//汎用パラメータサイズ
+
+	private:
+		PAP_Frame		m_papFrame;				//フレーム配列
 
 	public:
 		Sequence();
@@ -38,11 +42,27 @@ namespace GAME
 		void Rele();
 
 		//-----------------------------------------------------------------
+		//プロパティ
+		Prp_Str			Name { U"new_sqc" };		//名前
+		Prp_UINT32		Next { 0 };				//次シークエンスID
+		Prp_Str			NextName { U"next_sqc" };	//次シークエンス名
+
+		//アクションとエフェクトを統合し、アクション定義をシークエンスで扱う
+		Prp_ACT_CTG		Category;		//アクション属性
+		Prp_ACT_PST		Posture;		//アクション体勢
+		Prp_UINT32		HitNum;			//ヒット数
+		Prp_UINT32		HitPitch;		//ヒット間隔
+		Prp_INT32		Balance;		//バランス値
+		Prp_INT32		Mana;			//マナ値
+		Prp_INT32		Accel;			//アクセル値
+		Prp_INT32		Versatile [ VRS_SIZE ];		//汎用パラメータ
+
+		//-----------------------------------------------------------------
 		//フレームの追加
 		void AddpFrame ( P_Frame pFrame ) { m_papFrame->push_back(pFrame); }
 
 		//フレーム配列にまとめて追加
-		void AddaFrame ( UP_AP_Script arypFrame, rsize_t size );
+		void AddaFrame ( UP_AP_Frame paFrame );
 
 		//フレーム配列サイズの取得
 		size_t SizeFrame() const { return m_papFrame->size(); }
@@ -51,16 +71,16 @@ namespace GAME
 		PAP_Frame GetpvpScript() { return m_papFrame; }
 
 		//フレームの取得
-		P_Frame GetpScript(UINT index) { return m_papFrame->at(index); }
+		P_Frame GetpScript(UINT32 index) { return m_papFrame->at(index); }
 
 		//次フレームが存在するかどうか
-		bool IsNextScript(UINT index) const { return (index < m_papFrame->size() - 1); }
+		bool IsNextScript(UINT32 index) const { return (index < m_papFrame->size() - 1); }
 
 		//最終フレームかどうか
-		bool IsEndScript(UINT index) const { return (index == m_papFrame->size() - 1); }
+		bool IsEndScript(UINT32 index) const { return (index == m_papFrame->size() - 1); }
 
 		//オーバーフレームかどうか
-		bool IsOverScript(UINT index) const { return (index > m_papFrame->size() - 1); }
+		bool IsOverScript(UINT32 index) const { return (index > m_papFrame->size() - 1); }
 
 #if 0
 
@@ -70,7 +90,7 @@ namespace GAME
 		PVP_Script		m_pvpScript;		//スクリプト配列
 //		PAP_Script		mpap_Script;		//スクリプト配列
 
-		UINT			m_next { 0 };		//次シークエンスID
+		UINT32			m_next { 0 };		//次シークエンスID
 //		tstring			m_nextName { _T("next_sequence") };		//次シークエンス名
 		s3d::String		m_nextName { U"next_sequence" };		//次シークエンス名
 
@@ -105,20 +125,20 @@ namespace GAME
 		PVP_Script GetpvpScript () { return m_pvpScript; }
 
 		//スクリプトの取得
-		P_Script GetpScript ( UINT index ) { return m_pvpScript->at ( index ); }
+		P_Script GetpScript ( UINT32 index ) { return m_pvpScript->at ( index ); }
 
 		//次スクリプトが存在するかどうか
-		bool IsNextScript ( UINT index ) const { return ( index < m_pvpScript->size() - 1 ); }
+		bool IsNextScript ( UINT32 index ) const { return ( index < m_pvpScript->size() - 1 ); }
 
 		//最終スクリプトかどうか
-		bool IsEndScript ( UINT index ) const { return ( index == m_pvpScript->size () - 1 ); }
+		bool IsEndScript ( UINT32 index ) const { return ( index == m_pvpScript->size () - 1 ); }
 
 		//オーバースクリプトかどうか
-		bool IsOverScript ( UINT index ) const { return ( index > m_pvpScript->size () - 1 ); }
+		bool IsOverScript ( UINT32 index ) const { return ( index > m_pvpScript->size () - 1 ); }
 
 		//次シークエンスID
-		UINT GetNextID () const { return m_next; }
-		void SetNextID (UINT id) { m_next = id; }
+		UINT32 GetNextID () const { return m_next; }
+		void SetNextID (UINT32 id) { m_next = id; }
 
 		//次シークエンス名
 //		tstring GetNextName () const { return m_nextName; }
@@ -133,7 +153,7 @@ namespace GAME
 	using P_Sqc = std::shared_ptr < Sequence >;
 	using AP_Sqc = s3d::Array < P_Sqc >;
 	using PAP_Sqc = std::shared_ptr < AP_Sqc >;
-
+	using UP_AP_Sqc = std::unique_ptr < AP_Sqc >;
 
 }	//namespace GAME
 

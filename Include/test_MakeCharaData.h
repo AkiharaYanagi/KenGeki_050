@@ -1,6 +1,6 @@
 ﻿//=================================================================================================
 //
-//	Compend ヘッダ
+//	テスト
 //
 //=================================================================================================
 #pragma once
@@ -8,8 +8,7 @@
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "Define_Siv3D.h"
-#include "Sequence.h"
+#include "Chara.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -18,20 +17,19 @@
 namespace GAME
 {
 
-	class Compend
+	class test_MakeCharaData
 	{
-		PAP_Tx		mpap_txMain;	//イメージ テクスチャ配列
-		PAP_Sqc		mpap_Sqc;		//シークエンス配列
+		P_Chara		m_pChara;
 
 	public:
-		Compend ();
-		Compend( const Compend& rhs ) = delete;
-		~Compend ();
+		test_MakeCharaData ();
+		test_MakeCharaData ( const test_MakeCharaData & rhs ) = delete;
+		~test_MakeCharaData ();
 
-		void SetpSqc ( UP_AP_Sqc papSqc );
+		P_Chara Make ();
 	};
 
-	using P_CCompend = std::shared_ptr < Compend >;
+	using P_test_MakeCharaData = std::shared_ptr < test_MakeCharaData >;
 
 
 }	//namespace GAME

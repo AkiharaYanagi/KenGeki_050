@@ -57,8 +57,6 @@
     <OutDir>$(SolutionDir)Library\</OutDir>
     <IntDir>$(SolutionDir)Intermediate\$(ProjectName)\Release\Intermediate\</IntDir>
     <LocalDebuggerWorkingDirectory>$(ProjectDir)App</LocalDebuggerWorkingDirectory>
-    <IncludePath>$(SIV3D_0_6_16)\include;$(SIV3D_0_6_16)\include\ThirdParty;$(IncludePath)</IncludePath>
-    <LibraryPath>$(SIV3D_0_6_16)\lib\Windows;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -106,6 +104,7 @@
       <BuildStlModules>false</BuildStlModules>
       <PrecompiledHeaderFile>stdafx.h</PrecompiledHeaderFile>
       <PrecompiledHeaderOutputFile>$(IntDir)$(TargetName).pch</PrecompiledHeaderOutputFile>
+      <AdditionalIncludeDirectories>F:\Projects\KenGeki_050\Include;F:\Projects\GameLib020\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -117,6 +116,9 @@
     <PostBuildEvent>
       <Command>xcopy /I /D /Y "$(OutDir)$(TargetFileName)" "$(ProjectDir)App"</Command>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalLibraryDirectories>F:\Projects\KenGeki_050\Library;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Image Include="App\engine\texture\box-shadow\128.png" />
@@ -407,16 +409,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\Chara\Branch.cpp" />
     <ClCompile Include="Source\Chara\Chara.cpp" />
     <ClCompile Include="Source\Chara\Command.cpp" />
     <ClCompile Include="Source\Chara\Compend.cpp" />
-    <ClCompile Include="Source\Chara\EffectGenerate.cpp" />
     <ClCompile Include="Source\Chara\Frame.cpp" />
     <ClCompile Include="Source\Chara\Frame_Param_Battle.cpp" />
     <ClCompile Include="Source\Chara\Frame_Param_Staging.cpp" />
-    <ClCompile Include="Source\Chara\Route.cpp" />
     <ClCompile Include="Source\Chara\Sequence.cpp" />
+    <ClCompile Include="Source\IO\LoadCharaBinFunc.cpp" />
+    <ClCompile Include="Source\IO\LoadCharaBinUtl.cpp" />
+    <ClCompile Include="Source\IO\LoadCharaBin_s3d.cpp" />
+    <ClCompile Include="Source\IO\LoadImgFile.cpp" />
+    <ClCompile Include="Source\test\test_MakeCharaData.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -425,6 +429,7 @@
   <ItemGroup>
     <ClInclude Include="..\Include\Branch.h" />
     <ClInclude Include="..\Include\Chara.h" />
+    <ClInclude Include="..\Include\CharaData.h" />
     <ClInclude Include="..\Include\Chara_Const.h" />
     <ClInclude Include="..\Include\Command.h" />
     <ClInclude Include="..\Include\Compend.h" />
@@ -432,8 +437,16 @@
     <ClInclude Include="..\Include\Frame.h" />
     <ClInclude Include="..\Include\Frame_Param_Battle.h" />
     <ClInclude Include="..\Include\Frame_Param_Staging.h" />
+    <ClInclude Include="..\Include\Generator.h" />
+    <ClInclude Include="..\Include\IOCharaDefine.h" />
+    <ClInclude Include="..\Include\LoadCharaBinFunc.h" />
+    <ClInclude Include="..\Include\LoadCharaBinUtl.h" />
+    <ClInclude Include="..\Include\LoadCharaBin_s3d.h" />
+    <ClInclude Include="..\Include\LoadImgFile.h" />
     <ClInclude Include="..\Include\Route.h" />
     <ClInclude Include="..\Include\Sequence.h" />
+    <ClInclude Include="..\Include\SoundGenerate.h" />
+    <ClInclude Include="..\Include\test_MakeCharaData.h" />
     <ClInclude Include="stdafx.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

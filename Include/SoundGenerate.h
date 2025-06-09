@@ -1,6 +1,6 @@
 ﻿//=================================================================================================
 //
-//	Compend ヘッダ
+//	SoundGenerate
 //
 //=================================================================================================
 #pragma once
@@ -8,8 +8,7 @@
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "Define_Siv3D.h"
-#include "Sequence.h"
+#include "Generator.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -18,20 +17,22 @@
 namespace GAME
 {
 
-	class Compend
+	class SoundGenerate : public Generator
 	{
-		PAP_Tx		mpap_txMain;	//イメージ テクスチャ配列
-		PAP_Sqc		mpap_Sqc;		//シークエンス配列
-
 	public:
-		Compend ();
-		Compend( const Compend& rhs ) = delete;
-		~Compend ();
+		SoundGenerate ();
+		SoundGenerate ( const SoundGenerate & rhs )	//コピー可能
+		{
+			(void)rhs;
+		}
+		~SoundGenerate ();
 
-		void SetpSqc ( UP_AP_Sqc papSqc );
+		void Load ();
 	};
 
-	using P_CCompend = std::shared_ptr < Compend >;
+	using P_SndGnrt = std::shared_ptr < SoundGenerate >;
+	using AP_SndGnrt = s3d::Array < P_SndGnrt >;
+	using PAP_SndGnrt = std::shared_ptr < AP_SndGnrt >;
 
 
 }	//namespace GAME

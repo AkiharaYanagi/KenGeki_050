@@ -22,5 +22,15 @@ namespace GAME
 	{
 	}
 
+	void Route::Clear()
+	{
+		m_vIdBranch.clear();
+	}
+
+	void Route::AddBranchID(UINT32 branchId)
+	{
+		m_vIdBranch.push_back(branchId);
+	}
+
 }	//namespace GAME
 

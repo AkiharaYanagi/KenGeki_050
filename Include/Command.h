@@ -26,39 +26,38 @@ namespace GAME
 		LMT_DFLT = 16,	//入力受付初期値
 	};
 
+	using A_GKCMD = s3d::Array < GameKeyCommand >;	//判定用ゲームキーコマンド
+	using UP_A_GKCMD = std::unique_ptr < A_GKCMD >;
+	using A_GK = s3d::Array < GameKey >;	//記録用ゲームキー
 
 	class Command
 	{
-		s3d::String		m_name{ U"" };		//名前
-		V_GAME_KEY_CMD	m_vecGameKey;		//キー配列
-		UINT			m_limitTime{ LMT_DFLT };	//入力受付時間
+		A_GKCMD		ma_Gkc;	//キー配列
 
 	public:
 		Command();
 		Command(const Command& rhs) = delete;
 		~Command();
 
-		//比較
-		bool Compare(const V_GAME_KEY& vecGameKey, bool dirRight);
+		//Property
+		Prp_Str			Name { U"Cmd" };		//名前
+		Prp_UINT32		LimitTime { LMT_DFLT };	//入力受付時間
 
-		//名前
-//		tstring GetName () const { return m_name; }
-//		void SetName ( tstring name ) { m_name.assign ( name ); }
-		s3d::String		GetName() const { return m_name; }
-		void SetName(s3d::String name) { m_name.assign(name); }
 
 		//キー配列
-		void AddGameKey(GameKeyCommand gkc) { m_vecGameKey.push_back(gkc); }
-		void SetaGameKey(GameKeyCommand gkca[], UINT size);
+		void AddGameKeyCmd ( GameKeyCommand gkc ) { ma_Gkc.push_back(gkc); }
+//		void SetaGameKeyCmd ( GameKeyCommand gkca[], UINT32 size );
+		void SetaGameKeyCmd ( const A_GKCMD & aGkc );
 
-		//入力受付時間
-		UINT GetLimitTime() const { return m_limitTime; }
-		void SetLimitTime(UINT limitTime) { m_limitTime = limitTime; }
+		//比較 (記録上のGameKeyからコマンド判定用のGameKeyCommandでの比較)
+		bool Compare ( const V_GAME_KEY & vecGameKey, bool dirRight );
+		bool Compare ( const A_GK & aGk, bool dirRight );
 	};
 
-	using P_Command = std::shared_ptr < Command >;
-	using WP_Command = std::weak_ptr < Command >;		//循環参照
-
+	using P_Cmd = std::shared_ptr < Command >;
+	using WP_Cmd = std::weak_ptr < Command >;		//循環参照用
+	using AP_Cmd = s3d::Array < P_Cmd >;
+	using UP_AP_Cmd = std::unique_ptr < AP_Cmd >;
 
 }	//namespace GAME
 

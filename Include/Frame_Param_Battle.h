@@ -20,32 +20,33 @@ namespace GAME
 
 	class Frame_Param_Battle
 	{
-		CLC_ST	CalcState{ CLC_SUBSTITUDE };	//計算状態
-		VEC2 Vel{ 0, 0 };		//速度
-		VEC2 Acc{ 0, 0 };		//加速度
-
-		int Power{ 0 };			//攻撃値
-		int DirectDamage_I{ 0 };	//直接ダメージ(自分)
-		int DirectDamage_E{ 0 };	//直接ダメージ(相手)
-
-		int Recoil_I{ 0 };		//反動(x,y)(自分)
-		int Recoil_E{ 0 };		//反動(x,y)(相手)
-		int Balance_I{ 0 };		//バランス増減(自分)
-		int Balance_E{ 0 };		//バランス増減(相手)
-		int Gauge_I{ 0 };		//ゲージ増減(自分)
-		int Gauge_E{ 0 };		//ゲージ増減(相手)
-
-		int Warp_I{ 0 };		//ヒットストップ追加(自分)
-		int Warp_E{ 0 };		//ヒット時のけぞり[F] == ヒットストップ追加(相手)
-		int GuardWarp_I{ 0 };	//ガード硬直（自分）
-		int GuardWarp_E{ 0 };	//ガード硬直（相手）
-
 	public:
 		Frame_Param_Battle();
-		Frame_Param_Battle(const Frame_Param_Battle& rhs) = delete;
+		Frame_Param_Battle ( const Frame_Param_Battle& rhs ); //コピー可能
 		~Frame_Param_Battle();
 
-		void Load();
+		//------------------------------------------------
+		//Property
+		CLC_ST	CalcState{ CLC_SUBSTITUDE };	//計算状態
+		Prp_VEC2 Vel{ VEC2 ( 0, 0 ) };		//速度
+		Prp_VEC2 Acc{ VEC2 ( 0, 0 ) };		//加速度
+
+		Prp_INT32 Power{ 0 };			//攻撃値
+		Prp_INT32 DirectDamage_I{ 0 };	//直接ダメージ(自分)
+		Prp_INT32 DirectDamage_E{ 0 };	//直接ダメージ(相手)
+
+		Prp_INT32 Recoil_I{ 0 };		//反動(x,y)(自分)
+		Prp_INT32 Recoil_E{ 0 };		//反動(x,y)(相手)
+		Prp_INT32 Balance_I{ 0 };		//バランス増減(自分)
+		Prp_INT32 Balance_E{ 0 };		//バランス増減(相手)
+		Prp_INT32 Gauge_I{ 0 };		//ゲージ増減(自分)
+		Prp_INT32 Gauge_E{ 0 };		//ゲージ増減(相手)
+
+		Prp_INT32 Warp_I{ 0 };		//ヒットストップ追加(自分)
+		Prp_INT32 Warp_E{ 0 };		//ヒット時のけぞり[F] == ヒットストップ追加(相手)
+		Prp_INT32 GuardWarp_I{ 0 };	//ガード硬直（自分）
+		Prp_INT32 GuardWarp_E{ 0 };	//ガード硬直（相手）
+
 	};
 
 

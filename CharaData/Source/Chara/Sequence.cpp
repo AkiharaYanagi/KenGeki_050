@@ -31,13 +31,14 @@ namespace GAME
 		m_papFrame->clear ();
 	}
 
-	void Sequence::AddaFrame( UP_AP_Script arypFrame, rsize_t size )
+	void Sequence::AddaFrame ( UP_AP_Frame paFrm )
 	{
+		size_t size = paFrm->size ();
 		m_papFrame->clear ();
 		m_papFrame->resize ( size );
-		for ( UINT i = 0; i < size; ++ i )
+		for ( size_t i = 0; i < size; ++ i )
 		{
-			( *m_papFrame) [ i ] = arypFrame[ i ];
+			(*m_papFrame) [ i ] = (*paFrm) [ i ];
 		}
 	}
 

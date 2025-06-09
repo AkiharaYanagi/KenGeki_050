@@ -25,34 +25,36 @@ namespace GAME
 	class Sequence;
 	using WP_Sqc = std::weak_ptr < Sequence >;		//循環参照
 
+	using Prp_Brc_Cnd = Property < BRANCH_CONDITION >;	//プロパティ
 
 	//---------------------------------------------------------------
 	class Branch
 	{
-		s3d::String		m_name;				//名前
-		BRANCH_CONDITION		m_condition;	//分岐条件
-
-		UINT		m_indexCommand;		//条件コマンド配列添字
-		s3d::String m_nameCommand{ U"cmd_name" };	//条件コマンド名前
-		WP_Command	m_pCommand;			//条件コマンドポインタ
-
-		UINT		m_indexSequence;	//遷移先シークエンス添字
-		s3d::String	m_nameSequence{ U"sqc_name" };	//遷移先シークエンス名前
-		WP_Sqc		m_pSequence;		//遷移先シークエンスポインタ
-
-		UINT		m_indexFrame;		//遷移先スクリプト位置
-		bool		m_ohter;			//同一シークエンスで遷移可能かどうか
 
 	public:
 		Branch();
 		Branch( const Branch& rhs ) = delete;
 		~Branch();
 
-		void Load ();
+		//Property
+		Prp_Str			Name;			//名前
+		Prp_Brc_Cnd		Condition;		//分岐条件
+
+		Prp_UINT32		IndexCommand;	//条件コマンド配列添字
+		Prp_Str			NameCommand{ U"cmd_name" };	//条件コマンド名前
+		WP_Cmd			m_pCmd;			//条件コマンドポインタ
+
+		Prp_UINT32		IndexSequence;//遷移先シークエンス添字
+		Prp_Str			NameSequence{ U"sqc_name" };	//遷移先シークエンス名前
+		WP_Sqc			m_pSqc;			//遷移先シークエンスポインタ
+
+		Prp_UINT32		IndexFrame;		//遷移先スクリプト位置
+		Prp_bool		Other;			//同一シークエンスで遷移可能かどうか
 	};
 
-	using P_Branch = std::shared_ptr < Branch >;
-
+	using P_Brc = std::shared_ptr < Branch >;
+	using AP_Brc = s3d::Array < P_Brc >;
+	using UP_AP_Brc = std::unique_ptr < AP_Brc >;
 
 }	//namespace GAME
 

@@ -10,7 +10,6 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Define.h"
-
 #include "Branch.h"
 
 
@@ -22,43 +21,38 @@ namespace GAME
 
 	class Route
 	{
-		s3d::String		m_name;			//名前
-		V_UINT32		m_vIdBranch;	//ブランチIDリスト
+		A_UINT32	ma_IdBranch;	//ブランチIDリスト
 
 	public:
-		Route();
+		Route() {}
 		Route(const Route& rhs) = delete;
-		~Route();
+		~Route() {}
 
-
-		//名前
-		s3d::String GetName() const { return m_name; }
-		void SetName(s3d::String name) { m_name.assign(name); }
+		//Property
+		Prp_Str		Name;			//名前
 
 		//データ設定
-		void SetaIdBranch(std::unique_ptr < UINT32[] > aryId, UINT32 size)
+		void SetaIdBranch ( UPA_UINT32 paId, UINT32 size)
 		{
-			m_vIdBranch.clear();
-			m_vIdBranch.resize(size);
-			for (UINT i = 0; i < size; ++i)
+			ma_IdBranch.clear();
+			ma_IdBranch.resize(size);
+			for (UINT32 i = 0; i < size; ++i)
 			{
-				m_vIdBranch[i] = aryId[i];
+				ma_IdBranch[i] = (*paId)[i];
 			}
 		}
 
-		void Clear ();
+		void Clear () { ma_IdBranch.clear(); }
+		void AddBranchID ( UINT32 branchId ) { ma_IdBranch.push_back ( branchId ); }
 
-		void AddBranchID ( UINT32 branchId );
-
-		const V_UINT32 & GetcvIDBranch () const { return m_vIdBranch; }
-		V_UINT32 & GetvIDBranch () { return m_vIdBranch; }
+		const A_UINT32 & GetcaIDBranch () const { return ma_IdBranch; }
+		A_UINT32 & GetaIDBranch () { return ma_IdBranch; }
 	};
 
-	using P_Route = std::shared_ptr < Route >;
-	using VP_Route = std::vector < P_Route >;
-	using PVP_Route = std::shared_ptr < VP_Route >;
-
-	using AUP_P_Route = std::unique_ptr < P_Route[] >;
+	using P_Rut = std::shared_ptr < Route >;
+	using AP_Rut = s3d::Array < P_Rut >;
+	using PAP_Rut = std::shared_ptr < AP_Rut >;
+	using UP_AP_Rut = std::unique_ptr < AP_Rut >;
 
 
 }	//namespace GAME

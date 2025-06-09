@@ -15,9 +15,35 @@
 namespace GAME
 {
 
+	Chara::Chara ()
+	{
+	}
+
+	Chara::~Chara ()
+	{
+	}
+
 #if 0
 
+	//---------------------------------------------------
+	//アクション配列にまとめて追加
+	void Chara::SetpAction ( UP_AP_Sqc papAction )
+	{
+		behavior.SetpSqc ( std::move ( papAction ) );
 
+	}
+
+	//エフェクト配列にまとめて追加
+	void Chara::SetpEffect ( UP_AP_Sqc papEffect )
+	{
+		garnish.SetpSqc ( std::move ( papEffect ) );
+
+	}
+
+#endif // 0
+
+
+#if 0
 	Chara::Chara ()
 	{
 //		m_pvpTxMain = std::make_shared < VP_TxBs > ();
@@ -49,7 +75,7 @@ namespace GAME
 	{
 		mpap_Action->clear ();
 		mpap_Action->resize ( size );
-		for ( UINT i = 0; i < size; ++ i )
+		for ( UINT32 i = 0; i < size; ++ i )
 		{
 			( *mpap_Action ) [ i ] = arypAction [ i ];
 		}
@@ -60,7 +86,7 @@ namespace GAME
 
 		mpap_Action->clear ();
 		mpap_Action->resize ( size );
-		for ( UINT i = 0; i < size; ++ i )
+		for ( UINT32 i = 0; i < size; ++ i )
 		{
 			( *mpap_Action ) [ i ] = arypAction [ i ];
 		}
@@ -71,7 +97,7 @@ namespace GAME
 
 		mpap_Action->clear ();
 		mpap_Action->resize ( size );
-		for ( UINT i = 0; i < size; ++ i )
+		for ( UINT32 i = 0; i < size; ++ i )
 		{
 			(*mpap_Action) [ i ] = arypAction [ i ];
 		}
@@ -85,7 +111,7 @@ namespace GAME
 
 		mpap_Ef->clear ();
 		mpap_Ef->resize ( size );
-		for ( UINT i = 0; i < size; ++ i )
+		for ( UINT32 i = 0; i < size; ++ i )
 		{
 			mpap_Ef->at ( i ) = arypEffect [ i ];
 		}
@@ -96,48 +122,53 @@ namespace GAME
 
 		mpap_Ef->clear ();
 		mpap_Ef->resize ( size );
-		for ( UINT i = 0; i < size; ++ i )
+		for ( UINT32 i = 0; i < size; ++ i )
 		{
 			mpap_Ef->at ( i ) = arypEffect [ i ];
 		}
 	}
 
-	//---------------------------------------------------
-	void Chara::AddaCommand ( std::unique_ptr < P_Command [] > aryCmd, UINT size )
-	{
-		m_vpCommand.clear ();
-		m_vpCommand.resize ( size );
-		for ( UINT i = 0; i < size; ++ i )
-		{
-			m_vpCommand [ i ] = aryCmd [ i ];
-		}
-	}
-
-	void Chara::AddaBranch ( std::unique_ptr < P_Branch [] > aryBrc, UINT size )
-	{
-		m_vpBranch.clear ();
-		m_vpBranch.resize ( size );
-		for ( UINT i = 0; i < size; ++ i )
-		{
-			m_vpBranch [ i ] = aryBrc [ i ];
-		}
-	}
-
-	void Chara::AddaRoute ( std::unique_ptr < P_Route [] > aryRut, UINT size )
-	{
-		m_vpRoute.clear ();
-		m_vpRoute.resize ( size );
-		for ( UINT i = 0; i < size; ++ i )
-		{
-			m_vpRoute [ i ] = aryRut [ i ];
-		}
-	}
-
+#endif // 0
 
 	//---------------------------------------------------
-	UINT Chara::GetActionID ( const s3d::String & name ) const
+	void Chara::SetaCommand ( UP_AP_Cmd paCmd )
 	{
-		UINT index = 0;
+		size_t size = paCmd->size ();
+		ma_pCmd.clear ();
+		ma_pCmd.resize ( size );
+		for ( size_t i = 0; i < size; ++ i )
+		{
+			ma_pCmd [ i ] = (*paCmd) [ i ];
+		}
+	}
+
+	void Chara::SetaBranch ( UP_AP_Brc paBrc )
+	{
+		size_t size = paBrc->size ();
+		ma_pBrc.clear ();
+		ma_pBrc.resize ( size );
+		for ( size_t i = 0; i < size; ++ i )
+		{
+			ma_pBrc [ i ] = (*paBrc) [ i ];
+		}
+	}
+
+	void Chara::SetaRoute ( UP_AP_Rut paRut )
+	{
+		size_t size = paRut->size ();
+		ma_pRut.clear ();
+		ma_pRut.resize ( size );
+		for ( size_t i = 0; i < size; ++ i )
+		{
+			ma_pRut [ i ] = (*paRut) [ i ];
+		}
+	}
+
+#if 0
+	//---------------------------------------------------
+	UINT32 Chara::GetActionID ( const s3d::String & name ) const
+	{
+		UINT32 index = 0;
 		for ( auto p : *mpap_Action )
 		{
 			s3d::String actionName = p->GetName (); 

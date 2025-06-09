@@ -22,6 +22,17 @@ namespace GAME
 	{
 	}
 
+	void Compend::SetpSqc ( UP_AP_Sqc papSqc )
+	{
+		size_t size = papSqc->size ();
+		mpap_Sqc->clear ();
+		mpap_Sqc->resize ( size );
+		for ( size_t i = 0; i < size; ++ i )
+		{
+			(*mpap_Sqc) [ i ] = (*papSqc) [ i ];
+		}
+	}
+
 
 }	//namespace GAME
 
