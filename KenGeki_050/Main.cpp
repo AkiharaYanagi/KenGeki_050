@@ -82,6 +82,22 @@ void Main()
 
 	double x = 320;
 
+	//
+	//			       /─────────────/
+	//				  /				/
+	//	  /──────────/	   /───────/
+	//	 /				  /
+	//	/────────────────/
+	//
+	s3d::Polygon plgn_sp
+	{
+		{ 10, 100 }, { 100, 100 }, { 110, 10 }, { 310, 10 },
+		{ 300, 100 }, { 210, 100 }, { 200, 200 }, { 0, 200 },
+	};
+
+
+
+
 
 	//読込
 	Load ();
@@ -100,14 +116,78 @@ void Main()
 		//描画
 		Draw ();
 
+
+		//体力ゲージ、剣撃ゲージ
+		//平行四辺形が２つ重なる形
+		//上辺の長さを100%として、値分の長さを減らす
+
+
+		//超必殺技ゲージ
+		//平行四辺形だが、段差がある
+		//透明部分は維持できるかどうか
+
+
+		//アクセルゲージ（疑似円弧）
+		//角度と三角関数
+		//0から10000の範囲を -π/2 から +π/4の範囲に変換するコード
+#if 0
+	#include <iostream>
+	#include <cmath>
+
+		double mapRange(double value, double inMin, double inMax, double outMin, double outMax) {
+			return outMin + (outMax - outMin) * (value - inMin) / (inMax - inMin);
+		}
+
+		int main() {
+			double inputValue = 5000; // 変換したい値
+			double mappedValue = mapRange(inputValue, 0, 10000, -M_PI / 2, M_PI / 4);
+
+			std::cout << "Mapped Value: " << mappedValue << std::endl;
+			return 0;
+		}
+#endif // 0
+
+#if 0
+#include <iostream>
+#include <cmath>
+
+		double mapRange(double value, double inMin, double inMax, double outMin, double outMax) {
+			return outMin + (outMax - outMin) * (value - inMin) / (inMax - inMin);
+		}
+
+		void calculateCirclePoint(double value, double inMin, double inMax, double outMin, double outMax, double radius, double x0, double y0) {
+			double theta = mapRange(value, inMin, inMax, outMin, outMax); // 角度変換
+			double x = x0 + radius * cos(theta);
+			double y = y0 + radius * sin(theta);
+
+			std::cout << "Mapped Angle: " << theta << " radians" << std::endl;
+			std::cout << "Point P(x, y): (" << x << ", " << y << ")" << std::endl;
+		}
+
+		int main() {
+			double inputValue = 1000; // 変換したい値
+			double radius = 10.0; // 円の半径
+			double x0 = 5.0, y0 = 5.0; // 原点の座標
+
+			calculateCirclePoint(inputValue, -5000, 2500, -M_PI / 2, M_PI / 4, radius, x0, y0);
+
+			return 0;
+		}
+
+#endif // 0
+
+
 		x -= 1;
 		x1 = x;
 		x2 = x -10;
 		s3d::Polygon plgn { { x0, y0 }, { x1, y1 }, { x2, y2 }, { x3, y3 } };
-		plgn.toBuffer2D ( Vec2(0, 0), tx.size() ).draw ( tx );
+//		plgn.toBuffer2D ( Vec2(0, 0), tx.size() ).draw ( tx );
 //		plgn1.toBuffer2D ( Arg::center (10, 10), Vec2{16,16} ).draw ( tx );
 //		plgn1.toBuffer2D ( Arg::center (200, 200), tx.size() ).draw ( tx );
-		plgn1.toBuffer2D ( Vec2(200, 200), tx.size() ).draw ( tx );
+//		plgn1.toBuffer2D ( Vec2(200, 200), tx.size() ).draw ( tx );
+
+
+		plgn_sp.draw(0, 0);
 
 //		plgn.draw (400, 500);
 //		plgn1.draw (0, 0);
