@@ -42,8 +42,46 @@ GameSystem gameSystem;
 //メインループ
 void Main()
 {
+
 	//タイトル
 	Window::SetTitle ( U"剣撃クロスゾーン" );
+
+	//Size(320,20)
+	Texture tx { U"life_value.png" };
+	//Size(100,100)
+//	Texture tx { U"Face_Sae.png" };
+
+//	Texture tx { U"16_16_Padding.png" };
+//	Texture tx { U"ClrPicker.png" };
+
+	Quad quad { 100, 100, 350, 100, 300, 300, 50, 300 };
+
+	//頂点
+	Array < Float2 > aryFlt { { 0, 0 }, { 350, 100 }, {300, 300}, {50, 300} };
+
+
+	double x0 = 0;
+	double y0 = 0;
+	double x1 = x0 + 320;
+	double y1 = y0;
+	double x2 = x0 + 320 - 10;
+	double y2 = y0 + 20;
+	double x3 = x0 - 10;
+	double y3 = y0 + 20;
+
+	double x10 = 100;
+	double y10 = 100;
+	double x11 = x0 + 500;
+	double y11 = y0;
+	double x12 = x0 + 500 - 10;
+	double y12 = y0 + 500;
+	double x13 = x0 - 10;
+	double y13 = y0 + 500;
+	s3d::Polygon plgn1 { { x10, y10 }, { x11, y11 }, { x12, y12 }, { x13, y13 } };
+
+
+	double x = 320;
+
 
 	//読込
 	Load ();
@@ -61,8 +99,50 @@ void Main()
 
 		//描画
 		Draw ();
+
+		x -= 1;
+		x1 = x;
+		x2 = x -10;
+		s3d::Polygon plgn { { x0, y0 }, { x1, y1 }, { x2, y2 }, { x3, y3 } };
+		plgn.toBuffer2D ( Vec2(0, 0), tx.size() ).draw ( tx );
+//		plgn1.toBuffer2D ( Arg::center (10, 10), Vec2{16,16} ).draw ( tx );
+//		plgn1.toBuffer2D ( Arg::center (200, 200), tx.size() ).draw ( tx );
+		plgn1.toBuffer2D ( Vec2(200, 200), tx.size() ).draw ( tx );
+
+//		plgn.draw (400, 500);
+//		plgn1.draw (0, 0);
+
+//		tx.draw ( 100, 400 );
+
+//		quad( tx ).draw ();
 	}
 	//========================================
+
+
+
+#if 0
+	Scene::SetBackground(ColorF{ 0.6, 0.8, 0.7 });
+
+	const Texture texture1{ U"example/windmill.png", TextureDesc::Mipped };
+	const Texture texture2{ U"example/siv3d-kun.png", TextureDesc::Mipped };
+
+	const s3d::Polygon star = Shape2D::Star(180, Vec2{ 200, 200 });
+	const s3d::Polygon hexagon = Shape2D::Hexagon(60, Vec2{ 480, 380 });
+
+	while (System::Update())
+	{
+		const double xOffset = (200 + Periodic::Sine1_1(5s) * 80.0);
+
+		// star に対し、(xOffset, 200) を画像の中心とするようにテクスチャを貼り付けて描画する
+//		star.toBuffer2D(Arg::center(xOffset, 200), texture1.size()).draw(texture1);
+		star.toBuffer2D(Arg::center(0, 0), texture1.size()).draw(texture1);
+
+//		hexagon.draw(HSV{ 240, 0.5, 1.0 });
+
+		// hexagon に対し、(515, 562) を画像の中心とするようにテクスチャを貼り付けて描画する
+		hexagon.toBuffer2D(Arg::center = Vec2{ 500, 500 }, texture2.size()).draw(texture2);
+	}
+#endif // 0
 }
 
 
