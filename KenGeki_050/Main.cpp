@@ -8,16 +8,10 @@
 //	ヘッダファイル　インクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
-
-
-//CharaData総合ヘッダファイル
-#include "CharaData.h"
-
-
-#if 0
 #include "GameMain.h"
-#include "G_Ftg.h"
-#endif // 0
+//#include "G_Ftg.h"
+
+#include "DispGauge.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -32,75 +26,57 @@ void Init ();
 void Move ();
 void Draw ();
 
-
-#if 0
 //ゲームシステム
 GameSystem gameSystem;
-#endif // 0
+float D3DX_PI_BY4 = 0.7853981635f;
+
+
+double mapRange(double value, double inMin, double inMax, double outMin, double outMax)
+{
+	if ( inMax == inMin ) { return outMin; }	// 範囲がゼロの場合、出力範囲の最小値を返す
+	return outMin + (outMax - outMin) * ((value - inMin) / (inMax - inMin));
+}
 
 
 //メインループ
 void Main()
 {
-
 	//タイトル
 	Window::SetTitle ( U"剣撃クロスゾーン" );
 
-	//Size(320,20)
-	Texture tx { U"life_value.png" };
-	//Size(100,100)
-//	Texture tx { U"Face_Sae.png" };
-
-//	Texture tx { U"16_16_Padding.png" };
-//	Texture tx { U"ClrPicker.png" };
-
-	Quad quad { 100, 100, 350, 100, 300, 300, 50, 300 };
-
-	//頂点
-	Array < Float2 > aryFlt { { 0, 0 }, { 350, 100 }, {300, 300}, {50, 300} };
-
-
-	double x0 = 0;
-	double y0 = 0;
-	double x1 = x0 + 320;
-	double y1 = y0;
-	double x2 = x0 + 320 - 10;
-	double y2 = y0 + 20;
-	double x3 = x0 - 10;
-	double y3 = y0 + 20;
-
-	double x10 = 100;
-	double y10 = 100;
-	double x11 = x0 + 500;
-	double y11 = y0;
-	double x12 = x0 + 500 - 10;
-	double y12 = y0 + 500;
-	double x13 = x0 - 10;
-	double y13 = y0 + 500;
-	s3d::Polygon plgn1 { { x10, y10 }, { x11, y11 }, { x12, y12 }, { x13, y13 } };
-
-
-	double x = 320;
-
-	//
-	//			       /─────────────/
-	//				  /				/
-	//	  /──────────/	   /───────/
-	//	 /				  /
-	//	/────────────────/
-	//
-	s3d::Polygon plgn_sp
-	{
-		{ 10, 100 }, { 100, 100 }, { 110, 10 }, { 310, 10 },
-		{ 300, 100 }, { 210, 100 }, { 200, 200 }, { 0, 200 },
-	};
-
-
-
-
-
 	//読込
 	Load ();
+
+
+	//アクセルゲージ
+	//Size ( 80, 139 )
+	//const VEC2 DispGauge::POS_ACCEL_VALUE_1P ( 0 + 75 + 11, 27 );
+	//const VEC2 DispGauge::POS_ACCEL_VALUE_2P ( 1280 - 75 - 11, 27 );
+#if 0
+	double x0 = 1280 - 10;	//195
+	double y0 = -0;			//195
+	double x1 = 1280 - 10;		//387
+	double y1 = 170;		//387
+	double x2 = 1050;		//397
+	double y2 = 170;		//397
+#endif // 0
+	double x0 = 640;
+	double y0 = 640;
+	double x1 = 640 + 141;
+	double y1 = 640 - 141;
+	double x2 = 640 + 100;
+	double y2 = 640;
+
+//	s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x1, y1}, {x2, y2} };
+//	s3d::Polygon plgn{ aryVec_accel };
+
+//	int32 count = 0;
+	double accel = 0;
+	double dir = 1;
+
+	// 線形補間関数
+//	double mapRange(double value, double inMin, double inMax, double outMin, double outMax) {
+//   return outMin + (outMax - outMin) * ((value - inMin) / (inMax - inMin));
 
 	//========================================
 	//メインループ
@@ -116,135 +92,37 @@ void Main()
 		//描画
 		Draw ();
 
+		
+		accel += dir * 100;
+		if (accel < 0) { dir = 1; }
+		if ( 10000 < accel ) { dir = -1; }
 
-		//体力ゲージ、剣撃ゲージ
-		//平行四辺形が２つ重なる形
-		//上辺の長さを100%として、値分の長さを減らす
+		double theta = mapRange ( accel, 0, 10000, 0, D3DX_PI_BY4 );
+//		double theta = mapRange ( accel, 0, 10000, 0, D3DX_PI_HALF );
+//		double theta = 0.88;
+		double x = 100 * std::cos ( theta );
+		double y = 100 * std::sin ( theta );
+		s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {640 + x, 640 - y}, {x2, y2} };
 
+//		s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x1, y1}, {x2, y2} };
+		s3d::Polygon plgn{ aryVec_accel };
+		plgn.draw ();
 
-		//超必殺技ゲージ
-		//平行四辺形だが、段差がある
-		//透明部分は維持できるかどうか
-
-
-		//アクセルゲージ（疑似円弧）
-		//角度と三角関数
-		//0から10000の範囲を -π/2 から +π/4の範囲に変換するコード
-#if 0
-	#include <iostream>
-	#include <cmath>
-
-		double mapRange(double value, double inMin, double inMax, double outMin, double outMax) {
-			return outMin + (outMax - outMin) * (value - inMin) / (inMax - inMin);
-		}
-
-		int main() {
-			double inputValue = 5000; // 変換したい値
-			double mappedValue = mapRange(inputValue, 0, 10000, -M_PI / 2, M_PI / 4);
-
-			std::cout << "Mapped Value: " << mappedValue << std::endl;
-			return 0;
-		}
-#endif // 0
-
-#if 0
-#include <iostream>
-#include <cmath>
-
-		double mapRange(double value, double inMin, double inMax, double outMin, double outMax) {
-			return outMin + (outMax - outMin) * (value - inMin) / (inMax - inMin);
-		}
-
-		void calculateCirclePoint(double value, double inMin, double inMax, double outMin, double outMax, double radius, double x0, double y0) {
-			double theta = mapRange(value, inMin, inMax, outMin, outMax); // 角度変換
-			double x = x0 + radius * cos(theta);
-			double y = y0 + radius * sin(theta);
-
-			std::cout << "Mapped Angle: " << theta << " radians" << std::endl;
-			std::cout << "Point P(x, y): (" << x << ", " << y << ")" << std::endl;
-		}
-
-		int main() {
-			double inputValue = 1000; // 変換したい値
-			double radius = 10.0; // 円の半径
-			double x0 = 5.0, y0 = 5.0; // 原点の座標
-
-			calculateCirclePoint(inputValue, -5000, 2500, -M_PI / 2, M_PI / 4, radius, x0, y0);
-
-			return 0;
-		}
-
-#endif // 0
-
-
-		x -= 1;
-		x1 = x;
-		x2 = x -10;
-		s3d::Polygon plgn { { x0, y0 }, { x1, y1 }, { x2, y2 }, { x3, y3 } };
-//		plgn.toBuffer2D ( Vec2(0, 0), tx.size() ).draw ( tx );
-//		plgn1.toBuffer2D ( Arg::center (10, 10), Vec2{16,16} ).draw ( tx );
-//		plgn1.toBuffer2D ( Arg::center (200, 200), tx.size() ).draw ( tx );
-//		plgn1.toBuffer2D ( Vec2(200, 200), tx.size() ).draw ( tx );
-
-
-		plgn_sp.draw(0, 0);
-
-//		plgn.draw (400, 500);
-//		plgn1.draw (0, 0);
-
-//		tx.draw ( 100, 400 );
-
-//		quad( tx ).draw ();
+		DBGOUT_WND_F(DBGOUT_0, U"x = {}"_fmt( x ) );
+		DBGOUT_WND_F(DBGOUT_1, U"y = {}"_fmt( y ) );
+		DBGOUT_WND_F(DBGOUT_2, U"a = {}"_fmt( accel ) );
 	}
 	//========================================
-
-
-
-#if 0
-	Scene::SetBackground(ColorF{ 0.6, 0.8, 0.7 });
-
-	const Texture texture1{ U"example/windmill.png", TextureDesc::Mipped };
-	const Texture texture2{ U"example/siv3d-kun.png", TextureDesc::Mipped };
-
-	const s3d::Polygon star = Shape2D::Star(180, Vec2{ 200, 200 });
-	const s3d::Polygon hexagon = Shape2D::Hexagon(60, Vec2{ 480, 380 });
-
-	while (System::Update())
-	{
-		const double xOffset = (200 + Periodic::Sine1_1(5s) * 80.0);
-
-		// star に対し、(xOffset, 200) を画像の中心とするようにテクスチャを貼り付けて描画する
-//		star.toBuffer2D(Arg::center(xOffset, 200), texture1.size()).draw(texture1);
-		star.toBuffer2D(Arg::center(0, 0), texture1.size()).draw(texture1);
-
-//		hexagon.draw(HSV{ 240, 0.5, 1.0 });
-
-		// hexagon に対し、(515, 562) を画像の中心とするようにテクスチャを貼り付けて描画する
-		hexagon.toBuffer2D(Arg::center = Vec2{ 500, 500 }, texture2.size()).draw(texture2);
-	}
-#endif // 0
 }
 
 
 //起動後１回のみの初期化
 void Load ()
 {
-	//test
-	test_MakeCharaData test_mcd;
-	P_Chara pChara = test_mcd.Make();
-
-
-	//test Load
-
-
-
-
-#if 0
-
 	//-------------------------------------
 	//シーン共通
 	//格闘部分共通パラメータシングルトン生成
-	G_Ftg::Create ();
+//	G_Ftg::Create ();
 
 	//-------------------------------------
 	//システム初期化
@@ -252,13 +130,22 @@ void Load ()
 
 	//ゲームメイン
 	UP_GameMain gameMain = std::make_unique < GameMain > ();
+
+	P_DispGauge pDispGauge1p = std::make_shared < DispGauge > ();
+	P_DispGauge pDispGauge2p = std::make_shared < DispGauge > ();
+
+	pDispGauge1p->LoadPlayer ( PLAYER_ID_1 );
+	pDispGauge2p->LoadPlayer ( PLAYER_ID_2 );
+
+	gameMain->AddpTask ( pDispGauge1p );
+	gameMain->AddpTask ( pDispGauge2p );
+
+
 	gameMain->Load ();
 	gameMain->Init ();
 
 	//ゲームシステムにメインを追加
 	gameSystem.SetpGameMain ( std::move ( gameMain ) );
-
-#endif // 0
 
 }
 
@@ -311,10 +198,8 @@ void Init ()
 //---------------------------------------------------
 void Move ()
 {
-
 	//ゲームメイン
-//	gameSystem.Move ();
-
+	gameSystem.Move ();
 }
 
 
@@ -324,7 +209,5 @@ void Move ()
 void Draw ()
 {
 	//ゲームメイン
-//	gameSystem.Draw ();
-
+	gameSystem.Draw ();
 }
-

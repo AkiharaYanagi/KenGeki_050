@@ -139,6 +139,9 @@
     <ClCompile Include="Main.cpp">
       <Filter>90_GameMain</Filter>
     </ClCompile>
+    <ClCompile Include="DispGauge.cpp">
+      <Filter>90_GameMain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -805,6 +808,12 @@
   <ItemGroup>
     <ClInclude Include="stdafx.h">
       <Filter>99_Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GameMain.h">
+      <Filter>90_GameMain</Filter>
+    </ClInclude>
+    <ClInclude Include="DispGauge.h">
+      <Filter>90_GameMain</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
