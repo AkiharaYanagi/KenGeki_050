@@ -9,11 +9,14 @@
 //-------------------------------------------------------------------------------------------------
 #include "DispGauge.h"
 
+
 //-------------------------------------------------------------------------------------------------
 // 定義
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+
+
 	DispGauge::DispGauge ()
 	{
 		//総合ゲージ背景
@@ -130,14 +133,16 @@ namespace GAME
 			//アクセルゲージ
 			//Size ( 80, 139 )
 			//const VEC2 DispGauge::POS_ACCEL_VALUE_1P ( 0 + 75 + 11, 27 ); //86-80
-#if 0
-			double x0 = 640 - 243 - 10 - 192;	//195
-			double x1 = 640 - 243 - 10;			//387
-			double x2 = 640 - 243;				//397
-#endif // 0
-			s3d::Array < s3d::Vec2 > aryVec_accel { {10, 0}, {300, 170}, {10, 170}};
+			double r = 220;
+			double x0 = 1194 - 80;
+			double y0 = 27 + 139;
+			double x1 = x0 + r;
+			double y1 = y0 - r;
+			double x2 = x0 + r;
+			double y2 = y0;
+			s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x1, y1}, {x2, y2} };
 			m_accel_mask = std::make_shared < s3d::Polygon > ( aryVec_accel );
-			m_accel_value->SetPosInMask ( VEC2 (6, 27) );
+			m_accel_value->SetPosInMask ( POS_ACCEL_VALUE_1P );
 			m_accel_value->SetpPolygon ( m_accel_mask );
 			m_accel_value->AddTexture_FromArchive_mrr ( U"Battle\\accel_value.png" );
 		}
@@ -182,16 +187,16 @@ namespace GAME
 			//アクセルゲージ
 			//Size ( 80, 139 )
 			//const VEC2 DispGauge::POS_ACCEL_VALUE_2P ( 1280 - 75 - 11, 27 );	//(1194,27)
-			double x0 = 1280 - 10;	//195
-			double y0 = -0;			//195
-			double x1 = 1280 - 10;		//387
-			double y1 = 170;		//387
-			double x2 = 1050;		//397
-			double y2 = 170;		//397
-
+			double r = 220;
+			double x0 = 1194 - 80;
+			double y0 = 27 + 139;
+			double x1 = x0 + r;
+			double y1 = y0 - r;
+			double x2 = x0 + r;
+			double y2 = y0;
 			s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x1, y1}, {x2, y2} };
 			m_accel_mask = std::make_shared < s3d::Polygon > ( aryVec_accel );
-			m_accel_value->SetPosInMask ( VEC2 (1194, 27) );
+			m_accel_value->SetPosInMask ( POS_ACCEL_VALUE_2P );
 			m_accel_value->SetpPolygon ( m_accel_mask );
 			m_accel_value->AddTexture_FromArchive ( U"Battle\\accel_value.png" );
 
@@ -303,15 +308,26 @@ namespace GAME
 		}
 		else if ( PLAYER_ID_2 == m_playerID )
 		{
-			double x0 = 1280 - 10;	//195
-			double y0 = -0;			//195
-			double x1 = 1280 - 10;		//387
-			double y1 = 170;		//387
-			double x2 = 1050;		//397
-			double y2 = 170;		//397
-			s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x1, y1}, {x2, y2} };
-			s3d::Polygon plgn { aryVec_accel };
-//			plgn.draw ();
+			double r = 220;
+			double x0 = 1194 - 80;
+			double y0 = 27 + 139;
+//			double x1 = x0 + r;
+//			double y1 = y0 - r;
+			double x2 = x0 + r;
+			double y2 = y0;
+		
+			m_accel += m_dir_accel * 100;
+			if (m_accel < 0) { m_dir_accel = 1; }
+			if ( 10000 < m_accel ) { m_dir_accel = -1; }
+
+			double theta = mapRange ( m_accel, 0, 10000, 0, D3DX_PI_BY4 );
+			double x = r * std::cos ( theta );
+			double y = r * std::sin ( theta );
+
+			s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x0 + x, y0 - y}, {x2, y2} };
+//			s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x1, y1}, {x2, y2} };
+			m_accel_mask = std::make_shared < s3d::Polygon > ( aryVec_accel );
+			m_accel_value->SetpPolygon ( m_accel_mask );
 		}
 
 

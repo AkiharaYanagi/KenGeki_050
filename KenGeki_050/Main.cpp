@@ -11,6 +11,7 @@
 #include "GameMain.h"
 //#include "G_Ftg.h"
 
+#include "LocalDefine.h"
 #include "DispGauge.h"
 
 
@@ -28,15 +29,6 @@ void Draw ();
 
 //ゲームシステム
 GameSystem gameSystem;
-float D3DX_PI_BY4 = 0.7853981635f;
-
-
-double mapRange(double value, double inMin, double inMax, double outMin, double outMax)
-{
-	if ( inMax == inMin ) { return outMin; }	// 範囲がゼロの場合、出力範囲の最小値を返す
-	return outMin + (outMax - outMin) * ((value - inMin) / (inMax - inMin));
-}
-
 
 //メインループ
 void Main()
@@ -53,19 +45,21 @@ void Main()
 	//const VEC2 DispGauge::POS_ACCEL_VALUE_1P ( 0 + 75 + 11, 27 );
 	//const VEC2 DispGauge::POS_ACCEL_VALUE_2P ( 1280 - 75 - 11, 27 );
 #if 0
-	double x0 = 1280 - 10;	//195
-	double y0 = -0;			//195
-	double x1 = 1280 - 10;		//387
-	double y1 = 170;		//387
-	double x2 = 1050;		//397
-	double y2 = 170;		//397
-#endif // 0
 	double x0 = 640;
 	double y0 = 640;
-	double x1 = 640 + 141;
-	double y1 = 640 - 141;
+//	double x1 = 640 + 141;
+//	double y1 = 640 - 141;
 	double x2 = 640 + 100;
 	double y2 = 640;
+#endif // 0
+
+	double r = 220;
+	double x0 = 1194 - 80;
+	double y0 = 27 + 139;
+//	double x1 = x0 + 141;
+//	double y1 = y0 - 141;
+	double x2 = x0 + r;
+	double y2 = y0;
 
 //	s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x1, y1}, {x2, y2} };
 //	s3d::Polygon plgn{ aryVec_accel };
@@ -100,13 +94,13 @@ void Main()
 		double theta = mapRange ( accel, 0, 10000, 0, D3DX_PI_BY4 );
 //		double theta = mapRange ( accel, 0, 10000, 0, D3DX_PI_HALF );
 //		double theta = 0.88;
-		double x = 100 * std::cos ( theta );
-		double y = 100 * std::sin ( theta );
-		s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {640 + x, 640 - y}, {x2, y2} };
+		double x = r * std::cos ( theta );
+		double y = r * std::sin ( theta );
+		s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x0 + x, y0 - y}, {x2, y2} };
 
 //		s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x1, y1}, {x2, y2} };
 		s3d::Polygon plgn{ aryVec_accel };
-		plgn.draw ();
+//		plgn.draw ();
 
 		DBGOUT_WND_F(DBGOUT_0, U"x = {}"_fmt( x ) );
 		DBGOUT_WND_F(DBGOUT_1, U"y = {}"_fmt( y ) );

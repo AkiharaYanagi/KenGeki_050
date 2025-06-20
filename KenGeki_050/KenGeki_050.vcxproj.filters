@@ -815,5 +815,8 @@
     <ClInclude Include="DispGauge.h">
       <Filter>90_GameMain</Filter>
     </ClInclude>
+    <ClInclude Include="LocalDefine.h">
+      <Filter>90_GameMain</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
