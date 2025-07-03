@@ -132,19 +132,20 @@ namespace GAME
 			//-----------------------------------------------------------------
 			//アクセルゲージ
 			//Size ( 80, 139 )
-			//const VEC2 DispGauge::POS_ACCEL_VALUE_1P ( 0 + 75 + 11, 27 ); //86-80
+			//const VEC2 DispGauge::POS_ACCEL_VALUE_1P ( 0 - 3, 27 ); //86-80
 			double r = 220;
-			double x0 = 1194 - 80;
+			double x0 = 0;
 			double y0 = 27 + 139;
-			double x1 = x0 + r;
+			double x1 = x0 - r;
 			double y1 = y0 - r;
-			double x2 = x0 + r;
+			double x2 = x0 - r;
 			double y2 = y0;
-			s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x1, y1}, {x2, y2} };
+			s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x2, y2}, {x1, y1} };
 			m_accel_mask = std::make_shared < s3d::Polygon > ( aryVec_accel );
 			m_accel_value->SetPosInMask ( POS_ACCEL_VALUE_1P );
 			m_accel_value->SetpPolygon ( m_accel_mask );
 			m_accel_value->AddTexture_FromArchive_mrr ( U"Battle\\accel_value.png" );
+//			m_accel_value->SetPos ( POS_ACCEL_VALUE_1P );
 		}
 		else if (PLAYER_ID_2 == playerID)
 		{
@@ -305,6 +306,23 @@ namespace GAME
 		//アクセルゲージ
 		if ( PLAYER_ID_1 == m_playerID )
 		{
+			double r = 220;
+			double x0 = 0 + 75 + 12 + 80;
+			double y0 = 27 + 139;
+			double x2 = x0 - r;
+			double y2 = y0;
+		
+			m_accel += m_dir_accel * 100;
+			if (m_accel < 0) { m_dir_accel = 1; }
+			if ( 10000 < m_accel ) { m_dir_accel = -1; }
+
+			double theta = mapRange ( m_accel, 0, 10000, 0, D3DX_PI_BY4 );
+			double x = r * std::cos ( theta );
+			double y = r * std::sin ( theta );
+
+			s3d::Array < s3d::Vec2 > aryVec_accel{ {x2, y2}, {x0 - x, y0 - y}, {x0, y0} };
+			m_accel_mask = std::make_shared < s3d::Polygon > ( aryVec_accel );
+			m_accel_value->SetpPolygon ( m_accel_mask );
 		}
 		else if ( PLAYER_ID_2 == m_playerID )
 		{
@@ -328,6 +346,9 @@ namespace GAME
 //			s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x1, y1}, {x2, y2} };
 			m_accel_mask = std::make_shared < s3d::Polygon > ( aryVec_accel );
 			m_accel_value->SetpPolygon ( m_accel_mask );
+
+#if 0
+#endif // 0
 		}
 
 
@@ -366,9 +387,9 @@ namespace GAME
 	const VEC2 DispGauge::POS_HISSATSU_VALUE_2P ( WND_CNT + 243, 105 );
 
 	//アクセルゲージ
-	//Size ( 80, 139 )
-	const VEC2 DispGauge::POS_ACCEL_VALUE_1P ( 0 + 75 + 11, 27 );
-	const VEC2 DispGauge::POS_ACCEL_VALUE_2P ( 1280 - 75 - 11, 27 );
+	//Size ( 90, 139 )
+	const VEC2 DispGauge::POS_ACCEL_VALUE_1P ( 0 - 3, 27 );
+	const VEC2 DispGauge::POS_ACCEL_VALUE_2P ( 1280 - 75 - 12, 27 );
 
 #pragma endregion
 

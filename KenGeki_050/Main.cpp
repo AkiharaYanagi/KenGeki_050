@@ -54,11 +54,24 @@ void Main()
 #endif // 0
 
 	double r = 220;
+
+
+#if 0
 	double x0 = 1194 - 80;
 	double y0 = 27 + 139;
 //	double x1 = x0 + 141;
 //	double y1 = y0 - 141;
 	double x2 = x0 + r;
+	double y2 = y0;
+#endif // 0
+
+
+	//Accel P1
+	double x0 = 0 + 75 + 12 + 80;
+	double y0 = 27 + 139;
+	double x1 = x0 - r;
+	double y1 = y0 - r;
+	double x2 = x0 - r;
 	double y2 = y0;
 
 //	s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x1, y1}, {x2, y2} };
@@ -96,9 +109,9 @@ void Main()
 //		double theta = 0.88;
 		double x = r * std::cos ( theta );
 		double y = r * std::sin ( theta );
-		s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x0 + x, y0 - y}, {x2, y2} };
-
-//		s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x1, y1}, {x2, y2} };
+//		s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x0 + x, y0 - y}, {x2, y2} };
+		s3d::Array < s3d::Vec2 > aryVec_accel{ {x2, y2}, {x0 - x, y0 - y}, {x0, y0} };
+//		s3d::Array < s3d::Vec2 > aryVec_accel{ {x2, y2}, {x1, y1}, {x0, y0} };
 		s3d::Polygon plgn{ aryVec_accel };
 //		plgn.draw ();
 

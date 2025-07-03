@@ -23,6 +23,9 @@ namespace GAME
 		PAP_Tx		mpap_txMain;	//イメージ テクスチャ配列
 		PAP_Sqc		mpap_Sqc;		//シークエンス配列
 
+		PAP_Adi		mpap_VC;		//ボイス
+		PAP_Adi		mpap_SE;		//SE
+
 	public:
 		Compend ();
 		Compend( const Compend& rhs ) = delete;
