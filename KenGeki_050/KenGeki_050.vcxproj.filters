@@ -131,16 +131,22 @@
     <Filter Include="90_GameMain">
       <UniqueIdentifier>{331b1e30-ad95-43c8-8355-10293e4c4159}</UniqueIdentifier>
     </Filter>
+    <Filter Include="04_Training">
+      <UniqueIdentifier>{fe83c5e6-45af-4f23-b218-1721d3f42839}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
+    <ClCompile Include="Source\stdafx.cpp">
       <Filter>99_Resource Files</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
+    <ClCompile Include="Source\90_GameMain\Scene.cpp">
       <Filter>90_GameMain</Filter>
     </ClCompile>
-    <ClCompile Include="DispGauge.cpp">
+    <ClCompile Include="Source\90_GameMain\Main.cpp">
       <Filter>90_GameMain</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\04_Training\Training.cpp">
+      <Filter>04_Training</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -806,17 +812,20 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
+    <ClInclude Include="Source\stdafx.h">
       <Filter>99_Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="GameMain.h">
+    <ClInclude Include="Source\90_GameMain\Scene.h">
       <Filter>90_GameMain</Filter>
     </ClInclude>
-    <ClInclude Include="DispGauge.h">
+    <ClInclude Include="Source\90_GameMain\GameConst.h">
       <Filter>90_GameMain</Filter>
     </ClInclude>
-    <ClInclude Include="LocalDefine.h">
+    <ClInclude Include="Source\90_GameMain\GameMain.h">
       <Filter>90_GameMain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\04_Training\Training.h">
+      <Filter>04_Training</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
