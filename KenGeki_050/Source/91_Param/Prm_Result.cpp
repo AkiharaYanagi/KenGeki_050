@@ -1,43 +1,54 @@
 ﻿//=================================================================================================
 //
-//	Compend ヘッダ
+//	Prm_Result
 //
 //=================================================================================================
-#pragma once
 
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "Define_Siv3D.h"
-#include "Sequence.h"
+#include "Prm_Result.h"
+#include "../03_FtgMain/FtgConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
-// 宣言
+// 定義
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-
-	class Compend
+	Prm_Result::Prm_Result ()
 	{
-		PAP_Tx		mpap_txMain;	//イメージ テクスチャ配列
-		PAP_Sqc		mpap_Sqc;		//シークエンス配列
+	}
 
-		PAP_Adi		mpap_VC;		//ボイス
-		PAP_Adi		mpap_SE;		//SE
+	Prm_Result::Prm_Result ( const Prm_Result & rhs )
+	{
+	}
 
-	public:
-		Compend ();
-		Compend( const Compend& rhs ) = delete;
-		~Compend ();
+	Prm_Result::~Prm_Result ()
+	{
+	}
 
-		void SetpSqc ( UP_AP_Sqc papSqc );
 
-		//テクスチャ配列の設定
-		void SetpapTx_Main ( PAP_Tx paptx ) { mpap_txMain = paptx; }
-	};
+	void Prm_Result::Load ()
+	{
+	}
 
-	using P_CCompend = std::shared_ptr < Compend >;
+	void Prm_Result::Reset ()
+	{
+		m_winner = PLAYER_ID_1;		//勝者
+		m_n_life_1p = LIFE_START;	//残ライフ
+		m_n_life_2p = LIFE_START;	//
+		m_n_input_1p = 0;			//入力数
+		m_n_input_2p = 0;			//
+		m_n_act_1p = 0;				//アクション回数
+		m_n_act_2p = 0;				//
+		m_n_offset = 0;				//相殺数
+		m_n_max_chain_1p = 0;		//連撃数
+		m_n_max_chain_2p = 0;		//
+		m_n_max_damege_1p = 0;		//最大連撃力
+		m_n_max_damege_2p = 0;		//
+	}
+
 
 
 }	//namespace GAME

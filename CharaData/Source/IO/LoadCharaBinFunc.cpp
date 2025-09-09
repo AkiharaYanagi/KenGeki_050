@@ -47,9 +47,9 @@ namespace GAME
 	void LoadCharaBinFunc::LoadCompend ( CUPR_BYTE buf, UINT32 & pos, Compend & cmpd )
 	{
 		//@afford メモリコントローラ
-		//先頭に 総アクション数, 総スクリプト数 を記述、必要時に該当分のアドレスを返す
+		//先頭に 総シークエンス数, 総スクリプト数 を記述、必要時に該当分のアドレスを返す
 
-		//アクション個数 と メモリの確保
+		//シークエンス個数 と メモリの確保
 		UINT32 nSqc = m_utl.LoadUInt ( buf, pos );
 
 
@@ -63,7 +63,7 @@ namespace GAME
 		{
 			P_Sqc pSqc = (*paSqc) [ iSqc ];
 
-			//アクション
+			//シークエンス
 			(*paSqc) [ iSqc ]->Name.Set ( m_utl.LoadS3dString ( buf, pos ) );
 			(*paSqc) [ iSqc ]->Next.Set ( (UINT32)m_utl.LoadUInt ( buf, pos ) );
 			(*paSqc) [ iSqc ]->Category.Set ( (ACTION_CATEGORY)buf [ pos ++ ] );

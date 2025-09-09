@@ -124,6 +124,11 @@
     <ClCompile Include="Source\04_Training\Training.cpp" />
     <ClCompile Include="Source\90_GameMain\Main.cpp" />
     <ClCompile Include="Source\90_GameMain\Scene.cpp" />
+    <ClCompile Include="Source\90_GameMain\SoundConst.cpp" />
+    <ClCompile Include="Source\91_Param\GameSettingFile.cpp" />
+    <ClCompile Include="Source\91_Param\Param.cpp" />
+    <ClCompile Include="Source\91_Param\Prm_Chara.cpp" />
+    <ClCompile Include="Source\91_Param\Prm_Result.cpp" />
     <ClCompile Include="Source\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
     </ClCompile>
@@ -332,10 +337,16 @@
     <Xml Include="App\example\xml\test.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\03_FtgMain\FtgConst.h" />
     <ClInclude Include="Source\04_Training\Training.h" />
     <ClInclude Include="Source\90_GameMain\GameConst.h" />
     <ClInclude Include="Source\90_GameMain\GameMain.h" />
     <ClInclude Include="Source\90_GameMain\Scene.h" />
+    <ClInclude Include="Source\90_GameMain\SoundConst.h" />
+    <ClInclude Include="Source\91_Param\GameSettingFile.h" />
+    <ClInclude Include="Source\91_Param\Param.h" />
+    <ClInclude Include="Source\91_Param\Prm_Chara.h" />
+    <ClInclude Include="Source\91_Param\Prm_Result.h" />
     <ClInclude Include="Source\stdafx.h" />
   </ItemGroup>
   <ItemGroup>

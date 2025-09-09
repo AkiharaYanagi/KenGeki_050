@@ -12,6 +12,9 @@
 //#include "G_Ftg.h"
 
 
+#include "CharaData.h"
+
+
 //-------------------------------------------------------------------------------------------------
 //	実装
 //-------------------------------------------------------------------------------------------------
@@ -33,6 +36,23 @@ void Main()
 {
 	//タイトル
 	Window::SetTitle ( U"剣撃クロスゾーン" );
+
+
+
+	//test
+	std::unique_ptr < Sequence[] > data = std::make_unique < Sequence[] > ( 100 );
+
+	for ( INT32 i = 0; i < 100; ++ i )
+	{
+		data [ i ].Accel.Set ( i );
+	}
+
+
+	INT32 value = 0;
+	for ( INT32 i = 0; i < 100; ++ i )
+	{
+		value = data [ i ].Accel.Get ();
+	}
 
 	//読込
 	Load ();

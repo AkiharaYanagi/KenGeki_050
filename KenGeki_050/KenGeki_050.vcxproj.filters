@@ -134,6 +134,12 @@
     <Filter Include="04_Training">
       <UniqueIdentifier>{fe83c5e6-45af-4f23-b218-1721d3f42839}</UniqueIdentifier>
     </Filter>
+    <Filter Include="91_Param">
+      <UniqueIdentifier>{8638ad2b-c86f-4764-9ad7-c3616e863695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03_FtgMain">
+      <UniqueIdentifier>{a2744d53-717b-41ac-bfa5-8bf166077747}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\stdafx.cpp">
@@ -147,6 +153,21 @@
     </ClCompile>
     <ClCompile Include="Source\04_Training\Training.cpp">
       <Filter>04_Training</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\91_Param\Param.cpp">
+      <Filter>91_Param</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\91_Param\Prm_Chara.cpp">
+      <Filter>91_Param</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\91_Param\GameSettingFile.cpp">
+      <Filter>91_Param</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\90_GameMain\SoundConst.cpp">
+      <Filter>90_GameMain</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\91_Param\Prm_Result.cpp">
+      <Filter>91_Param</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -826,6 +847,24 @@
     </ClInclude>
     <ClInclude Include="Source\04_Training\Training.h">
       <Filter>04_Training</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\91_Param\Param.h">
+      <Filter>91_Param</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\91_Param\Prm_Chara.h">
+      <Filter>91_Param</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\91_Param\GameSettingFile.h">
+      <Filter>91_Param</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\90_GameMain\SoundConst.h">
+      <Filter>90_GameMain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\91_Param\Prm_Result.h">
+      <Filter>91_Param</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\FtgConst.h">
+      <Filter>03_FtgMain</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

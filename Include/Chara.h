@@ -110,6 +110,10 @@ namespace GAME
 #endif // 0
 
 
+		//テクスチャ配列の設定
+		void SetpapTx_Main ( PAP_Tx paptx ) { behavior.SetpapTx_Main ( paptx ); }
+		void SetpapTx_Ef ( PAP_Tx paptx ) { garnish.SetpapTx_Main ( paptx ); }
+
 #if 0
 		//-----------------------------------------------------------------
 		//メインイメージ テクスチャ配列ポインタ

@@ -1,44 +1,38 @@
 ﻿//=================================================================================================
 //
-//	Compend ヘッダ
+// SoundConst ファイル
+//		BGMファイル指定用 定数
 //
 //=================================================================================================
 #pragma once
 
 //-------------------------------------------------------------------------------------------------
-// ヘッダファイルのインクルード
+//	インクルードファイル
 //-------------------------------------------------------------------------------------------------
-#include "Define_Siv3D.h"
-#include "Sequence.h"
+#include "SoundConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
-// 宣言
+//	定義
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+	//------------------------------------------
+	// 定数実体
+	//------------------------------------------
 
-	class Compend
+	//BGM_ID_TO_NAME
+
+	// "SoundConst.h"
+	//using BGM_NAME = const char32_t *; 
+
+	BGM_NAME	 BGM_ID_TO_NAME [] =
 	{
-		PAP_Tx		mpap_txMain;	//イメージ テクスチャ配列
-		PAP_Sqc		mpap_Sqc;		//シークエンス配列
-
-		PAP_Adi		mpap_VC;		//ボイス
-		PAP_Adi		mpap_SE;		//SE
-
-	public:
-		Compend ();
-		Compend( const Compend& rhs ) = delete;
-		~Compend ();
-
-		void SetpSqc ( UP_AP_Sqc papSqc );
-
-		//テクスチャ配列の設定
-		void SetpapTx_Main ( PAP_Tx paptx ) { mpap_txMain = paptx; }
+		BGM_GABA,
+		BGM_OUKA,
+		BGM_SAE,
+		BGM_RETSU,
+		BGM_FERA,
 	};
-
-	using P_CCompend = std::shared_ptr < Compend >;
-
-
-}	//namespace GAME
+}
 
