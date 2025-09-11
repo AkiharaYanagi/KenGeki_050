@@ -35,13 +35,13 @@ namespace GAME
 		LoadRoute ( buf, pos, ch );		//Route
 	}
 
-#if 0
 	void LoadCharaBinFunc::LoadCharaImage ( CUPR_BYTE buf, UINT32 & pos, Chara & ch )
 	{
+#if 0
 		LoadImg ( buf, pos, ch.GetpapTxMain () );
 		LoadImg ( buf, pos, ch.GetpapEfTexture () );
-	}
 #endif // 0
+	}
 
 
 	void LoadCharaBinFunc::LoadCompend ( CUPR_BYTE buf, UINT32 & pos, Compend & cmpd )

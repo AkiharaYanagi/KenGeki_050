@@ -840,6 +840,9 @@
     <ClCompile Include="Source\test\test_MakeCharaData.cpp">
       <Filter>test</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Chara\Branch.cpp">
+      <Filter>Chara</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">

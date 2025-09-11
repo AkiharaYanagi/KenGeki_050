@@ -409,6 +409,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Chara\Branch.cpp" />
     <ClCompile Include="Source\Chara\Chara.cpp" />
     <ClCompile Include="Source\Chara\Command.cpp" />
     <ClCompile Include="Source\Chara\Compend.cpp" />

@@ -136,59 +136,18 @@ namespace GAME
 	//-----------------------------------------------------------------
 	void Param::ResetBattleParam ()
 	{
-#if 0
-		//リザルト用
-		m_winner = PLAYER_ID_1;		//勝者
-		m_n_life_1p = LIFE_START;	//残ライフ
-		m_n_life_2p = LIFE_START;	//
-		m_n_input_1p = 0;			//入力数
-		m_n_input_2p = 0;			//
-		m_n_act_1p = 0;				//アクション回数
-		m_n_act_2p = 0;				//
-		m_n_offset = 0;				//相殺数
-		m_n_max_chain_1p = 0;		//連撃数
-		m_n_max_chain_2p = 0;		//
-		m_n_max_damege_1p = 0;		//最大連撃力
-		m_n_max_damege_2p = 0;		//
-#endif // 0
 		m_prmResult.Reset ();
 	}
 
 	//最大だったら更新する
 	void Param::UpdateIfMAX_DMG ( PLAYER_ID id, int n )
 	{
-		if ( id == PLAYER_ID_1 )
-		{
-			if (m_n_max_damege_1p < n)
-			{
-				m_n_max_damege_1p = n;
-			}
-		}
-		else if ( id == PLAYER_ID_2 )
-		{
-			if ( m_n_max_damege_2p < n )
-			{
-				m_n_max_damege_2p = n;
-			}
-		}
+		m_prmResult.UpdateIfMAX_DMG ( id, n );
 	}
 
 	void Param::UpdateIfMax_Chain ( PLAYER_ID id, int n )
 	{
-		if ( id == PLAYER_ID_1 )
-		{
-			if (m_n_max_chain_1p < n)
-			{
-				m_n_max_chain_1p = n;
-			}
-		}
-		else if ( id == PLAYER_ID_2 )
-		{
-			if ( m_n_max_chain_2p < n )
-			{
-				m_n_max_chain_2p = n;
-			}
-		}
+		m_prmResult.UpdateIfMax_Chain ( id, n );
 	}
 
 

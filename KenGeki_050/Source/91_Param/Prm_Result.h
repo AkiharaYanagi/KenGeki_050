@@ -47,6 +47,38 @@ namespace GAME
 		void Load ();
 
 		void Reset ();
+
+		//--------------------------------------------------------
+		//リザルト用
+
+		void SetWinner ( PLAYER_ID plr ) { m_winner = plr; }
+		PLAYER_ID GetWinner () const { return m_winner; }
+
+		void SetN_Life1p ( int n ) { m_n_life_1p = n; }
+		int GetN_Life1p () const { return m_n_life_1p; }
+		void SetN_Life2p ( int n ) { m_n_life_2p = n; }
+		int GetN_Life2p () const { return m_n_life_2p; }
+
+		void SetN_Input1p ( int n ) { m_n_input_1p = n; }
+		int GetN_Input1p () const { return m_n_input_1p; }
+		void SetN_Input2p ( int n ) { m_n_input_2p = n; }
+		int GetN_Input2p () const { return m_n_input_2p; }
+
+		void SetN_Act1p ( int n ) { m_n_act_1p = n; }
+		int GetN_Act1p () const { return m_n_act_1p; }
+		void SetN_Act2p ( int n ) { m_n_act_2p = n; }
+		int GetN_Act2p () const { return m_n_act_2p; }
+
+		GET_SET ( int, GetOffset, SetOffset, m_n_offset )	//相殺数
+		void AddOffset ( int32 n ) { m_n_offset += n; }
+
+		GET_SET ( int, Get_MAX_DMG_1P, Set_MAX_DMG_1P, m_n_max_damege_1p	)		//最大ダメージ
+		GET_SET ( int, Get_MAX_DMG_2P, Set_MAX_DMG_2P, m_n_max_damege_2p	)		//最大ダメージ
+		GET_SET ( int, Get_MAX_CHN_1P, Set_MAX_CHN_1P, m_n_max_chain_1p	)		//連撃数
+		GET_SET ( int, Get_MAX_CHN_2P, Set_MAX_CHN_2P, m_n_max_chain_2p	)		//連撃数
+
+		void UpdateIfMAX_DMG ( PLAYER_ID id, int n );
+		void UpdateIfMax_Chain ( PLAYER_ID id, int n );
 	};
 
 
