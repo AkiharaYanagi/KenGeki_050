@@ -23,11 +23,14 @@ namespace GAME
 {
 	Param::Param ()
 	{
+#if 0
 		//ゲーム設定ファイル開始
 		m_setting.Load ();
 
 		m_chara_name_1p = m_setting.GetName1p ();
 		m_chara_name_2p = m_setting.GetName2p ();
+
+#endif // 0
 
 	}
 
@@ -35,11 +38,17 @@ namespace GAME
 	Param::Param ( const Param & rhs )
 	{
 		m_setting = rhs.m_setting;
+//		m_prmChara_all = rhs.m_prmChara_all;
+		m_prmResult = rhs.m_prmResult;
 	}
 
 	Param::~Param ()
 	{
 	}
+
+
+
+#if 0
 
 	void Param::SetMutchMode ( MUTCH_MODE mode )
 	{
@@ -133,6 +142,10 @@ namespace GAME
 		return m_prmChara_all.GetpChara ( name, clr );
 	}
 
+#endif // 0
+
+
+#if 0
 	//-----------------------------------------------------------------
 	void Param::ResetBattleParam ()
 	{
@@ -149,6 +162,7 @@ namespace GAME
 	{
 		m_prmResult.UpdateIfMax_Chain ( id, n );
 	}
+#endif // 0
 
 
 }	//namespace GAME

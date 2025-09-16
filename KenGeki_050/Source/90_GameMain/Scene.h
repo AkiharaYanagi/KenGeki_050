@@ -12,11 +12,11 @@
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
 
+#include "GameConst.h"
+#include "../91_Param/Param.h"
 #if 0
 //#include "GameSettingFile.h
-#include "Param.h"
 #endif // 0
-#include "GameConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -72,7 +72,6 @@ namespace GAME
 
 		//==================================================
 
-#if 0
 
 		//共通パラメータ
 		void SetpParam ( P_Param&& pParam )
@@ -86,6 +85,7 @@ namespace GAME
 			return pp; 
 		}
 
+#if 0
 #endif // 0
 
 		//遷移

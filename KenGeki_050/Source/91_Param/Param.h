@@ -29,6 +29,8 @@ namespace GAME
 		//ゲーム設定 ( 外部ファイル読込 )
 		GameSettingFile		m_setting;
 
+#if 0
+
 		//内部設定
 		GAME_MODE		m_gameMode { MODE_TRAINING };
 		MUTCH_MODE		m_mutchMode { MODE_PLAYER_PLAYER };
@@ -36,11 +38,13 @@ namespace GAME
 		CHARA_NAME		m_chara_name_2p { CHARA_NAME_NUM };
 		STAGE_NAME		m_stage_name { STAGE_YUUHINO_HARA };
 
+#endif // 0
 
-		//キャラデータ
+
+		//キャラデータ（外部読込）
 		Prm_Chara_all	m_prmChara_all;
 
-		//リザルト用
+		//リザルト用(内部のみ)
 #if 0
 		PLAYER_ID		m_winner { PLAYER_ID_1 };		//勝者
 		int32		m_n_life_1p { 0 };		//残ライフ
@@ -63,9 +67,12 @@ namespace GAME
 		Param ( const Param & rhs );	//コピー可能
 		~Param ();
 
+
 		//ゲーム設定 ( 外部ファイル読込 )
 		const GameSettingFile & GetGameSetting () const { return m_setting; }
 		void SetSettingFile ( const GameSettingFile & stg ) { m_setting = stg; }
+
+#if 0
 
 		//内部設定
 		void SetGameMode ( GAME_MODE mode ) { m_gameMode = mode; }
@@ -124,6 +131,11 @@ namespace GAME
 		void SetCharaColor1p ( CHARA_COLOR clr ) { m_setting.SetCharaColor1p ( clr ); }
 		void SetCharaColor2p ( CHARA_COLOR clr ) { m_setting.SetCharaColor2p ( clr ); }
 
+#endif // 0
+
+		//Chara
+		Prm_Chara_all& GetPrmCharaAll () { return m_prmChara_all; }
+
 #if 0
 		P_Chara GetpChara_Ouka ();
 		P_Chara GetpChara_Sae ();
@@ -159,10 +171,15 @@ namespace GAME
 #endif // 0
 
 		//Result用
+		Prm_Result&	GetPrmResult () { return m_prmResult; }
+
+#if 0
+
 		void ResetBattleParam ();
 
 		void UpdateIfMAX_DMG ( PLAYER_ID id, int n );
 		void UpdateIfMax_Chain ( PLAYER_ID id, int n );
+#endif // 0
 
 	};
 

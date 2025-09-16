@@ -165,7 +165,6 @@ namespace GAME
 		PRINT_F_S( U"OK\n" );
 
 
-
 		PRINT_F_S( U"エフェクト" );
 		//共通エフェクト
 		if ( nullptr == m_papTx_gns )

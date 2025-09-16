@@ -130,7 +130,6 @@ namespace GAME
 //		startMode = START_RESULT;
 
 
-#if 0
 
 
 		//ゲーム共通パラメータ
@@ -139,6 +138,7 @@ namespace GAME
 		//最初のシーンを設定ファイルから取得する
 		GameSettingFile stgs = m_pParam->GetGameSetting ();
 		startMode = stgs.GetStartMode ();
+#if 0
 
 
 		//test
