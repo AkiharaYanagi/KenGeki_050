@@ -67,6 +67,8 @@ namespace GAME
 		Param ( const Param & rhs );	//コピー可能
 		~Param ();
 
+		void Load ();
+
 
 		//ゲーム設定 ( 外部ファイル読込 )
 		const GameSettingFile & GetGameSetting () const { return m_setting; }

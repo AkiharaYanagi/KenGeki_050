@@ -37,6 +37,7 @@ namespace GAME
 
 	void LoadCharaBinFunc::LoadCharaImage ( CUPR_BYTE buf, UINT32 & pos, Chara & ch )
 	{
+		(void)buf, (void)pos, (void)ch;
 #if 0
 		LoadImg ( buf, pos, ch.GetpapTxMain () );
 		LoadImg ( buf, pos, ch.GetpapEfTexture () );

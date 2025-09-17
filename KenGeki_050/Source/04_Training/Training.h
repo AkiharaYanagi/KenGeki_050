@@ -10,11 +10,11 @@
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
 #include "../90_GameMain/Scene.h"
+#include "../03_FtgMain/Fighting/Fighting.h"
 
 
 
 #if 0
-#include "../FtgMain/Fighting/Fighting.h"
 #include "../Menu/PauseMenu.h"
 //#include "Training_Menu.h"
 #endif // 0
@@ -32,10 +32,8 @@ namespace GAME
 		P_Grp			m_training_Intro0;
 		P_Grp			m_training_Intro1;
 
-#if 0
 		//戦闘
 		P_FTG			m_fighting;
-#endif // 0
 
 
 #if 0

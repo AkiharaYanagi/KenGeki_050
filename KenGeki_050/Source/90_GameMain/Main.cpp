@@ -38,7 +38,7 @@ void Main()
 	Window::SetTitle ( U"剣撃クロスゾーン" );
 
 
-
+#if 0
 	//test
 	std::unique_ptr < Sequence[] > data = std::make_unique < Sequence[] > ( 100 );
 
@@ -53,6 +53,8 @@ void Main()
 	{
 		value = data [ i ].Accel.Get ();
 	}
+#endif // 0
+
 
 	//読込
 	Load ();

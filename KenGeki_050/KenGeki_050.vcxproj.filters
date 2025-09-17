@@ -140,6 +140,39 @@
     <Filter Include="03_FtgMain">
       <UniqueIdentifier>{a2744d53-717b-41ac-bfa5-8bf166077747}</UniqueIdentifier>
     </Filter>
+    <Filter Include="03_FtgMain\Fighting">
+      <UniqueIdentifier>{ec64f08b-9a78-4234-a702-5e3d8f60841d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03_FtgMain\Fighting\BG">
+      <UniqueIdentifier>{3d564fdd-bf71-4dd1-9dd8-dd264a81591f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03_FtgMain\Mutual">
+      <UniqueIdentifier>{08cfd51f-8739-4901-b5f4-084b957a662d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03_FtgMain\Ef">
+      <UniqueIdentifier>{9016c052-f748-4a0f-bcc6-2630ed3d59f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03_FtgMain\ExeChara">
+      <UniqueIdentifier>{c90fb2ca-2c0b-4ca8-8fb9-8ab5a3ee6886}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03_FtgMain\ExeChara\Main">
+      <UniqueIdentifier>{5c6036ab-8cfa-4c1c-a36c-87c147bce10c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03_FtgMain\ExeChara\Disp">
+      <UniqueIdentifier>{ab9fea82-bc28-4393-b39e-2163b50e9187}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03_FtgMain\ExeChara\Effect">
+      <UniqueIdentifier>{3eab9df5-fcdf-41eb-928b-a13ad3e32640}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03_FtgMain\ExeChara\Event">
+      <UniqueIdentifier>{c3071fe0-184b-4bcf-9866-cbc71531a4d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03_FtgMain\ExeChara\Input">
+      <UniqueIdentifier>{7e072b98-1853-4e72-ba2d-0769783e5418}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="03_FtgMain\ExeChara\Rect">
+      <UniqueIdentifier>{646d1c9b-3b14-4dfd-b294-ccb555da5778}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\stdafx.cpp">
@@ -168,6 +201,141 @@
     </ClCompile>
     <ClCompile Include="Source\91_Param\Prm_Result.cpp">
       <Filter>91_Param</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Fighting\BG\_BG.cpp">
+      <Filter>03_FtgMain\Fighting\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Fighting\BG.cpp">
+      <Filter>03_FtgMain\Fighting\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Fighting\BG\BG_Base.cpp">
+      <Filter>03_FtgMain\Fighting\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Fighting\BG\BG_Yuuhi_no_hara.cpp">
+      <Filter>03_FtgMain\Fighting\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Fighting\BattleTime.cpp">
+      <Filter>03_FtgMain\Fighting\BG</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Fighting\Fighting.cpp">
+      <Filter>03_FtgMain\Fighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Fighting\FtgDemo_Actor.cpp">
+      <Filter>03_FtgMain\Fighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Fighting\FtgDemo_State.cpp">
+      <Filter>03_FtgMain\Fighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Fighting\FtgGrp.cpp">
+      <Filter>03_FtgMain\Fighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Fighting\Round.cpp">
+      <Filter>03_FtgMain\Fighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Fighting\WallBreak.cpp">
+      <Filter>03_FtgMain\Fighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Mutual\Collision.cpp">
+      <Filter>03_FtgMain\Mutual</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Mutual\Decision.cpp">
+      <Filter>03_FtgMain\Mutual</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Mutual\MutualChara.cpp">
+      <Filter>03_FtgMain\Mutual</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Mutual\MutualChara_Utility.cpp">
+      <Filter>03_FtgMain\Mutual</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Ef\EfClang.cpp">
+      <Filter>03_FtgMain\Ef</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Ef\EfHitLine.cpp">
+      <Filter>03_FtgMain\Ef</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Ef\EfKouAtsu.cpp">
+      <Filter>03_FtgMain\Ef</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Ef\EfSouha.cpp">
+      <Filter>03_FtgMain\Ef</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\FtgMain.cpp">
+      <Filter>03_FtgMain</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\90_GameMain\G_Ftg.cpp">
+      <Filter>90_GameMain</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\BtlParam.cpp">
+      <Filter>03_FtgMain\ExeChara</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\TimerSlow.cpp">
+      <Filter>03_FtgMain\ExeChara</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExCh_State.cpp">
+      <Filter>03_FtgMain\ExeChara\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara.cpp">
+      <Filter>03_FtgMain\ExeChara\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_Event.cpp">
+      <Filter>03_FtgMain\ExeChara\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_Func.cpp">
+      <Filter>03_FtgMain\ExeChara\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_Load.cpp">
+      <Filter>03_FtgMain\ExeChara\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_Rect.cpp">
+      <Filter>03_FtgMain\ExeChara\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_Sound.cpp">
+      <Filter>03_FtgMain\ExeChara\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_Special.cpp">
+      <Filter>03_FtgMain\ExeChara\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_Transit.cpp">
+      <Filter>03_FtgMain\ExeChara\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_Transit_Special.cpp">
+      <Filter>03_FtgMain\ExeChara\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExCh_Actor.cpp">
+      <Filter>03_FtgMain\ExeChara\Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Rect\CharaRect.cpp">
+      <Filter>03_FtgMain\ExeChara\Rect</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispAccel.cpp">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispChara.cpp">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispFrontEnd.cpp">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispFrontEnd_all.cpp">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispGauge.cpp">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispGauge_all.cpp">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispInput.cpp">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispMainImage.cpp">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispRect.cpp">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\GrpPlgnMask.cpp">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -865,6 +1033,120 @@
     </ClInclude>
     <ClInclude Include="Source\03_FtgMain\FtgConst.h">
       <Filter>03_FtgMain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Fighting\BG\_BG.h">
+      <Filter>03_FtgMain\Fighting\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Fighting\BG.h">
+      <Filter>03_FtgMain\Fighting\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Fighting\BG\BG_Base.h">
+      <Filter>03_FtgMain\Fighting\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Fighting\BG\BG_Yuuhi_no_hara.h">
+      <Filter>03_FtgMain\Fighting\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Fighting\BattleTime.h">
+      <Filter>03_FtgMain\Fighting\BG</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Fighting\Fighting.h">
+      <Filter>03_FtgMain\Fighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Fighting\FtgDemo_Actor.h">
+      <Filter>03_FtgMain\Fighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Fighting\FtgDemo_State.h">
+      <Filter>03_FtgMain\Fighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Fighting\FtgGrp.h">
+      <Filter>03_FtgMain\Fighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Fighting\Round.h">
+      <Filter>03_FtgMain\Fighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Fighting\WallBreak.h">
+      <Filter>03_FtgMain\Fighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Mutual\Collision.h">
+      <Filter>03_FtgMain\Mutual</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Mutual\Decision.h">
+      <Filter>03_FtgMain\Mutual</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Mutual\MutualChara.h">
+      <Filter>03_FtgMain\Mutual</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Mutual\MutualChara_Utility.h">
+      <Filter>03_FtgMain\Mutual</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Ef\EfClang.h">
+      <Filter>03_FtgMain\Ef</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Ef\EfHitLine.h">
+      <Filter>03_FtgMain\Ef</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Ef\EfKouAtsu.h">
+      <Filter>03_FtgMain\Ef</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Ef\EfSouha.h">
+      <Filter>03_FtgMain\Ef</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\FtgMain.h">
+      <Filter>03_FtgMain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\90_GameMain\G_Ftg.h">
+      <Filter>90_GameMain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\BtlParam.h">
+      <Filter>03_FtgMain\ExeChara</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\TimerSlow.h">
+      <Filter>03_FtgMain\ExeChara</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Main\ExCh_Actor.h">
+      <Filter>03_FtgMain\ExeChara\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Main\ExCh_State.h">
+      <Filter>03_FtgMain\ExeChara\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Main\ExeChara.h">
+      <Filter>03_FtgMain\ExeChara\Main</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Rect\CharaRect.h">
+      <Filter>03_FtgMain\ExeChara\Rect</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispAccel.h">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispChara.h">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispChara_Const.h">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispFrontEnd.h">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispFrontEnd_all.h">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispGauge.h">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispGauge_all.h">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispInput.h">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispMainImage.h">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispRect.h">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\GrpPlgnMask.h">
+      <Filter>03_FtgMain\ExeChara\Disp</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

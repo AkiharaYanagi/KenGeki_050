@@ -87,10 +87,10 @@ namespace GAME
 
 		//パラメータ
 		void Set_FP_B ( Frame_Param_Battle fpb ) { m_prmBattle = fpb; }
-		Frame_Param_Battle Get_FP_B () const { return m_prmBattle; }
+		Frame_Param_Battle & Get_FP_B () { return m_prmBattle; }
 		
 		void Set_FP_S ( Frame_Param_Staging fps ) { m_prmStaging = fps; }
-		Frame_Param_Staging Get_FP_S () const { return m_prmStaging; }
+		Frame_Param_Staging & Get_FP_S () { return m_prmStaging; }
 
 		void Set_Versatile ( const A_INT32 & ver );
 		A_INT32 & GetaVersatile () { return m_versatile; }

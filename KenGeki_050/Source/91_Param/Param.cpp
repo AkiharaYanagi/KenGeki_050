@@ -46,7 +46,10 @@ namespace GAME
 	{
 	}
 
-
+	void Param::Load()
+	{
+		m_setting.Load ();		//ゲーム設定ファイル読込
+	}
 
 #if 0
 

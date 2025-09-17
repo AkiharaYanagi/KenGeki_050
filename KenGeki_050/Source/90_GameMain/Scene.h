@@ -128,9 +128,7 @@ namespace GAME
 	//ゲーム状態遷移管理
 	class SceneManager	: public GameSceneManager
 	{
-#if 0
 		P_Param		m_pParam;	//シーン共通パラメータ
-#endif // 0
 
 	public:
 		SceneManager ();
@@ -140,12 +138,9 @@ namespace GAME
 		void Load ();
 		void Move ();
 
-#if 0
 		//シーン共通パラメータ
-		void SetpParam ( P_Param&& pParam ) { m_pParam = pParam; }
+		void SetpParam ( P_Param&& pParam ) { m_pParam = std::move ( pParam ); }
 		P_Param GetpParam () { return m_pParam; }
-#endif // 0
-
 	};
 
 	//==================================================================

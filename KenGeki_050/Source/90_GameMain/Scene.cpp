@@ -241,9 +241,12 @@ namespace GAME
 		}
 #endif // 0
 
+#if 0
 
 		//テスト：空のシーン
 		pScene = std::make_shared < TestScene > ();
+
+#endif // 0
 
 		//シーンの設定
 		SetScene ( pScene );
@@ -257,12 +260,7 @@ namespace GAME
 	{
 		//最初のシーンにパラメータを設定する
 		P_GameScene pScene = GetpScene ();
-
-#if 0
 		pScene->SetpParam ( m_pParam );
-#endif // 0
-
-
 		pScene->ParamInit ();
 
 		GameSceneManager::Load ();
@@ -270,6 +268,8 @@ namespace GAME
 
 	void SceneManager::Move ()
 	{
+#if 0
+
 		//デバッグ表示切替トグル
 		static bool bDispDebug = T;
 		static bool pre_bDispDebug = F;
@@ -295,6 +295,8 @@ namespace GAME
 		}
 		//今回の保存
 		pre_bDispDebug = is_bDispDebug;
+
+#endif // 0
 
 		GameSceneManager::Move ();
 	}
