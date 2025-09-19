@@ -18,7 +18,7 @@ namespace GAME
 	//@Later	いずれEffectにEfGnrtを統合
 	//------------------------------------------
 
-	ExeEffect::ExeEffect ( P_Effect pEffect, P_Chara pChara, P_EfGnrt pEfGnrt, VEC2 ptChara, bool dirRight )
+	ExeEffect::ExeEffect ( P_Sequence pEffect, P_Chara pChara, P_EfGnrt pEfGnrt, VEC2 ptChara, bool dirRight )
 	 :	  m_active ( true ), m_end ( false ), m_frame ( 0 )
 		, m_ptEffect ( VEC2 ( 0, 0 ) ), m_dirRight ( dirRight )
 		, m_vel ( VEC2 ( 0, 0 ) ), m_acc ( VEC2 ( 0, 0 ) )
@@ -41,7 +41,7 @@ namespace GAME
 		m_charaRect = std::make_shared < CharaRect > ();
 
 		//表示
-		m_dispEffect = std::make_shared < DispEffect > ( pChara->GetpapEfTexture (), pEfGnrt->GetZ () );
+		m_dispEffect = std::make_shared < DispEffect > ( pChara->GetGarnish().GetpapTx(), pEfGnrt->Z.Get() );
 		m_dispEffect->SetpChara ( pChara );
 		AddpTask ( m_dispEffect );
 
@@ -225,7 +225,7 @@ namespace GAME
 
 
 		//スクリプトを取得
-		P_Script pScp = m_pScript;
+		P_Frame pScp = m_pScript;
 		VEC2 vel = pScp->m_prmBattle.Vel;
 		VEC2 acc = pScp->m_prmBattle.Acc;
 		float dir = m_dirRight ? 1.f : -1.f;		//向き

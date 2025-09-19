@@ -55,28 +55,28 @@ namespace GAME
 	{
 		//キャラポインタを保存
 		m_pChara = p;
-		m_pvpEfTexture = p->GetpapEfTexture ();
+		m_pvpEfTexture = p->GetGarnish().GetpapTx();
 		m_vpBranch = p->GetvpBranch ();
 		m_vpRoute = p->GetvpRoute ();
 
 		//すべてのアクションとスクリプトを巡回
-		PAP_Action pvpAction = m_pChara->GetpvpAction ();
-		for ( P_Action pAction : ( * pvpAction ) )
+		PAP_Sqc pvpAction = m_pChara->GetBehavior().GetpapSqc ();
+		for ( P_Sequence pAction : ( * pvpAction ) )
 		{
-			PVP_Script pvpScript = pAction->GetpvpScript ();
-			for ( P_Script pScript : ( * pvpScript ) )
+			PAP_Frame pvpScript = pAction->GetpvpScript ();
+			for ( P_Frame pScript : ( * pvpScript ) )
 			{
-				PVP_EfGnrt pvpEfGnrt = pScript->GetpvpEfGnrt ();
+				PAP_EfGnrt pvpEfGnrt = pScript->GetpapEfGnrt ();
 				for ( P_EfGnrt pEfGnrt : ( * pvpEfGnrt ) )
 				{
 					//非生成なら初回に登録しておき、IDで稼働状態にする
-					if ( ! pEfGnrt->GetGnrt () )
+					if ( ! pEfGnrt->Gnrt.Get() )
 					{
 						//エフェクトインデックスの取得
-						UINT index = pEfGnrt->GetIndex ();
+						UINT index = pEfGnrt->Index.Get();
 
 						//エフェクトの取得
-						P_Effect pEf = m_pChara->GetpEffect ( index );
+						P_Sequence pEf = m_pChara->GetGarnish().GetpSqc ( index );
 
 						//エフェクト管理に渡してIDを得る
 //						UINT id = m_oprtEf.AddEffect ( pEf, pEfGnrt->GetZ () );
@@ -91,7 +91,7 @@ namespace GAME
 
 
 	//スクリプト処理 前 エフェクト全体の動作
-	void OperateEffect::Generate ( P_Script pScp, BtlParam & btlPrm )
+	void OperateEffect::Generate ( P_Frame pScp, BtlParam & btlPrm )
 	{
 #if 0
 		//	初回チェックはスクリプト側からは必要ないので、エフェクト内で処理する
@@ -125,7 +125,7 @@ namespace GAME
 
 
 	//スクリプト処理 前 エフェクト全体の動作
-	void OperateEffect::PreMove ( P_Script pScp, BtlParam & btlPrm )
+	void OperateEffect::PreMove ( P_Frame pScp, BtlParam & btlPrm )
 	{
 		(void)pScp;
 		(void)btlPrm;
@@ -173,22 +173,22 @@ namespace GAME
 
 
 	//エフェクト生成
-	void OperateEffect::GenerateEffect ( P_Script pScp, const BtlParam & btlprm )
+	void OperateEffect::GenerateEffect ( P_Frame pScp, const BtlParam & btlprm )
 	{
 //		size_t NUM_GRP = GrpLst::Inst()->GetNumList();
 
 		//発生
-		PVP_EfGnrt  pvpEfGnrt = pScp->GetpvpEfGnrt ();
+		PAP_EfGnrt  pvpEfGnrt = pScp->GetpapEfGnrt ();
 		for ( P_EfGnrt pEfGnrt : ( *pvpEfGnrt ) )
 		{
 			//エフェクトインデックスの取得
-			UINT index = pEfGnrt->GetIndex ();
+			UINT index = pEfGnrt->Index.Get();
 			//エフェクトの取得
-			P_Effect pEf = m_pChara->GetpEffect ( index );
+			P_Sequence pEf = m_pChara->GetGarnish().GetpSqc ( index );
 
 			//----------------------------------
 			//生成用なら
-			if ( pEfGnrt->GetGnrt () )
+			if ( pEfGnrt->Gnrt.Get() )
 			{
 				//リストに追加
 				AddListEffect ( pEf, pEfGnrt, btlprm.GetPos (), btlprm.GetDirRight () );
@@ -200,7 +200,7 @@ namespace GAME
 				//エフェクトインデックスの取得
 				UINT index = pEfGnrt->GetIndex ();
 				//エフェクトの取得
-				P_Effect pEf = m_pChara->GetpEffect ( index );
+				P_Sequence pEf = m_pChara->GetpEffect ( index );
 				//稼働中かどうか
 				if ( !m_oprtEf.IsActive ( pEf ) )
 				{
@@ -212,10 +212,10 @@ namespace GAME
 	}
 
 	//エフェクトリストに新規追加
-	void OperateEffect::AddListEffect ( P_Effect pEffect, P_EfGnrt pEfGnrt, VEC2 ptChara, bool dirRight )
+	void OperateEffect::AddListEffect ( P_Sequence pEffect, P_EfGnrt pEfGnrt, VEC2 ptChara, bool dirRight )
 	{
 		//名前チェック
-		if ( ! m_pChara->ExistEffect ( pEffect->GetName () ) )
+		if ( ! m_pChara->GetGarnish().ExistSqc ( pEffect->Name.Get () ) )
 		{
 			return;
 		}
@@ -231,7 +231,7 @@ namespace GAME
 
 
 	//オブジェクトからExeEfを取得
-	P_ExEf OperateEffect::GetpExEf ( P_Effect p ) const
+	P_ExEf OperateEffect::GetpExEf ( P_Sequence p ) const
 	{
 		//エフェクト実行リストから検索
 		for ( P_ExEf pExEf : * m_plpExeEffect )
@@ -258,14 +258,14 @@ namespace GAME
 	s3d::String OperateEffect::GetpExeEf_BrcHitE()
 	{
 		//キャラの持つルート,ブランチ,コマンドの参照
-		const VP_Route& vpRoute = m_pChara->GetvpRoute ();
-		const VP_Branch& vpBranch = m_pChara->GetvpBranch ();
+		const AP_Rut& vpRoute = m_pChara->GetvpRoute ();
+		const AP_Brc& vpBranch = m_pChara->GetvpBranch ();
 
 		//エフェクト実行リストから検索
 		for ( P_ExEf pExEf : * m_plpExeEffect )
 		{
 			//現在スクリプト
-			P_Script pScp = pExEf->GetpScript ();
+			P_Frame pScp = pExEf->GetpScript ();
 			for (UINT indexRut : pScp->GetcvRouteID())
 			{
 				//ルートリスト

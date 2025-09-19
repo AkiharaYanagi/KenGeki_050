@@ -107,10 +107,10 @@ namespace GAME
 	//---------------------------------------------------------------------
 
 	//全体更新
-	void DispChara::Update ( P_Action pAct, P_Script pScp, const BtlParam & btlPrm, P_CharaInput pChIpt )
+	void DispChara::Update ( P_Sequence pAct, P_Frame pFrm, const BtlParam & btlPrm, P_CharaInput pChIpt )
 	{
 		//メインイメージの更新
-		UpdateMainImage ( pScp, btlPrm );
+		UpdateMainImage ( pFrm, btlPrm );
 
 		//枠
 		m_dispRect->Update ();
@@ -128,7 +128,7 @@ namespace GAME
 		m_frontEnd->UpdateDamage ( btlPrm );
 
 		//アクション名更新
-		m_frontEnd->UpdateActionName ( pAct->GetName ().c_str (), pScp->GetFrame() );
+		m_frontEnd->UpdateActionName ( pAct->Name.Get().c_str (), pFrm->Index.Get() );
 	}
 
 
@@ -141,7 +141,7 @@ namespace GAME
 	//---------------------------------------------------------------------
 
 	//メインイメージの更新
-	void DispChara::UpdateMainImage ( P_Script pScript, const BtlParam & btlprm )
+	void DispChara::UpdateMainImage ( P_Frame pScript, const BtlParam & btlprm )
 	{
 		//メイン
 		m_mainImage->SetColor ( btlprm.GetColor () );

@@ -23,7 +23,7 @@ namespace GAME
 	// 
 	//アクション移項（コマンドに関する処理）
 	//引数：	pNext 次のアクション
-	bool ExeChara::TranditAction_Exclusion ( P_Action pNextAct )
+	bool ExeChara::TranditAction_Exclusion ( P_Sequence pNextAct )
 	{
 		//------------------------------------------
 		//空中ダッシュ回数による遷移不可処理
@@ -121,7 +121,7 @@ namespace GAME
 		for ( UINT id : vCompID )
 		{
 			//遷移先チェック
-			P_Action pAct = m_pChara->GetpAction ( id );
+			P_Sequence pAct = m_pChara->GetpAction ( id );
 
 			if ( ! pAct->IsName ( U"雷電蹴_0" ) )
 			{
@@ -148,8 +148,8 @@ namespace GAME
 			EndAction ();
 
 			//遷移先チェック
-			P_Action pact = m_pChara->GetpAction ( transitID );
-			P_Script pscr = pact->GetpScript ( 0 );
+			P_Sequence pact = m_pChara->GetpAction ( transitID );
+			P_Frame pscr = pact->GetpScript ( 0 );
 
 			//バランス処理
 			int bl_a = pact->GetBalance ();		//アクション消費バランス

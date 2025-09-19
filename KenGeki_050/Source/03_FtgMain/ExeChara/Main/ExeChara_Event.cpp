@@ -54,7 +54,7 @@ namespace GAME
 	void ExeChara::OnOffset_AA ()
 	{
 		//相手のパラメータで増減
-		P_Script scp = m_pOther.lock ()->GetpScript ();
+		P_Frame scp = m_pOther.lock ()->GetpScript ();
 		int balance_e = scp->m_prmBattle.Balance_E;
 		m_btlPrm.AddBalance ( balance_e );
 
@@ -85,8 +85,8 @@ namespace GAME
 
 
 		//キャラの持つルート,ブランチの参照
-		const VP_Route vpRoute = m_pChara->GetvpRoute ();
-		const VP_Branch vpBranch = m_pChara->GetvpBranch ();
+		const AP_Rut vpRoute = m_pChara->GetvpRoute ();
+		const AP_Brc vpBranch = m_pChara->GetvpBranch ();
 
 		//スクリプトの持つルートリスト
 		for ( UINT indexRoute : m_pScript->GetcvRouteID () )
@@ -383,7 +383,7 @@ namespace GAME
 	//投げられ判定
 	bool ExeChara::CanBeThrown () const 
 	{
-		P_Action pAct = m_pAction;
+		P_Sequence pAct = m_pAction;
 #if 0
 		//指定アクションのとき 「可能」
 		if ( pAct->IsName ( _T("ダメージ小") ) ) { return T; }
@@ -423,7 +423,7 @@ namespace GAME
 		if ( IsThrowAction () ) { return T; }
 #if 0
 		//超必殺
-		P_Action pAct = m_pAction;
+		P_Sequence pAct = m_pAction;
 		if ( pAct->IsName ( _T("超必殺発動") ) ) { return T; }
 		if ( pAct->IsName ( _T("超必B発動") ) ) { return T; }
 #endif // 0
@@ -449,7 +449,7 @@ namespace GAME
 		P_ExeChara pOther = m_pOther.lock ();
 
 		//自スクリプト
-		P_Script pScpOther = pOther->m_pScript;
+		P_Frame pScpOther = pOther->m_pScript;
 
 #if 0
 		//-------------------------------------------------
@@ -604,11 +604,11 @@ namespace GAME
 		//ヒットストップ
 
 		//相手スクリプトによる追加止め時間
-		P_Action pAct = pOther->GetpAction();
-		P_Script pScp = pOther->GetpScript();
+		P_Sequence pAct = pOther->GetpAction();
+		P_Frame pFrm = pOther->GetpScript();
 		UINT stopTime = HITSTOP_TIME;
 
-		int warp = pScp->m_prmBattle.Warp;
+		int warp = pFrm->m_prmBattle.Warp;
 		if( warp != 0 )
 		{
 			stopTime += warp;
@@ -683,7 +683,7 @@ namespace GAME
 	{
 		//相手
 		P_ExeChara pOther = m_pOther.lock ();
-		P_Script pScpOther = pOther->m_pScript;
+		P_Frame pScpOther = pOther->m_pScript;
 
 		//条件判定
 		if ( CanGuard () )
@@ -703,7 +703,7 @@ namespace GAME
 	{
 		//相手
 		P_ExeChara pOther = m_pOther.lock ();
-		P_Script pScpOther = pOther->m_pScript;
+		P_Frame pScpOther = pOther->m_pScript;
 
 #if 0
 

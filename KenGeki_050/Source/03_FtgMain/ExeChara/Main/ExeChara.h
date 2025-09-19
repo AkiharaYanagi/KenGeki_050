@@ -89,9 +89,9 @@ namespace GAME
 		//------------------------------------------------
 		//スクリプト実行
 		UINT			m_actionID { 0 };	//実効現在アクションID
-		P_Action		m_pAction;			//実効アクションポインタ
+		P_Sequence		m_pAction;			//実効アクションポインタ
 		UINT			m_frame { 0 };		//実効内部フレーム(スクリプトID)
-		P_Script		m_pScript;			//実効スクリプトポインタ
+		P_Frame		m_pScript;			//実効スクリプトポインタ
 
 
 		//------------------------------------------------
@@ -252,9 +252,9 @@ namespace GAME
 		bool Is2P () const { return m_btlPrm.Is2P(); }
 		CHARA_NAME GetCharaName () const { return m_name; }
 
-		P_Action GetpAction () const { return m_pAction; }
-		P_Script GetpScript () const { return m_pScript; }
-		ACTION_POSTURE GetPosture () const { return m_pAction->GetPosture (); }
+		P_Sequence GetpAction () const { return m_pAction; }
+		P_Frame GetpScript () const { return m_pScript; }
+		ACTION_POSTURE GetPosture () const { return m_pAction->Posture.Get(); }
 
 		//パラメータ
 		//@todo スクリプトの持つ　ScriptParam_Battle と ExeCharaの持つ実効値 BtlPrm の整理
@@ -471,7 +471,7 @@ namespace GAME
 		void TransitAction_Condition_E ( BRANCH_CONDITION CONDITION, bool forced );	//条件をチェックして移行
 	private:
 		bool TranditAction_Command ();	//アクション移項（コマンドに関する処理）
-		bool TranditAction_Exclusion ( P_Action pNextAct );	//特定アクションの除外
+		bool TranditAction_Exclusion ( P_Sequence pNextAct );	//特定アクションの除外
 		void EndAction ();	//アクション移項時、前アクションの最後の処理
 
 		//スクリプト処理

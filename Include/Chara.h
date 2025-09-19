@@ -135,12 +135,12 @@ namespace GAME
 		PAP_Action GetpvpAction () const { return mpap_Action; }
 
 		//アクション配列に追加
-		void AddpAction ( P_Action pAction ) { mpap_Action->push_back ( pAction ); }
+		void AddpAction ( P_Sequence pAction ) { mpap_Action->push_back ( pAction ); }
 
 		//アクション配列にまとめて追加
-		void AddpAction ( std::unique_ptr < P_Action [] > arypAction, rsize_t size );
-		void AddpAction ( std::shared_ptr < P_Action [] > arypAction, rsize_t size );
-		void AddpAction ( const std::vector < P_Action > & arypAction, rsize_t size );
+		void AddpAction ( std::unique_ptr < P_Sequence [] > arypAction, rsize_t size );
+		void AddpAction ( std::shared_ptr < P_Sequence [] > arypAction, rsize_t size );
+		void AddpAction ( const std::vector < P_Sequence > & arypAction, rsize_t size );
 
 		//---------------------------------------------------------------------
 		//名前からアクションIDを取得する(無いときはNO_ACTION(0x7FFF0001)を返す)
@@ -150,12 +150,12 @@ namespace GAME
 		bool ExistAction ( const s3d::String & name ) const;
 
 		//アクションポインタを取得
-		P_Action GetpAction ( UINT32 index ) const { return mpap_Action->at ( index ); }
-		P_Action GetpAction ( const s3d::String & name ) const { return GetpAction ( GetActionID ( name ) ); }
+		P_Sequence GetpAction ( UINT32 index ) const { return mpap_Action->at ( index ); }
+		P_Sequence GetpAction ( const s3d::String & name ) const { return GetpAction ( GetActionID ( name ) ); }
 
 		//---------------------------------------------------------------------
 		//スクリプトポインタを取得
-		P_Script GetpScript ( UINT32 indexAction, UINT32 indexScript ) { return mpap_Action->at ( indexAction )->GetpScript( indexScript ); }
+		P_Frame GetpScript ( UINT32 indexAction, UINT32 indexScript ) { return mpap_Action->at ( indexAction )->GetpScript( indexScript ); }
 
 		//次スクリプトが存在するかどうか
 		bool IsNextScript ( UINT32 indexAction, UINT32 indexScript ) const
@@ -171,8 +171,8 @@ namespace GAME
 		void AddpEfTexture ( P_Tx pTexture ) { mpap_txEf->push_back ( pTexture ); }
 
 		//エフェクト配列にまとめて追加
-		void AddpEffect ( std::unique_ptr < P_Effect [] > arypEffect, rsize_t size );
-		void AddpEffect ( const std::vector < P_Effect > & arypEffect, rsize_t size );
+		void AddpEffect ( std::unique_ptr < P_Sequence [] > arypEffect, rsize_t size );
+		void AddpEffect ( const std::vector < P_Sequence > & arypEffect, rsize_t size );
 
 		//指定エフェクト名が存在するかどうか
 		bool ExistEffect ( const s3d::String & name ) const;
@@ -185,13 +185,13 @@ namespace GAME
 
 		//-----------------------------------------------------------------
 		//エフェクト配列に追加
-		void AddpEffect ( P_Effect pEffect ) { mpap_Ef->push_back ( pEffect ); }
+		void AddpEffect ( P_Sequence pEffect ) { mpap_Ef->push_back ( pEffect ); }
 
 		//エフェクト配列ポインタを取得
 		PAP_Effect GetpvpEffect () { return mpap_Ef; }
 
 		//エフェクトポインタを取得
-		P_Effect GetpEffect ( UINT32 index ) { return mpap_Ef->at ( index ); }
+		P_Sequence GetpEffect ( UINT32 index ) { return mpap_Ef->at ( index ); }
 #endif // 
 
 
@@ -200,14 +200,17 @@ namespace GAME
 		//コマンド配列に追加
 		void AddpCommand ( P_Cmd pCmd ) { ma_pCmd.push_back ( pCmd ); }
 		void SetaCommand ( UP_AP_Cmd paCmd );
+		const AP_Cmd & GetvpCommand () const { return ma_pCmd; }
 
 		//ブランチ配列に追加
 		void AddpBranch ( P_Brc pBrc ) { ma_pBrc.push_back ( pBrc ); }
 		void SetaBranch ( UP_AP_Brc paBrc );
+		const AP_Brc & GetvpBranch () const { return ma_pBrc; }
 
 		//ルート配列に追加
 		void AddpRoute ( P_Rut pRut ) { ma_pRut.push_back ( pRut ); }
 		void SetaRoute ( UP_AP_Rut paRut );
+		const AP_Rut & GetvpRoute () const { return ma_pRut; }
 
 #if 0
 		//---------------------------------------------------------------------
@@ -217,7 +220,6 @@ namespace GAME
 
 		//コマンドを取得
 		P_Command GetpCommand ( UINT32 indexCommand ) const { return m_vpCommand[indexCommand]; }
-		const VP_Command & GetvpCommand () const { return m_vpCommand; }
 
 
 		//ブランチ配列に追加
@@ -226,7 +228,6 @@ namespace GAME
 
 		//ブランチを取得
 		P_Branch GetpBranch ( UINT32 indexBranch ) const { return m_vpBranch[indexBranch]; }
-		const VP_Branch & GetvpBranch () const { return m_vpBranch; }
 
 
 		//ルート配列に追加
@@ -235,7 +236,6 @@ namespace GAME
 
 		//ルートを取得
 		P_Route GetpRoute ( UINT32 indexRoute ) const { return m_vpRoute[indexRoute]; }
-		const VP_Route & GetvpRoute () const { return m_vpRoute; }
 
 #endif // 0
 	};

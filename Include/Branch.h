@@ -54,6 +54,7 @@ namespace GAME
 
 	using P_Brc = std::shared_ptr < Branch >;
 	using AP_Brc = s3d::Array < P_Brc >;
+	using PAP_Brc = std::shared_ptr < AP_Brc >;
 	using UP_AP_Brc = std::unique_ptr < AP_Brc >;
 
 }	//namespace GAME

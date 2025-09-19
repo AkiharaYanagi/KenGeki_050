@@ -559,8 +559,8 @@ namespace GAME
 	bool ExeChara::Have_TransitAction_Condition ( BRANCH_CONDITION brc_cnd ) const
 	{
 		//キャラの持つルート,ブランチ,コマンドの参照
-		const VP_Route& vpRoute = m_pChara->GetvpRoute ();
-		const VP_Branch& vpBranch = m_pChara->GetvpBranch ();
+		const AP_Rut& vpRoute = m_pChara->GetvpRoute ();
+		const AP_Brc& vpBranch = m_pChara->GetvpBranch ();
 
 		//スクリプトの持つルートリスト
 		for ( UINT indexRut : m_pScript->GetcvRouteID () )

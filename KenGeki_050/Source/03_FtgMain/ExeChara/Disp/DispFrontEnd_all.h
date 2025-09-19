@@ -13,7 +13,7 @@
 #include "DispGauge.h"
 #include "DispAccel.h"
 #include "../BtlParam.h"
-#include "../../FtgMain/Ef/EfKouAtsu.h"
+#include "../../Ef/EfKouAtsu.h"
 
 //#include "Chara.h"
 //#include "../../FtgMain/G_Ftg.h"

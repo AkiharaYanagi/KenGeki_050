@@ -903,10 +903,10 @@ namespace GAME
 	}
 
 
-	void BtlParam::CalcBalance ( P_Script pScp )
+	void BtlParam::CalcBalance ( P_Frame pFrm )
 	{
 		//バランス処理
-		int sb = pScp->m_prmBattle.Balance_I;
+		int sb = pFrm->m_prmBattle.Balance_I;
 #if 0
 		int b = GetBalance ();
 		b -= sb;

@@ -18,7 +18,7 @@ namespace GAME
 	//特定エフェクト処理
 	void OperateEffect::Generate_Special
 	(
-		P_ExEf pExeEffect, P_Effect pEffect, P_EfGnrt pEfGnrt,
+		P_ExEf pExeEffect, P_Sequence pEffect, P_EfGnrt pEfGnrt,
 		VEC2 ptChara, bool dirRight
 	)
 	{

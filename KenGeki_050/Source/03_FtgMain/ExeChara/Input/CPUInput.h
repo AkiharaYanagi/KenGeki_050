@@ -86,7 +86,7 @@ namespace GAME
 
 		//ブランチリストをチェックして
 		//コマンド条件が達成されていたら遷移先のアクションIDを返す
-		UINT GetTransitID ( PVP_Branch pvpBranch, bool dirRight );
+		UINT GetTransitID ( PAP_Brc pvpBranch, bool dirRight );
 
 		void SetCPU_Act ( int index, ARY_INT act, CPU_ACT& cpu_act );
 	};

@@ -82,6 +82,11 @@ namespace GAME
 		//オーバーフレームかどうか
 		bool IsOverScript(UINT32 index) const { return (index > m_papFrame->size() - 1); }
 
+
+		//-----------------------------------------------------------------
+		//名前
+//		bool IsName ( const s3d::String & name ) const { return Name.Is ( name ); }
+
 #if 0
 
 //		tstring			m_name { _T("new_sequence") };			//名前
@@ -113,10 +118,10 @@ namespace GAME
 
 		//-----------------------------------------------------------------
 		//スクリプトの追加
-		void AddpScript ( P_Script pScript ) { m_pvpScript->push_back ( pScript ); }
+		void AddpScript ( P_Frame pScript ) { m_pvpScript->push_back ( pScript ); }
 
 		//スクリプト配列にまとめて追加
-		void AddaScript ( std::unique_ptr < P_Script[] > arypScript, rsize_t size );
+		void AddaScript ( std::unique_ptr < P_Frame[] > arypScript, rsize_t size );
 
 		//スクリプト配列サイズの取得
 		size_t SizeScript () const { return m_pvpScript->size(); }
@@ -125,7 +130,7 @@ namespace GAME
 		PVP_Script GetpvpScript () { return m_pvpScript; }
 
 		//スクリプトの取得
-		P_Script GetpScript ( UINT32 index ) { return m_pvpScript->at ( index ); }
+		P_Frame GetpScript ( UINT32 index ) { return m_pvpScript->at ( index ); }
 
 		//次スクリプトが存在するかどうか
 		bool IsNextScript ( UINT32 index ) const { return ( index < m_pvpScript->size() - 1 ); }

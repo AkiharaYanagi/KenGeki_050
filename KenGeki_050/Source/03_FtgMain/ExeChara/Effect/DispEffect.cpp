@@ -48,7 +48,7 @@ namespace GAME
 	void DispEffect::SetpChara(P_Chara pChara)
 	{
 		//キャラのエフェクトテクスチャアレイを設置
-		mpap_EfTx = pChara->GetpapEfTexture ();
+		mpap_EfTx = pChara->GetGarnish().GetpapTx ();
 
 		m_grp->ClearTexture ();
 		for ( P_Tx ptx : * mpap_EfTx )
@@ -58,13 +58,13 @@ namespace GAME
 	}
 
 
-	void DispEffect::Update ( P_Script pScript, VEC2 ptEf, bool dirRight )
+	void DispEffect::Update ( P_Frame pScript, VEC2 ptEf, bool dirRight )
 	{
 		//Disp：スクリプトのイメージ表示位置
 
 		//位置 (エフェクトのゲーム位置＋スクリプトの表示位置(*向き)＋キャラによる画面補正位置)
 		float fDir = dirRight ? (1.f) : (-1.f);
-		VEC2 tempImgPos = pScript->GetPos ();
+		VEC2 tempImgPos = pScript->Pos.Get();
 		VEC2 imgPos = VEC2( fDir * tempImgPos.x, tempImgPos.y );
 //		VEC2 imgPos = VEC2( tempImgPos.x, tempImgPos.y );
 		VEC2 vecEfImg = ptEf + imgPos + G_BASE_POS ();
@@ -109,7 +109,7 @@ namespace GAME
 #endif // 0
 
 		//テクスチャの指定
-		UINT index = pScript->GetImageIndex ();
+		UINT index = pScript->ImageIndex.Get();
 
 		//表示に反映
 

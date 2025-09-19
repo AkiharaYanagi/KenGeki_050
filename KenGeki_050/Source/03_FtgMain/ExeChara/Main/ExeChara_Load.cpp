@@ -97,14 +97,14 @@ namespace GAME
 		TRACE_F ( _T("■■■■■■■■■■■■■■■■■■■■■■■■\n") );
 
 		int count = 0;
-		for ( P_Action pAct : * m_pChara->GetpvpAction () )
+		for ( P_Sequence pAct : * m_pChara->GetpvpAction () )
 		{
-			for ( P_Script pScp : * pAct->GetpvpScript () )
+			for ( P_Frame pFrm : * pAct->GetpvpScript () )
 			{
-				s3d::String se_name = pScp->m_prmStaging.SE_Name;
+				s3d::String se_name = pFrm->m_prmStaging.SE_Name;
 				if ( 0 != se_name.compare ( U"" ) )
 				{
-					TRACE_F ( _T("%s\n"), pScp->m_prmStaging.SE_Name.toWstr().c_str() );
+					TRACE_F ( _T("%s\n"), pFrm->m_prmStaging.SE_Name.toWstr().c_str() );
 				}
 				++ count;
 			}
@@ -310,8 +310,8 @@ namespace GAME
 		//地上・空中分岐
 
 		//キャラからルートリストを取得
-		const VP_Route vpRoute = m_pChara->GetvpRoute ();
-		const VP_Branch vpBrc = m_pChara->GetvpBranch ();
+		const AP_Rut vpRoute = m_pChara->GetvpRoute ();
+		const AP_Brc vpBrc = m_pChara->GetvpBranch ();
 
 
 		//地上

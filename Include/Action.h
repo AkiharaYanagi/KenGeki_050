@@ -96,7 +96,6 @@ namespace GAME
 #endif // 0
 	};
 
-#endif // 0
 
 
 	using P_Action = std::shared_ptr < Action >;
@@ -107,6 +106,7 @@ namespace GAME
 
 	using AP_Action = s3d::Array < P_Action >;
 	using PAP_Action = std::shared_ptr < AP_Action >;
+#endif // 0
 
 
 }	//namespace GAME

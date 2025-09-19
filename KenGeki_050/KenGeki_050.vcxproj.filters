@@ -337,6 +337,42 @@
     <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\GrpPlgnMask.cpp">
       <Filter>03_FtgMain\ExeChara\Disp</Filter>
     </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Input\CPUInput.cpp">
+      <Filter>03_FtgMain\ExeChara\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Input\NewCPUInput.cpp">
+      <Filter>03_FtgMain\ExeChara\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Input\NewCPUInput_Act.cpp">
+      <Filter>03_FtgMain\ExeChara\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Input\PlayerInput.cpp">
+      <Filter>03_FtgMain\ExeChara\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Input\CharaInput.cpp">
+      <Filter>03_FtgMain\ExeChara\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Effect\DispEffect.cpp">
+      <Filter>03_FtgMain\ExeChara\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Effect\ExeEffect.cpp">
+      <Filter>03_FtgMain\ExeChara\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Effect\ExeEffect_Special.cpp">
+      <Filter>03_FtgMain\ExeChara\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Effect\OperateEffect.cpp">
+      <Filter>03_FtgMain\ExeChara\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Effect\OperateEffect_Special.cpp">
+      <Filter>03_FtgMain\ExeChara\Effect</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Event\ExeChara_OnHit.cpp">
+      <Filter>03_FtgMain\ExeChara\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Event\ExeChara_OnDamaged.cpp">
+      <Filter>03_FtgMain\ExeChara\Event</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -1147,6 +1183,36 @@
     </ClInclude>
     <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\GrpPlgnMask.h">
       <Filter>03_FtgMain\ExeChara\Disp</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Input\CharaInput.h">
+      <Filter>03_FtgMain\ExeChara\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Input\CPUInput.h">
+      <Filter>03_FtgMain\ExeChara\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Input\NewCPUInput.h">
+      <Filter>03_FtgMain\ExeChara\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Input\NewCPUInput_Act.h">
+      <Filter>03_FtgMain\ExeChara\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Input\PlayerInput.h">
+      <Filter>03_FtgMain\ExeChara\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Effect\DispEffect.h">
+      <Filter>03_FtgMain\ExeChara\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Effect\ExeEffect.h">
+      <Filter>03_FtgMain\ExeChara\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Effect\OperateEffect.h">
+      <Filter>03_FtgMain\ExeChara\Effect</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Event\ExeChara_OnHit.h">
+      <Filter>03_FtgMain\ExeChara\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\ExeChara\Event\ExeChara_OnDamaged.h">
+      <Filter>03_FtgMain\ExeChara\Event</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

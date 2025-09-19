@@ -165,33 +165,33 @@ namespace GAME
 	//ルートリストをチェックして各種ブランチのコマンドが達成されていたら
 	//遷移先のアクションIDを返す
 	//戻値：enum { NO_COMPLETE (0xFFFFFFFF) } 不成立
-	UINT CharaInput::GetTransitID ( const Chara & ch, P_Script pScp, bool dirRight )
+	UINT CharaInput::GetTransitID ( const Chara & ch, P_Frame pFrm, bool dirRight )
 	{
 		//キャラの持つルート,ブランチ,コマンドの参照
-		const VP_Route vpRoute = ch.GetvpRoute ();
-		const VP_Branch vpBranch = ch.GetvpBranch ();
-		const VP_Command vpCommand = ch.GetvpCommand ();
+		const AP_Rut vpRoute = ch.GetvpRoute ();
+		const AP_Brc vpBranch = ch.GetvpBranch ();
+		const AP_Cmd vpCommand = ch.GetvpCommand ();
 		
 		//スクリプトの持つルートリスト
-		for ( UINT indexRoute : pScp->GetcvRouteID () )
+		for ( UINT indexRoute : pFrm->GetaRouteID () )
 		{
-			const V_UINT32 vBranchID = vpRoute[indexRoute]->GetcvIDBranch ();
+			const V_UINT32 vBranchID = vpRoute[indexRoute]->GetaIDBranch ();
 
 			//対象のブランチリスト
 			for ( UINT indexBranch : vBranchID )
 			{
 				//コマンド分岐以外は飛ばす
-				if ( BRC_CMD != vpBranch[indexBranch]->GetCondition () ) { continue; }
+				if ( BRC_CMD != vpBranch[indexBranch]->Condition.Get() ) { continue; }
 
 				//コマンド取得
-				UINT indexCommand = vpBranch[indexBranch]->GetIndexCommand ();
-				P_Command pCmd = vpCommand[indexCommand];
+				UINT indexCommand = vpBranch[indexBranch]->IndexCommand.Get();
+				P_Cmd pCmd = vpCommand[indexCommand];
 
 				//対象コマンドが成立していたら
 				if ( pCmd->Compare ( m_vGameKey, dirRight ) )
 				{
 					//遷移先アクションIDを返す
-					return vpBranch[indexBranch]->GetIndexSequence ();
+					return vpBranch[indexBranch]->IndexSequence.Get();
 				}
 			}
 		}
@@ -201,41 +201,41 @@ namespace GAME
 
 	
 	//成立リストを生成する
-	void CharaInput::MakeTransitIDList ( const Chara & ch, P_Script pScp, bool dirRight )
+	void CharaInput::MakeTransitIDList ( const Chara & ch, P_Frame pFrm, bool dirRight )
 	{
 		//成立した１つのIDではなく、成立したIDを優先順位で保存したリストを返す
 		m_vCompID.clear ();
 
 		//キャラの持つルート,ブランチ,コマンドの参照
-		const VP_Route vpRoute = ch.GetvpRoute ();
-		const VP_Branch vpBranch = ch.GetvpBranch ();
-		const VP_Command vpCommand = ch.GetvpCommand ();
+		const AP_Rut vpRoute = ch.GetvpRoute ();
+		const AP_Brc vpBranch = ch.GetvpBranch ();
+		const AP_Cmd vpCommand = ch.GetvpCommand ();
 
 		//スクリプトの持つルートリスト
-		for ( UINT indexRoute : pScp->GetcvRouteID () )
+		for ( UINT indexRoute : pFrm->GetcaRouteID () )
 		{
 			//ルートの取得
-			P_Route pRut = vpRoute [ indexRoute ];
-			const V_UINT32 vBranchID = vpRoute [ indexRoute ]->GetcvIDBranch ();
+			P_Rut pRut = vpRoute [ indexRoute ];
+			const V_UINT32 vBranchID = vpRoute [ indexRoute ]->GetcaIDBranch ();
 
 			//対象のブランチリスト
 			for ( UINT indexBranch : vBranchID )
 			{
 				//ブランチの取得
-				P_Branch pBrc = vpBranch [ indexBranch ];
+				P_Brc pBrc = vpBranch [ indexBranch ];
 
 				//コマンド分岐以外は飛ばす
-				if ( BRC_CMD != pBrc->GetCondition () ) { continue; }
+				if ( BRC_CMD != pBrc->Condition.Get() ) { continue; }
 
 				//コマンドの取得
-				UINT indexCommand = vpBranch [ indexBranch ]->GetIndexCommand ();
-				P_Command pCmd = vpCommand [ indexCommand ];
+				UINT indexCommand = vpBranch [ indexBranch ]->IndexCommand.Get();
+				P_Cmd pCmd = vpCommand [ indexCommand ];
 
 				//対象コマンドが成立していたら
 				if ( pCmd->Compare ( m_vGameKey, dirRight ) )
 				{
 					//遷移先アクションIDを登録する
-					UINT id = vpBranch [ indexBranch ]->GetIndexSequence ();
+					UINT id = vpBranch [ indexBranch ]->IndexSequence.Get();
 					m_vCompID.push_back ( id );
 				}
 			}
@@ -254,9 +254,9 @@ namespace GAME
 		m_vCompID.clear ();
 
 		//キャラの持つルート,ブランチ,コマンドの参照
-		const VP_Route vpRoute = ch.GetvpRoute ();
-		const VP_Branch vpBranch = ch.GetvpBranch ();
-		const VP_Command vpCommand = ch.GetvpCommand ();
+		const AP_Rut vpRoute = ch.GetvpRoute ();
+		const AP_Brc vpBranch = ch.GetvpBranch ();
+		const AP_Cmd vpCommand = ch.GetvpCommand ();
 
 
 		//対象のブランチリスト
@@ -264,20 +264,20 @@ namespace GAME
 		for ( UINT indexBranch : vBrc )
 		{
 			//ブランチの取得
-			P_Branch pBrc = vpBranch [ indexBranch ];
+			P_Brc pBrc = vpBranch [ indexBranch ];
 
 			//コマンド分岐以外は飛ばす
-			if ( BRC_CMD != pBrc->GetCondition () ) { continue; }
+			if ( BRC_CMD != pBrc->Condition.Get() ) { continue; }
 
 			//コマンドの取得
-			UINT indexCommand = vpBranch [ indexBranch ]->GetIndexCommand ();
-			P_Command pCmd = vpCommand [ indexCommand ];
+			UINT indexCommand = vpBranch [ indexBranch ]->IndexCommand.Get();
+			P_Cmd pCmd = vpCommand [ indexCommand ];
 
 			//対象コマンドが成立していたら
 			if ( pCmd->Compare ( m_vGameKey, dirRight ) )
 			{
 				//遷移先アクションIDを登録する
-				UINT id = vpBranch [ indexBranch ]->GetIndexSequence ();
+				UINT id = vpBranch [ indexBranch ]->IndexSequence.Get();
 				m_vCompID.push_back ( id );
 			}
 		}

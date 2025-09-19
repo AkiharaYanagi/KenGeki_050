@@ -10,8 +10,8 @@
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
 #include "Chara.h"
-#include "../../GameMain/GameConst.h"
-#include "../../FtgMain/FtgConst.h"
+#include "../../../90_GameMain/GameConst.h"
+#include "../../FtgConst.h"
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
@@ -56,10 +56,10 @@ namespace GAME
 		//ルートリストをチェックして各種ブランチのコマンドが達成されていたら
 		//遷移先のアクションIDを返す
 		//戻値：enum { NO_COMPLETE (0xFFFFFFFF) } 不成立
-		virtual UINT GetTransitID ( const Chara & ch, P_Script pScp, bool dirRight );
+		virtual UINT GetTransitID ( const Chara & ch, P_Frame pFrm, bool dirRight );
 
 		//成立リストを生成する
-		virtual void MakeTransitIDList ( const Chara & ch, P_Script pScp, bool dirRight );
+		virtual void MakeTransitIDList ( const Chara & ch, P_Frame pFrm, bool dirRight );
 		virtual void MakeTransitIDList ( const Chara & ch, V_UINT32 vBrc, bool dirRight );
  
 		//キーの保存

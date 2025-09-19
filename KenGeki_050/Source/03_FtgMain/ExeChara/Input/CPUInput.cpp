@@ -300,8 +300,8 @@ namespace GAME
 	//コマンド条件が達成されていたら遷移先のアクションIDを返す
 	UINT CPUInput::GetTransitID ( PVP_Branch pvpBranch, bool dirRight )
 	{
-		VP_Branch::iterator it = pvpBranch->begin ();
-		VP_Branch::iterator it_end = pvpBranch->end ();
+		AP_Brc::iterator it = pvpBranch->begin ();
+		AP_Brc::iterator it_end = pvpBranch->end ();
 		for ( ; it != it_end; ++it )
 		{
 			P_Command pCommand = (*it)->GetpCommand().lock ();

@@ -19,7 +19,7 @@ namespace GAME
 	{
 		//======================================================================
 		//フェラリア
-		if (m_pEffect->IsName(U"4M_Shot"))
+		if ( m_pEffect->Name.Is(U"4M_Shot") )
 		{
 			float dir = m_dirRight ? 1.f : -1.f;		//向き
 
@@ -106,7 +106,7 @@ namespace GAME
 			if (180 < m_count) { m_end = T; }
 		}
 		
-		if (m_pEffect->IsName(U"4H_Shot"))
+		if (m_pEffect->Name.Is(U"4H_Shot"))
 		{
 			if ( m_hit )
 			{
@@ -117,9 +117,9 @@ namespace GAME
 
 		//======================================================================
 		//月日星
-		if ( m_pEffect->IsName( U"OD0" ) )
+		if ( m_pEffect->Name.Is( U"OD0" ) )
 		{
-			if (m_pScript->GetFrame() == 0)
+			if ( m_pScript->Index.Is( 0 ) )
 			{
 				//拡大
 //				m_pScript->m_prmStaging.Scaling = VEC2 ( 2.f, 2.f );
@@ -128,11 +128,11 @@ namespace GAME
 
 		//======================================================================
 		//Enemy_0
-		if ( m_pEffect->IsName ( U"Laser_m" ) )
+		if ( m_pEffect->Name.Is ( U"Laser_m" ) )
 		{
 			static float w = 1.f;
 			m_dispEffect->SetW ( w += 1.f );
-			m_pScript->m_prmStaging.Rotate_center = VEC2 ( 0, 128 );
+			m_pScript->Get_FP_S().Rotate_center.Set(VEC2(0, 128));
 			if ( m_pEffect->IsEndScript ( m_frame ) )
 			{
 				m_dispEffect->SetW ( w = 0 );
@@ -147,7 +147,7 @@ namespace GAME
 		//----------------------------------
 		//	Ef個別指定
 		//----------------------------------
-		if ( m_pEffect->GetName () == U"空中竜巻_鞘" )
+		if ( m_pEffect->Name.Is (U"空中竜巻_鞘") )
 		{
 			if ( m_ptEffect.y >= (float)GROUND_Y )
 			{

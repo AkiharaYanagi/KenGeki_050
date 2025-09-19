@@ -80,7 +80,7 @@ namespace GAME
 			( *mpap_Action ) [ i ] = arypAction [ i ];
 		}
 	}
-	void Chara::AddpAction ( std::shared_ptr < P_Action [] > arypAction, rsize_t size )
+	void Chara::AddpAction ( std::shared_ptr < P_Sequence [] > arypAction, rsize_t size )
 	{
 		if ( ! mpap_Action ) { return; }
 
@@ -91,7 +91,7 @@ namespace GAME
 			( *mpap_Action ) [ i ] = arypAction [ i ];
 		}
 	}
-	void Chara::AddpAction ( const std::vector < P_Action > & arypAction, rsize_t size )
+	void Chara::AddpAction ( const std::vector < P_Sequence > & arypAction, rsize_t size )
 	{
 		if ( ! mpap_Action ) { return; }
 
@@ -105,7 +105,7 @@ namespace GAME
 
 	//---------------------------------------------------
 	//エフェクト配列にまとめて追加
-	void Chara::AddpEffect ( std::unique_ptr < P_Effect [] > arypEffect, rsize_t size )
+	void Chara::AddpEffect ( std::unique_ptr < P_Sequence [] > arypEffect, rsize_t size )
 	{
 		if ( ! mpap_Ef ) { return; }
 
@@ -116,7 +116,7 @@ namespace GAME
 			mpap_Ef->at ( i ) = arypEffect [ i ];
 		}
 	}
-	void Chara::AddpEffect ( const std::vector < P_Effect > & arypEffect, rsize_t size )
+	void Chara::AddpEffect ( const std::vector < P_Sequence > & arypEffect, rsize_t size )
 	{
 		if ( ! mpap_Ef ) { return; }
 

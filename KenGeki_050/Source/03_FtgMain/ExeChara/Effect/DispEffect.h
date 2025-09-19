@@ -10,7 +10,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
 #include "Chara.h"
-#include "../../GameMain/G_Ftg.h"
+#include "../../../90_GameMain/G_Ftg.h"
 #include "../Disp/DispRect.h"
 
 //-------------------------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ namespace GAME
 		void SetValid ( bool b ) { m_grp->SetValid ( b ); }
 
 		//更新
-		void Update ( P_Script pScript, VEC2 ptEf, bool dirRight );
+		void Update ( P_Frame pScript, VEC2 ptEf, bool dirRight );
 
 		//表示枠設定
 		void SetpCharaRect ( P_CharaRect pCharaRect );

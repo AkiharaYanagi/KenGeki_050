@@ -54,7 +54,7 @@ namespace GAME
 		UINT32 nSqc = m_utl.LoadUInt ( buf, pos );
 
 
-//		std::unique_ptr < P_Action [] > aryAct = std::make_unique < P_Action [] > ( nSqc );
+//		std::unique_ptr < P_Sequence [] > aryAct = std::make_unique < P_Sequence [] > ( nSqc );
 		UP_AP_Sqc paSqc = std::make_unique < AP_Sqc > ( nSqc );
 		for ( UINT32 i = 0; i < nSqc; ++ i ) { (*paSqc) [ i ] = std::make_shared < Sequence > (); }
 
@@ -113,28 +113,28 @@ namespace GAME
 #if 0
 		unique_ptr < Action [] > pi = make_unique < Action [] > ( nAct );
 
-		unique_ptr < P_Action [] > aryAct = make_unique < P_Action [] > ( nAct );
+		unique_ptr < P_Sequence [] > aryAct = make_unique < P_Sequence [] > ( nAct );
 //		for ( UINT32 i = 0; i < nAct; ++ i ) { aryAct [ i ] = make_shared < Action > (); }
 
-		std::shared_ptr < P_Action [] > aryShared { new P_Action [ nAct ] , default_delete < P_Action [] > () };
+		std::shared_ptr < P_Sequence [] > aryShared { new P_Sequence [ nAct ] , default_delete < P_Sequence [] > () };
 		for ( UINT32 i = 0; i < nAct; ++ i ) { aryAct [ i ] = aryShared [ i ]; }
 #endif // 0
 #if 0
-		unique_ptr < P_Action [] > aryAct = make_unique < P_Action [] > ( nAct );
+		unique_ptr < P_Sequence [] > aryAct = make_unique < P_Sequence [] > ( nAct );
 		std::shared_ptr < Action [] > aryShared = make_shared < Action [] > ( nAct );
 		for ( UINT32 i = 0; i < nAct; ++ i ) { aryAct [ i ].reset ( & aryShared [ i ] ); }
 #endif // 0
 
 
-		std::unique_ptr < P_Action [] > aryAct = std::make_unique < P_Action [] > ( nAct );
-//		std::vector < P_Action > aryAct ( nAct );
+		std::unique_ptr < P_Sequence [] > aryAct = std::make_unique < P_Sequence [] > ( nAct );
+//		std::vector < P_Sequence > aryAct ( nAct );
 		for ( UINT32 i = 0; i < nAct; ++ i ) { aryAct [ i ] = std::make_shared < Action > (); }
 
 
 		//実データ
 		for ( UINT32 iAct = 0; iAct < nAct; ++ iAct )
 		{
-			P_Action pAct = aryAct [ iAct ];
+			P_Sequence pAct = aryAct [ iAct ];
 
 			//アクション
 			aryAct [ iAct ]->SetName ( m_utl.LoadS3dString ( buf, pos ) );
@@ -156,7 +156,7 @@ namespace GAME
 			//スクリプト個数 と メモリの確保
 			UINT32 nScp = m_utl.LoadUInt ( buf, pos );
 
-			AUP_P_Script aryScp = std::make_unique < P_Script [] > ( nScp );
+			AUP_P_Script aryScp = std::make_unique < P_Frame [] > ( nScp );
 			for ( UINT32 i = 0; i < nScp; ++ i ) { aryScp [ i ] = std::make_shared < Script > (); }
 
 			for ( UINT32 iScp = 0; iScp < nScp; ++ iScp )
@@ -178,7 +178,7 @@ namespace GAME
 		//エフェクト個数 と メモリの確保
 		UINT32 nEfc = m_utl.LoadUInt ( buf, pos );
 
-		std::vector < P_Effect > aryEfc( nEfc );
+		std::vector < P_Sequence > aryEfc( nEfc );
 		for ( UINT32 i = 0; i < nEfc; ++ i ) { aryEfc [ i ] = std::make_shared < Effect > (); }
 
 		//実データ
@@ -189,7 +189,7 @@ namespace GAME
 
 			//スクリプト個数 と メモリの確保
 			UINT32 nScp = m_utl.LoadUInt ( buf, pos );
-			std::unique_ptr < P_Script [] > aryScp = std::make_unique < P_Script [] > ( nScp );
+			std::unique_ptr < P_Frame [] > aryScp = std::make_unique < P_Frame [] > ( nScp );
 			for ( UINT32 i = 0; i < nScp; ++ i ) { aryScp [ i ] = std::make_shared < Script > (); }
 
 			for ( UINT32 iScp = 0; iScp < nScp; ++ iScp )
@@ -259,7 +259,7 @@ namespace GAME
 			pEfGnrt->Sync.Set ( (bool)buf [ pos ++ ] );
 
 			//フレームに設定
-			frm.GetpvpEfGnrt ()->push_back ( pEfGnrt );
+			frm.GetpapEfGnrt ()->push_back ( pEfGnrt );
 		}
 
 		//バトルパラメータ

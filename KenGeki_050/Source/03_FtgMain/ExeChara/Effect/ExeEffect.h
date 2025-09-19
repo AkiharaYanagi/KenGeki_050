@@ -23,11 +23,11 @@ namespace GAME
 	class ExeEffect : public TASK_VEC
 	{
 		//------------------------------------------------
-		P_Effect		m_pEffect;		//実効エフェクトポインタ
+		P_Sequence		m_pEffect;		//実効エフェクトポインタ
 
 		P_Chara			m_pChara;		//キャラ
-		VP_Branch		m_vpBranch;		//エフェクトの分岐
-		VP_Route		m_vpRoute;		//ルート
+		AP_Brc			m_vpBranch;		//エフェクトの分岐
+		AP_Rut			m_vpRoute;		//ルート
 
 		//------------------------------------------------
 		P_DispEffect	m_dispEffect;	//表示項目管理
@@ -39,7 +39,7 @@ namespace GAME
 		bool		m_end;			//終了フラグ
 
 		UINT		m_frame;		//実効内部フレーム(スクリプトID)
-		P_Script	m_pScript;		//実効スクリプトポインタ
+		P_Frame		m_pScript;		//実効スクリプトポインタ
 		VEC2		m_ptEffect;		//エフェクト位置
 
 		VEC2		m_ptGnrt;		//エフェクト発生位置
@@ -59,7 +59,7 @@ namespace GAME
 
 
 	public:
-		ExeEffect ( P_Effect pEffect, P_Chara pChara, P_EfGnrt pEfGnrt, VEC2 ptChara, bool dirRight );
+		ExeEffect ( P_Sequence pEffect, P_Chara pChara, P_EfGnrt pEfGnrt, VEC2 ptChara, bool dirRight );
 		ExeEffect ( const ExeEffect & rhs ) = delete;
 		~ExeEffect ();
 
@@ -76,13 +76,13 @@ namespace GAME
 
 		void SetpEfGnrt ( P_EfGnrt p );
 
-		P_Effect GetpEffect () const { return m_pEffect; }
-		bool Compare ( P_Effect p ) { return ( p == m_pEffect); }
+		P_Sequence GetpEffect () const { return m_pEffect; }
+		bool Compare ( P_Sequence p ) { return ( p == m_pEffect); }
 
 		bool IsActive () const { return m_active; }
 		bool IsEnd () const { return m_end; }
 
-		P_Script GetpScript ()
+		P_Frame GetpScript ()
 		{
 			return m_pEffect->GetpScript ( m_frame );
 		}

@@ -24,8 +24,8 @@ namespace GAME
 		PLP_ExEf		m_plpExeEffect;		//エフェクトの実行リスト(GameMain中に動的に生成・解放する)
 
 		PAP_Tx			m_pvpEfTexture;		//エフェクトイメージのテクスチャリスト
-		VP_Branch		m_vpBranch;			//エフェクトの分岐
-		VP_Route		m_vpRoute;			//ルート
+		AP_Brc		m_vpBranch;			//エフェクトの分岐
+		AP_Rut		m_vpRoute;			//ルート
 
 		//生成フラグ 時間停止などで生成を１回のみ実行する
 		bool			m_bStop { F };
@@ -48,28 +48,28 @@ namespace GAME
 		PLP_ExEf GetplpExEf () { return m_plpExeEffect; }
 
 		//エフェクト全体のオペレート
-		void Generate ( P_Script pScp, BtlParam & btlPrm );
-		void PreMove ( P_Script pScp, BtlParam & btlPrm );
+		void Generate ( P_Frame pScp, BtlParam & btlPrm );
+		void PreMove ( P_Frame pScp, BtlParam & btlPrm );
 		void PostMove ( BtlParam & btlPrm );
 
 		//-----------------------------
 		// エフェクト生成
-		void GenerateEffect ( P_Script pScp, const BtlParam & btlPrm );
+		void GenerateEffect ( P_Frame pScp, const BtlParam & btlPrm );
 		
 		//エフェクトリストに追加
-		void AddListEffect ( P_Effect pEffect, P_EfGnrt pEfGnrt, VEC2 ptChara, bool dirRight );
+		void AddListEffect ( P_Sequence pEffect, P_EfGnrt pEfGnrt, VEC2 ptChara, bool dirRight );
 
 		//オブジェクトからExeEfを取得
-		P_ExEf GetpExEf ( P_Effect p ) const;
+		P_ExEf GetpExEf ( P_Sequence p ) const;
 
 		//オブジェクトが実行中かどうか
-		bool IsActive ( P_Effect p ) const { return GetpExEf ( p )->IsActive (); }
+		bool IsActive ( P_Sequence p ) const { return GetpExEf ( p )->IsActive (); }
 
 		//オブジェクトによる稼働開始
-		void DriveEffect ( P_Effect p ) { GetpExEf ( p )->Drive (); }
+		void DriveEffect ( P_Sequence p ) { GetpExEf ( p )->Drive (); }
 
 		//オブジェクトによる稼働停止
-		void StopEffect ( P_Effect p ) { GetpExEf ( p )->Stop (); }
+		void StopEffect ( P_Sequence p ) { GetpExEf ( p )->Stop (); }
 
 
 		//一時停止中
@@ -83,7 +83,7 @@ namespace GAME
 		void SynchroScript ( VEC2 ptChara );
 
 		//特定エフェクト処理
-		void Generate_Special ( P_ExEf pExeEffect, P_Effect pEffect, P_EfGnrt pEfGnrt, VEC2 ptChara, bool dirRight );
+		void Generate_Special ( P_ExEf pExeEffect, P_Sequence pEffect, P_EfGnrt pEfGnrt, VEC2 ptChara, bool dirRight );
 
 	public:
 

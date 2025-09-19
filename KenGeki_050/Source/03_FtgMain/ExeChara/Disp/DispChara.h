@@ -71,7 +71,7 @@ namespace GAME
 		void SetpCharaRect ( P_CharaRect pCharaRect );
 
 		//更新
-		void Update ( P_Action pAct, P_Script pScp, const BtlParam & btlprm, P_CharaInput pChIpt );
+		void Update ( P_Sequence pAct, P_Frame pFrm, const BtlParam & btlprm, P_CharaInput pChIpt );
 
 		void UpdateStateName ( s3d::String stateName );
 
@@ -153,7 +153,7 @@ namespace GAME
 
 	private:
 		//メインイメージの更新
-		void UpdateMainImage ( P_Script pScript, const BtlParam & btlprm );
+		void UpdateMainImage ( P_Frame pScript, const BtlParam & btlprm );
 
 		//入力更新
 		void UpdateInput ( P_CharaInput p );

@@ -27,8 +27,8 @@ namespace GAME
 	using WP_ExeChara = std::weak_ptr < ExeChara >;
 	class Chara;
 	using P_Chara = std::shared_ptr < Chara >;
-	class Action;
-	using P_Action = std::shared_ptr < Action >;
+	class Sequence;
+	using P_Sequence = std::shared_ptr < Sequence >;
 	class Frame;
 	using P_Frame = std::shared_ptr < Frame >;
 
@@ -41,7 +41,7 @@ namespace GAME
 		P_Chara			m_pChara;		//キャラデータ
 		WP_ExeChara		m_pExeChara;	//自エグゼキャラ(循環参照なのでweak_ptr)
 		WP_ExeChara		m_pOther;		//相手エグゼキャラ(循環参照なのでweak_ptr)
-		P_Action		m_pAction;		//現在アクション
+		P_Sequence		m_pSequence;		//現在アクション
 		P_Frame			m_pFrame;		//現在スクリプト
 		P_Param			m_pParam;		//全体パラメータ
 
@@ -135,7 +135,7 @@ namespace GAME
 		void SetpChara ( P_Chara p );
 		void SetwpExeChara ( WP_ExeChara pExeChara, WP_ExeChara pOther );
 
-		void Update ( P_Action pAct, P_Frame pFrm ) { m_pAction = pAct; m_pFrame = pFrm; }
+		void Update ( P_Sequence pAct, P_Frame pFrm ) { m_pSequence = pAct; m_pFrame = pFrm; }
 
 		void LoadTimer ();
 		void Init ();

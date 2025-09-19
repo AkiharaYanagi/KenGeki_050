@@ -38,7 +38,7 @@ namespace GAME
 		void SetpChara ( P_Chara pChara );
 
 		//メインイメージの更新
-		void UpdateMainImage ( P_Script pScript, const BtlParam & btlprm );
+		void UpdateMainImage ( P_Frame pScript, const BtlParam & btlprm );
 
 		//カラー変更
 		void SetColor ( _CLR clr )

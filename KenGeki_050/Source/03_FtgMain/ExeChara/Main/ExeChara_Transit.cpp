@@ -109,7 +109,7 @@ namespace GAME
 		for ( UINT id : vCompID )
 		{
 			//遷移先チェック
-			P_Action pAct = m_pChara->GetpAction ( id );
+			P_Sequence pAct = m_pChara->GetpAction ( id );
 
 			//特殊アクション 除外 指定　：　不可能なら次をチェック
 			if ( ! TranditAction_Exclusion ( pAct ) )
@@ -138,7 +138,7 @@ namespace GAME
 				for ( UINT id : vCompID_Offset )
 				{
 					//遷移先チェック
-					P_Action pAct = m_pChara->GetpAction ( id );
+					P_Sequence pAct = m_pChara->GetpAction ( id );
 
 					//特殊アクション 除外 指定　：　不可能なら次をチェック
 					if ( ! TranditAction_Exclusion ( pAct ) )
@@ -162,8 +162,8 @@ namespace GAME
 			EndAction ();
 
 			//遷移先チェック
-			P_Action pact = m_pChara->GetpAction ( transitID );
-			P_Script pscr = pact->GetpScript ( 0 );
+			P_Sequence pact = m_pChara->GetpAction ( transitID );
+			P_Frame pscr = pact->GetpScript ( 0 );
 
 			//アクション遷移
 			m_actionID = transitID;
@@ -227,8 +227,8 @@ namespace GAME
 		if ( NO_COMPLETE != indexAction )
 		{
 			//遷移先チェック
-			P_Action pAct = m_pChara->GetpAction ( indexAction );
-			P_Script pScr = pAct->GetpScript ( 0 );
+			P_Sequence pAct = m_pChara->GetpAction ( indexAction );
+			P_Frame pScr = pAct->GetpScript ( 0 );
 
 
 			s3d::String nameAction = Check_TransitAction_Condition_str ( CONDITION );
@@ -256,7 +256,7 @@ namespace GAME
 		if ( NO_COMPLETE == indexAction ) { return; }
 
 		//遷移先チェック
-		P_Action pAct = m_pChara->GetpAction ( indexAction );
+		P_Sequence pAct = m_pChara->GetpAction ( indexAction );
 
 		//相手を変更
 		m_pOther.lock ()->SetAction ( indexAction );	//遷移
@@ -286,7 +286,7 @@ namespace GAME
 
 		//=================================================================
 		//遷移先チェック
-		P_Action pAct = m_pOther.lock()->m_pChara->GetpAction ( nameAction );
+		P_Sequence pAct = m_pOther.lock()->m_pChara->GetpAction ( nameAction );
 
 		//やられ状態のとき空中チェック
 		//@info 特殊状態　（特定技やられなど）は除く
@@ -396,8 +396,8 @@ namespace GAME
 	UINT ExeChara::Check_TransitAction_Condition ( BRANCH_CONDITION BRC_CND ) const
 	{
 		//キャラの持つルート,ブランチ,コマンドの参照
-		const VP_Route& vpRoute = m_pChara->GetvpRoute ();
-		const VP_Branch& vpBranch = m_pChara->GetvpBranch ();
+		const AP_Rut& vpRoute = m_pChara->GetvpRoute ();
+		const AP_Brc& vpBranch = m_pChara->GetvpBranch ();
 
 		//スクリプトの持つルートリスト
 		for ( UINT indexRut : m_pScript->GetcvRouteID () )
@@ -421,8 +421,8 @@ namespace GAME
 	s3d::String ExeChara::Check_TransitAction_Condition_str ( BRANCH_CONDITION BRC_CND ) const
 	{
 		//キャラの持つルート,ブランチ,コマンドの参照
-		const VP_Route& vpRoute = m_pChara->GetvpRoute ();
-		const VP_Branch& vpBranch = m_pChara->GetvpBranch ();
+		const AP_Rut& vpRoute = m_pChara->GetvpRoute ();
+		const AP_Brc& vpBranch = m_pChara->GetvpBranch ();
 
 		//スクリプトの持つルートリスト
 		for ( UINT indexRut : m_pScript->GetcvRouteID () )

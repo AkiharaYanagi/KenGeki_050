@@ -69,7 +69,7 @@ namespace GAME
 
 
 		//EfGnrtリスト
-		PAP_EfGnrt GetpvpEfGnrt () const { return m_papEfGnrt; }
+		PAP_EfGnrt GetpapEfGnrt () const { return m_papEfGnrt; }
 
 		//EfGnrtリストに追加
 		void AddpEfGnrt ( P_EfGnrt pEfGnrt ) { m_papEfGnrt->push_back ( pEfGnrt ); }
@@ -171,7 +171,7 @@ namespace GAME
 		V_UINT32 & GetvRouteID () { return m_vRouteID; }
 
 		//EfGnrtリスト
-		PVP_EfGnrt GetpvpEfGnrt () const { return m_pvpEfGnrt; }
+		PVP_EfGnrt GetpapEfGnrt () const { return m_pvpEfGnrt; }
 
 		//EfGnrtリストに追加
 		void AddpEfGnrt ( P_EfGnrt pEfGnrt ) { m_pvpEfGnrt->push_back ( pEfGnrt ); }
@@ -188,17 +188,17 @@ namespace GAME
 	};
 
 
-	using P_Script = std::shared_ptr < Script >;
-	using VP_Script = std::vector < P_Script >;
+	using P_Frame = std::shared_ptr < Script >;
+	using VP_Script = std::vector < P_Frame >;
 	using PVP_Script = std::shared_ptr < VP_Script >;
 
-	//P_Scriptの配列
-	using AUP_P_Script = std::unique_ptr < P_Script [] >;
+	//P_Frameの配列
+	using AUP_P_Script = std::unique_ptr < P_Frame [] >;
 
 
 	//s3d
 	using Ary_Scp = s3d::Array < Script >;
-	using AP_Scp = s3d::Array < P_Script >;
+	using AP_Scp = s3d::Array < P_Frame >;
 	using PAP_Scp = std::shared_ptr < AP_Scp >;
 
 

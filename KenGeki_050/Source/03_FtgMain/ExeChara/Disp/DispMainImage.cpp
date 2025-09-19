@@ -8,7 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "DispMainImage.h"
-#include "../../GameMain/G_Ftg.h"
+#include "../../../90_GameMain/G_Ftg.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -41,7 +41,7 @@ namespace GAME
 	void DispMainImage::SetpChara ( P_Chara pChara )
 	{
 		//キャラのメインテクスチャアレイを設置
-		mpap_Tx = pChara->GetpapTxMain ();
+		mpap_Tx = pChara->GetBehavior().GetpapTx ();
 
 		m_mainGraphic->ClearTexture ();
 		for ( P_Tx ptx : *mpap_Tx )
@@ -51,7 +51,7 @@ namespace GAME
 	}
 
 	//メインイメージの更新
-	void DispMainImage::UpdateMainImage ( P_Script pScript, const BtlParam & btlprm )
+	void DispMainImage::UpdateMainImage ( P_Frame pScript, const BtlParam & btlprm )
 	{
 		VEC2 ptChara = btlprm.GetPos();
 		bool dirRight = btlprm.GetDirRight ();
@@ -60,7 +60,7 @@ namespace GAME
 //		float fDir = ( 1.f );		//向き
 
 		//位置
-		VEC2 posScript = pScript->GetPos ();
+		VEC2 posScript = pScript->Pos.Get();
 		float bx = G_BASE_POS ().x;	//基準位置
 		float vib = btlprm.GetVib ();	//振動量
 		float x = bx + ptChara.x + fDir * posScript.x + vib;	//反転位置補正
@@ -69,7 +69,7 @@ namespace GAME
 		VEC2 vecImg = VEC2 ( x, y );
 
 		//IDチェックはスクリプト作成時、ロード時に行う
-		UINT index = pScript->GetImageIndex ();
+		UINT index = pScript->ImageIndex.Get();
 //		P_Tx pTexture = mpap_Tx->at ( index );
 
 

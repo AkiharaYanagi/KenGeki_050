@@ -33,6 +33,19 @@ namespace GAME
 		}
 	}
 
+	bool Compend::ExistSqc ( const s3d::String & name ) const
+	{
+		for ( auto p : * mpap_Sqc )
+		{
+			const s3d::String & actionName = p->Name.Get();
+			if ( 0 == name.compare ( actionName ) )
+			{
+				return T;
+			}
+		}
+		return F;
+	}
+
 
 }	//namespace GAME
 
