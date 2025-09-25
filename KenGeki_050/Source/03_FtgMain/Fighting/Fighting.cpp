@@ -9,7 +9,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "Fighting.h"
 #include "../FtgConst.h"	
-#include "../../GameMain/G_Ftg.h"
+#include "../../90_GameMain/G_Ftg.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -127,7 +127,7 @@ namespace GAME
 		m_exeChara1->SetpFtgGrp ( m_pFtgGrp );
 		m_exeChara2->SetpFtgGrp ( m_pFtgGrp );
 
-		m_bgmName->SetIndexTexture ( m_pParam->Get_BGM_ID () );
+		m_bgmName->SetIndexTexture ( m_pParam->GetGameSetting().GetBGM_ID () );
 
 		m_strState->SetSize ( G_Font::SIZE_40 );
 		m_strState->SetPos ( VEC2 ( 640 - 110, 145 ) );
@@ -173,7 +173,6 @@ namespace GAME
 		//共通グラフィック処理
 		Grp ();
 
-		//--------------------------
 		TASK_LST::Move ();
 	}
 
@@ -191,7 +190,7 @@ namespace GAME
 		//BGM
 //		P_Param pParam = Scene::GetpParam ();
 //		P_Param pParam =  m_prmFtgDemo->GetpSceneParam();
-		BGM_ID bgm_id = m_pParam->Get_BGM_ID ();
+		BGM_ID bgm_id = m_pParam->GetGameSetting().GetBGM_ID ();
 		SND_STOP_ALL_BGM ();
 		SND_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
 
@@ -294,7 +293,7 @@ namespace GAME
 				plr = PLAYER_ID_2;
 			}
 			//シーン共通パラメータ記録
-			m_pParam->SetWinner ( plr );
+			m_pParam->GetPrmResult().SetWinner ( plr );
 			return T;
 		}
 
@@ -320,7 +319,7 @@ namespace GAME
 //			m_round->AddRound_1p ();
 
 			//シーンパラメータに保存
-			m_pParam->SetWinner ( PLAYER_ID_1 );
+			m_pParam->GetPrmResult().SetWinner ( PLAYER_ID_1 );
 		}
 		//2P勝利
 		else if ( life_1 < life_2 )
@@ -329,7 +328,7 @@ namespace GAME
 //			m_round->AddRound_2p ();
 
 			//シーンパラメータに保存
-			m_pParam->SetWinner ( PLAYER_ID_2 );
+			m_pParam->GetPrmResult().SetWinner ( PLAYER_ID_2 );
 		}
 		//引き分け
 		else
@@ -337,7 +336,7 @@ namespace GAME
 			//どちらもラウンド取得なし
 
 			//シーンパラメータに保存
-			m_pParam->SetWinner ( _PLAYER_NUM );	//Dra
+			m_pParam->GetPrmResult().SetWinner ( _PLAYER_NUM );	//Dra
 		}
 	}
 

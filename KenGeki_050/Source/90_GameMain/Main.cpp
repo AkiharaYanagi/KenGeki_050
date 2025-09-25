@@ -9,8 +9,6 @@
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
 #include "GameMain.h"
-//#include "G_Ftg.h"
-
 
 #include "CharaData.h"
 
@@ -37,25 +35,6 @@ void Main()
 	//タイトル
 	Window::SetTitle ( U"剣撃クロスゾーン" );
 
-
-#if 0
-	//test
-	std::unique_ptr < Sequence[] > data = std::make_unique < Sequence[] > ( 100 );
-
-	for ( INT32 i = 0; i < 100; ++ i )
-	{
-		data [ i ].Accel.Set ( i );
-	}
-
-
-	INT32 value = 0;
-	for ( INT32 i = 0; i < 100; ++ i )
-	{
-		value = data [ i ].Accel.Get ();
-	}
-#endif // 0
-
-
 	//読込
 	Load ();
 
@@ -80,15 +59,6 @@ void Main()
 //起動後１回のみの初期化
 void Load ()
 {
-#if 0
-
-	//-------------------------------------
-	//シーン共通
-	//格闘部分共通パラメータシングルトン生成
-	G_Ftg::Create ();
-
-#endif // 0
-
 	//-------------------------------------
 	//システム初期化
 	gameSystem.SystemLoad ();
@@ -98,7 +68,7 @@ void Load ()
 	gameMain->Load ();
 	gameMain->Init ();
 
-	//ゲームシステムにメインを追加
+	//ゲームシステムにゲームメインオブジェクトを追加
 	gameSystem.SetpGameMain ( std::move ( gameMain ) );
 }
 

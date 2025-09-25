@@ -155,5 +155,42 @@ namespace GAME
 		return CH_CLR_1;
 	}
 
+	//マッチモード(対戦上のプレイヤの組み合わせ)
+	MUTCH_MODE GameSettingFile::GetMutchMode() const
+	{
+		MUTCH_MODE ret = MODE_PLAYER_PLAYER;
+		PLAYER_MODE mode1p = m_playerMode1p;
+		PLAYER_MODE mode2p = m_playerMode2p;
+
+		if ( MODE_PLAYER == mode1p )
+		{
+				 if ( MODE_PLAYER == mode2p ) { ret = MODE_PLAYER_PLAYER; }
+			else if ( MODE_CPU == mode2p ) { ret = MODE_PLAYER_CPU; }
+			else if ( MODE_NETWORK == mode2p ) { ret = MODE_PLAYER_NETWORK; }
+		}
+		else if ( MODE_CPU == mode1p )
+		{
+				 if ( MODE_PLAYER == mode2p ) { ret = MODE_CPU_PLAYER; }
+			else if ( MODE_CPU == mode2p ) { ret = MODE_CPU_CPU; }
+		}
+
+		return ret;
+	}
+
+	//マッチモード(対戦上のプレイヤの組み合わせ)
+	void GameSettingFile::SetMutchMode( MUTCH_MODE mode )
+	{
+		switch ( mode )
+		{
+		case MODE_PLAYER_PLAYER:	SetPlayerMode ( MODE_PLAYER, MODE_PLAYER );	break;
+		case MODE_PLAYER_CPU:		SetPlayerMode ( MODE_PLAYER, MODE_CPU );	break;
+		case MODE_CPU_PLAYER:		SetPlayerMode ( MODE_CPU, MODE_PLAYER );	break;
+		case MODE_CPU_CPU:			SetPlayerMode ( MODE_CPU, MODE_CPU );	break;
+		case MODE_PLAYER_NETWORK:	SetPlayerMode ( MODE_PLAYER, MODE_NETWORK );	break;
+		}
+	}
+
+
+
 }	//namespace GAME
 

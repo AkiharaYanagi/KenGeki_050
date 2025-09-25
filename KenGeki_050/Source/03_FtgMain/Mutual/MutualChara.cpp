@@ -9,7 +9,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "MutualChara.h"
 //#include "../GameMain/SoundConst.h"
-#include "../../GameMain/G_Ftg.h"
+#include "../../90_GameMain/G_Ftg.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -48,20 +48,20 @@ namespace GAME
 		m_utl.ParamInit ( pParam );
 		m_decision->SetpParam ( pParam );
 
-		if ( PLAYER_MODE::MODE_CPU == m_pParam->GetPlayerMode ( PLAYER_ID_1 ) )
+		if ( PLAYER_MODE::MODE_CPU == m_pParam->GetGameSetting().GetPlayerMode ( PLAYER_ID_1 ) )
 		{
 			m_utl.SetCPU_1P ( T );
 		}
-		else if ( PLAYER_MODE::MODE_PLAYER == m_pParam->GetPlayerMode ( PLAYER_ID_1 ))
+		else if ( PLAYER_MODE::MODE_PLAYER == m_pParam->GetGameSetting().GetPlayerMode ( PLAYER_ID_1 ))
 		{
 			m_utl.SetCPU_1P ( F );
 		}
 
-		if ( PLAYER_MODE::MODE_CPU == m_pParam->GetPlayerMode ( PLAYER_ID_2 ) )
+		if ( PLAYER_MODE::MODE_CPU == m_pParam->GetGameSetting().GetPlayerMode ( PLAYER_ID_2 ) )
 		{
 			m_utl.SetCPU_2P ( T );
 		}
-		else if ( PLAYER_MODE::MODE_PLAYER == m_pParam->GetPlayerMode ( PLAYER_ID_2 ))
+		else if ( PLAYER_MODE::MODE_PLAYER == m_pParam->GetGameSetting().GetPlayerMode ( PLAYER_ID_2 ))
 		{
 			m_utl.SetCPU_2P ( F );
 		}
@@ -206,10 +206,10 @@ namespace GAME
 	//シーン共通パラメータ記録
 	void MutualChara::SaveParam()
 	{
-		m_pParam->SetN_Life1p ( m_exeChara1->GetLife () );
-		m_pParam->SetN_Life2p ( m_exeChara2->GetLife () );
-		m_pParam->SetN_Act1p ( m_exeChara1->GetBtlPrm ().GetNActTrs () );
-		m_pParam->SetN_Act2p ( m_exeChara2->GetBtlPrm ().GetNActTrs () );
+		m_pParam->GetPrmResult().SetN_Life1p ( m_exeChara1->GetLife () );
+		m_pParam->GetPrmResult().SetN_Life2p ( m_exeChara2->GetLife () );
+		m_pParam->GetPrmResult().SetN_Act1p ( m_exeChara1->GetBtlPrm ().GetNActTrs () );
+		m_pParam->GetPrmResult().SetN_Act2p ( m_exeChara2->GetBtlPrm ().GetNActTrs () );
 	}
 
 
@@ -315,7 +315,7 @@ namespace GAME
 	//終了待機
 	void MutualChara::StartEndWait ()
 	{
-		PLAYER_ID winner = m_pParam->GetWinner ();
+		PLAYER_ID winner = m_pParam->GetPrmResult().GetWinner ();
 
 		//勝者側を待機状態にする
 		//敗者側をダウンにする
@@ -334,7 +334,7 @@ namespace GAME
 
 	bool MutualChara::IsDown_Calm ()
 	{
-		PLAYER_ID winner = m_pParam->GetWinner ();
+		PLAYER_ID winner = m_pParam->GetPrmResult().GetWinner ();
 
 		//勝者側の立ち状態
 		//敗者側のダウンが落ち着いたらTを返す
@@ -357,7 +357,7 @@ namespace GAME
 	//勝者表示
 	void MutualChara::StartWinner ()
 	{
-		PLAYER_ID winner = m_pParam->GetWinner ();
+		PLAYER_ID winner = m_pParam->GetPrmResult().GetWinner ();
 
 		//勝者表示に変更
 		if ( PLAYER_ID_1 == winner )

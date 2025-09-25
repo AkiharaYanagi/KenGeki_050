@@ -71,6 +71,11 @@ namespace GAME
 		void SetPlayerMode1p ( PLAYER_MODE mode ) { m_playerMode1p = mode; }
 		void SetPlayerMode2p ( PLAYER_MODE mode ) { m_playerMode2p = mode; }
 
+		//マッチモード(対戦上のプレイヤの組み合わせ)
+		MUTCH_MODE GetMutchMode () const;
+		void  SetMutchMode ( MUTCH_MODE mode );
+
+
 		//キャラ名
 		CHARA_NAME GetName ( PLAYER_ID pid ) const;
 		CHARA_NAME GetName1p () const { return m_name1p; }

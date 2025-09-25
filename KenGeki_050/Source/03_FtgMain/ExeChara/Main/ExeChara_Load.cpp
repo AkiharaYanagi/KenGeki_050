@@ -26,7 +26,7 @@ namespace GAME
 		m_pParam = pParam;
 
 		//キャラ選択
-		m_name = pParam->GetCharaName ( m_btlPrm.GetPlayerID () );
+		m_name = pParam->GetGameSetting().GetName ( m_btlPrm.GetPlayerID () );
 
 		//キャラ表示
 		m_dispChara->ParamInit ( pParam );
@@ -120,7 +120,7 @@ namespace GAME
 	{
 		//アクション・スクリプト初期化
 		m_actionID = 0;
-		m_pAction = m_pChara->GetpAction ( m_actionID );
+		m_pAction = m_pChara->GetBehavior().GetpSqc ( m_actionID );
 		m_frame = 0;
 		m_pScript = m_pAction->GetpScript ( m_frame );
 
@@ -317,11 +317,12 @@ namespace GAME
 		//地上
 		m_vOfstCncl.clear ();
 		UINT32 i = 0;
-		for ( P_Route pRut : vpRoute )
+		for ( P_Rut pRut : vpRoute )
 		{
-			if ( 0 == pRut->GetName ().compare ( U"地上超必殺技" ) )
+//			if ( 0 == pRut->GetName ().compare ( U"地上超必殺技" ) )
+			if ( pRut->Name.Is ( U"地上超必殺技" ) )
 			{
-				const V_UINT32 vBrc = pRut->GetcvIDBranch ();
+				const V_UINT32 vBrc = pRut->GetcaIDBranch ();
 
 				//手動でリストに追加
 				for ( UINT32 iBrc : vBrc )
@@ -336,7 +337,7 @@ namespace GAME
 		//空中
 		m_vOfstCncl_Air.clear ();
 		UINT32 i_air = 0;
-		for ( P_Branch pBrc : vpBrc )
+		for ( P_Brc pBrc : vpBrc )
 		{
 			//条件：空中行動可能アクションのみ
 			//現在は不可

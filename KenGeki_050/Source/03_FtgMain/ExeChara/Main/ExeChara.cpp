@@ -8,7 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "ExeChara.h"
-#include "../../GameMain/SoundConst.h"
+#include "../../../90_GameMain/SoundConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -307,7 +307,7 @@ namespace GAME
 		//このフレームでスクリプトを処理するため、移行先アクションとスクリプトを保存
 		//今回のフレーム中はm_pActionとm_pScriptを用い、
 		//これ以降はm_actionIDとm_frameを用いない
-		m_pAction = m_pChara->GetpAction ( m_actionID );
+		m_pAction = m_pChara->GetBehavior().GetpSqc ( m_actionID );
 		m_pScript = m_pAction->GetpScript ( m_frame );
 
 		if ( Is1P () )
@@ -356,7 +356,7 @@ namespace GAME
 
 		//------------------------------------------------
 		//直接ダメージ処理
-		int drctDmg = m_pScript->m_prmBattle.DirectDamage;
+		int drctDmg = m_pScript->Get_FP_B().DirectDamage_E.Get();
 		if ( drctDmg != 0 )
 		{
 
@@ -385,7 +385,7 @@ namespace GAME
 		//	全体演出
 		//------------------------------------------------
 		//暗転
-		UINT blackOut = m_pScript->m_prmStaging.BlackOut;
+		UINT blackOut = m_pScript->Get_FP_S().BlackOut.Get();
 		if ( blackOut > 0 )
 		{
 			//全体グラフィックに値を指定する
@@ -393,7 +393,7 @@ namespace GAME
 		}
 
 		//振動
-		UINT vibration = m_pScript->m_prmStaging.Vibration;
+		UINT vibration = m_pScript->Get_FP_S().Vibration.Get();
 		if ( vibration > 0 )
 		{
 			m_pFtgGrp->StartVibration ( vibration );
@@ -414,7 +414,7 @@ namespace GAME
 			//一時停止状態でないとき
 
 			//スクリプトから値を取得
-			UINT scpStop = m_pScript->m_prmStaging.Stop;
+			UINT scpStop = m_pScript->Get_FP_S().Stop.Get();
 			m_btlPrm.SetScpStop ( scpStop );
 
 			//0でないとき
@@ -521,7 +521,7 @@ namespace GAME
 	//攻撃中かどうか
 	bool ExeChara::IsAttacking () const
 	{
-		ACTION_CATEGORY ac = m_pAction->GetCategory ();
+		ACTION_CATEGORY ac = m_pAction->Category.Get ();
 
 		bool nm =
 			( ac == AC_ATTACK_L || ac == AC_ATTACK_M || ac == AC_ATTACK_H );
@@ -534,7 +534,7 @@ namespace GAME
 	//通常技かどうか
 	bool ExeChara::IsNormalAttack () const
 	{
-		ACTION_CATEGORY ac = m_pAction->GetCategory ();
+		ACTION_CATEGORY ac = m_pAction->Category.Get ();
 
 		bool nm = ( ac == AC_ATTACK_L || ac == AC_ATTACK_M || ac == AC_ATTACK_H );
 		bool air = ( ac == AC_ATTACK_J );
@@ -546,7 +546,7 @@ namespace GAME
 	bool ExeChara::IsThrowCheck () const
 	{
 		//カテゴリ
-		if ( m_pAction->GetCategory () == AC_THROW ) { return T; }
+		if ( m_pAction->Category.Is ( AC_THROW ) ) { return T; }
 		
 		//または攻撃状態かつブランチ条件にTHRを持つ (必殺投げなど)
 		bool bThrI = Have_TransitAction_Condition ( BRC_THR_I );
@@ -563,15 +563,15 @@ namespace GAME
 		const AP_Brc& vpBranch = m_pChara->GetvpBranch ();
 
 		//スクリプトの持つルートリスト
-		for ( UINT indexRut : m_pScript->GetcvRouteID () )
+		for ( UINT indexRut : m_pScript->GetcaRouteID () )
 		{
-			const V_UINT32 & vBrcID = vpRoute [ indexRut ]->GetcvIDBranch ();
+			const V_UINT32 & vBrcID = vpRoute [ indexRut ]->GetcaIDBranch ();
 
 			//対象のブランチリスト
 			for ( UINT id : vBrcID )
 			{
 				//存在したらT
-				if ( brc_cnd == vpBranch [ id ]->GetCondition () ) { return T; }
+				if ( brc_cnd == vpBranch [ id ]->Condition.Get () ) { return T; }
 			}
 		}
 		return F;

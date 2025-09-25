@@ -173,6 +173,12 @@
     <Filter Include="03_FtgMain\ExeChara\Rect">
       <UniqueIdentifier>{646d1c9b-3b14-4dfd-b294-ccb555da5778}</UniqueIdentifier>
     </Filter>
+    <Filter Include="80_Common">
+      <UniqueIdentifier>{a7c88da7-c22a-41bd-9bb7-ca09ffce6ad7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="80_Common\Menu">
+      <UniqueIdentifier>{15ce9095-9ac4-4559-8cdd-528ce17986c8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\stdafx.cpp">
@@ -203,9 +209,6 @@
       <Filter>91_Param</Filter>
     </ClCompile>
     <ClCompile Include="Source\03_FtgMain\Fighting\BG\_BG.cpp">
-      <Filter>03_FtgMain\Fighting\BG</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\03_FtgMain\Fighting\BG.cpp">
       <Filter>03_FtgMain\Fighting\BG</Filter>
     </ClCompile>
     <ClCompile Include="Source\03_FtgMain\Fighting\BG\BG_Base.cpp">
@@ -372,6 +375,21 @@
     </ClCompile>
     <ClCompile Include="Source\03_FtgMain\ExeChara\Event\ExeChara_OnDamaged.cpp">
       <Filter>03_FtgMain\ExeChara\Event</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Fighting\BG.cpp">
+      <Filter>03_FtgMain\Fighting</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\80_Common\Menu\PauseMenu_Const.cpp">
+      <Filter>80_Common\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\80_Common\Menu\PauseMenuItem.cpp">
+      <Filter>80_Common\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\80_Common\Menu\YesNo_Menu.cpp">
+      <Filter>80_Common\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\80_Common\Menu\PauseMenu.cpp">
+      <Filter>80_Common\Menu</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1073,9 +1091,6 @@
     <ClInclude Include="Source\03_FtgMain\Fighting\BG\_BG.h">
       <Filter>03_FtgMain\Fighting\BG</Filter>
     </ClInclude>
-    <ClInclude Include="Source\03_FtgMain\Fighting\BG.h">
-      <Filter>03_FtgMain\Fighting\BG</Filter>
-    </ClInclude>
     <ClInclude Include="Source\03_FtgMain\Fighting\BG\BG_Base.h">
       <Filter>03_FtgMain\Fighting\BG</Filter>
     </ClInclude>
@@ -1213,6 +1228,27 @@
     </ClInclude>
     <ClInclude Include="Source\03_FtgMain\ExeChara\Event\ExeChara_OnDamaged.h">
       <Filter>03_FtgMain\ExeChara\Event</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Fighting\BG.h">
+      <Filter>03_FtgMain\Fighting</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\90_GameMain\DebugDisp.h">
+      <Filter>90_GameMain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\90_GameMain\SeConst.h">
+      <Filter>90_GameMain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\80_Common\Menu\PauseMenu_Const.h">
+      <Filter>80_Common\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\80_Common\Menu\PauseMenuItem.h">
+      <Filter>80_Common\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\80_Common\Menu\YesNo_Menu.h">
+      <Filter>80_Common\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\80_Common\Menu\PauseMenu.h">
+      <Filter>80_Common\Menu</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

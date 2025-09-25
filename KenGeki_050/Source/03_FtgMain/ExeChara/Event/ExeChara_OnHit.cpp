@@ -51,14 +51,14 @@ namespace GAME
 		P_ExeChara pSelf = m_pSelf.lock ();		//自分
 		P_ExeChara pOther = m_pOther.lock ();	//相手
 
-		P_Script pScp = pSelf->GetpScript ();
+		P_Frame pScp = pSelf->GetpScript ();
 
 		//-----------------------------------------------------
 		//ゲージ増減 (超必殺以外)
 		if ( ! pSelf->IsActCtg ( AC_OVERDRIVE ) )
 		{
 			//攻撃値を超必殺技ゲージに加算
-			int p = pScp->m_prmBattle.Power;
+			int p = pScp->Get_FP_B().Power.Get();
 
 			//アクセルゲージ補正 ( -1.000倍 ~ +2.000倍 )
 			//( -500 ~ +1000 )
@@ -136,13 +136,13 @@ namespace GAME
 	{
 		P_ExeChara pSelf = m_pSelf.lock ();		//自分
 		P_ExeChara pOther = m_pOther.lock ();	//相手
-		P_Script pScp = pSelf->GetpScript ();
+		P_Frame pScp = pSelf->GetpScript ();
 
 
 		// スクリプトで指定した値は10倍の値なので1/10にする
 		// 実効値 (float) = (float)1/10
 
-		float recoil_i = 0.1f * pScp->m_prmBattle.Recoil_I;
+		float recoil_i = 0.1f * pScp->Get_FP_B().Recoil_I.Get();
 //		float pre_rcl = recoil_i;
 
 		//----------------------------------------------------------
@@ -240,7 +240,7 @@ namespace GAME
 	{
 		P_ExeChara pSelf = m_pSelf.lock ();		//自分
 		P_ExeChara pOther = m_pOther.lock ();	//相手
-		P_Action pAct = m_pSelf.lock()->GetpAction ();
+		P_Sqc pAct = m_pSelf.lock()->GetpAction ();
 
 #if 0
 		//指定アクションのとき 「可能」
@@ -284,7 +284,7 @@ namespace GAME
 
 #if 0
 		//超必殺
-		P_Action pAct = m_pAction;
+		P_Sqc pAct = m_pAction;
 		if ( pAct->IsName ( _T("超必殺発動") ) ) { return T; }
 		if ( pAct->IsName ( _T("超必B発動") ) ) { return T; }
 #endif // 0

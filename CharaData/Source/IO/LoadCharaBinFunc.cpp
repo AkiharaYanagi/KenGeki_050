@@ -33,6 +33,9 @@ namespace GAME
 		LoadCommand ( buf, pos, ch );	//Command
 		LoadBranch ( buf, pos, ch );	//Branch
 		LoadRoute ( buf, pos, ch );		//Route
+
+		LoadListName ( buf, pos, ch.GetaSE() );
+		LoadListName ( buf, pos, ch.GetaVC() );
 	}
 
 	void LoadCharaBinFunc::LoadCharaImage ( CUPR_BYTE buf, UINT32 & pos, Chara & ch )
@@ -242,8 +245,14 @@ namespace GAME
 			//設定用
 			P_EfGnrt pEfGnrt = std::make_shared < EffectGenerate > ();
 
+			//生成名
+			pEfGnrt->Name.Set ( m_utl.LoadS3dString ( buf, pos ) );
+
+			//対象エフェクト
+			pEfGnrt->Ef_Name.Set ( m_utl.LoadS3dString ( buf, pos ) );
 			//エフェクトID
 			pEfGnrt->Index.Set ( m_utl.LoadUInt ( buf, pos ) );
+
 			//位置
 			int pos_x = m_utl.LoadInt ( buf, pos );
 			int pos_y = m_utl.LoadInt ( buf, pos );
@@ -253,14 +262,64 @@ namespace GAME
 			pEfGnrt->Z.Set ( z_per100F * 0.01f );
 			//生成
 			pEfGnrt->Gnrt.Set ( (bool)buf [ pos ++ ] );
-			//ループ
-			pEfGnrt->Loop.Set ( (bool)buf [ pos ++ ] );
 			//位置同期
 			pEfGnrt->Sync.Set ( (bool)buf [ pos ++ ] );
+
+			//描画モード
+			pEfGnrt->GnrtCnd.Set ( (GENERATE_CONDITION) m_utl.LoadInt ( buf, pos ) );
+
+			//描画モード
+			pEfGnrt->DrawMode.Set ( (DRAW_MODE) m_utl.LoadInt ( buf, pos ) );
+
+			//ループ回数(0は無限)
+			pEfGnrt->Loop.Set ( m_utl.LoadInt ( buf, pos ) );
+			//画面外で終了
+			pEfGnrt->DeleteOut.Set ( (bool)buf [ pos ++ ] );
+			//カウントで終了(0は無限)
+			pEfGnrt->DeleteCount.Set ( m_utl.LoadInt ( buf, pos ) );
+
+			//基準回転[rad]
+			pEfGnrt->Rotate.Set ( m_utl.LoadFloat ( buf, pos ) );
+			//基準回転中心
+			pEfGnrt->Rotate_center.Set ( m_utl.LoadVec2 ( buf, pos ) );
+
+			//次エフェクト生成名
+			pEfGnrt->NextName.Set ( m_utl.LoadS3dString ( buf, pos ) );
 
 			//フレームに設定
 			frm.GetpapEfGnrt ()->push_back ( pEfGnrt );
 		}
+
+		//SEジェネレート
+		UINT32 nIdSEGnrt = m_utl.LoadUInt ( buf, pos );
+		for ( UINT32 i = 0; i < nIdSEGnrt; ++ i )
+		{
+			Generator gnrt;
+
+			gnrt.Name.Set ( m_utl.LoadS3dString ( buf, pos ) );
+			gnrt.m_cnd.Set ( (GENERATE_CONDITION)m_utl.LoadInt( buf, pos ) );
+			gnrt.m_group.Set ( m_utl.LoadUInt( buf, pos ) );
+			gnrt.m_target_id.Set ( m_utl.LoadUInt( buf, pos ) );
+
+			//フレームに設定
+			frm.GetaSE().push_back ( gnrt );
+		}
+
+		//VCジェネレート
+		UINT32 nIdVCGnrt = m_utl.LoadUInt ( buf, pos );
+		for ( UINT32 i = 0; i < nIdVCGnrt; ++ i )
+		{
+			Generator gnrt;
+
+			gnrt.Name.Set ( m_utl.LoadS3dString ( buf, pos ) );
+			gnrt.m_cnd.Set ( (GENERATE_CONDITION)m_utl.LoadInt( buf, pos ) );
+			gnrt.m_group.Set ( m_utl.LoadUInt( buf, pos ) );
+			gnrt.m_target_id.Set ( m_utl.LoadUInt( buf, pos ) );
+
+			//フレームに設定
+			frm.GetaVC().push_back ( gnrt );
+		}
+
 
 		//バトルパラメータ
 		LoadFrmPrm_Btl ( buf, pos, frm );
@@ -269,7 +328,12 @@ namespace GAME
 		LoadFrmPrm_Stg ( buf, pos, frm );
 
 		//汎用パラメータ
-		m_utl.LoadAryInt ( buf, pos, frm.GetaVersatile () );
+//		m_utl.LoadAryInt ( buf, pos, frm.GetaVersatile () );
+		A_INT32 aVst = frm.GetaVersatile ();
+		for ( int32 i = 0; i < VERSATILE_ARY_SIZE; ++i)
+		{
+			aVst [ i ] = m_utl.LoadInt ( buf, pos );
+		}
 	}
 
 
@@ -316,9 +380,6 @@ namespace GAME
 		fps.Vibration		 = m_utl.LoadByte ( buf, pos );
 		fps.Stop			 = m_utl.LoadByte ( buf, pos );
 
-		fps.Rotate			 = m_utl.LoadInt ( buf, pos );
-		fps.Rotate_center	 = m_utl.LoadVec2 ( buf, pos );
-		fps.Omega			 = m_utl.LoadInt ( buf, pos );
 		fps.AfterImage_N	 = m_utl.LoadByte ( buf, pos );
 		fps.AfterImage_time = m_utl.LoadByte ( buf, pos ); ;
 		fps.AfterImage_pitch = m_utl.LoadByte ( buf, pos ); ;
@@ -326,8 +387,11 @@ namespace GAME
 		fps.Color			 = (_CLR)m_utl.LoadUInt ( buf, pos );
 		fps.Color_time		 = m_utl.LoadByte ( buf, pos );
 
+		fps.Rotate			 = m_utl.LoadInt ( buf, pos );
+		fps.Rotate_center	 = m_utl.LoadVec2 ( buf, pos );
+		fps.Omega			 = m_utl.LoadFloat ( buf, pos );
 		fps.Scaling		= m_utl.LoadVec2 ( buf, pos );
-		fps.Shader		= m_utl.LoadUInt ( buf, pos );
+		fps.Scaling_center		= m_utl.LoadVec2 ( buf, pos );
 
 #if 0
 		fps.SE				 = m_utl.LoadUInt ( buf, pos );
@@ -479,7 +543,7 @@ namespace GAME
 	{
 		//ブランチ個数 と メモリの確保
 		UINT32 nBrc = m_utl.LoadUInt ( buf, pos );
-//		std::unique_ptr < P_Branch [] > aryBrc = std::make_unique < P_Branch [] > ( nBrc );
+//		std::unique_ptr < P_Brc [] > aryBrc = std::make_unique < P_Brc [] > ( nBrc );
 		UP_AP_Brc paBrc = std::make_unique < AP_Brc > ( nBrc );
 		for ( UINT32 i = 0; i < nBrc; ++ i ) { (*paBrc) [ i ] = std::make_shared < Branch > (); }
 
@@ -494,8 +558,12 @@ namespace GAME
 			//条件
 			brc->Condition.Set ( (BRANCH_CONDITION)buf [ pos ++ ] );
 
-			//条件コマンド名
-			brc->NameCommand.Set ( m_utl.LoadS3dString ( buf, pos ) );
+			//条件コマンド名(複数)
+			UINT32 nCmd = m_utl.LoadUInt ( buf, pos );
+			for (UINT32 iCmd = 0; iCmd < nCmd; ++ iCmd )
+			{
+				brc->NameCommand.Set ( m_utl.LoadS3dString ( buf, pos ) );
+			}
 
 			//条件コマンドインデックス
 			brc->IndexCommand.Set ( m_utl.LoadUInt ( buf, pos ) );
@@ -520,7 +588,7 @@ namespace GAME
 	{
 		//ルート個数 と メモリの確保
 		UINT32 nRut = m_utl.LoadUInt ( buf, pos );
-//		UP_AP_Route aryRut = std::make_unique < P_Route [] > ( nRut );
+//		UP_AP_Route aryRut = std::make_unique < P_Rut [] > ( nRut );
 		UP_AP_Rut paRut = std::make_unique < AP_Rut > ( nRut );
 		for ( UINT32 i = 0; i < nRut; ++ i )
 		{
@@ -540,6 +608,17 @@ namespace GAME
 		}
 
 		ch.SetaRoute ( std::move ( paRut ) );
+	}
+
+
+	void LoadCharaBinFunc::LoadListName ( CUPR_BYTE buf, UINT32 & pos, A_STR & aStr )
+	{
+		//個数
+		UINT32 n = m_utl.LoadUInt ( buf, pos );
+		for (UINT32 i = 0; i < n; ++i)
+		{
+			aStr[i] = m_utl.LoadS3dString ( buf, pos );
+		}
 	}
 
 

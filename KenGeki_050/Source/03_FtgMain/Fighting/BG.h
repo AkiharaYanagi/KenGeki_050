@@ -10,7 +10,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
 #include "../../90_GameMain/GameConst.h"
-#include "../../90_GameMain/Param.h"
+#include "../../91_Param/Param.h"
 #include "../FtgConst.h"	
 
 

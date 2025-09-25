@@ -9,9 +9,9 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
-#include "../GameMain/Scene.h"
+#include "../90_GameMain/Scene.h"
 #include "Fighting/Fighting.h"
-#include "../Menu/PauseMenu.h"
+#include "../80_Common/Menu/PauseMenu.h"
 
 
 //-------------------------------------------------------------------------------------------------

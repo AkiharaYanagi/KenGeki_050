@@ -9,7 +9,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "BG.h"
 #include "../FtgConst.h"	
-#include "../../GameMain/G_Ftg.h"	
+#include "../../90_GameMain/G_Ftg.h"	
 
 
 //-------------------------------------------------------------------------------------------------
@@ -173,7 +173,7 @@ namespace GAME
 
 	void BG::ParamInit ( P_Param pParam )
 	{
-		m_stage_name = pParam->GetStage_Name ();
+		m_stage_name = pParam->GetGameSetting().GetStage_Name ();
 
 		switch ( m_stage_name )
 		{

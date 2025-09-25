@@ -269,6 +269,24 @@ namespace GAME
 		TASK_VEC::Load ();
 	}
 
+	void DispFrontEnd::Move()
+	{
+#if 0
+
+		//--------------------------
+		int i = 0;
+		for (P_Task pTask : *GetpvpTask())
+		{
+//			TRACE_F_S ( U"■■■■　Move () {}"_fmt(i) );
+
+			pTask->Move ();
+		}
+
+#endif // 0
+
+		TASK_VEC::Move();
+	}
+
 
 	void DispFrontEnd::LoadPlayer ( PLAYER_ID playerID )
 	{

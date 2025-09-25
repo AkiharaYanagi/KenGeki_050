@@ -36,10 +36,16 @@ namespace GAME
 		void SetpSqc ( UP_AP_Sqc papSqc );
 		PAP_Sqc GetpapSqc () { return mpap_Sqc; }
 
-		P_Sqc & GetpSqc ( uint32 index ) { return mpap_Sqc->at ( index ); }
-
 		//指定シークエンス名が存在するかどうか
 		bool ExistSqc ( const s3d::String & name ) const;
+
+		//シークエンス参照を取得
+		P_Sqc & GetpSqc ( UINT32 index ) { return mpap_Sqc->at ( index ); }
+		P_Sqc & GetpSqc ( const s3d::String & name ) { return GetpSqc ( GetSqcID ( name ) ); }
+
+		//---------------------------------------------------------------------
+		//名前からアクションIDを取得する(無いときはNO_ACTION(0x7FFF0001)を返す)
+		UINT32 GetSqcID ( const s3d::String & name ) const;
 
 		//テクスチャ配列の設定
 		void SetpapTx_Main ( PAP_Tx paptx ) { mpap_Tx = paptx; }

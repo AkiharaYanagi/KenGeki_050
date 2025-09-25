@@ -71,7 +71,7 @@ namespace GAME
 
 
 		//ゲーム設定 ( 外部ファイル読込 )
-		const GameSettingFile & GetGameSetting () const { return m_setting; }
+		GameSettingFile & GetGameSetting () { return m_setting; }
 		void SetSettingFile ( const GameSettingFile & stg ) { m_setting = stg; }
 
 #if 0
@@ -137,6 +137,9 @@ namespace GAME
 
 		//Chara
 		Prm_Chara_all& GetPrmCharaAll () { return m_prmChara_all; }
+
+		//キャラ指定データ取得
+		P_Chara GetpChara ( CHARA_NAME name, PLAYER_ID pl_id );
 
 #if 0
 		P_Chara GetpChara_Ouka ();

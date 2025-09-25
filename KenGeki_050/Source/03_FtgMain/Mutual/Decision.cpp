@@ -8,7 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Decision.h"
-#include "../../GameMain/SeConst.h"
+#include "../../90_GameMain/SeConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -305,7 +305,7 @@ namespace GAME
 			SND_PLAY_ONESHOT_SE ( SE_Btl_Clang );
 
 			//記録
-			m_pParam->AddOffset ( 1 );
+			m_pParam->GetPrmResult().AddOffset ( 1 );
 
 #if 0
 			m_efSpark->On ( center );
@@ -577,7 +577,7 @@ namespace GAME
 			if (OverlapAryRect_Center (pvARect1, pvHRect2, centeref))
 			{
 				//攻撃値を設定
-				refPower = pexef1->GetpScript ()->m_prmBattle.Power;
+				refPower = pexef1->GetpScript()->Get_FP_B().Power.Get();
 
 				//Efにヒット状態を設定
 				pexef1->SetHit (true);

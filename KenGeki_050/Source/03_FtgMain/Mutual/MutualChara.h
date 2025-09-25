@@ -10,8 +10,8 @@
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
 #include "../FtgConst.h"
-#include "../../GameMain/Param.h"
-#include "../../ExeChara/Main/ExeChara.h"
+#include "../../91_Param/Param.h"
+#include "../ExeChara/Main/ExeChara.h"
 #include "Collision.h"
 #include "Decision.h"
 #include "../Fighting/FtgGrp.h"

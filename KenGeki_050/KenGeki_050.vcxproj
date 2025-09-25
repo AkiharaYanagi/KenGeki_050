@@ -178,6 +178,10 @@
     <ClCompile Include="Source\03_FtgMain\Mutual\MutualChara.cpp" />
     <ClCompile Include="Source\03_FtgMain\Mutual\MutualChara_Utility.cpp" />
     <ClCompile Include="Source\04_Training\Training.cpp" />
+    <ClCompile Include="Source\80_Common\Menu\PauseMenu.cpp" />
+    <ClCompile Include="Source\80_Common\Menu\PauseMenuItem.cpp" />
+    <ClCompile Include="Source\80_Common\Menu\PauseMenu_Const.cpp" />
+    <ClCompile Include="Source\80_Common\Menu\YesNo_Menu.cpp" />
     <ClCompile Include="Source\90_GameMain\G_Ftg.cpp" />
     <ClCompile Include="Source\90_GameMain\Main.cpp" />
     <ClCompile Include="Source\90_GameMain\Scene.cpp" />
@@ -443,10 +447,16 @@
     <ClInclude Include="Source\03_FtgMain\Mutual\MutualChara.h" />
     <ClInclude Include="Source\03_FtgMain\Mutual\MutualChara_Utility.h" />
     <ClInclude Include="Source\04_Training\Training.h" />
+    <ClInclude Include="Source\80_Common\Menu\PauseMenu.h" />
+    <ClInclude Include="Source\80_Common\Menu\PauseMenuItem.h" />
+    <ClInclude Include="Source\80_Common\Menu\PauseMenu_Const.h" />
+    <ClInclude Include="Source\80_Common\Menu\YesNo_Menu.h" />
+    <ClInclude Include="Source\90_GameMain\DebugDisp.h" />
     <ClInclude Include="Source\90_GameMain\GameConst.h" />
     <ClInclude Include="Source\90_GameMain\GameMain.h" />
     <ClInclude Include="Source\90_GameMain\G_Ftg.h" />
     <ClInclude Include="Source\90_GameMain\Scene.h" />
+    <ClInclude Include="Source\90_GameMain\SeConst.h" />
     <ClInclude Include="Source\90_GameMain\SoundConst.h" />
     <ClInclude Include="Source\91_Param\GameSettingFile.h" />
     <ClInclude Include="Source\91_Param\Param.h" />

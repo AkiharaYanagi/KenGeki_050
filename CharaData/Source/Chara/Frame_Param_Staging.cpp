@@ -38,7 +38,7 @@ namespace GAME
 		Color_time = rhs.Color_time;		//色調変更[F] 持続
 
 		Scaling = rhs.Scaling;		//拡大縮小
-		Shader = rhs.Shader;	//シェーダ利用(ビットマスク選択)
+		Scaling_center = rhs.Scaling_center;	//シェーダ利用(ビットマスク選択)
 
 	}
 

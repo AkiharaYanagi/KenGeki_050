@@ -86,6 +86,9 @@ namespace GAME
 		AP_Brc		ma_pBrc;	//ブランチ配列
 		AP_Rut		ma_pRut;	//ルート配列
 
+		s3d::Array < s3d::String >		ma_SE;	//SE名配列
+		s3d::Array < s3d::String >		ma_VC;	//VC名配列
+
 	public:
 		Chara ();
 		Chara ( const Chara & rhs ) = delete;
@@ -223,21 +226,25 @@ namespace GAME
 
 
 		//ブランチ配列に追加
-		void AddpBranch ( P_Branch pBranch ) { m_vpBranch.push_back ( pBranch ); }
-		void AddaBranch ( std::unique_ptr < P_Branch [] > aryBrc, UINT32 size );
+		void AddpBranch ( P_Brc pBranch ) { m_vpBranch.push_back ( pBranch ); }
+		void AddaBranch ( std::unique_ptr < P_Brc [] > aryBrc, UINT32 size );
 
 		//ブランチを取得
-		P_Branch GetpBranch ( UINT32 indexBranch ) const { return m_vpBranch[indexBranch]; }
+		P_Brc GetpBranch ( UINT32 indexBranch ) const { return m_vpBranch[indexBranch]; }
 
 
 		//ルート配列に追加
-		void AddpRoute ( P_Route pRoute ) { m_vpRoute.push_back ( pRoute ); }
-		void AddaRoute ( std::unique_ptr < P_Route [] > aryRut, UINT32 size );
+		void AddpRoute ( P_Rut pRoute ) { m_vpRoute.push_back ( pRoute ); }
+		void AddaRoute ( std::unique_ptr < P_Rut [] > aryRut, UINT32 size );
 
 		//ルートを取得
-		P_Route GetpRoute ( UINT32 indexRoute ) const { return m_vpRoute[indexRoute]; }
+		P_Rut GetpRoute ( UINT32 indexRoute ) const { return m_vpRoute[indexRoute]; }
 
 #endif // 0
+
+		//---------------------------------------------------------------------
+		s3d::Array < s3d::String > & GetaSE () { return ma_SE; }
+		s3d::Array < s3d::String > & GetaVC () { return ma_VC; }
 	};
 
 	using P_Chara = std::shared_ptr < Chara >;

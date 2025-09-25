@@ -334,7 +334,7 @@ namespace GAME
 
 		//------------------------
 		//計算種類で分岐
-		CLC_ST clcSt = pFrm->Get_FP_B().CalcState;
+		CLC_ST clcSt = pFrm->Get_FP_B().CalcState.Get();
 		switch ( clcSt )
 		{
 		case CLC_MAINTAIN: 	//持続
@@ -560,7 +560,7 @@ namespace GAME
 			}
 
 			//位置が基準より下で立ち状態だったら
-			if ( m_pAction->IsName ( U"立ち" ) )
+			if ( m_pSequence->Name.Is ( U"立ち" ) )
 			{
 				Ground_Y ();	//位置関連
 			}
@@ -569,9 +569,9 @@ namespace GAME
 		//位置が基準より上で立ち状態だったら
 		if ( (float)PLAYER_BASE_Y > pos.y )
 		{
-			if ( m_pAction->IsName  ( U"立ち" ) )
+			if ( m_pSequence->Name.Is  ( U"立ち" ) )
 			{
-				UINT indexAction = m_pChara->GetActionID ( U"落下" );
+				UINT32 indexAction = m_pChara->GetBehavior().GetSqcID ( U"落下" );
 				m_pExeChara.lock()->SetAction ( indexAction );			//落下
 			}
 		}
@@ -640,30 +640,30 @@ namespace GAME
 	bool BtlParam::IsLookOther ()
 	{
 		//「振り向き」チェックする動作
-		if ( m_pAction->IsName ( U"立ち")		) { return T; }
-		if ( m_pAction->IsName ( U"前歩き")		) { return T; }
-		if ( m_pAction->IsName ( U"後歩き")		) { return T; }
-		if ( m_pAction->IsName ( U"着地")		) {	return T; }
-#if 0
-		if ( m_pAction->IsName ( U"ダメージ小")	) {	return T; }
-		if ( m_pAction->IsName ( U"空中やられ")	) {	return T; }
-		if ( m_pAction->IsName ( U"ダメージ大")	) {	return T; }
+		if ( m_pSequence->Name.Is ( U"立ち")		) { return T; }
+		if ( m_pSequence->Name.Is ( U"前歩き")		) { return T; }
+		if ( m_pSequence->Name.Is ( U"後歩き")		) { return T; }
+		if ( m_pSequence->Name.Is ( U"着地")		) {	return T; }
+#if 0						
+		if ( m_pSequence>Name.Is ( U"ダメージ小")	) {	return T; }
+		if ( m_pSequence>Name.Is ( U"空中やられ")	) {	return T; }
+		if ( m_pSequence>Name.Is ( U"ダメージ大")	) {	return T; }
 #endif // 0
 		if ( m_pExeChara.lock()->IsDamaged () )
 		{
 			//空中吹き飛び時　ループを防ぐ
-			if ( m_pAction->IsName ( U"手前に大きく吹き飛びダウン持続")	) {	return F; }
-			if ( m_pScript->GetFrame () == 0 )
+			if ( m_pSequence->Name.Is ( U"手前に大きく吹き飛びダウン持続")	) {	return F; }
+			if ( m_pFrame->Index.Is ( 0 ) )
 			{
 				//初回のみT
 				return T;
 			}
 		} 
 
-		if ( m_pAction->IsName ( U"起き上がり")	) {	return T; }
+		if ( m_pSequence->Name.Is ( U"起き上がり")	) {	return T; }
 
 		//特殊
-		if ( m_pAction->IsName ( U"桜花_超必殺技Aやられ")	) {	return T; }
+		if ( m_pSequence->Name.Is ( U"桜花_超必殺技Aやられ")	) {	return T; }
 
 		return F;
 	}
@@ -803,7 +803,7 @@ namespace GAME
 
 		//-------------------------------------------------
 		//ノックバック処理		// 値は (float) = (int)1/10
-		float recoil_i = 0.1f * m_pScript->m_prmBattle.Recoil_I;
+		float recoil_i = 0.1f * m_pFrame->Get_FP_B().Recoil_I.Get();
 #if 0
 		SetAccRecoil ( recoil_i );
 #endif // 0
@@ -865,7 +865,7 @@ namespace GAME
 		UINT hitstop = HITSTOP_TIME;
 
 		//技指定
-		if ( m_pAction->IsName ( U"波動" ) )
+		if ( m_pSequence->Name.Is ( U"波動" ) )
 		{
 			hitstop += 10;
 		}
@@ -893,7 +893,7 @@ namespace GAME
 	{
 		//連続ヒット数
 		++ m_chainHitNum;
-		m_pParam->UpdateIfMax_Chain ( m_playerID, m_chainHitNum );
+		m_pParam->GetPrmResult().UpdateIfMax_Chain ( m_playerID, m_chainHitNum );
 	}
 
 	void BtlParam::HitPitchWaitStart ( UINT time )
@@ -906,7 +906,7 @@ namespace GAME
 	void BtlParam::CalcBalance ( P_Frame pFrm )
 	{
 		//バランス処理
-		int sb = pFrm->m_prmBattle.Balance_I;
+		int sb = pFrm->Get_FP_B().Balance_I.Get();
 #if 0
 		int b = GetBalance ();
 		b -= sb;

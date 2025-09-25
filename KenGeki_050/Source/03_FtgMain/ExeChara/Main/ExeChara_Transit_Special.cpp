@@ -27,8 +27,8 @@ namespace GAME
 	{
 		//------------------------------------------
 		//空中ダッシュ回数による遷移不可処理
-		bool AirDash = pNextAct->IsName ( U"空中ダッシュ" );
-		bool LowAirDash = pNextAct->IsName ( U"低空ダッシュ" );
+		bool AirDash = pNextAct->Name.Is ( U"空中ダッシュ" );
+		bool LowAirDash = pNextAct->Name.Is ( U"低空ダッシュ" );
 		if ( AirDash || LowAirDash )
 		{
 			UINT n = m_btlPrm.GetNAirDash ();
@@ -64,7 +64,7 @@ namespace GAME
 
 		//------------------------------------------
 		//対象IDがバランス消費で移項不可能なら次へ
-		int Nextbalance = pNextAct->GetBalance ();
+		int Nextbalance = pNextAct->Balance.Get ();
 		if ( Nextbalance != 0 )
 		{
 			//現在値と比較
@@ -84,7 +84,7 @@ namespace GAME
 		//対象IDがマナ消費で移項不可能なら次へ
 
 		//マナ使用アクション　遷移チェック
-		int mana = pNextAct->GetMana ();
+		int mana = pNextAct->Mana.Get ();
 		if ( mana != 0 )
 		{
 			//マナ消費

@@ -266,18 +266,18 @@ namespace GAME
 		{
 			//現在スクリプト
 			P_Frame pScp = pExEf->GetpScript ();
-			for (UINT indexRut : pScp->GetcvRouteID())
+			for (UINT indexRut : pScp->GetcaRouteID())
 			{
 				//ルートリスト
-				const V_UINT32 & vBrcID = vpRoute [ indexRut ]->GetcvIDBranch ();
+				const V_UINT32 & vBrcID = vpRoute [ indexRut ]->GetcaIDBranch ();
 
 				//対象のブランチリスト
 				for ( UINT id : vBrcID )
 				{
 					//ヒット条件のみ
-					if ( BRC_HIT_E == vpBranch [ id ]->GetCondition () )
+					if ( vpBranch [ id ]->Condition.Is ( BRC_HIT_E ) )
 					{
-						return vpBranch [ id ]->GetNameSequence ();
+						return vpBranch [ id ]->NameSequence.Get ();
 					}
 				}
 			}

@@ -8,7 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "ExeChara.h"
-#include "../../GameMain/SoundConst.h"
+#include "../../../90_GameMain/SoundConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -43,7 +43,8 @@ namespace GAME
 
 		//----------------------------------------------------------------
 		//空欄は何もしない
-		if ( m_pScript->m_prmStaging.SE_Name.compare ( U"" ) == 0 ) { return; }
+//		if ( m_pScript->m_prmStaging.SE_Name.compare ( U"" ) == 0 ) { return; }
+		if ( m_pScript->SE_Blank () ) { return; }
 		//----------------------------------------------------------------
 
 
@@ -77,7 +78,7 @@ namespace GAME
 //		DBGOUT_WND_F ( DBGOUT_1, U" FirstSE = {}"_fmt(  m_btlPrm.GetFirstSE () ? 1 : 0 ) );
 		if ( m_btlPrm.GetPlayerID() == PLAYER_ID_1 )
 		{
-			UINT n = m_pScript->GetFrame ();
+			UINT n = m_pScript->Index.Get ();
 			bool b = m_btlPrm.GetFirstSE ();
 			bool b_HS = m_btlPrm.GetFirstSE_HS ();
 			DBGOUT_WND_F ( DBGOUT_7, U"[{}]: FirstSE = {}, HS = {}"_fmt( n, b, b_HS ) );
@@ -86,7 +87,12 @@ namespace GAME
 
 		//----------------------------------------------------------------
 		//スクリプトから名前で指定
-		PlaySE ( m_pScript->m_prmStaging.SE_Name );
+//		PlaySE ( m_pScript->m_prmStaging.SE_Name );
+		A_Gnrt aGnrt = m_pScript->GetaSE ();
+		for (Generator gnrt : aGnrt)
+		{
+			PlaySE ( gnrt.Name.Get() );
+		}
 
 		//再生フラグをOn (CharaStateでOff)
 		m_btlPrm.SetFirstSE ( T );
@@ -104,7 +110,8 @@ namespace GAME
 	void ExeChara::VC_Play ()
 	{
 		//空欄は何もしない
-		if ( m_pScript->m_prmStaging.VC_Name.compare ( U"" ) == 0 ) { return; }
+//		if ( m_pScript->m_prmStaging.VC_Name.compare ( U"" ) == 0 ) { return; }
+		if ( m_pScript->VC_Blank () ) { return; }
 
 		//一時停止中は１回のみ
 		if ( m_btlPrm.GetFirstVC () )
@@ -125,7 +132,13 @@ namespace GAME
 		}
 
 		//VC再生
-		PlayVoice ( m_pScript->m_prmStaging.VC_Name );
+//		PlayVoice ( m_pScript->m_prmStaging.VC_Name );
+		A_Gnrt aGnrt = m_pScript->GetaVC ();
+		for (Generator gnrt : aGnrt)
+		{
+			PlaySE ( gnrt.Name.Get() );
+		}
+
 
 		//再生フラグをOn (CharaStateでOff)
 		m_btlPrm.SetFirstVC ( T );

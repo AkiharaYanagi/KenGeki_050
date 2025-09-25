@@ -12,16 +12,15 @@
 
 //状態遷移先
 #if 0
-
-#include "../FtgMain/FtgMain.h"
 #include "../Title/Title.h"
 //#include "../CharaSele/CharaSele.h"
 #include "../CharaSele/_CharaSele.h"
 #include "../Result/Result.h"
 #include "../GameMain/SoundConst.h"
 #include "../GameMain/DebugDisp.h"
-
 #endif // 0
+
+#include "../03_FtgMain/FtgMain.h"
 #include "../04_Training/Training.h"
 
 
@@ -62,14 +61,13 @@ namespace GAME
 	}
 
 
-#if 0
 
 
 	//[シーン遷移] タイトルに戻る
 	void Scene::Transit_Title ()
 	{
 		GRPLST_CLEAR ();
-		mp_Transit = std::make_shared < Title > ();
+//		mp_Transit = std::make_shared < Title > ();
 	}
 
 	//[シーン遷移] ファイティングに移行
@@ -81,7 +79,7 @@ namespace GAME
 
 	void Scene::Transit_Fighting ( MUTCH_MODE mode )
 	{
-		GetpParam ()->SetMutchMode ( mode );
+		GetpParam ()->GetGameSetting().SetMutchMode ( mode );
 		Transit_Fighting ();
 	}
 
@@ -96,31 +94,51 @@ namespace GAME
 	void Scene::Transit_CharaSele ()
 	{
 		GRPLST_CLEAR ();
-
-
-
 //		mp_Transit = std::make_shared < CharaSele > ();
-
-		mp_Transit = std::make_shared < _CharaSele > ();
-
-
-
+//		mp_Transit = std::make_shared < _CharaSele > ();
 	}
 
 	//[シーン遷移] リザルトに移行
 	void Scene::Transit_Result ()
 	{
 		GRPLST_CLEAR ();
-		mp_Transit = std::make_shared < Result > ();
+//		mp_Transit = std::make_shared < Result > ();
 	}
 
-#endif // 0
 
 
 	//====================================================================
 	SceneManager::SceneManager()
 	{
-		START_MODE startMode;
+		//ゲーム共通パラメータ
+		m_pParam = std::make_shared < Param > ();
+	}
+
+	SceneManager::~SceneManager()
+	{
+	}
+
+	void SceneManager::Load ()
+	{
+		//-------------------------------------
+		//シーン共通
+		//格闘部分共通パラメータシングルトン生成
+		G_Ftg::Create ();
+
+		m_pParam->Load ();
+		//-------------------------------------
+		//シーン開始
+		Start ();
+
+		GameSceneManager::Load ();
+	}
+
+	void SceneManager::Start()
+	{
+		//最初のシーンを設定ファイルから取得する
+		GameSettingFile stgs = m_pParam->GetGameSetting ();
+		START_MODE startMode = stgs.GetStartMode ();
+
 
 		//テスト用 開始状態選択
 //		startMode = START_TITLE;
@@ -130,22 +148,7 @@ namespace GAME
 //		startMode = START_RESULT;
 
 
-
-
-		//ゲーム共通パラメータ
-		m_pParam = std::make_shared < Param > ();
-
-		//最初のシーンを設定ファイルから取得する
-		GameSettingFile stgs = m_pParam->GetGameSetting ();
-		startMode = stgs.GetStartMode ();
 #if 0
-
-
-		//test
-//		startMode = START_CHARA_SELE;
-
-
-
 		//デバッグ表示オン/オフ 初期状態
 		//ExeChara 1p/2p のとき、1pの値を2pで上書きに注意
 #if DEBUG_DISP		
@@ -180,13 +183,9 @@ namespace GAME
 		//開始シーンの選択
 		P_Scene pScene = nullptr;
 
-		//トレーニングから開始
-		pScene = std::make_shared < Training > ();
-
-
-#if 0
 		switch ( startMode )
 		{
+#if 0
 		//---------------------------------------------
 		//タイトルから開始
 		case START_TITLE:
@@ -202,19 +201,8 @@ namespace GAME
 		//---------------------------------------------
 		//キャラセレから開始
 		case START_CHARA_SELE:
-
-
 //			pScene = std::make_shared < CharaSele > ();
 			pScene = std::make_shared < _CharaSele > ();
-
-
-
-		break;
-
-		//---------------------------------------------
-		case START_TRAINING:
-			//トレーニングから開始
-			pScene = std::make_shared < Training > ();
 		break;
 
 		//---------------------------------------------
@@ -223,48 +211,33 @@ namespace GAME
 			pScene = std::make_shared < Result > ();
 		break;
 
-#if 0
-		case START_DEMO:
-			//デモから開始
-			pScene = make_shared < Title > ();
-			break;
+#endif // 0
+		//---------------------------------------------
+		case START_TRAINING:
+			//トレーニングから開始
+			pScene = std::make_shared < Training > ();
+		break;
 
 		case TEST_VOID:
 			//テスト：空のシーン
-			pScene = make_shared < TestScene > ();
+			pScene = std::make_shared < TestScene > ();
 			break;
-#endif // 0
 
 		//---------------------------------------------
 		default: break;
 
 		}
-#endif // 0
-
-#if 0
-
-		//テスト：空のシーン
-		pScene = std::make_shared < TestScene > ();
-
-#endif // 0
 
 		//シーンの設定
 		SetScene ( pScene );
-	}
 
-	SceneManager::~SceneManager()
-	{
-	}
-
-	void SceneManager::Load ()
-	{
+		//-------------------------------------
 		//最初のシーンにパラメータを設定する
-		P_GameScene pScene = GetpScene ();
-		pScene->SetpParam ( m_pParam );
+		pScene->SetpParam ( std::move ( m_pParam ) );
 		pScene->ParamInit ();
 
-		GameSceneManager::Load ();
 	}
+
 
 	void SceneManager::Move ()
 	{

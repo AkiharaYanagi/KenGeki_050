@@ -97,6 +97,7 @@ namespace GAME
 
 		void ParamInit ( P_Param pParam );
 		void Load ();
+		void Move ();
 
 
 		//プレイヤ別(1p,2p)のゲージ類の表示部のみ初期化

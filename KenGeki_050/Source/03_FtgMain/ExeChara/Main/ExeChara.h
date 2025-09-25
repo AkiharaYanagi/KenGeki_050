@@ -28,7 +28,7 @@
 #include "../Input/NewCPUInput.h"
 
 #include "../Effect/OperateEffect.h"
-#include "../Ef/EfSouha.h"
+#include "../../Ef/EfSouha.h"
 
 #include "../Event/ExeChara_OnHit.h"
 #include "../Event/ExeChara_OnDamaged.h"
@@ -291,10 +291,10 @@ namespace GAME
 		bool IsNotOffset () const;		//相殺しない判定
 
 		//特殊アクション（名前指定）
-		bool IsNameAction ( s3d::String name ) const { return m_pAction->IsName ( name ); }
+		bool IsNameAction ( s3d::String name ) const { return m_pAction->Name.Is ( name ); }
 
 		//アクションが存在するかどうか
-		bool ExistActionName ( s3d::String name ) const { return m_pChara->ExistAction ( name ); }
+		bool ExistActionName ( s3d::String name ) const { return m_pChara->GetBehavior().ExistSqc ( name ); }
 
 		//ヒットストップ
 		bool IsHitStop () { return m_btlPrm.IsHitStop (); }
@@ -483,34 +483,34 @@ namespace GAME
 	public:
 		//------------------------------------------------
 		//アクション体勢
-		bool Is_AP_Stand () const { return m_pAction->GetPosture () == AP_STAND; }
-		bool Is_AP_Jump () const { return m_pAction->GetPosture () == AP_JUMP; }
-		bool Is_AP_Crouch () const { return m_pAction->GetPosture () == AP_CROUCH; }
+		bool Is_AP_Stand () const { return m_pAction->Posture.Is ( AP_STAND ); }
+		bool Is_AP_Jump () const { return m_pAction->Posture.Is ( AP_JUMP ); }
+		bool Is_AP_Crouch () const { return m_pAction->Posture.Is ( AP_CROUCH ); }
 
 
 		//------------------------------------------------
 		//アクションカテゴリ
 
 		//現在アクションカテゴリ取得
-		ACTION_CATEGORY ActCtg () const { return m_pAction->GetCategory (); }
-		bool IsActCtg ( ACTION_CATEGORY ac ) const { return ac == ActCtg (); }
+		ACTION_CATEGORY ActCtg () const { return m_pAction->Category.Get(); }
+		bool IsActCtg ( ACTION_CATEGORY ac ) const { return m_pAction->Category.Is ( ac ); }
 
 		//各アクションかどうか
-		bool IsAttack_L ()	 const { return m_pAction->GetCategory () == AC_ATTACK_L; }
-		bool IsAttack_M ()	 const { return m_pAction->GetCategory () == AC_ATTACK_M; }
-		bool IsAttack_H ()	 const { return m_pAction->GetCategory () == AC_ATTACK_H; }
-		bool IsStand ()		 const { return m_pAction->GetCategory () == AC_NEUTRAL; }
-		bool IsMove ()		 const { return m_pAction->GetCategory () == AC_MOVE; }
-		bool IsDash ()		 const { return m_pAction->GetCategory () == AC_DASH; }
-		bool IsSkill ()		 const { return m_pAction->GetCategory () == AC_SKILL; }
-		bool IsSpecial ()	 const { return m_pAction->GetCategory () == AC_SPECIAL; }
-		bool IsOverdrive ()	 const { return m_pAction->GetCategory () == AC_OVERDRIVE; }
-		bool IsPoised ()	 const { return m_pAction->GetCategory () == AC_POISED; }
-		bool IsClang ()		 const { return m_pAction->GetCategory () == AC_CLANG; }
-		bool IsAvoid ()		 const { return m_pAction->GetCategory () == AC_AVOID; }
-		bool IsDotty ()		 const { return m_pAction->GetCategory () == AC_DOTTY; }
-		bool IsDamaged ()	 const { return m_pAction->GetCategory () == AC_DAMAGED; }
-		bool IsGuard ()		 const { return m_pAction->GetCategory () == AC_GUARD; }
+		bool IsAttack_L ()	 const { return m_pAction->Category.Is ( AC_ATTACK_L ); }
+		bool IsAttack_M ()	 const { return m_pAction->Category.Is ( AC_ATTACK_M ); }
+		bool IsAttack_H ()	 const { return m_pAction->Category.Is ( AC_ATTACK_H ); }
+		bool IsStand ()		 const { return m_pAction->Category.Is ( AC_NEUTRAL ); }
+		bool IsMove ()		 const { return m_pAction->Category.Is ( AC_MOVE ); }
+		bool IsDash ()		 const { return m_pAction->Category.Is ( AC_DASH ); }
+		bool IsSkill ()		 const { return m_pAction->Category.Is ( AC_SKILL ); }
+		bool IsSpecial ()	 const { return m_pAction->Category.Is ( AC_SPECIAL ); }
+		bool IsOverdrive ()	 const { return m_pAction->Category.Is ( AC_OVERDRIVE ); }
+		bool IsPoised ()	 const { return m_pAction->Category.Is ( AC_POISED ); }
+		bool IsClang ()		 const { return m_pAction->Category.Is ( AC_CLANG ); }
+		bool IsAvoid ()		 const { return m_pAction->Category.Is ( AC_AVOID ); }
+		bool IsDotty ()		 const { return m_pAction->Category.Is ( AC_DOTTY ); }
+		bool IsDamaged ()	 const { return m_pAction->Category.Is ( AC_DAMAGED ); }
+		bool IsGuard ()		 const { return m_pAction->Category.Is ( AC_GUARD ); }
 
 		//攻撃中かどうか
 		bool IsAttacking () const;
@@ -519,10 +519,10 @@ namespace GAME
 		bool IsNormalAttack () const;
 
 		//空中かどうか
-		bool IsAir () const { return m_pAction->GetPosture () == AP_JUMP; }
+		bool IsAir () const { return m_pAction->Posture.Is ( AP_JUMP ); }
 
 		//投げかどうか(アクション単位なので必殺技などは別カテゴリ)
-		bool IsThrow () const { return m_pAction->GetCategory () == AC_THROW; }
+		bool IsThrow () const { return m_pAction->Category.Is ( AC_THROW ); }
 
 		//投げ(ガード不能)判定かどうか(必殺投げなど)
 		bool IsThrowCheck () const;

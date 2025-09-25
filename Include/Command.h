@@ -50,7 +50,7 @@ namespace GAME
 		void SetaGameKeyCmd ( const A_GKCMD & aGkc );
 
 		//比較 (記録上のGameKeyからコマンド判定用のGameKeyCommandでの比較)
-		bool Compare ( const V_GAME_KEY & vecGameKey, bool dirRight );
+//		bool Compare ( const V_GAME_KEY & vecGameKey, bool dirRight );
 		bool Compare ( const A_GK & aGk, bool dirRight );
 	};
 

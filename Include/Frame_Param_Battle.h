@@ -17,6 +17,8 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+	using Prp_Brc_CLCST = Property < CLC_ST >;	//プロパティ
+
 
 	class Frame_Param_Battle
 	{
@@ -27,7 +29,7 @@ namespace GAME
 
 		//------------------------------------------------
 		//Property
-		CLC_ST	CalcState{ CLC_SUBSTITUDE };	//計算状態
+		Prp_Brc_CLCST	CalcState{ CLC_SUBSTITUDE };	//計算状態
 		Prp_VEC2 Vel{ VEC2 ( 0, 0 ) };		//速度
 		Prp_VEC2 Acc{ VEC2 ( 0, 0 ) };		//加速度
 

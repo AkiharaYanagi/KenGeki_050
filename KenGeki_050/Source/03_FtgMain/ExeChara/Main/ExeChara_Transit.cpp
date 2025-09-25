@@ -8,7 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "ExeChara.h"
-#include "../../GameMain/G_Ftg.h"
+#include "../../../90_GameMain/G_Ftg.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -109,7 +109,7 @@ namespace GAME
 		for ( UINT id : vCompID )
 		{
 			//遷移先チェック
-			P_Sequence pAct = m_pChara->GetpAction ( id );
+			P_Sequence pAct = m_pChara->GetBehavior().GetpSqc ( id );
 
 			//特殊アクション 除外 指定　：　不可能なら次をチェック
 			if ( ! TranditAction_Exclusion ( pAct ) )
@@ -138,7 +138,7 @@ namespace GAME
 				for ( UINT id : vCompID_Offset )
 				{
 					//遷移先チェック
-					P_Sequence pAct = m_pChara->GetpAction ( id );
+					P_Sequence pAct = m_pChara->GetBehavior().GetpSqc ( id );
 
 					//特殊アクション 除外 指定　：　不可能なら次をチェック
 					if ( ! TranditAction_Exclusion ( pAct ) )
@@ -162,7 +162,7 @@ namespace GAME
 			EndAction ();
 
 			//遷移先チェック
-			P_Sequence pact = m_pChara->GetpAction ( transitID );
+			P_Sequence pact = m_pChara->GetBehavior().GetpSqc ( transitID );
 			P_Frame pscr = pact->GetpScript ( 0 );
 
 			//アクション遷移
@@ -190,7 +190,7 @@ namespace GAME
 	void ExeChara::SetAction ( UINT action_id )
 	{
 		m_actionID = action_id;
-		m_pAction = m_pChara->GetpAction ( m_actionID );
+		m_pAction = m_pChara->GetBehavior().GetpSqc ( m_actionID );
 		m_frame = 0;
 		m_pScript = m_pAction->GetpScript ( m_frame );
 
@@ -200,7 +200,7 @@ namespace GAME
 
 	void ExeChara::SetAction ( s3d::String action_name )
 	{
-		UINT idAction = m_pChara->GetActionID ( action_name );
+		UINT idAction = m_pChara->GetBehavior().GetSqcID ( action_name );
 		if ( NO_ACTION == idAction )
 		{
 			TRACE_F ( _T("▼▼▼ アクション名呼び出しエラー:%s\n"), action_name.toWstr().c_str() );
@@ -227,7 +227,7 @@ namespace GAME
 		if ( NO_COMPLETE != indexAction )
 		{
 			//遷移先チェック
-			P_Sequence pAct = m_pChara->GetpAction ( indexAction );
+			P_Sequence pAct = m_pChara->GetBehavior().GetpSqc ( indexAction );
 			P_Frame pScr = pAct->GetpScript ( 0 );
 
 
@@ -275,7 +275,7 @@ namespace GAME
 		//該当無しは"ダメージ大"にして処理
 		// 空中で地上くらいになるため空中やられに変更
 #endif // 0
-		UINT index = m_pOther.lock()->m_pChara->GetActionID ( nameAction );
+		UINT index = m_pOther.lock()->m_pChara->GetBehavior().GetSqcID ( nameAction );
 		if ( NO_ACTION == index )
 		{
 			//nameAction = U"空中やられ";
@@ -286,7 +286,7 @@ namespace GAME
 
 		//=================================================================
 		//遷移先チェック
-		P_Sequence pAct = m_pOther.lock()->m_pChara->GetpAction ( nameAction );
+		P_Sequence pAct = m_pOther.lock()->m_pChara->GetBehavior().GetpSqc ( nameAction );
 
 		//やられ状態のとき空中チェック
 		//@info 特殊状態　（特定技やられなど）は除く
@@ -325,7 +325,7 @@ namespace GAME
 		//@info のけぞり時間を指定してある場合、相手に適用
 
 		//スクリプト
-		if ( m_pScript->m_prmBattle.Warp != 0 )
+		if ( m_pScript->Get_FP_B().Warp_E.Is(0) )
 		{
 		}
 
@@ -400,17 +400,17 @@ namespace GAME
 		const AP_Brc& vpBranch = m_pChara->GetvpBranch ();
 
 		//スクリプトの持つルートリスト
-		for ( UINT indexRut : m_pScript->GetcvRouteID () )
+		for ( UINT indexRut : m_pScript->GetcaRouteID () )
 		{
-			const V_UINT32 & vBrcID = vpRoute [ indexRut ]->GetcvIDBranch ();
+			const V_UINT32 & vBrcID = vpRoute [ indexRut ]->GetcaIDBranch ();
 
 			//対象のブランチリスト
 			for ( UINT id : vBrcID )
 			{
 				//条件成立
-				if ( BRC_CND != vpBranch [ id ]->GetCondition () ) { continue; }
+				if ( BRC_CND != vpBranch [ id ]->Condition.Get () ) { continue; }
 
-				return vpBranch [ id ]->GetIndexSequence ();
+				return vpBranch [ id ]->IndexSequence.Get ();
 			}
 		}
 		return (UINT)NO_COMPLETE;
@@ -425,18 +425,18 @@ namespace GAME
 		const AP_Brc& vpBranch = m_pChara->GetvpBranch ();
 
 		//スクリプトの持つルートリスト
-		for ( UINT indexRut : m_pScript->GetcvRouteID () )
+		for ( UINT indexRut : m_pScript->GetcaRouteID () )
 		{
-			const V_UINT32 & vBrcID = vpRoute [ indexRut ]->GetcvIDBranch ();
+			const V_UINT32 & vBrcID = vpRoute [ indexRut ]->GetcaIDBranch ();
 
 			//対象のブランチリスト
 			for ( UINT id : vBrcID )
 			{
 				//条件不成立は続行
-				if ( BRC_CND != vpBranch [ id ]->GetCondition () ) { continue; }
+				if ( vpBranch [ id ]->Condition.Nis ( BRC_CND ) ) { continue; }
 
 				//条件成立
-				return vpBranch [ id ]->GetNameSequence ();
+				return vpBranch [ id ]->NameSequence.Get ();
 			}
 		}
 		return U"";
@@ -483,8 +483,8 @@ namespace GAME
 			if ( b_L || b_R )
 			{
 				//特定アクションの分岐
-				bool b0 = m_pAction->IsName ( U"壁まで吹き飛び" );
-				bool b1 = m_pAction->IsName ( U"壁まで吹き飛び持続" );
+				bool b0 = m_pAction->Name.Is ( U"壁まで吹き飛び" );
+				bool b1 = m_pAction->Name.Is ( U"壁まで吹き飛び持続" );
 				if ( b0 || b1 )
 				{
 					//相手も遷移
@@ -512,7 +512,7 @@ namespace GAME
 	{
 		//次アクションを指定
 		//実効アクションm_pActionは次フレーム時のMove()でm_actionIDを使って取得される
-		m_actionID = m_pAction->GetNextID ();
+		m_actionID = m_pAction->Next.Get ();
 
 		//------------------------------------------------
 		//◆移項限定処理

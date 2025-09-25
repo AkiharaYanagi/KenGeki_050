@@ -54,10 +54,10 @@ namespace GAME
 
 	void ExeEffect::SetpEfGnrt ( P_EfGnrt p )
 	{
-		m_ptGnrt = p->GetPos ();
-		m_gnrt = p->GetGnrt ();
-		m_loop = p->GetLoop ();
-		m_sync = p->GetSync ();
+		m_ptGnrt = p->Pos.Get ();
+		m_gnrt = p->Gnrt.Get ();
+		m_loop = p->Loop.Get ();
+		m_sync = p->Sync.Get ();
 	}
 
 	void ExeEffect::Init ()
@@ -118,18 +118,18 @@ namespace GAME
 			//スクリプト分岐条件から
 
 			//ルートのチェック
-			V_UINT32 vec_RouteID = m_pScript->GetcvRouteID ();
+			A_UINT32 vec_RouteID = m_pScript->GetcaRouteID ();
 			for ( UINT indexRoute : vec_RouteID )
 			{
 				//ブランチのチェック
-				V_UINT32 vBranchID = m_vpRoute[indexRoute]->GetcvIDBranch ();
+				V_UINT32 vBranchID = m_vpRoute[indexRoute]->GetcaIDBranch ();
 				for ( UINT indexBranch : vBranchID )
 				{
 					//終了時以外は飛ばす
-					if ( BRC_END == m_vpBranch[indexBranch]->GetCondition () )
+					if ( BRC_END == m_vpBranch[indexBranch]->Condition.Get () )
 					{
 						//次シークエンスID
-						sqcID = m_vpBranch[indexBranch]->GetIndexSequence ();
+						sqcID = m_vpBranch[indexBranch]->IndexSequence.Get ();
 						bBranch = true;
 					}
 				}
@@ -138,7 +138,7 @@ namespace GAME
 			if ( bBranch )
 			{
 				//@todo シークエンス(エフェクト)内でエフェクトの移項
-				m_pEffect = m_pChara->GetpEffect ( sqcID );
+				m_pEffect = m_pChara->GetGarnish().GetpSqc ( sqcID );
 				m_frame = 0;
 			}
 			else
@@ -226,13 +226,13 @@ namespace GAME
 
 		//スクリプトを取得
 		P_Frame pScp = m_pScript;
-		VEC2 vel = pScp->m_prmBattle.Vel;
-		VEC2 acc = pScp->m_prmBattle.Acc;
+		VEC2 vel = pScp->Get_FP_B().Vel.Get();
+		VEC2 acc = pScp->Get_FP_B().Acc.Get();
 		float dir = m_dirRight ? 1.f : -1.f;		//向き
 
 		//------------------------
 		//計算種類で分岐
-		CLC_ST clcSt = pScp->m_prmBattle.CalcState;
+		CLC_ST clcSt = pScp->Get_FP_B().CalcState.Get();
 		switch ( clcSt )
 		{
 		case CLC_MAINTAIN: 	//持続

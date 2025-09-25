@@ -48,6 +48,8 @@ namespace GAME
 		void LoadFrmPrm_Stg ( CUPR_BYTE buf, UINT32 & pos, Frame & frm );
 
 //		void LoadImg ( CUPR_BYTE buf, UINT32 & pos, PAP_Tx pvp_tx );
+
+		void LoadListName ( CUPR_BYTE buf, UINT32 & pos, A_STR & aStr );
 	};
 
 

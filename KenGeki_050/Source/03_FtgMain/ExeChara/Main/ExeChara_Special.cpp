@@ -8,8 +8,8 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "ExeChara.h"
-#include "../../FtgMain/Fighting/Fighting.h"
-#include "../../GameMain/SeConst.h"
+#include "../../Fighting/Fighting.h"
+#include "../../../90_GameMain/SeConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -56,7 +56,7 @@ namespace GAME
 		}
 
 		//次が立ちに戻る
-		if ( 0 == m_pAction->GetNextName ().compare ( U"立ち" ) )
+		if ( m_pAction->NextName.Is ( U"立ち" ) )
 		{
 			//最終スクリプト
 			if ( m_pAction->IsEndScript ( m_frame ) )
@@ -126,7 +126,7 @@ namespace GAME
 		if ( IsNameAction ( U"剣撃走破" ) )
 		{
 			//エフェクト発生
-			if ( m_pScript->GetFrame () == 5 )
+			if ( m_pScript->Index.Is ( 5 ) )
 			{
 				VEC2 pos = m_btlPrm.GetPos ();
 				pos.y += -250;
@@ -137,7 +137,7 @@ namespace GAME
 		if ( IsNameAction ( U"剣撃走破2" ) )
 		{
 			//エフェクト発生
-			if ( m_pScript->GetFrame () == 5 )
+			if ( m_pScript->Index.Is ( 5 ) )
 			{
 				VEC2 pos = m_btlPrm.GetPos ();
 				pos.y += -250;
@@ -148,7 +148,7 @@ namespace GAME
 		if ( IsNameAction ( U"剣撃走破3" ) )
 		{
 			//エフェクト発生
-			if ( m_pScript->GetFrame () == 5 )
+			if ( m_pScript->Index.Is ( 5 ) )
 			{
 				VEC2 pos = m_btlPrm.GetPos ();
 				pos.y += -250;
@@ -195,7 +195,7 @@ namespace GAME
 
 #endif // 0
 
-			if ( m_pScript->GetFrame () == 1 )
+			if ( m_pScript->Index.Is ( 1 ) )
 			{
 				m_pFtgGrp->SetOverDrive ( T );
 			}
@@ -205,7 +205,7 @@ namespace GAME
 		//桜花
 		if ( IsNameAction ( U"超必殺技B成立" ) )
 		{
-			if ( m_pScript->GetFrame () == 2 )
+			if ( m_pScript->Index.Is ( 2 ) )
 			{
 				m_pFtgGrp->StartWhiteOut ( 60 + 4 );
 				m_dispChara->TurnShadow ( T );
@@ -227,11 +227,11 @@ namespace GAME
 
 		//-----------------------------------------------------
 		//フェラリア
-		if ( m_name == CHARA_FERALLIA )
+		if ( m_name == CHARA_FERARIA )
 		{
 			if ( IsNameAction ( U"雷電蹴_0" ) )
 			{
-				UINT frame = m_pScript->GetFrame ();
+				UINT frame = m_pScript->Index.Get ();
 				if ( frame == 11 )
 				{
 					m_pFtgGrp->StartAllBlack ();
@@ -250,7 +250,7 @@ namespace GAME
 		{
 			if ( IsNameAction ( U"投げ成立0" ) )
 			{
-				if ( m_pScript->GetFrame () == 0 )
+				if ( m_pScript->Index.Is ( 0 ) )
 				{
 					m_pOther.lock()->TopByZ ();
 				}
@@ -263,7 +263,7 @@ namespace GAME
 
 			if ( IsNameAction ( U"昇竜投げ成立" ) )
 			{
-				if ( m_pScript->GetFrame () == 0 )
+				if ( m_pScript->Index.Is ( 0 ) )
 				{
 					m_pOther.lock()->TopByZ ();	//表示前後
 				}
@@ -284,7 +284,7 @@ namespace GAME
 
 			if ( IsNameAction ( U"半回転投げ成立" ) )
 			{
-				if ( m_pScript->GetFrame () == 0 )
+				if ( m_pScript->Index.Is ( 0 ) )
 				{
 					//1p2p表示前後
 					m_pOther.lock()->TopByZ ();
@@ -325,13 +325,13 @@ namespace GAME
 			//-------------------------------------------------------------------------
 			if ( IsNameAction ( U"超必殺技A0" ) )
 			{
-				if (m_pScript->GetFrame() == 0)
+				if ( m_pScript->Index.Is ( 0 ) )
 				{
 					//表示前後 (相手を手前に)
 					m_pOther.lock()->TopByZ ();
 				}
 
-				if (m_pAction->IsEndScript(m_pScript->GetFrame()))
+				if (m_pAction->IsEndScript(m_pScript->Index.Get()))
 				{
 					//位置指定
 					//左右位置チェック
@@ -360,13 +360,13 @@ namespace GAME
 #endif // 0
 
 				//状態指定
-				if ( m_pScript->GetFrame () == 10 )
+				if ( m_pScript->Index.Is ( 10 ) )
 				{
 					//表示前後 (自身を手前に)
 					TopByZ ();
 				}
 				//状態指定
-				if ( m_pScript->GetFrame () == 121 )
+				if ( m_pScript->Index.Is ( 121 ) )
 				{
 					m_pOther.lock()->SetAction ( U"ギャバ_超必殺技Aやられ0" );
 				}
@@ -374,7 +374,7 @@ namespace GAME
 			if ( IsNameAction ( U"超必殺技A3" ) )
 			{
 				//状態指定
-				if ( m_pAction->IsEndScript ( m_pScript->GetFrame () ) )
+				if ( m_pAction->IsEndScript ( m_pScript->Index.Get () ) )
 				{
 					m_pOther.lock()->SetAction ( U"ダウン" );
 				}
@@ -384,7 +384,7 @@ namespace GAME
 			if ( IsNameAction ( U"超必殺技AA1" ) )	//成立時
 			{
 				//状態指定
-				if (m_pScript->GetFrame() == 0)
+				if ( m_pScript->Index.Is ( 0 ) )
 				{
 					OffShade ();		//影を消す
 					m_pOther.lock()->OffShade ();		//影を消す
@@ -407,7 +407,7 @@ namespace GAME
 			if ( IsNameAction ( U"超必殺技AA2" ) )
 			{
 				//状態指定
-				if (m_pScript->GetFrame() == 15)
+				if ( m_pScript->Index.Is ( 15 ) )
 				{
 					//表示前後 (相手を手前に)
 					m_pOther.lock()->TopByZ ();
@@ -416,7 +416,7 @@ namespace GAME
 			if ( IsNameAction ( U"超必殺技AA3" ) )
 			{
 				//状態指定
-				if (m_pScript->GetFrame() == 15)
+				if ( m_pScript->Index.Is ( 15 ) )
 				{
 					OnShade ();		//影を表示する
 					m_pOther.lock()->OnShade ();		//影を表示する
@@ -430,7 +430,7 @@ namespace GAME
 		//-----------------------------------------------------
 		if ( IsNameAction ( U"特大攻撃" ) )
 		{
-			if ( m_pScript->GetFrame () == 0 )
+			if ( m_pScript->Index.Is ( 0 ) )
 			{
 			}
 		}
@@ -438,7 +438,7 @@ namespace GAME
 
 		//-----------------------------------------------------
 		//アクセル増減　 ：　アクション中のアクセル値を利用
-		int accel_value = m_pAction->GetAccel ();
+		int accel_value = m_pAction->Accel.Get ();
 		if ( 0 == accel_value ) //スクリプト中で指定なし(==0)
 		{
 			//カテゴリ一括

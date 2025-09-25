@@ -54,7 +54,6 @@ namespace GAME
 		AddpTask ( m_training_Intro1 );
 		GRPLST_INSERT ( m_training_Intro1 );
 
-#if 0
 
 		//戦闘
 		m_fighting = std::make_shared < Fighting > ();
@@ -63,6 +62,7 @@ namespace GAME
 		m_fighting->SetTraining ();
 
 
+#if 0
 		//ポーズメニュ
 		m_pauseMenu = std::make_shared < PauseMenu > ();
 		AddpTask ( m_pauseMenu );
@@ -110,11 +110,7 @@ namespace GAME
 
 	void Training::ParamInit ()
 	{
-
-
-#if 0
 		m_fighting->ParamInit ( GetpParam () );
-#endif // 0
 
 	}
 
@@ -122,35 +118,27 @@ namespace GAME
 	{
 		//遷移先指定にthisを保存
 		Scene::SetwpThis ( shared_from_this () );
-
-
-#if 0
-
-		//Menu用にthisを保存
-		m_pauseMenu->SetwpParentScene ( shared_from_this () );
+		P_Param pParam = Scene::GetpParam ();
 
 		//戦闘共通
 		G_Ftg::inst()->Init ();
 
-#if 0
 		//CPU / PLAYER
-		m_fighting->Set_1P_vs_2P ();
-#endif // 0
+		//両者の操作をCPUではなくプレイヤに初期設定
+		pParam->GetGameSetting().SetMutchMode ( MUTCH_MODE::MODE_PLAYER_PLAYER );
 
-		P_Param pParam = Scene::GetpParam ();
+		//Fighting
+		m_fighting->SetbTraining ( T );	//トレーニングモード設定(タイマ無効など)
+
+
+#if 0
+		//Menu用にthisを保存
+		m_pauseMenu->SetwpParentScene ( shared_from_this () );
 
 		//BGM
 		SND_STOP_ALL_BGM ();
 		BGM_ID bgm_id = pParam->Get_BGM_ID ();
 		SND_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
-
-
-		//両者の操作をCPUではなくプレイヤに初期設定
-		pParam->SetMutchMode ( MUTCH_MODE::MODE_PLAYER_PLAYER );
-
-		//Fighting
-		m_fighting->SetbTraining ( T );	//トレーニングモード設定(タイマ無効など)
-
 #endif // 0
 
 		Scene::Load ();
@@ -158,21 +146,13 @@ namespace GAME
 
 	void Training::Init ()
 	{
-#if 0
-
 		//デモをスキップ
 		m_fighting->SetDemoSkip ();
 
-#endif // 0
-
 		Scene::Init ();
-
-#if 0
 
 		//通常Initの後に行う
 		m_fighting->TrainingRestart ();
-
-#endif // 0
 	}
 
 	void Training::Move ()

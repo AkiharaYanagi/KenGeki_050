@@ -44,7 +44,7 @@ namespace GAME
 		P_ExeChara pOther = m_pOther.lock ();		//相手
 
 		//自スクリプト
-		P_Script pScpOther = pOther->GetpScript ();
+		P_Frame pScpOther = pOther->GetpScript ();
 
 		//相手パラメータ
 		BtlParam& btlPrmOhter = pOther->GetrBtlPrm ();
@@ -98,7 +98,7 @@ namespace GAME
 
 		//-------------------------------------------------
 		//ダメージ処理
-		int damage = pScpOther->m_prmBattle.Power;
+		int damage = pScpOther->Get_FP_B().Power.Get();
 //		m_btlPrm.AddLife ( - damage );
 		//int pre_dmg = damage;
 
@@ -199,16 +199,16 @@ namespace GAME
 		//リザルト用に保存 (相手の値)
 		if ( pSelf->Is1P () )
 		{
-			m_pParam->UpdateIfMAX_DMG ( PLAYER_ID_2, chnDmg );
+			m_pParam->GetPrmResult().UpdateIfMAX_DMG ( PLAYER_ID_2, chnDmg );
 		}
 		else if ( pSelf->Is2P () )
 		{
-			m_pParam->UpdateIfMAX_DMG ( PLAYER_ID_1, chnDmg );
+			m_pParam->GetPrmResult().UpdateIfMAX_DMG ( PLAYER_ID_1, chnDmg );
 		}
 
 		//-------------------------------------------------
 		//バランス処理
-		int b_e = pScpOther->m_prmBattle.Balance_E;
+		int b_e = pScpOther->Get_FP_B().Balance_E.Get();
 		int bl = m_btlPrm.GetBalance ();
 		m_btlPrm.SetBalance ( bl - b_e );
 
@@ -216,11 +216,11 @@ namespace GAME
 		//ヒットストップ
 
 		//相手スクリプトによる追加止め時間
-		P_Action pAct = pOther->GetpAction();
-		P_Script pScp = pOther->GetpScript();
+		P_Sqc pAct = pOther->GetpAction();
+		P_Frame pScp = pOther->GetpScript();
 		UINT stopTime = HITSTOP_TIME;
 
-		int warp = pScp->m_prmBattle.Warp;
+		int warp = pScp->Get_FP_B().Warp_E.Get();
 
 		//マイナス処理
 		if (warp < 0)
@@ -275,7 +275,7 @@ namespace GAME
 	{
 		//相手
 		P_ExeChara pOther = m_pOther.lock ();
-		P_Script pScpOther = pOther->GetpScript ();
+		P_Frame pScpOther = pOther->GetpScript ();
 
 		//条件判定
 		if ( CanGuard () )
@@ -460,7 +460,7 @@ namespace GAME
 	{
 		//相手
 		P_ExeChara pOther = m_pOther.lock ();
-		P_Script pScpOther = pOther->GetpScript ();
+		P_Frame pScpOther = pOther->GetpScript ();
 
 		//-------------------------------------------------
 		//アクション変更
@@ -492,8 +492,8 @@ namespace GAME
 
 
 		//-------------------------------------------------
-		//ガード時相手からのノックバック処理
-		float recoil_e = 0.1f * pScpOther->m_prmBattle.Recoil_E;	// 値は (float) = (int)1/10
+		//ガード時相手からのノックバック処理	// 値は (float) = (int)1/10
+		float recoil_e = 0.1f * pScpOther->Get_FP_B().Recoil_E.Get();
 		if ( recoil_e != 0 )
 		{
 			m_btlPrm.SetAccRecoil ( recoil_e );

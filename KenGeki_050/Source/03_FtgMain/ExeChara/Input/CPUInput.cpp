@@ -298,17 +298,17 @@ namespace GAME
 
 	//ブランチリストをチェックして
 	//コマンド条件が達成されていたら遷移先のアクションIDを返す
-	UINT CPUInput::GetTransitID ( PVP_Branch pvpBranch, bool dirRight )
+	UINT CPUInput::GetTransitID ( PAP_Brc pvpBranch, bool dirRight )
 	{
 		AP_Brc::iterator it = pvpBranch->begin ();
 		AP_Brc::iterator it_end = pvpBranch->end ();
 		for ( ; it != it_end; ++it )
 		{
-			P_Command pCommand = (*it)->GetpCommand().lock ();
+			P_Cmd pCommand = (*it)->GetpCommand().lock ();
 			
 			if ( pCommand->Compare ( m_vGameKey, dirRight ) )
 			{
-				return (*it)->GetIndexSequence ();
+				return (*it)->IndexSequence.Get ();
 			}
 		}
 		return (UINT)NO_COMPLETE;

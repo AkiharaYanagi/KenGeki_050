@@ -8,11 +8,11 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "FtgDemo_State.h"
-#include "../../GameMain/SoundConst.h"
-#include "../../GameMain/VoiceConst.h"
 #include "FtgDemo_Actor.h"
-#include "../../GameMain/G_Ftg.h"
 #include "Fighting.h"
+#include "../../90_GameMain/G_Ftg.h"
+#include "../../90_GameMain/SoundConst.h"
+#include "../../90_GameMain/VoiceConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -95,7 +95,7 @@ namespace GAME
 		//BGM開始
 
 		//パラメータから取得
-		BGM_ID bgm_id = pParam->Get_BGM_ID ();
+		BGM_ID bgm_id = pParam->GetGameSetting().GetBGM_ID ();
 
 		//保存IDとゲーム管理IDは異なるので名前で検索
 		BGM_NAME bgm_name = BGM_ID_TO_NAME [ bgm_id ];
@@ -605,7 +605,7 @@ namespace GAME
 
 		//勝者表示
 		P_Param p = m_prmFtgDemo->GetpSceneParam ();
-		switch ( p->GetWinner () )
+		switch ( p->GetPrmResult().GetWinner () )
 		{
 		case PLAYER_ID_1:
 			m_grpWinner->Start ();

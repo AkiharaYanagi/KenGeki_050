@@ -80,7 +80,7 @@ namespace GAME
 		//攻撃成立時・打合時に同一アクション中のみ枠を消失させる
 
 		//1ヒット技は攻撃枠を空にして終了
-		if ( 1 >= m_pAction->GetHitNum () )
+		if ( 1 >= m_pAction->HitNum.Get () )
 		{
 			//攻撃枠を空にする
 			m_charaRect->ResetARect ();
@@ -90,7 +90,7 @@ namespace GAME
 		//--------------------------------------------------
 		//アクション内ヒット数が上限に達したとき枠を空にする
 
-		UINT hitmax = m_pAction->GetHitNum ();
+		UINT hitmax = m_pAction->HitNum.Get ();
 		if ( hitmax <= m_btlPrm.GetHitNum () )
 		{
 			//攻撃枠を空にする
@@ -101,7 +101,7 @@ namespace GAME
 		//--------------------------------------------------
 		//多段可能なアクションは、ヒット間隔をチェックして攻撃枠を再設定する
 		P_Timer ptHitPitch = m_btlPrm.GetTmr_HitPitch ();
-		UINT pitch = m_pAction->GetHitPitch ();
+		UINT pitch = m_pAction->HitPitch.Get ();
 
 		//タイマが指定間隔未満なら枠を設定しない
 		if ( pitch > ptHitPitch->GetTime () )

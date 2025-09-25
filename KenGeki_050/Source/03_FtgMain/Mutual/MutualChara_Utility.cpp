@@ -8,9 +8,8 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "MutualChara_Utility.h"
-#include "../../GameMain/G_Ftg.h"
-
-#include "../../GameMain/DebugDisp.h"
+#include "../../90_GameMain/G_Ftg.h"
+#include "../../90_GameMain/DebugDisp.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -28,7 +27,7 @@ namespace GAME
 
 	void MutualChara_Utility::ParamInit ( P_Param p )
 	{
-		MUTCH_MODE mode = p->GetMutchMode ();
+		MUTCH_MODE mode = p->GetGameSetting().GetMutchMode ();
 		switch ( mode )
 		{
 		case MUTCH_MODE::MODE_PLAYER_CPU:

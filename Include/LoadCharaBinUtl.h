@@ -31,6 +31,7 @@ namespace GAME
 		byte LoadByte ( CUPR_BYTE buf, UINT32 & pos );
 		int LoadInt ( CUPR_BYTE buf, UINT32 & pos );
 		UINT32 LoadUInt ( CUPR_BYTE buf, UINT32 & pos );
+		float LoadFloat ( CUPR_BYTE buf, UINT32 & pos );
 		VEC2 LoadVec2 ( CUPR_BYTE buf, UINT32 & pos );
 		VEC2 LoadVec2_Dev10F ( CUPR_BYTE buf, UINT32 & pos );
 		RECT LoadRect ( CUPR_BYTE buf, UINT32 & pos );

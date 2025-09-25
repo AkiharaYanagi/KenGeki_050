@@ -9,8 +9,8 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
-#include "../../ExeChara/Main/ExeChara.h"
-#include "../../GameMain/Param.h"
+#include "../ExeChara/Main/ExeChara.h"
+#include "../../91_Param/Param.h"
 #include "../Ef/EfClang.h"
 #include "../Ef/EfHitLine.h"
 

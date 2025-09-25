@@ -125,6 +125,16 @@ namespace GAME
 		return i;
 	}
 
+	float LoadCharaBinUtl::LoadFloat ( CUPR_BYTE buf, UINT32 & pos )
+	{
+		//リトルエンディアン読込 (byte[])0x67 0x45 0x23 0x01 -> (UINT32)0x01234567
+		float f = 0;
+		rsize_t size = sizeof ( float );
+		::memcpy_s ( &f, size, buf.get () + pos, size );
+		pos += (UINT32)size;
+		return f;
+	}
+
 
 	VEC2 LoadCharaBinUtl::LoadVec2 ( CUPR_BYTE buf, UINT32 & pos )
 	{
@@ -151,7 +161,6 @@ namespace GAME
 		pos += (UINT32)size;
 		return rect;
 	}
-
 	
 	void LoadCharaBinUtl::LoadListRect ( CUPR_BYTE buf, UINT32 & pos, PV_RECT pvRect )
 	{

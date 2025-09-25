@@ -26,6 +26,8 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+	constexpr size_t VERSATILE_ARY_SIZE = 16;
+
 
 	class Frame
 	{
@@ -37,7 +39,8 @@ namespace GAME
 		A_UINT32	ma_RouteID;		//ルートIDリスト
 		PAP_EfGnrt	m_papEfGnrt;	//Efジェネレートリスト
 
-		A_Gnrt		ma_EF;			//EF(0-99)共通 (100-)固有
+		//Staging Generator
+		//A_Gnrt		ma_EF;			//EF(0-99)共通 (100-)固有
 		A_Gnrt		ma_SE;			//SE(0-99)共通 (100-)固有
 		A_Gnrt		ma_VC;			//VC(0-99)共通 (100-)固有
 
@@ -74,7 +77,6 @@ namespace GAME
 		//EfGnrtリストに追加
 		void AddpEfGnrt ( P_EfGnrt pEfGnrt ) { m_papEfGnrt->push_back ( pEfGnrt ); }
 
-
 		//接触枠, 攻撃枠, 当り枠, 相殺枠
 		PV_RECT GetpvCRect () const { return m_pvCRect; }
 		PV_RECT GetpvARect () const { return m_pvARect; }
@@ -84,6 +86,22 @@ namespace GAME
 		void AddARect ( RECT arect ) { m_pvARect->push_back ( arect ); }
 		void AddHRect ( RECT hrect ) { m_pvHRect->push_back ( hrect ); }
 		void AddORect ( RECT orect ) { m_pvORect->push_back ( orect ); }
+
+		//Staging Generate
+		//A_Gnrt & GetaEF () { return ma_EF; }
+		A_Gnrt & GetaSE () { return ma_SE; }
+		A_Gnrt & GetaVC () { return ma_VC; }
+
+		bool AGnrt_Exist ( const A_Gnrt & aGnrt, const s3d::String & name ) const;
+		bool EF_Exist ( const s3d::String & name );
+		bool SE_Exist ( const s3d::String & name );
+		bool VC_Exist ( const s3d::String & name );
+
+		bool AGnrt_Blank ( const A_Gnrt & aGnrt ) const;
+		bool EF_Blank () const; 
+		bool SE_Blank () const; 
+		bool VC_Blank () const; 
+
 
 		//パラメータ
 		void Set_FP_B ( Frame_Param_Battle fpb ) { m_prmBattle = fpb; }

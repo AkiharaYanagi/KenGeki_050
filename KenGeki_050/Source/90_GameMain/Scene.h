@@ -11,12 +11,9 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
-
 #include "GameConst.h"
 #include "../91_Param/Param.h"
-#if 0
-//#include "GameSettingFile.h
-#endif // 0
+#include "G_Ftg.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -136,6 +133,7 @@ namespace GAME
 		~SceneManager ();
 
 		void Load ();
+		void Start ();
 		void Move ();
 
 		//シーン共通パラメータ

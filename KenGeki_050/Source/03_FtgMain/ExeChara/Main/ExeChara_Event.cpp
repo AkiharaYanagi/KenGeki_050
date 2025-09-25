@@ -55,7 +55,7 @@ namespace GAME
 	{
 		//相手のパラメータで増減
 		P_Frame scp = m_pOther.lock ()->GetpScript ();
-		int balance_e = scp->m_prmBattle.Balance_E;
+		int balance_e = scp->Get_FP_B().Balance_E.Get();
 		m_btlPrm.AddBalance ( balance_e );
 
 #if 0
@@ -89,23 +89,23 @@ namespace GAME
 		const AP_Brc vpBranch = m_pChara->GetvpBranch ();
 
 		//スクリプトの持つルートリスト
-		for ( UINT indexRoute : m_pScript->GetcvRouteID () )
+		for ( UINT indexRoute : m_pScript->GetcaRouteID () )
 		{
 			//ルートの取得
-			P_Route pRut = vpRoute [ indexRoute ];
-			const V_UINT32 vBranchID = vpRoute [ indexRoute ]->GetcvIDBranch ();
+			P_Rut pRut = vpRoute [ indexRoute ];
+			const V_UINT32 vBranchID = vpRoute [ indexRoute ]->GetcaIDBranch ();
 
 			//対象のブランチリスト
 			for ( UINT indexBranch : vBranchID )
 			{
 				//ブランチの取得
-				P_Branch pBrc = vpBranch [ indexBranch ];
+				P_Brc pBrc = vpBranch [ indexBranch ];
 
 				//"条件：相殺時" 以外は飛ばす
-				if ( BRC_FLG_0 != pBrc->GetCondition () ) { continue; }
+				if ( BRC_FLG_0 != pBrc->Condition.Get () ) { continue; }
 
 				//対象アクションに移行
-				UINT id = vpBranch [ indexBranch ]->GetIndexSequence ();
+				UINT id = vpBranch [ indexBranch ]->IndexSequence.Get ();
 				SetAction ( id );
 			}
 		}
@@ -146,7 +146,7 @@ namespace GAME
 					pOther->m_btlPrm.SetVelRecoil ( vRcl + 50 );
 
 					//アクション内ヒット数を上限にして攻撃判定を消去
-					UINT hitnum = m_pAction->GetHitNum();
+					UINT hitnum = m_pAction->HitNum.Get();
 					m_btlPrm.SetHitNum ( hitnum );
 				}
 			}
@@ -391,8 +391,8 @@ namespace GAME
 #endif // 0
 
 		//指定アクションのとき　「不可」
-		if ( pAct->IsName ( U"ガード大" ) ) { return F; }
-		if ( pAct->IsName ( U"投げやられ" ) ) { return F; }
+		if ( pAct->Name.Is ( U"ガード大" ) ) { return F; }
+		if ( pAct->Name.Is ( U"投げやられ" ) ) { return F; }
 
 		//アクション態勢が"AP_JUMP"は「不可」
 		if ( Is_AP_Jump () ) { return F; }

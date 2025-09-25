@@ -134,19 +134,17 @@ namespace GAME
 	//-----------------------------------------------------------------
 	//	テスト用バトルから開始時は各使用キャラのみ
 
-	//キャラ指定データ取得
-	P_Chara Param::GetpChara ( CHARA_NAME name, PLAYER_ID pl_id )
-	{
+#endif // 0
 
+	//キャラ指定データ取得
+	P_Chara Param::GetpChara(CHARA_NAME name, PLAYER_ID pl_id)
+	{
 		PRINT_F_S(U"Load {}P : name = {}\n"_fmt( (int32)pl_id, (int32)name ));
 
 		//プレイヤ側でカラー番号を取得
 		CHARA_COLOR clr = m_setting.GetColor ( pl_id );
 		return m_prmChara_all.GetpChara ( name, clr );
 	}
-
-#endif // 0
-
 
 #if 0
 	//-----------------------------------------------------------------
