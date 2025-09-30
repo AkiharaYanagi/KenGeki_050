@@ -121,6 +121,8 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Source\01_Title\Title.cpp" />
+    <ClCompile Include="Source\02_CharaSele\CharaSele.cpp" />
     <ClCompile Include="Source\03_FtgMain\Ef\EfClang.cpp" />
     <ClCompile Include="Source\03_FtgMain\Ef\EfHitLine.cpp" />
     <ClCompile Include="Source\03_FtgMain\Ef\EfKouAtsu.cpp" />
@@ -178,6 +180,9 @@
     <ClCompile Include="Source\03_FtgMain\Mutual\MutualChara.cpp" />
     <ClCompile Include="Source\03_FtgMain\Mutual\MutualChara_Utility.cpp" />
     <ClCompile Include="Source\04_Training\Training.cpp" />
+    <ClCompile Include="Source\05_Result\Result.cpp" />
+    <ClCompile Include="Source\05_Result\ResultMenu.cpp" />
+    <ClCompile Include="Source\80_Common\CharaSele_Image.cpp" />
     <ClCompile Include="Source\80_Common\Menu\PauseMenu.cpp" />
     <ClCompile Include="Source\80_Common\Menu\PauseMenuItem.cpp" />
     <ClCompile Include="Source\80_Common\Menu\PauseMenu_Const.cpp" />
@@ -398,6 +403,8 @@
     <Xml Include="App\example\xml\test.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Source\01_Title\Title.h" />
+    <ClInclude Include="Source\02_CharaSele\CharaSele.h" />
     <ClInclude Include="Source\03_FtgMain\Ef\EfClang.h" />
     <ClInclude Include="Source\03_FtgMain\Ef\EfHitLine.h" />
     <ClInclude Include="Source\03_FtgMain\Ef\EfKouAtsu.h" />
@@ -447,6 +454,9 @@
     <ClInclude Include="Source\03_FtgMain\Mutual\MutualChara.h" />
     <ClInclude Include="Source\03_FtgMain\Mutual\MutualChara_Utility.h" />
     <ClInclude Include="Source\04_Training\Training.h" />
+    <ClInclude Include="Source\05_Result\Result.h" />
+    <ClInclude Include="Source\05_Result\ResultMenu.h" />
+    <ClInclude Include="Source\80_Common\CharaSele_Image.h" />
     <ClInclude Include="Source\80_Common\Menu\PauseMenu.h" />
     <ClInclude Include="Source\80_Common\Menu\PauseMenuItem.h" />
     <ClInclude Include="Source\80_Common\Menu\PauseMenu_Const.h" />

@@ -142,7 +142,7 @@ namespace GAME
 		PRINT_F_S(U"Load {}P : name = {}\n"_fmt( (int32)pl_id, (int32)name ));
 
 		//プレイヤ側でカラー番号を取得
-		CHARA_COLOR clr = m_setting.GetColor ( pl_id );
+		CHARA_COLOR clr = m_setting.GetCharaColor ( pl_id );
 		return m_prmChara_all.GetpChara ( name, clr );
 	}
 

@@ -26,6 +26,12 @@ namespace GAME
 {
 	class Param	: public GameParam
 	{
+
+		//戦闘（対戦種類：メイン, トレーニング) モード
+		//(現在値なのでファイルには保存しない)
+		FTG_MODE		m_FtgMode;
+
+
 		//ゲーム設定 ( 外部ファイル読込 )
 		GameSettingFile		m_setting;
 
@@ -70,15 +76,16 @@ namespace GAME
 		void Load ();
 
 
+		//内部設定
+		void SetFtgMode ( FTG_MODE mode ) { m_FtgMode = mode; }
+		FTG_MODE GetFtgMode () const { return m_FtgMode; }
+
+
 		//ゲーム設定 ( 外部ファイル読込 )
 		GameSettingFile & GetGameSetting () { return m_setting; }
 		void SetSettingFile ( const GameSettingFile & stg ) { m_setting = stg; }
 
 #if 0
-
-		//内部設定
-		void SetGameMode ( GAME_MODE mode ) { m_gameMode = mode; }
-		GAME_MODE GetGameMode () const { return m_gameMode; }
 
 		void SetMutchMode ( MUTCH_MODE mode );
 		void SetMutchMode ( PLAYER_MODE mode1p, PLAYER_MODE mode2p );

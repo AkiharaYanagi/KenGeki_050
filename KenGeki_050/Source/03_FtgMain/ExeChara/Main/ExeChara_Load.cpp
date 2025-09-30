@@ -26,7 +26,7 @@ namespace GAME
 		m_pParam = pParam;
 
 		//キャラ選択
-		m_name = pParam->GetGameSetting().GetName ( m_btlPrm.GetPlayerID () );
+		m_name = pParam->GetGameSetting().GetCharaName ( m_btlPrm.GetPlayerID () );
 
 		//キャラ表示
 		m_dispChara->ParamInit ( pParam );

@@ -140,7 +140,7 @@ namespace GAME
 
 
 	//プレイヤ別　キャラ名
-	CHARA_NAME GameSettingFile::GetName ( PLAYER_ID pid ) const
+	CHARA_NAME GameSettingFile::GetCharaName ( PLAYER_ID pid ) const
 	{
 		if ( pid == PLAYER_ID_1 ) { return m_name1p; }
 		if ( pid == PLAYER_ID_2 ) { return m_name2p; }
@@ -148,7 +148,7 @@ namespace GAME
 	}
 
 	//プレイヤ別　キャラカラー
-	CHARA_COLOR GameSettingFile::GetColor ( PLAYER_ID pid ) const
+	CHARA_COLOR GameSettingFile::GetCharaColor ( PLAYER_ID pid ) const
 	{
 		if ( pid == PLAYER_ID_1 ) { return m_color1p; }
 		if ( pid == PLAYER_ID_2 ) { return m_color2p; }

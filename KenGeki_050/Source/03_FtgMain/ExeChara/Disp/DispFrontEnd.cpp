@@ -398,7 +398,7 @@ namespace GAME
 		GameSettingFile stg = pParam->GetGameSetting ();
 
 		//選択キャラ名前
-		CHARA_NAME charaName = stg.GetName ( m_playerID );
+		CHARA_NAME charaName = stg.GetCharaName ( m_playerID );
 		m_chara_name = charaName;
 
 		//キャラ名による初期化

@@ -179,6 +179,18 @@
     <Filter Include="80_Common\Menu">
       <UniqueIdentifier>{15ce9095-9ac4-4559-8cdd-528ce17986c8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="05_Result">
+      <UniqueIdentifier>{c9d5ac0d-3183-42ce-a3f6-f5474f7dcb99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00_Document">
+      <UniqueIdentifier>{79961f85-324b-4aff-831a-6ab6526e3dfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01_Title">
+      <UniqueIdentifier>{8072c387-7bce-41a1-b6d3-20d81edcd374}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02_CharaSele">
+      <UniqueIdentifier>{d22c7853-828a-40a7-a05d-e5f7ea8bc23a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\stdafx.cpp">
@@ -390,6 +402,21 @@
     </ClCompile>
     <ClCompile Include="Source\80_Common\Menu\PauseMenu.cpp">
       <Filter>80_Common\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\05_Result\ResultMenu.cpp">
+      <Filter>05_Result</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\05_Result\Result.cpp">
+      <Filter>05_Result</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\01_Title\Title.cpp">
+      <Filter>01_Title</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\02_CharaSele\CharaSele.cpp">
+      <Filter>02_CharaSele</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\80_Common\CharaSele_Image.cpp">
+      <Filter>80_Common</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1249,6 +1276,21 @@
     </ClInclude>
     <ClInclude Include="Source\80_Common\Menu\PauseMenu.h">
       <Filter>80_Common\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\05_Result\ResultMenu.h">
+      <Filter>05_Result</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\05_Result\Result.h">
+      <Filter>05_Result</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\01_Title\Title.h">
+      <Filter>01_Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\02_CharaSele\CharaSele.h">
+      <Filter>02_CharaSele</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\80_Common\CharaSele_Image.h">
+      <Filter>80_Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

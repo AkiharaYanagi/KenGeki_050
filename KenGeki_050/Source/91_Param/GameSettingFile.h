@@ -77,17 +77,17 @@ namespace GAME
 
 
 		//キャラ名
-		CHARA_NAME GetName ( PLAYER_ID pid ) const;
-		CHARA_NAME GetName1p () const { return m_name1p; }
-		CHARA_NAME GetName2p () const { return m_name2p; }
+		CHARA_NAME GetCharaName ( PLAYER_ID pid ) const;
+		CHARA_NAME GetCharaName1p () const { return m_name1p; }
+		CHARA_NAME GetCharaName2p () const { return m_name2p; }
 		void SetCharaName1p ( CHARA_NAME name ) { m_name1p = name; }
 		void SetCharaName2p ( CHARA_NAME name ) { m_name2p = name; }
 
 		//キャラカラー
-		CHARA_COLOR GetColor ( PLAYER_ID pid ) const;
-		CHARA_COLOR GetColor1p() const { return m_color1p; }
+		CHARA_COLOR GetCharaColor ( PLAYER_ID pid ) const;
+		CHARA_COLOR GetCharaColor1p() const { return m_color1p; }
 		void SetCharaColor1p ( CHARA_COLOR clr ) { m_color1p = clr; }
-		CHARA_COLOR GetColor2p() const { return m_color2p; }
+		CHARA_COLOR GetCharaColor2p() const { return m_color2p; }
 		void SetCharaColor2p ( CHARA_COLOR clr ) { m_color2p = clr; }
 
 		//デモ (設定ファイルにも記録)

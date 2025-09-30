@@ -11,17 +11,16 @@
 #include "Scene.h"
 
 //状態遷移先
+#include "../01_Title/Title.h"
+#include "../02_CharaSele/CharaSele.h"
+#include "../03_FtgMain/FtgMain.h"
+#include "../04_Training/Training.h"
+#include "../05_Result/Result.h"
+
 #if 0
-#include "../Title/Title.h"
-//#include "../CharaSele/CharaSele.h"
-#include "../CharaSele/_CharaSele.h"
-#include "../Result/Result.h"
 #include "../GameMain/SoundConst.h"
 #include "../GameMain/DebugDisp.h"
 #endif // 0
-
-#include "../03_FtgMain/FtgMain.h"
-#include "../04_Training/Training.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -67,7 +66,7 @@ namespace GAME
 	void Scene::Transit_Title ()
 	{
 		GRPLST_CLEAR ();
-//		mp_Transit = std::make_shared < Title > ();
+		mp_Transit = std::make_shared < Title > ();
 	}
 
 	//[シーン遷移] ファイティングに移行
@@ -94,7 +93,7 @@ namespace GAME
 	void Scene::Transit_CharaSele ()
 	{
 		GRPLST_CLEAR ();
-//		mp_Transit = std::make_shared < CharaSele > ();
+		mp_Transit = std::make_shared < CharaSele > ();
 //		mp_Transit = std::make_shared < _CharaSele > ();
 	}
 
@@ -102,7 +101,7 @@ namespace GAME
 	void Scene::Transit_Result ()
 	{
 		GRPLST_CLEAR ();
-//		mp_Transit = std::make_shared < Result > ();
+		mp_Transit = std::make_shared < Result > ();
 	}
 
 

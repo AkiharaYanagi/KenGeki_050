@@ -26,7 +26,7 @@ namespace GAME
 		CHARA_TEST,
 
 		CHARA_OUKA,			//鵯桜花
-		CHARA_SAE,			//烈火烈堂
+		CHARA_SAE,			//巴紗絵
 		CHARA_RETSUDOU,		//烈火烈堂
 		CHARA_GABADARUGA,	//ギャバダルガ
 		CHARA_FERARIA,		//フェラリア
@@ -45,6 +45,7 @@ namespace GAME
 	{
 		CH_CLR_1,
 		CH_CLR_2,
+		CH_CLR_NUM,
 	};
 
 	//開始状態

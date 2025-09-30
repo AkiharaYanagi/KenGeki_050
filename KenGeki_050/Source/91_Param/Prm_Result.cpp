@@ -100,6 +100,11 @@ namespace GAME
 		}
 	}
 
+	void Prm_Result::ResetBattleParam ()
+	{
+		Reset ();
+	}
+
 
 }	//namespace GAME
 
