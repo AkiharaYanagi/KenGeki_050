@@ -26,7 +26,10 @@ namespace GAME
 		CharaSele ( const CharaSele & rhs ) = delete;
 		~CharaSele ();
 
+		void ParamInit ();
 		void Load ();
+
+		P_GameScene Transit ();
 	};
 
 	using P_CharaSele = std::shared_ptr < CharaSele >;

@@ -37,11 +37,11 @@ namespace GAME
 
 	void Frame::Rele()
 	{
-		m_pvCRect->clear(); m_pvCRect.reset();
-		m_pvHRect->clear(); m_pvCRect.reset();
-		m_pvARect->clear(); m_pvCRect.reset();
-		m_pvORect->clear(); m_pvCRect.reset();
-		m_papEfGnrt->clear(); m_papEfGnrt.reset();
+		if ( m_pvCRect ) { m_pvCRect->clear(); m_pvCRect.reset(); }
+		if ( m_pvHRect ) { m_pvHRect->clear(); m_pvCRect.reset(); }
+		if ( m_pvARect ) { m_pvARect->clear(); m_pvCRect.reset(); }
+		if ( m_pvORect ) { m_pvORect->clear(); m_pvCRect.reset(); }
+		if ( m_papEfGnrt ) { m_papEfGnrt->clear(); m_papEfGnrt.reset(); }
 		m_versatile.clear();
 	}
 

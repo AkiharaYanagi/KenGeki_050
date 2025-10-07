@@ -48,7 +48,8 @@ namespace GAME
 		//パディング用
 		m_tx_Pad = TxUtl::MakeTx_FromArchive ( U"16_16_Padding.png" );
 
-		//テクスチャ読込
+		//テクスチャグリッド
+		m_gridTx = std::make_shared < s3d::Grid < P_Tx > > ();
 		(*m_gridTx)[0][CHARA_TEST] = m_tx_Pad;
 		(*m_gridTx)[1][CHARA_TEST] = m_tx_Pad;
 		(*m_gridTx)[0][CHARA_OUKA] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Ouka.png" );
@@ -57,8 +58,8 @@ namespace GAME
 		(*m_gridTx)[1][CHARA_SAE] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Sae_2p.png" );
 		(*m_gridTx)[0][CHARA_RETSUDOU] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Retsudou.png" );
 		(*m_gridTx)[1][CHARA_RETSUDOU] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Retsudou_2p.png" );
-		(*m_gridTx)[0][CHARA_GABADARUGA] = 
-		(*m_gridTx)[1][CHARA_GABADARUGA] = 
+		(*m_gridTx)[0][CHARA_GABADARUGA] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Gabadaruga.png" );
+		(*m_gridTx)[1][CHARA_GABADARUGA] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Gabadaruga.png" );
 		(*m_gridTx)[0][CHARA_FERARIA] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Gabadaruga.png" );
 		(*m_gridTx)[1][CHARA_FERARIA] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Gabadaruga.png" );
 		(*m_gridTx)[0][CHARA_TSUKIHIBOSHI] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Gabadaruga.png" );
@@ -71,8 +72,8 @@ namespace GAME
 		(*m_gridTx)[1][CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Gabadaruga.png" );
 		(*m_gridTx)[0][CHARA_ENEMY_ZERO] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Gabadaruga.png" );
 		(*m_gridTx)[1][CHARA_ENEMY_ZERO] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Gabadaruga.png" );
-		(*m_gridTx)[0][CHARA_RANDUM] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Gabadaruga.png" );
-		(*m_gridTx)[1][CHARA_RANDUM] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Gabadaruga.png" );
+		(*m_gridTx)[0][CHARA_RANDUM] = m_tx_Pad;
+		(*m_gridTx)[1][CHARA_RANDUM] = m_tx_Pad;
 	}
 
 	CharaSele_Image::~CharaSele_Image ()
@@ -84,7 +85,7 @@ namespace GAME
 		TASK_VEC::Load ();
 	}
 
-	inline P_Tx CharaSele_Image::GetpTx ( CHARA_NAME id, CHARA_COLOR clr )
+	P_Tx CharaSele_Image::GetpTx ( CHARA_NAME id, CHARA_COLOR clr )
 	{
 		return (*m_gridTx) [clr][id];
 	}
