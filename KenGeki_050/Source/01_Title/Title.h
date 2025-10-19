@@ -21,6 +21,9 @@ namespace GAME
 	class Title : public Scene, public std::enable_shared_from_this < Title >
 	{
 		P_Grp		m_bg;
+#if 0
+
+		P_Grp		m_bg;
 		float		m_bg_x { 0 };
 
 		P_Grp		m_logo;
@@ -68,6 +71,8 @@ namespace GAME
 		P_Grp		m_trial;
 
 
+#endif // 0
+
 	public:
 		Title ();
 		Title ( const Title & rhs ) = delete;
@@ -75,10 +80,15 @@ namespace GAME
 
 		void ParamInit ();
 
-		void Move ();
 		void Load ();
+		void Move ();
 
 		P_GameScene Transit ();
+
+	private:
+		void Input ();
+
+#if 0
 
 	private:
 		void Input ();
@@ -124,6 +134,8 @@ namespace GAME
 		static const int32 WAIT_DEMO;	//待機時間
 		static const int32 BAR_DEMO_Y;	//バー表示Y
 #pragma endregion
+
+#endif // 0
 
 	};
 

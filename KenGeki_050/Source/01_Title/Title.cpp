@@ -19,7 +19,79 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+	Title::Title ()
+	{
+		m_bg = std::make_shared < GameGraphic > ();
+		m_bg->AddTexture_FromArchive ( U"Title\\Title_BG.png" );
+		AddpTask ( m_bg );
+		GRPLST_INSERT ( m_bg );
+	}
 
+	Title::~Title ()
+	{
+	}
+
+	void Title::ParamInit ()
+	{
+		P_Param pPrm = GetpParam();
+		GameSettingFile stg = pPrm->GetGameSetting ();
+	}
+
+	void Title::Load ()
+	{
+		//==================================================
+		//	Scene共通
+		//==================================================
+		//遷移先を自身に設定
+		//	(コンストラクタでは shared_from_this() が使えないため、Load() で呼び出す)
+		Scene::SetwpThis ( shared_from_this () );
+		//==================================================
+
+		//BGM
+		SND_STOP_ALL_BGM ();
+		SND_PLAY_LOOP_BGM ( BGM_Title );
+
+		Scene::Load ();
+	}
+
+	void Title::Move ()
+	{
+		//入力
+		Input ();
+
+		Scene::Move ();
+	}
+
+	P_GameScene Title::Transit ()
+	{
+		return Scene::Transit ();
+	}
+
+	void Title::Input ()
+	{
+		//ゲーム共通パラメータ
+		P_Param pParam = Scene::GetpParam ();
+		GameSettingFile & rGameStg = pParam->GetGameSetting();
+
+		//キー1でシーンを進める
+		if ( CFG_PUSH_KEY ( P1_BTN0 ) || CFG_PUSH_KEY ( P2_BTN0 ) )
+		{
+			SND_PLAY_ONESHOT_SE ( SE_select_decide );
+
+			//フェード開始
+//			m_fade_out->StartBlackOut ( FADE_OUT_T );
+
+
+			SND_STOP_ALL_BGM ();
+			rGameStg.SetMutchMode ( MODE_PLAYER_PLAYER );
+			pParam->SetFtgMode ( MODE_TRAINING );
+			Scene::Transit_CharaSele ();
+		}
+	}
+
+
+
+#if 0
 
 #if 0
 		//2024/11/03 デジゲー博 Ver 0.10
@@ -611,6 +683,11 @@ namespace GAME
 	const int32 Title::BAR_DEMO_Y = 752;
 
 #pragma endregion
+
+#endif // 0
+
+
+
 
 }	//namespace GAME
 

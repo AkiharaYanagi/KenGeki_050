@@ -23,8 +23,6 @@ namespace GAME
 	//キャラ名
 	enum CHARA_NAME
 	{
-		CHARA_TEST,
-
 		CHARA_OUKA,			//鵯桜花
 		CHARA_SAE,			//巴紗絵
 		CHARA_RETSUDOU,		//烈火烈堂
