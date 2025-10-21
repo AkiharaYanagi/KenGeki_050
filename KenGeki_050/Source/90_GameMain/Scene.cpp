@@ -138,13 +138,14 @@ namespace GAME
 		GameSettingFile stgs = m_pParam->GetGameSetting ();
 		START_MODE startMode = stgs.GetStartMode ();
 
-
 		//テスト用 開始状態選択
-//		startMode = START_TITLE;
+		startMode = START_TITLE;
 //		startMode = START_CHARA_SELE;
 //		startMode = START_BATTLE;
-		startMode = START_TRAINING;
+//		startMode = START_TRAINING;
 //		startMode = START_RESULT;
+#if 0
+#endif // 0
 
 
 #if 0
@@ -184,7 +185,6 @@ namespace GAME
 
 		switch ( startMode )
 		{
-#if 0
 		//---------------------------------------------
 		//タイトルから開始
 		case START_TITLE:
@@ -200,8 +200,8 @@ namespace GAME
 		//---------------------------------------------
 		//キャラセレから開始
 		case START_CHARA_SELE:
-//			pScene = std::make_shared < CharaSele > ();
-			pScene = std::make_shared < _CharaSele > ();
+			pScene = std::make_shared < CharaSele > ();
+//			pScene = std::make_shared < _CharaSele > ();
 		break;
 
 		//---------------------------------------------
@@ -210,7 +210,6 @@ namespace GAME
 			pScene = std::make_shared < Result > ();
 		break;
 
-#endif // 0
 		//---------------------------------------------
 		case START_TRAINING:
 			//トレーニングから開始

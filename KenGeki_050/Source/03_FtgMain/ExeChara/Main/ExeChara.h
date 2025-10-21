@@ -276,6 +276,8 @@ namespace GAME
 
 		//SEの初回チェック
 		void SetFirstSE ( bool b ) { m_btlPrm.SetFirstSE ( b ); }
+		//SEの生成指定
+		void GenerateSE ( const Generator & gnrt );
 		//SEの再生指定
 		void PlaySE ( const s3d::String & se_name );
 

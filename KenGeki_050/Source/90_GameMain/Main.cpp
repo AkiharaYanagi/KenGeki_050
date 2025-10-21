@@ -24,6 +24,8 @@ void Load ();
 void Init ();
 void Move ();
 void Draw ();
+void Rele ();
+
 
 //ゲームシステム
 GameSystem gameSystem;
@@ -53,6 +55,9 @@ void Main()
 		Draw ();
 	}
 	//========================================
+
+	//終了時の解放
+	gameSystem.SystemRele ();
 }
 
 
@@ -70,6 +75,12 @@ void Load ()
 
 	//ゲームシステムにゲームメインオブジェクトを追加
 	gameSystem.SetpGameMain ( std::move ( gameMain ) );
+}
+
+void Rele ()
+{
+	//システム初期化
+	gameSystem.SystemRele ();
 }
 
 //メインループ中の最初の１回のみの初期化
