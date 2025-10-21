@@ -137,13 +137,14 @@ namespace GAME
 		GameSettingFile stgs = m_pParam->GetGameSetting ();
 		START_MODE startMode = stgs.GetStartMode ();
 
-
 		//テスト用 開始状態選択
 		startMode = START_TITLE;
 //		startMode = START_CHARA_SELE;
 //		startMode = START_BATTLE;
 //		startMode = START_TRAINING;
 //		startMode = START_RESULT;
+#if 0
+#endif // 0
 
 
 #if 0

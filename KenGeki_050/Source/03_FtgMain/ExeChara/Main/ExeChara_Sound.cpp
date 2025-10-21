@@ -91,17 +91,56 @@ namespace GAME
 		A_Gnrt aGnrt = m_pScript->GetaSE ();
 		for (Generator gnrt : aGnrt)
 		{
-			PlaySE ( gnrt.Name.Get() );
+			//PlaySE ( gnrt.Name.Get() );
+			GenerateSE ( gnrt );
+		}
+	}
+
+	//SEの生成指定
+	void ExeChara::GenerateSE ( const Generator & gnrt )
+	{
+		GENERATE_CONDITION cnd = gnrt.m_cnd.Get ();
+		switch ( cnd )
+		{
+		//常時
+		case GNRT_ALL:
+			PlaySE ( gnrt.Name.Get () );
+		break;
+
+		//ヒット時
+		case GNRT_HIT:
+			if ( m_btlPrm.GetHitEst () )
+			{
+				PlaySE ( gnrt.Name.Get () );
+			}
+		break;
+
+		//ガード時
+		case GNRT_GRD:
+			if ( m_btlPrm.GetGuardEst () )
+			{
+				PlaySE ( gnrt.Name.Get () );
+			}
+		break;
+
+
+		//空振り時
+		case GNRT_THR:
+		break;
+
+		default: break;
 		}
 
-		//再生フラグをOn (CharaStateでOff)
-		m_btlPrm.SetFirstSE ( T );
 	}
 
 	//SEの再生指定
 	void ExeChara::PlaySE ( const s3d::String & se_name )
 	{
-		SND_PLAY_ONESHOT_SE ( se_name );		//名前から再生
+		//名前から再生	
+		SND_PLAY_ONESHOT_SE ( se_name );
+
+		//再生フラグをOn (CharaStateでOff)
+		m_btlPrm.SetFirstSE ( T );
 	}
 
 
