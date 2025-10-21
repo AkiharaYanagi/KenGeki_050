@@ -18,7 +18,7 @@ namespace GAME
 
 	class Test	: public TASK_VEC
 	{
-		P_GrpAcv		m_bg;
+		P_Grp		m_bg;
 
 	public:
 		Test ();
@@ -26,6 +26,7 @@ namespace GAME
 		~Test ();
 
 		void Load ();
+		void Move ();
 	};
 
 	using P_Test = std::shared_ptr < Test >;
