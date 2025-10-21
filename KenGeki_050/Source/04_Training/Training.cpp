@@ -123,7 +123,17 @@ namespace GAME
 		//戦闘共通
 		G_Ftg::inst()->Init ();
 
-		//CPU / PLAYER
+		//BGM
+		SND_STOP_ALL_BGM ();
+
+		//BGMなし以外は再生開始
+		BGM_ID bgm_id = pParam->Get_BGM_ID ();
+		SND_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+		if ( BGM_ID_NONE != bgm_id )
+		{
+			SND_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+		}
+
 		//両者の操作をCPUではなくプレイヤに初期設定
 		pParam->GetGameSetting().SetMutchMode ( MUTCH_MODE::MODE_PLAYER_PLAYER );
 

@@ -85,6 +85,10 @@ namespace GAME
 		GameSettingFile & GetGameSetting () { return m_setting; }
 		void SetSettingFile ( const GameSettingFile & stg ) { m_setting = stg; }
 
+		//設定ファイルにも記録
+		BGM_ID Get_BGM_ID () const { return m_setting.GetBGM_ID (); }
+		void Set_BGM_ID ( BGM_ID id ) { m_setting.SetBGM_ID ( id ); }
+
 #if 0
 
 		void SetMutchMode ( MUTCH_MODE mode );

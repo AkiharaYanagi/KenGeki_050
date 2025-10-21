@@ -25,6 +25,8 @@ namespace GAME
 #define DEBUG_DISP	1
 
 #if 0
+		//使用例
+		
 		//デバッグ表示あり
 		//DBGOUT_WND_F は　ExeChara中で用いると２P側で上書きされる
 //		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
@@ -32,6 +34,17 @@ namespace GAME
 			DBGOUT_WND_F ( DBGOUT_6, U"OperateEffect::m_bGenerate{}"_fmt( m_bGenerate ) );
 		}
 #endif // 0
+//====================================================
+
+
+//====================================================
+//開始時　一時停止スタート　切替
+// 		[w]で手動切替
+//	0 : OFF
+//  1 : ON
+
+#define WAIT_START	0
+
 //====================================================
 
 

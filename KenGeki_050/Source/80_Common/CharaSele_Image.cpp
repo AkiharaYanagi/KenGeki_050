@@ -50,8 +50,8 @@ namespace GAME
 
 		//テクスチャグリッド
 		m_gridTx = std::make_shared < s3d::Grid < P_Tx > > ();
-		(*m_gridTx)[0][CHARA_TEST] = m_tx_Pad;
-		(*m_gridTx)[1][CHARA_TEST] = m_tx_Pad;
+//		(*m_gridTx)[0][CHARA_TEST] = m_tx_Pad;
+//		(*m_gridTx)[1][CHARA_TEST] = m_tx_Pad;
 		(*m_gridTx)[0][CHARA_OUKA] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Ouka.png" );
 		(*m_gridTx)[1][CHARA_OUKA] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Ouka_2p.png" );
 		(*m_gridTx)[0][CHARA_SAE] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Sae.png" );

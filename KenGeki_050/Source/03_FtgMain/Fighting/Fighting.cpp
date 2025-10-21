@@ -77,6 +77,12 @@ namespace GAME
 		//タイム
 		m_btlTime = std::make_shared < BattleTime > ();
 		AddpTask ( m_btlTime );
+		m_btlTime->SetPos_BG ( VEC2 ( (1280 / 2) - (185 / 2), 0 ) );
+		float time_bx = 16 + (1280 * 0.5f) - (128 / 2);
+		float time_by = 50;
+		m_btlTime->SetPos_Digit ( VEC2 ( time_bx, time_by ) );
+		m_btlTime->SetZ ( Z_EFB );
+
 
 		//------------------------------------------------
 		//ラウンド
@@ -86,6 +92,7 @@ namespace GAME
 		//------------------------------------------------
 		//BGM名
 		m_bgmName = std::make_shared < GameGraphic > ();
+		m_bgmName->AddTexture_FromArchive ( U"1_1_transparent.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Gaba.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Ouka.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Sae.png" );
@@ -188,13 +195,14 @@ namespace GAME
 
 
 		//BGM
-//		P_Param pParam = Scene::GetpParam ();
-//		P_Param pParam =  m_prmFtgDemo->GetpSceneParam();
-		BGM_ID bgm_id = m_pParam->GetGameSetting().GetBGM_ID ();
 		SND_STOP_ALL_BGM ();
-		SND_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
 
-
+		//BGMなし以外は再生開始
+		BGM_ID bgm_id = m_pParam->Get_BGM_ID ();
+		if ( BGM_ID_NONE != bgm_id )
+		{
+			SND_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+		}
 	}
 
 	void Fighting::TrainingRestart ()

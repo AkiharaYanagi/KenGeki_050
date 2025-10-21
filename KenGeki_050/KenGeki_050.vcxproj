@@ -123,6 +123,16 @@
   <ItemGroup>
     <ClCompile Include="Source\01_Title\Title.cpp" />
     <ClCompile Include="Source\02_CharaSele\CharaSele.cpp" />
+    <ClCompile Include="Source\02_CharaSele\CharaSele_Color.cpp" />
+    <ClCompile Include="Source\02_CharaSele\CharaSele_Face.cpp" />
+    <ClCompile Include="Source\02_CharaSele\CharaSele_Grp.cpp" />
+    <ClCompile Include="Source\02_CharaSele\CharaSele_GrpSet.cpp" />
+    <ClCompile Include="Source\02_CharaSele\CharaSele_Stand.cpp" />
+    <ClCompile Include="Source\02_CharaSele\Menu\CharaSele_Menu.cpp" />
+    <ClCompile Include="Source\02_CharaSele\Menu\CharaSele_Menu_Actor.cpp" />
+    <ClCompile Include="Source\02_CharaSele\Menu\CharaSele_Menu_State.cpp" />
+    <ClCompile Include="Source\02_CharaSele\State\CharaSele_Player_Actor.cpp" />
+    <ClCompile Include="Source\02_CharaSele\State\CharaSele_Player_State.cpp" />
     <ClCompile Include="Source\03_FtgMain\Ef\EfClang.cpp" />
     <ClCompile Include="Source\03_FtgMain\Ef\EfHitLine.cpp" />
     <ClCompile Include="Source\03_FtgMain\Ef\EfKouAtsu.cpp" />
@@ -163,7 +173,6 @@
     <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_Transit_Special.cpp" />
     <ClCompile Include="Source\03_FtgMain\ExeChara\Rect\CharaRect.cpp" />
     <ClCompile Include="Source\03_FtgMain\ExeChara\TimerSlow.cpp" />
-    <ClCompile Include="Source\03_FtgMain\Fighting\BattleTime.cpp" />
     <ClCompile Include="Source\03_FtgMain\Fighting\BG.cpp" />
     <ClCompile Include="Source\03_FtgMain\Fighting\BG\BG_Base.cpp" />
     <ClCompile Include="Source\03_FtgMain\Fighting\BG\BG_Yuuhi_no_hara.cpp" />
@@ -182,6 +191,7 @@
     <ClCompile Include="Source\04_Training\Training.cpp" />
     <ClCompile Include="Source\05_Result\Result.cpp" />
     <ClCompile Include="Source\05_Result\ResultMenu.cpp" />
+    <ClCompile Include="Source\80_Common\BattleTime.cpp" />
     <ClCompile Include="Source\80_Common\CharaSele_Image.cpp" />
     <ClCompile Include="Source\80_Common\Menu\PauseMenu.cpp" />
     <ClCompile Include="Source\80_Common\Menu\PauseMenuItem.cpp" />
@@ -405,6 +415,16 @@
   <ItemGroup>
     <ClInclude Include="Source\01_Title\Title.h" />
     <ClInclude Include="Source\02_CharaSele\CharaSele.h" />
+    <ClInclude Include="Source\02_CharaSele\CharaSele_Color.h" />
+    <ClInclude Include="Source\02_CharaSele\CharaSele_Face.h" />
+    <ClInclude Include="Source\02_CharaSele\CharaSele_Grp.h" />
+    <ClInclude Include="Source\02_CharaSele\CharaSele_GrpSet.h" />
+    <ClInclude Include="Source\02_CharaSele\CharaSele_Stand.h" />
+    <ClInclude Include="Source\02_CharaSele\Menu\CharaSele_Menu.h" />
+    <ClInclude Include="Source\02_CharaSele\Menu\CharaSele_Menu_Actor.h" />
+    <ClInclude Include="Source\02_CharaSele\Menu\CharaSele_Menu_State.h" />
+    <ClInclude Include="Source\02_CharaSele\State\CharaSele_Player_Actor.h" />
+    <ClInclude Include="Source\02_CharaSele\State\CharaSele_Player_State.h" />
     <ClInclude Include="Source\03_FtgMain\Ef\EfClang.h" />
     <ClInclude Include="Source\03_FtgMain\Ef\EfHitLine.h" />
     <ClInclude Include="Source\03_FtgMain\Ef\EfKouAtsu.h" />
@@ -436,7 +456,6 @@
     <ClInclude Include="Source\03_FtgMain\ExeChara\Main\ExeChara.h" />
     <ClInclude Include="Source\03_FtgMain\ExeChara\Rect\CharaRect.h" />
     <ClInclude Include="Source\03_FtgMain\ExeChara\TimerSlow.h" />
-    <ClInclude Include="Source\03_FtgMain\Fighting\BattleTime.h" />
     <ClInclude Include="Source\03_FtgMain\Fighting\BG.h" />
     <ClInclude Include="Source\03_FtgMain\Fighting\BG\BG_Base.h" />
     <ClInclude Include="Source\03_FtgMain\Fighting\BG\BG_Yuuhi_no_hara.h" />
@@ -456,6 +475,7 @@
     <ClInclude Include="Source\04_Training\Training.h" />
     <ClInclude Include="Source\05_Result\Result.h" />
     <ClInclude Include="Source\05_Result\ResultMenu.h" />
+    <ClInclude Include="Source\80_Common\BattleTime.h" />
     <ClInclude Include="Source\80_Common\CharaSele_Image.h" />
     <ClInclude Include="Source\80_Common\Menu\PauseMenu.h" />
     <ClInclude Include="Source\80_Common\Menu\PauseMenuItem.h" />

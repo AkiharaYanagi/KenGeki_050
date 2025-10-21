@@ -94,7 +94,6 @@ namespace GAME
 	{
 		GRPLST_CLEAR ();
 		mp_Transit = std::make_shared < CharaSele > ();
-//		mp_Transit = std::make_shared < _CharaSele > ();
 	}
 
 	//[シーン遷移] リザルトに移行
@@ -239,36 +238,6 @@ namespace GAME
 
 	void SceneManager::Move ()
 	{
-#if 0
-
-		//デバッグ表示切替トグル
-		static bool bDispDebug = T;
-		static bool pre_bDispDebug = F;
-		static bool is_bDispDebug = F;
-
-		is_bDispDebug = ( WND_UTL::AscKey ( VK_F8 ) );
-
-		//今回押した瞬間ならば、1回のみ切替
-		if ( ! pre_bDispDebug && is_bDispDebug )	// false -> true
-		{
-			if ( bDispDebug )
-			{
-				//デバッグ表示オフ
-				DBGOUT_WND_OFF ();
-				bDispDebug = F;
-			}
-			else
-			{
-				//デバッグ表示オン
-				DBGOUT_WND_ON ();
-				bDispDebug = T;
-			}
-		}
-		//今回の保存
-		pre_bDispDebug = is_bDispDebug;
-
-#endif // 0
-
 		GameSceneManager::Move ();
 	}
 
