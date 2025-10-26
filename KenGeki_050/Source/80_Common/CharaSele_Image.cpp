@@ -72,8 +72,8 @@ namespace GAME
 		(*m_gridTx)[1][CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Gabadaruga.png" );
 		(*m_gridTx)[0][CHARA_ENEMY_ZERO] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Gabadaruga.png" );
 		(*m_gridTx)[1][CHARA_ENEMY_ZERO] = TxUtl::MakeTx_FromArchive ( U"CharaSele\\Stand_Gabadaruga.png" );
-		(*m_gridTx)[0][CHARA_RANDUM] = m_tx_Pad;
-		(*m_gridTx)[1][CHARA_RANDUM] = m_tx_Pad;
+//		(*m_gridTx)[0][CHARA_RANDUM] = m_tx_Pad;
+//		(*m_gridTx)[1][CHARA_RANDUM] = m_tx_Pad;
 	}
 
 	CharaSele_Image::~CharaSele_Image ()

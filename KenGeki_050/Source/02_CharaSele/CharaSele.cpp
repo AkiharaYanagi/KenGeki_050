@@ -1,6 +1,6 @@
 ﻿//=================================================================================================
 //
-//	CharaSele　メインクラス ソースファイル
+//	CharaSele_Main ソースファイル
 //
 //=================================================================================================
 
@@ -8,7 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "CharaSele.h"
-#include "../90_GameMain/SoundConst.h"
+#include "../90_GameMain/SeConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -18,12 +18,9 @@ namespace GAME
 {
 	CharaSele::CharaSele()
 	{
-		//背景
-		m_bg = std::make_shared < GameGraphic > ();
-		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\bg.png" );
-		m_bg->SetZ ( Z_BG );
-		AddpTask ( m_bg );
-		GRPLST_INSERT ( m_bg );
+		//ステージ
+		m_stage = std::make_shared < CharaSele_Stage > ();
+		AddpTask ( m_stage );
 
 
 		//上部メニュ
@@ -61,6 +58,33 @@ namespace GAME
 		m_battleTime = std::make_shared < BattleTime > ();
 		AddpTask ( m_battleTime );
 		m_battleTime->Start ();
+
+		m_battleTime->SetPos_BG ( VEC2 ( (1280 / 2) - (185 / 2), 0 ) );
+		m_battleTime->SetPos_Digit ( VEC2 { 16 + (1280 * 0.5f) - (128 / 2), 15 } );
+		m_battleTime->SetZ ( Z_SYS );
+		m_battleTime->ValidBG ( F );
+
+
+		//保存用共通パラメータ
+		m_pParam = std::make_shared < Param > ();
+
+		//フェードイン
+		m_fade_in = std::make_shared < FadeRect > ();
+		AddpTask ( m_fade_in );
+		GRPLST_INSERT ( m_fade_in );
+		m_fade_in->StartBlackIn ( FADE_IN_T );
+
+		//フェードアウト
+		m_fade_toTitle = std::make_shared < FadeRect > ();
+		m_fade_toTitle->SetAfterClear ( F );
+		AddpTask ( m_fade_toTitle );
+		GRPLST_INSERT ( m_fade_toTitle );
+
+		m_fade_toFighting = std::make_shared < FadeRect > ();
+		m_fade_toFighting->SetAfterClear ( F );
+		AddpTask ( m_fade_toFighting );
+		GRPLST_INSERT ( m_fade_toFighting );
+
 	}
 
 	CharaSele::~CharaSele()
@@ -68,10 +92,12 @@ namespace GAME
 
 	}
 
-	void CharaSele::ParamInit ()
+	void CharaSele::ParamInit()
 	{
-		P_Param pPrm = GetpParam();
-		GameSettingFile stg = pPrm->GetGameSetting ();
+		P_Param p = GetpParam ();
+		m_stage->SetpParam ( p );
+		m_plrActor_1p->SetpParam ( p );
+		m_plrActor_2p->SetpParam ( p );
 	}
 
 	void CharaSele::Load()
@@ -87,37 +113,141 @@ namespace GAME
 		m_plrActor_1p->SetwpCharaSeleMain ( shared_from_this () );
 		m_plrActor_2p->SetwpCharaSeleMain ( shared_from_this () );
 
-		//BGM
-		SND_STOP_ALL_BGM ();
-		SND_PLAY_LOOP_BGM ( BGM_CharaSele );
+		m_plrActor_1p->SetpParam ( m_pParam );
+		m_plrActor_2p->SetpParam ( m_pParam );
 
-
-
-		TASK_VEC::Load ();
+		Scene::Load ();
 	}
 
 	void CharaSele::Move()
 	{
-		TASK_VEC::Move ();
-	}
+		Input ();
 
-	P_GameScene CharaSele::Transit ()
-	{
-		//キー1でシーンを進める
-		if ( CFG_PUSH_KEY ( P1_BTN0 ) || CFG_PUSH_KEY ( P2_BTN0 ) )
+		//ステージ選択
+		if ( CFG_PUSH_KEY_12 ( PLY_BTN1 ) )
 		{
-//			SND_PLAY_ONESHOT_SE ( SE_select_decide );
-
-			//フェード開始
-//			m_fade_out->StartBlackOut ( FADE_OUT_T );
-
-
-			SND_STOP_ALL_BGM ();
-			Scene::Transit_Training ();
+			m_stage->Next ();
+			SND_PLAY_ONESHOT_SE ( SE_select_move );
+		}
+		if ( CFG_PUSH_KEY_12 ( PLY_BTN2 ) )
+		{
+			m_stage->Prev ();
+			SND_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 
+		if ( CFG_PUSH_KEY ( P1_BTN7 ) )
+		{
+			SND_STOP_ALL_BGM();
+			SND_PLAY_LOOP_BGM ( U"BGM01_CharaSele.wav" );
+		}
+		Scene::Move ();
+	}
+
+	void CharaSele::Input ()
+	{
+		//BackSpaceでタイトルに戻る (ESCは直接終了)
+		//コントローラ(7:リセットボタン)でも戻る
+		if ( ! m_fade_toTitle->IsActive () )
+		{
+			bool bBackSpace = WND_UTL::AscKey ( VK_BACK );
+			bool bCtrlReset = CFG_PUSH_KEY_12 ( PLAYER_INPUT::PLY_BTN7 );
+			if ( bBackSpace || bCtrlReset )
+			{
+				SND_PLAY_ONESHOT_SE ( SE_select_Cancel );
+
+				//フェード開始
+				m_fade_toTitle->StartBlackOut ( 8 );
+			}
+		}
+
+
+		//プレイヤ２人が決定済みなら移項
+		if ( ! m_fade_toFighting->IsActive () )
+		{
+			bool b1 = m_plrActor_1p->Is_Decided ();
+			bool b2 = m_plrActor_2p->Is_Decided ();
+			if ( b1 && b2 )
+			{
+				SND_PLAY_ONESHOT_SE ( SE_Sys_Enter );
+				//フェード開始
+				m_fade_toFighting->StartBlackOut ( 8 );
+			}
+		}
+
+	}
+
+	P_GameScene CharaSele::Transit()
+	{
+
+		//タイトルに移行
+		if ( m_fade_toTitle->IsLast () )
+		{
+			Save ();
+			SND_STOP_ALL_BGM();
+			Scene::Transit_Title ();
+		}
+
+		//戦闘に移行
+		if ( m_fade_toFighting->IsLast () )
+		{
+			Save ();
+			SND_STOP_ALL_BGM ();
+
+			m_fade_toFighting->ShiftTargetColor ();
+
+			//通常戦闘かトレーニングの分岐
+			P_Param pPrm = Scene::GetpParam ();
+			if ( FTG_MODE::MODE_FTG_MAIN == pPrm->GetFtgMode () )
+			{
+				Scene::Transit_Fighting ();
+			}
+			else if ( FTG_MODE::MODE_TRAINING == pPrm->GetFtgMode () )
+			{
+				Scene::Transit_Training ();
+			}
+		}
+
+
+		//通常時は自身を返す
+		//他のシーンが確保されたなら遷移する
 		return Scene::Transit ();
 	}
+
+
+	//=========================================
+	//	内部関数
+	//=========================================
+
+	//キャラ選択、ステージ選択をパラメータ（ゲーム設定ファイル）に記録
+	void CharaSele::Save ()
+	{
+		//パラメータには随時設定されているので書出のみ
+		P_Param pPrm = Scene::GetpParam ();
+#if 0
+		//パラメータに記録し、次シーン以降で用いる
+		P_Param pPrm = Scene::GetpParam ();
+		GameSettingFile& rGameStg = pPrm->GetGameSetting ();
+
+		rGameStg.SetCharaName1p ( m_plrActor_1p->GetCharaName() );
+		rGameStg.SetCharaName2p ( m_plrActor_2p->GetCharaName() );
+		rGameStg.SetCharaColor1p ( m_plrActor_1p->GetColor() );
+		rGameStg.SetCharaColor2p ( m_plrActor_2p->GetColor() );
+		rGameStg.SetStage_Name ( m_stage->GetStageName () );
+		rGameStg.SetBGM_ID ( m_bgm->Get_ID () );
+
+#endif // 0
+
+		//設定ファイルに書出
+		pPrm->GetGameSetting().Save ();
+	}
+
+
+#pragma region CONST
+	const uint32 CharaSele::FADE_IN_T = 8;
+	const uint32 CharaSele::FADE_OUT_T = 8;
+#pragma endregion
+
+
 
 }
 

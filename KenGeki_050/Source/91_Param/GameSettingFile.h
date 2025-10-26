@@ -80,14 +80,16 @@ namespace GAME
 		CHARA_NAME GetCharaName ( PLAYER_ID pid ) const;
 		CHARA_NAME GetCharaName1p () const { return m_name1p; }
 		CHARA_NAME GetCharaName2p () const { return m_name2p; }
+		void SetCharaName ( PLAYER_ID pid, CHARA_NAME name );
 		void SetCharaName1p ( CHARA_NAME name ) { m_name1p = name; }
 		void SetCharaName2p ( CHARA_NAME name ) { m_name2p = name; }
 
 		//キャラカラー
 		CHARA_COLOR GetCharaColor ( PLAYER_ID pid ) const;
 		CHARA_COLOR GetCharaColor1p() const { return m_color1p; }
-		void SetCharaColor1p ( CHARA_COLOR clr ) { m_color1p = clr; }
 		CHARA_COLOR GetCharaColor2p() const { return m_color2p; }
+		void SetCharaColor ( PLAYER_ID pid, CHARA_COLOR clr );
+		void SetCharaColor1p ( CHARA_COLOR clr ) { m_color1p = clr; }
 		void SetCharaColor2p ( CHARA_COLOR clr ) { m_color2p = clr; }
 
 		//デモ (設定ファイルにも記録)

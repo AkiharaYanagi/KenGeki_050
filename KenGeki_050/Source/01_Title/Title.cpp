@@ -1,6 +1,6 @@
 ﻿//=================================================================================================
 //
-//	タイトル
+//	Title
 //
 //=================================================================================================
 
@@ -8,10 +8,8 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Title.h"
-#include "../90_GameMain/SoundConst.h"
-#include "../90_GameMain/VoiceConst.h"
 #include "../90_GameMain/SeConst.h"
-#include "../90_GameMain/DebugDisp.h"
+#include "../90_GameMain/VoiceConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -19,80 +17,6 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	Title::Title ()
-	{
-		m_bg = std::make_shared < GameGraphic > ();
-		m_bg->AddTexture_FromArchive ( U"Title\\Title_BG.png" );
-		AddpTask ( m_bg );
-		GRPLST_INSERT ( m_bg );
-	}
-
-	Title::~Title ()
-	{
-	}
-
-	void Title::ParamInit ()
-	{
-		P_Param pPrm = GetpParam();
-		GameSettingFile stg = pPrm->GetGameSetting ();
-	}
-
-	void Title::Load ()
-	{
-		//==================================================
-		//	Scene共通
-		//==================================================
-		//遷移先を自身に設定
-		//	(コンストラクタでは shared_from_this() が使えないため、Load() で呼び出す)
-		Scene::SetwpThis ( shared_from_this () );
-		//==================================================
-
-		//BGM
-		SND_STOP_ALL_BGM ();
-		SND_PLAY_LOOP_BGM ( BGM_Title );
-
-		Scene::Load ();
-	}
-
-	void Title::Move ()
-	{
-		//入力
-		Input ();
-
-		Scene::Move ();
-	}
-
-	P_GameScene Title::Transit ()
-	{
-		return Scene::Transit ();
-	}
-
-	void Title::Input ()
-	{
-		//ゲーム共通パラメータ
-		P_Param pParam = Scene::GetpParam ();
-		GameSettingFile & rGameStg = pParam->GetGameSetting();
-
-		//キー1でシーンを進める
-		if ( CFG_PUSH_KEY ( P1_BTN0 ) || CFG_PUSH_KEY ( P2_BTN0 ) )
-		{
-			SND_PLAY_ONESHOT_SE ( SE_select_decide );
-
-			//フェード開始
-//			m_fade_out->StartBlackOut ( FADE_OUT_T );
-
-
-			SND_STOP_ALL_BGM ();
-			rGameStg.SetMutchMode ( MODE_PLAYER_PLAYER );
-			pParam->SetFtgMode ( MODE_TRAINING );
-			Scene::Transit_CharaSele ();
-		}
-	}
-
-
-
-#if 0
-
 #if 0
 		//2024/11/03 デジゲー博 Ver 0.10
 		//2024/11/03 修正パッチ Ver 0.12;
@@ -110,92 +34,75 @@ namespace GAME
 	const char32_t Title::Ver[] = U"ver 0.50";
 
 
+	//--------------------------------------------------------
+	//constexprは前方宣言
+	constexpr uint32 FADE_IN_T = 16;
+	constexpr uint32 FADE_OUT_T = 16;
+	constexpr uint32 TITLE_CALL_WAIT = 2;
+
+#if 0
+
+//	constexpr char32_t BGM_Title []		= U"10_BGM_Title.wav";
+
+	//タイトルコール
+	constexpr char32_t VC_00_SAE_TITLE_CALL []		= U"VC00_99_紗絵_タイトルコール.wav";
+	constexpr char32_t VC_01_RETSUDOU_TITLE_CALL []	= U"VC01_99_烈堂_タイトルコール.wav";
+	constexpr char32_t VC_02_OUKA_TITLE_CALL[]		= U"VC02_33_4_桜花_タイトルコール：剣撃クロスゾーン.wav";
+	constexpr char32_t VC_90_CONSOME_TITLE_CALL[]	= U"VC90_00_剣撃クロスゾーン.wav";
+
+#endif // 0
+
+
 
 	Title::Title ()
 	{
-		//---------------------------------------------------
-		//グラフィック初期化
-		//---------------------------------------------------
-		m_bg = std::make_shared < GameGraphic > ();
-		m_bg->AddTexture_FromArchive ( U"Title\\title_bg.png" );
-		m_bg->SetPos ( BG_X, BG_Y );
-		m_bg->SetZ ( Z_BG );
-		AddpTask ( m_bg );
-		GRPLST_INSERT ( m_bg );
+		//背景	
+		m_bg = MakepGrp ( U"Title\\Title_BG.png", Z_BG );
 
-		m_logo = std::make_shared < GameGraphic > ();
-		m_logo->AddTexture_FromArchive ( U"Title\\title_logo.png" );
-		m_logo->SetPos ( LOGO_X, LOGO_Y );
-		m_logo->SetZ ( Z_BG );
-		AddpTask ( m_logo );
-		GRPLST_INSERT ( m_logo );
+		m_rect = MakepGrp ( U"Title\\Title_Rect.png", Z_BG - 0.01f );
+		m_rect->SetPos ( VEC2 ( 1280 / 2 - 500 / 2, 100 ) );
+		m_rect->SetRotationCenter ( VEC2 ( 250, 250 ) );
+		m_rect->SetColor ( _CLR(0xffa0a0a0) );
+		m_rect->AddObject ();
+		P_Ob pob = m_rect->GetpObject ( 1 );
+		pob->SetPos ( VEC2 ( 1280 / 2 - 500 / 2, 100 ) );
+		pob->SetRotationCenter ( VEC2 ( 250, 250 ) );
+//		pob->SetColor ( _CLR(0xff800000) );
+		m_rect_omega1 = 0.01f;
 
-		m_menu_1PvsCPU = std::make_shared < GameGraphic > ();
-		m_menu_1PvsCPU->AddTexture_FromArchive ( U"Title\\Title_Menu_1PvsCPU.png" );
-		m_menu_1PvsCPU->SetPos ( MENU_X, MENU_Y0 );
-		m_menu_1PvsCPU->SetZ ( Z_CH );
-		AddpTask ( m_menu_1PvsCPU );
-		GRPLST_INSERT ( m_menu_1PvsCPU );
+		//キャラ
+		m_chara = std::make_shared < TitleChara > ();
+		AddpTask ( m_chara );
 
-		m_menu_1Pvs2P = std::make_shared < GameGraphic > ();
-		m_menu_1Pvs2P->AddTexture_FromArchive ( U"Title\\Title_Menu_1Pvs2P.png" );
-		m_menu_1Pvs2P->SetPos ( MENU_X, MENU_Y1 );
-		m_menu_1Pvs2P->SetZ ( Z_CH );
-		AddpTask ( m_menu_1Pvs2P );
-		GRPLST_INSERT ( m_menu_1Pvs2P );
-
-		m_menu_CPUvsCPU = std::make_shared < GameGraphic > ();
-		m_menu_CPUvsCPU->AddTexture_FromArchive ( U"Title\\Title_Menu_CPUvsCPU.png" );
-		m_menu_CPUvsCPU->SetPos ( MENU_X, MENU_Y2 );
-		m_menu_CPUvsCPU->SetZ ( Z_CH );
-		AddpTask ( m_menu_CPUvsCPU );
-		GRPLST_INSERT ( m_menu_CPUvsCPU );
-
-		m_menu_Training = std::make_shared < GameGraphic > ();
-		m_menu_Training->AddTexture_FromArchive ( U"Title\\Title_Menu_Training.png" );
-		m_menu_Training->SetPos ( MENU_X, MENU_Y3 );
-		m_menu_Training->SetZ ( Z_CH );
-		AddpTask ( m_menu_Training );
-		GRPLST_INSERT ( m_menu_Training );
-
-		m_cursor = std::make_shared < GameGraphic > ();
-		m_cursor->AddTexture_FromArchive ( U"Title\\title_cursor.png" );
-		m_cursor->SetPos ( CURSOR_X, CURSOR_Y );
-		m_cursor->SetScalingCenter ( 0, 12.5f );
-		m_cursor->SetZ ( Z_CH );
-		AddpTask ( m_cursor );
-		GRPLST_INSERT ( m_cursor );
-
-		m_inst = std::make_shared < GameGraphic > ();
-		m_inst->AddTexture_FromArchive ( U"Title\\Inst_Title.png" );
-		m_inst->SetPos ( INST_X, INST_Y );
-		m_inst->SetZ ( Z_CH );
-		AddpTask ( m_inst );
-		GRPLST_INSERT ( m_inst );
-
-		//カーソル位置
-		m_cursor->SetPos ( CURSOR_X, CURSOR_Y + CURSOR_P * (int32)m_to );
+		//ロゴ
+		m_logo = MakepGrp ( U"Title\\Title_Logo.png", Z_EFF );
+		m_logo->SetPos ( VEC2 ( 1280 / 2 - 804 / 2, -200 ) );
+		m_logo->SetScalingCenter ( VEC2 ( 804/2, 1240/2 ) );
+		m_logo->SetScaling ( VEC2 ( 0.6f, 0.6f ) );
+//		m_logo->SetValid(F);	//最初は非表示
 
 
-		//フェードイン
-		m_fade_in = std::make_shared < FadeRect > ();
-		AddpTask ( m_fade_in );
-		GRPLST_INSERT ( m_fade_in );
+		//メニュー
+		m_menu_back = MakepGrp ( U"Title\\Title_Menu_Back.png", Z_MENU + 0.001f );
+		m_menu_back->SetPos ( VEC2 ( 1280/2-664/2, 960 - 664/2 +60 ) );
+		m_menu_back->SetRotationCenter ( VEC2 ( 664/2, 664/2 ) );
 
-		m_fade_in->StartWhiteIn ( FADE_IN_T );
+		m_menu = MakepGrp ( U"Title\\Title_Menu.png", Z_MENU );
+		m_menu->SetPos ( VEC2 ( 0, 960 - 300 ) );
 
-		//フェードアウト
-		m_fade_out = std::make_shared < FadeRect > ();
-		m_fade_out->SetAfterClear ( F );
-		AddpTask ( m_fade_out );
-		GRPLST_INSERT ( m_fade_out );
+		m_item = MakepGrp ( U"Title\\1P_vs_2P.png", Z_MENU );
+		m_item->SetPos ( VEC2 ( 1280/2- 303.f/2, 960 - 200 ) );
+		m_item->AddTexture_FromArchive ( U"Title\\1P_vs_CPU.png" );
+		m_item->AddTexture_FromArchive ( U"Title\\CPU_vs_2P.png" );
+		m_item->AddTexture_FromArchive ( U"Title\\CPU_vs_CPU.png" );
 
 
-		//タイマ
-		m_tmr_title_bgm = std::make_shared < Timer > ( FADE_IN_T );
-		m_tmr_title_bgm->Start ();
-		m_tmr_title_call = std::make_shared < Timer > ( TITLE_CALL_WAIT );
-		m_tmr_title_call->Start ();
+
+		//矢印
+		m_arrow_obj = std::make_shared < SelectArrow > ( SelectArrow::DIR::LEFT_RIGHT, Z_MENU );
+		AddpTask(m_arrow_obj);
+		m_arrow_obj->SetPos ( VEC2 ( 1280 / 2, 775 ) );
+		m_arrow_obj->SetW ( 350 );
 
 
 		//Ver.
@@ -203,66 +110,62 @@ namespace GAME
 		m_strVer->SetPos ( 1185, 905 );
 		m_strVer->SetZ ( Z_MENU );
 		m_strVer->SetStr ( Ver );
-
 		AddpTask ( m_strVer );
 		GRPLST_INSERT ( m_strVer );
 
-
-		//デモ
-		m_strDemo = std::make_shared < GrpStr > ();
-		m_strDemo->SetSize ( G_Font::SIZE_40 );
-		m_strDemo->SetPos ( 500, 700 );
-		m_strDemo->SetZ ( Z_MENU );
-		m_strDemo->SetStr ( U"- Demo Mode -" );
-		AddpTask ( m_strDemo );
-		GRPLST_INSERT ( m_strDemo );
-
-		m_barDemo = std::make_shared < PrmRect > ();
-		m_barDemo->SetSize ( 300, 2 );
-		m_barDemo->SetColor ( _CLR ( 0xffff8080 ) );
-		m_barDemo->SetPos ( 640 - 150, BAR_DEMO_Y );
-		AddpTask ( m_barDemo );
-		GRPLST_INSERT ( m_barDemo );
-
-		m_strDemoSwitch = std::make_shared < GrpStr > ();
-		m_strDemoSwitch->SetSize ( G_Font::SIZE_20 );
-		m_strDemoSwitch->SetPos ( 522, 758 );
-		m_strDemoSwitch->SetZ ( Z_MENU );
-		m_strDemoSwitch->SetStr(U"( デモモード：F9で切換 )");
-		AddpTask ( m_strDemoSwitch );
-		GRPLST_INSERT ( m_strDemoSwitch );
-
-		m_tmrDemo.SetTargetTime ( WAIT_DEMO );
-		m_tmrDemo.Start ();
-
-		m_fade_demo = std::make_shared < FadeRect > ();
-		m_fade_demo->SetAfterClear ( F );
-		AddpTask ( m_fade_demo );
-		GRPLST_INSERT ( m_fade_demo );
-
-		//初期値はOff
-		OffDemo ();
+		//Demo
+		m_demo = std::make_shared < TitleDemo >();
+		AddpTask ( m_demo );
 
 
+		//フェードイン
+		m_fade_in = std::make_shared < FadeRect > ();
+		AddpTask ( m_fade_in );
+		GRPLST_INSERT ( m_fade_in );
+		m_fade_in->StartWhiteIn ( FADE_IN_T );
 
-		//体験版表示
-#if TRIAL
-		m_trial = std::make_shared < GameGraphic > ();
+		//フェードアウト
+		m_fade_out = std::make_shared < FadeRect > ();
+		m_fade_out->SetAfterClear ( F );
+//		m_fade_out->SetAfterClear ( T );
+		AddpTask ( m_fade_out );
+		GRPLST_INSERT ( m_fade_out );
 
-		m_trial->SetPos ( 1280 - 200, 820 );
-		m_trial->AddTexture_FromArchive ( U"Title\\trial.png" );
-		AddpTask ( m_trial );
-		GRPLST_INSERT ( m_trial );
-#else // TRIAL
-
-#endif // TRIAL
-
-
+		//タイマ
+		m_tmr_title_bgm = std::make_shared < Timer > ( FADE_IN_T );
+		m_tmr_title_bgm->Start ();
+		m_tmr_title_call = std::make_shared < Timer > ( TITLE_CALL_WAIT );
+		m_tmr_title_call->Start ();
 	}
+
+	P_Grp Title::MakepGrp ( CPUSTR filename, float Z = 0.5f )
+	{
+		P_Grp p = std::make_shared < GameGraphic > ();
+		p->AddTexture_FromArchive ( filename );
+		p->SetZ ( Z );
+		AddpTask ( p );
+		GRPLST_INSERT ( p );
+		return p;
+	}
+
 
 	Title::~Title ()
 	{
 	}
+
+
+	void Title::ParamInit ()
+	{
+		P_Param pPrm = GetpParam();
+		GameSettingFile stg = pPrm->GetGameSetting ();
+
+#if 0
+		//デモ切換
+		m_bDemo = stg.GetDemo();
+		ValidDemo ( m_bDemo );
+#endif // 0
+	}
+
 
 	void Title::Load ()
 	{
@@ -275,151 +178,136 @@ namespace GAME
 		//==================================================
 
 		Scene::Load ();
-
-	}
-
-
-	void Title::ParamInit ()
-	{
-		P_Param pPrm = GetpParam();
-		GameSettingFile stg = pPrm->GetGameSetting ();
-
-		//デモ切換
-		m_bDemo = stg.GetDemo();
-		ValidDemo ( m_bDemo );
 	}
 
 	void Title::Move ()
 	{
-		//デモモード
-		if ( m_bDemo )
-		{
-			//タイトルでカウントして自動で開始
-			m_tmrDemo.Move ();
+		//背景四角
+		m_rect_angle += m_rect_omega;
+		m_rect->SetRadian ( m_rect_angle );
+		m_rect_angle1 += m_rect_omega1;
+		m_rect->GetpObject ( 1 )->SetRadian ( m_rect_angle1 );
 
-			uint32 t = m_tmrDemo.GetTime ();
-			int32 w = (int32) ( (WAIT_DEMO - t) * 300.0 / WAIT_DEMO );
-			m_barDemo->SetSize ( w, 2 );
-			m_barDemo->SetPos ( 640 + 150 - w, BAR_DEMO_Y );
+#if 0
 
-			//カウント終了後、シーン移行
-			if ( m_tmrDemo.IsLast () )
-			{
-				//値の取得
-				P_Param pPrm = GetpParam();
-				GameSettingFile & rGameStg = pPrm->GetGameSetting();
+		//メニュー背景回転
+		m_angle += m_omega;
+		m_menu_back->SetRadian ( m_angle );
 
-				//ランダムで各種値を決める
-				rGameStg.SetCharaName1p ( GetCharaName_Rnd () );	//キャラランダム
-				rGameStg.SetCharaName2p ( GetCharaName_Rnd () );	//キャラランダム
-				rGameStg.SetBGM_ID ( GetBGM_ID_Rnd () );		//BGMランダム
-				rGameStg.SetStage_Name ( GetStageName_Rnd () );	//ステージランダム
+#endif // 0
 
-				//CPU操作
-				rGameStg.SetMutchMode ( MUTCH_MODE::MODE_CPU_CPU );
 
-				SND_PLAY_ONESHOT_SE ( SE_select_decide );
-				m_fade_demo->StartBlackOut ( FADE_OUT_T );
-				m_barDemo->SetValid ( F );
-			}
-		}
-		
-		//F9でデモ切替 (ボタン：リセットでも切換)
-		if ( WND_UTL::AscKey ( VK_F9 ) || CFG_PUSH_KEY_12 ( PLY_BTN7 ) )
-		{
-			//値の取得
-			P_Param pPrm = GetpParam();
-			GameSettingFile & rGameStg = pPrm->GetGameSetting();
-
-			//反転
-			m_bDemo = ! m_bDemo;
-			ValidDemo ( m_bDemo );
-
-			//開始時
-			if ( m_bDemo )
-			{
-				//デモモードタイマのスタート
-				m_tmrDemo.Start ();
-			}
-			else
-			{
-				//プレイヤ操作
-				rGameStg.SetMutchMode ( MUTCH_MODE::MODE_PLAYER_PLAYER );
-			}
-
-			//保存
-			rGameStg.SetDemo ( m_bDemo );
-			pPrm->GetGameSetting ().Save ();
-
-//			bool b = GetpParam()->GetGameSetting().GetDemo ();
-		}
-
-		//---------------------------------------------------------
-		//常時演出
-		
-		//タイマ
+		//BGM開始のチェック
 		m_tmr_title_bgm->Move ();
 		if ( m_tmr_title_bgm->IsLast () )
 		{
-			SND()->Test ();
-
-			//BGM
 			SND_STOP_ALL_BGM ();
 			SND_PLAY_LOOP_BGM ( BGM_Title );
 		}
+
 
 		//タイトルコール
 		m_tmr_title_call->Move ();
 		if ( m_tmr_title_call->IsLast () )
 		{
-#if 0
-			int rnd = s3d::Random ( 0, 2 );
+			int rnd = s3d::Random ( 0, 3 );
 			switch ( rnd )
 			{
 			case 0: SND_PLAY_ONESHOT_VC ( VC_00_SAE_TITLE_CALL ); break;
 			case 1: SND_PLAY_ONESHOT_VC ( VC_01_RETSUDOU_TITLE_CALL ); break;
 			case 2: SND_PLAY_ONESHOT_VC ( VC_02_OUKA_TITLE_CALL ); break;
+			case 3: SND_PLAY_ONESHOT_VC(VC_90_CONSOME_TITLE_CALL); break;
 			}
-#endif // 0
-			//SP
-			SND_PLAY_ONESHOT_VC(VC_90_CONSOME_TITLE_CALL);
 		}
 
-		//背景スクロール
-		m_bg_x += BG_VX;
-		if ( m_bg_x < BG_P ) { m_bg_x = BG_X; }
-		m_bg->SetPos ( m_bg_x, BG_Y );
 
-		//カーソル回転
-		m_cursor_scaling_y += m_cursor_scaling_vy;
-		if ( m_cursor_scaling_y >=  1.f ) { m_cursor_scaling_vy = - 0.1f; }
-		if ( m_cursor_scaling_y <= -1.f ) { m_cursor_scaling_vy =   0.1f; }
-		m_cursor->SetScaling ( 1.f, m_cursor_scaling_y );
+#if 0
+		//時間
+		const float MAX_TIME = 10000.f;
+		++ m_arrow_time;
+		if ( m_arrow_time >= MAX_TIME ) { m_arrow_time = 0; }
 
-		//フェード中は入力を受付しない
-		if ( m_fade_in->IsActive () ) { Scene::Move (); return; }
-		if ( m_fade_out->IsActive () ) { Scene::Move (); return; }
+		//角度と位置
+		float period = D3DX_PI_TWICE / m_arrow_frq;
+		float wrappedTime = fmod ( m_arrow_time, period );
+		float dx = m_arrow_w * sin ( m_arrow_frq * wrappedTime );
+		DBGOUT_WND_F ( DBGOUT_2, U"arrow_x = {}"_fmt( dx ) );
+
+		float bx0 = m_arrow_bx0;
+		float bx1 = m_arrow_bx1;
+		float by = m_arrow_by;
+		P_Ob pob = m_arrow->GetpObject ( 1 );
+
+		//位置に設定
+		m_arrow->SetPos (	VEC2( bx0 + dx, by ) );
+		pob->SetPos (		VEC2( bx1 - dx, by ) );
+#endif
 
 
-		//デモモードは切換のみしか入力を受け付けない
-		if ( ! m_bDemo )
-		{
-			//入力
-			Input ();
-		}
+		//----------------------------------
+		//入力
+		Input ();
 
-		Scene::Move ();
+
+		TASK_VEC::Move ();
 	}
+
+
+	void Title::Input ()
+	{
+		//選択
+		if ( CFG_PUSH_KEY_12 ( PLY_LEFT ) )
+		{
+			SND_PLAY_ONESHOT_SE ( SE_select_move );
+			uint32 index = m_item->GetIndexTexture();
+			if ( index == 0 )
+			{
+				m_item->SetIndexTexture ( 1 );
+			}
+			else if ( index == 1 )
+			{
+				m_item->SetIndexTexture ( 2 );
+			}
+			else if ( index == 2 )
+			{
+				m_item->SetIndexTexture ( 0 );
+			}
+		}
+		if ( CFG_PUSH_KEY_12 ( PLY_RIGHT ) )
+		{
+			SND_PLAY_ONESHOT_SE ( SE_select_move );
+			uint32 index = m_item->GetIndexTexture();
+			if ( index == 0 )
+			{
+				m_item->SetIndexTexture ( 2 );
+			}
+			else if ( index == 1 )
+			{
+				m_item->SetIndexTexture ( 0 );
+			}
+			else if ( index == 2 )
+			{
+				m_item->SetIndexTexture ( 1 );
+			}
+		}
+
+		//決定
+		if ( CFG_PUSH_KEY_12 ( PLY_BTN0 ) )
+		{
+			SND_PLAY_ONESHOT_SE ( SE_Sys_Enter );
+
+			//フェードアウト開始
+			m_fade_out->StartBlackOut ( FADE_OUT_T );
+		}
+	}
+
 
 	P_GameScene Title::Transit ()
 	{
 		//-----------------------------------
 		//デモ フェード待機開始
-		if ( m_fade_demo->IsLast () )
+		if ( m_demo->IsLast () )
 		{
-			//ゲーム共通パラメータ
-			P_Param pParam = Scene::GetpParam ();
-
 			SND_STOP_ALL_BGM ();
 			Scene::Transit_Fighting ( MUTCH_MODE::MODE_CPU_CPU );
 		}
@@ -442,40 +330,26 @@ namespace GAME
 
 				switch ( m_to )
 				{
-				case TITLE_TO_BATTLE_1PvsCPU:
-					SND_STOP_ALL_BGM ();
+				case TITLE_TO::BATTLE_1PvsCPU:
 					rGameStg.SetMutchMode ( MODE_PLAYER_CPU );
-					pParam->SetFtgMode ( MODE_FTG_MAIN );
-					Scene::Transit_CharaSele ();
+					pParam->SetFtgMode ( FTG_MODE::MODE_FTG_MAIN );
 					break;
-				case TITLE_TO_BATTLE_1Pvs2P:
-					SND_STOP_ALL_BGM ();
+				case TITLE_TO::BATTLE_1Pvs2P:
 					rGameStg.SetMutchMode ( MODE_PLAYER_PLAYER );
-					pParam->SetFtgMode ( MODE_FTG_MAIN );
-					Scene::Transit_CharaSele ();
+					pParam->SetFtgMode ( FTG_MODE::MODE_FTG_MAIN );
 					break;
-				case TITLE_TO_BATTLE_CPUvsCPU:
-					SND_STOP_ALL_BGM ();
+				case TITLE_TO::BATTLE_CPUvsCPU:
 					rGameStg.SetMutchMode ( MODE_CPU_CPU );
-					pParam->SetFtgMode ( MODE_FTG_MAIN );
-					Scene::Transit_CharaSele ();
+					pParam->SetFtgMode ( FTG_MODE::MODE_FTG_MAIN );
 					break;
-#if 0
-				case TITLE_TO_BATTLE:
-					SND_STOP_ALL_BGM ();
-					pParam->SetMutchMode ( MUTCH_MODE::MODE_PLAYER_CPU );
-					pParam->SetFtgMode ( GAME_MODE::MODE_MAIN );
-					Scene::Transit_CharaSele ();
-					break;
-#endif // 0
-				case TITLE_TO_TRAINING:
-					SND_STOP_ALL_BGM ();
+				case TITLE_TO::TRAINING:
 					rGameStg.SetMutchMode ( MODE_PLAYER_PLAYER );
-					pParam->SetFtgMode ( MODE_TRAINING );
-					Scene::Transit_CharaSele ();
-//					Scene::Transit_Training ();
+					pParam->SetFtgMode ( FTG_MODE::MODE_TRAINING );
 					break;
+				default: break;
 				}
+				SND_STOP_ALL_BGM ();
+				Scene::Transit_CharaSele ();
 
 				m_plus_wait = 0;
 			}
@@ -483,174 +357,13 @@ namespace GAME
 			++ m_plus_wait;
 		}
 
-
 		return Scene::Transit ();
 	}
 
 
-	void Title::Input ()
-	{
-		//----------------------------
-		//	キー上下でシーンを選択
-		//----------------------------
-
-		//キー上
-		if ( CFG_PUSH_KEY ( P1_UP ) || CFG_PUSH_KEY ( P2_UP ) )
-		{
-			switch ( m_to )
-			{
-			case TITLE_TO_BATTLE_1PvsCPU:
-				m_to = TITLE_TO_TRAINING;
-				break;
-			case TITLE_TO_BATTLE_1Pvs2P:
-				m_to = TITLE_TO_BATTLE_1PvsCPU;
-				break;
-			case TITLE_TO_BATTLE_CPUvsCPU:
-				m_to = TITLE_TO_BATTLE_1Pvs2P;
-				break;
-			case TITLE_TO_TRAINING:
-				m_to = TITLE_TO_BATTLE_CPUvsCPU;
-				break;
-			}
-
-			SND_PLAY_ONESHOT_SE ( SE_select_move );
-		}
-
-		//キー下
-		if ( CFG_PUSH_KEY ( P1_DOWN ) || CFG_PUSH_KEY ( P2_DOWN ) )
-		{
-			switch ( m_to )
-			{
-			case TITLE_TO_BATTLE_1PvsCPU:
-				m_to = TITLE_TO_BATTLE_1Pvs2P;
-				break;
-			case TITLE_TO_BATTLE_1Pvs2P:
-				m_to = TITLE_TO_BATTLE_CPUvsCPU;
-				break;
-			case TITLE_TO_BATTLE_CPUvsCPU:
-				m_to = TITLE_TO_TRAINING;
-				break;
-			case TITLE_TO_TRAINING:
-				m_to = TITLE_TO_BATTLE_1PvsCPU;
-				break;
-			}
-
-			SND_PLAY_ONESHOT_SE ( SE_select_move );
-		}
-
-		//カーソル位置更新
-		m_cursor->SetPos ( CURSOR_X, CURSOR_Y + CURSOR_P * (int32)m_to );
-
-
-		//キー1でシーンを進める
-		if ( CFG_PUSH_KEY ( P1_BTN0 ) || CFG_PUSH_KEY ( P2_BTN0 ) )
-		{
-			SND_PLAY_ONESHOT_SE ( SE_select_decide );
-
-			//フェード開始
-			m_fade_out->StartBlackOut ( FADE_OUT_T );
-		}
-#if 0
-		if ( CFG_PUSH_KEY ( P1_BTN3 ) )
-		{
-			//BGM
-			SND_STOP_ALL_BGM ();
-			SND_PLAY_LOOP_BGM ( BGM_Title );
-		}
-#endif // 0
-
-	}
-
-
-	//----------------------------------------------------
-	//デモ
-	void Title::ValidDemo ( bool b )
-	{
-		if ( b ) { OnDemo (); }
-		else { OffDemo (); }
-	}
-
-	void Title::OnDemo ()
-	{
-		m_strDemo->SetValid ( T );
-		m_barDemo->SetValid ( T );
-		m_strDemoSwitch->SetValid ( T );
-
-		//通常選択肢はOff
-		m_menu_1PvsCPU->SetValid ( F );
-		m_menu_1Pvs2P->SetValid ( F );
-		m_menu_CPUvsCPU->SetValid ( F );
-		m_menu_Training->SetValid ( F );
-		m_cursor->SetValid ( F );
-	}
-
-	void Title::OffDemo ()
-	{
-		m_strDemo->SetValid ( F );
-		m_barDemo->SetValid ( F );
-		m_strDemoSwitch->SetValid ( F );
-
-		//通常選択肢はOn
-		m_menu_1PvsCPU->SetValid ( T );
-		m_menu_1Pvs2P->SetValid ( T );
-		m_menu_CPUvsCPU->SetValid ( T );
-		m_menu_Training->SetValid ( T );
-		m_cursor->SetValid ( T );
-	}
-
-
-	//各種ランダム選択
-
-	CHARA_NAME Title::GetCharaName_Rnd ()
-	{
-		CHARA_NAME ret = CHARA_NAME::CHARA_SAE;
-
-		int rnd = s3d::Random ( 2 );
-		switch ( rnd )
-		{
-		case 0: ret = CHARA_NAME::CHARA_SAE;		break;
-		case 1: ret = CHARA_NAME::CHARA_RETSUDOU;	break;
-		case 2: ret = CHARA_NAME::CHARA_OUKA;		break;
-		};
-
-		return ret;
-	}
-
-	STAGE_NAME Title::GetStageName_Rnd ()
-	{
-		STAGE_NAME ret = STAGE_YUUHINO_HARA;
-
-		int rnd = s3d::Random ( 3 );
-		switch ( rnd )
-		{
-		case 0: ret = STAGE_ASAHINO_HARA; break;
-		case 1: ret = STAGE_YUUHINO_HARA; break;
-		case 2: ret = STAGE_YORUNO_HARA; break;
-		case 3: ret = STAGE_SCHOOL_NOON; break;
-		}
-
-		return ret;
-	}
-
-	BGM_ID Title::GetBGM_ID_Rnd ()
-	{
-		BGM_ID ret = BGM_ID_GABA;
-
-		int rnd = s3d::Random ( 3 );
-		switch ( rnd )
-		{
-		case 0: ret = BGM_ID_GABA;	break;
-		case 1: ret = BGM_ID_OUKA;	break;
-		case 2: ret = BGM_ID_SAE;	break;
-		case 3: ret = BGM_ID_RETSU;	break;
-		};
-
-		return ret;
-	}
-
-
-
 #pragma region CONST
+
+
 	const float Title::BG_X = 0;
 	const float Title::BG_Y = 0;
 	const float Title::BG_VX = -64.f;
@@ -678,15 +391,8 @@ namespace GAME
 
 	const uint32 Title::TITLE_CALL_WAIT = 2;
 
-	const int32 Title::WAIT_DEMO = 300;
-//	const int32 Title::WAIT_DEMO = 180;
-	const int32 Title::BAR_DEMO_Y = 752;
 
 #pragma endregion
-
-#endif // 0
-
-
 
 
 }	//namespace GAME

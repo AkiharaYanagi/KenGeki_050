@@ -10,9 +10,10 @@
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
 #include "CharaSele_Player_State.h"
-#include "../CharaSele_Stand.h"
-#include "../CharaSele_Face.h"
-#include "../CharaSele_Color.h"
+#include "../Player/CharaSele_Stand.h"
+#include "../Player/CharaSele_Face.h"
+#include "../Player/CharaSele_Color.h"
+#include "../../91_Param/Param.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -25,6 +26,9 @@ namespace GAME
 	{
 		PLAYER_ID		m_id { _PLAYER_NUM };	//プレイヤID
 		WP_ChSl			mwp_Main;
+
+		//保存用共通パラメータ
+		P_Param			m_pParam;
 
 		//現在のステート
 		P_ChSl_Plr_Stt	m_state;
@@ -67,14 +71,6 @@ namespace GAME
 			Z_F0,
 		};	//前
 
-#if 0
-		P_Grp		m_color;		//カラー
-		P_Grp		m_arrow;		//矢印
-		float		m_arrow_bx{0};		//矢印振動
-		float		m_arrow_frq{0};		//周波数
-		float		m_arrow_time{0};	//時間
-		float		m_arrow_w{0};	//幅
-#endif // 0
 		P_CharaSele_Color		m_ch_color;	//カラー
 
 	public:
@@ -82,6 +78,7 @@ namespace GAME
 		CharaSele_Player_Actor ( const CharaSele_Player_Actor & rhs ) = delete;
 		~CharaSele_Player_Actor ();
 
+		void SetpParam ( P_Param p );
 		void Load ();
 		void Init ();
 		void Move ();
@@ -94,6 +91,8 @@ namespace GAME
 		//State別
 		void Input_CharaPick ();
 		void Input_Menu ();
+
+		bool Is_Decided () const;
 
 		//State変更
 		void Change_CharaPick_to_Menu ();

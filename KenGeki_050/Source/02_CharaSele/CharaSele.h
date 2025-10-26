@@ -1,6 +1,6 @@
 ﻿//=================================================================================================
 //
-//	CharaSele　メインクラス ソースファイル
+//	CharaSele ヘッダファイル
 //
 //=================================================================================================
 #pragma once
@@ -13,6 +13,8 @@
 #include "State/CharaSele_Player_Actor.h"
 #include "../80_Common/BattleTime.h"
 #include "Menu/CharaSele_Menu.h"
+#include "CharaSele_Stage.h"
+#include "../91_Param/Param.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -23,7 +25,7 @@ namespace GAME
 	class CharaSele : public Scene, public std::enable_shared_from_this < CharaSele >
 	{
 		//背景
-		P_Grp		m_bg;
+		P_CharaSele_Stage	m_stage;
 
 
 		//上部メニュ
@@ -43,23 +45,41 @@ namespace GAME
 		//タイマ
 		P_BattleTime		m_battleTime;
 
+		//保存用共通パラメータ
+		P_Param			m_pParam;
+
+		//フェード (シーン移行フラグを兼ねる)
+		P_FadeRect		m_fade_in;
+		P_FadeRect		m_fade_toTitle;
+		P_FadeRect		m_fade_toFighting;
+		uint32			m_plus_wait { 0 };
+
 	public:
 		CharaSele ();
 		CharaSele ( const CharaSele & rhs ) = delete;
 		~CharaSele ();
 
-		void ParamInit ();
-
+		void ParamInit () override;
 		void Load ();
 		void Move ();
 
-		P_GameScene Transit ();
 
 		void Menu_Next () { m_menu->Next(); }
 		void Menu_Prev () { m_menu->Prev(); }
+		P_GameScene Transit () override;
+
+
+	private:
+		void Input ();
+		void Save ();
+
+#pragma region CONST
+		static const uint32 FADE_IN_T;
+		static const uint32 FADE_OUT_T;
+#pragma endregion
 	};
 
-	using P_CharaSele = std::shared_ptr < CharaSele >;
+	using P_ChSl = std::shared_ptr < CharaSele >;
 
 
 }	//namespace GAME

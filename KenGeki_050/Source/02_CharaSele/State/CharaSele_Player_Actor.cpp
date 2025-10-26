@@ -9,6 +9,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "CharaSele_Player_Actor.h"
 #include "../CharaSele.h"
+#include "../../90_GameMain/SeConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -39,13 +40,13 @@ namespace GAME
 
 
 		//グラフィック
-		m_chara_pick_Back = MakepGrp ( U"CharaSele\\CharaPick_Back.png" );
-		m_C2 = MakepGrp ( U"CharaSele\\C2.png" );
-		m_chara_pick_Frame2 = MakepGrp ( U"CharaSele\\CharaPick_Frame2.png" );
-		m_chara_pick_Clr = MakepGrp ( U"CharaSele\\CharaPick_Clr.png" );
-		m_C1 = MakepGrp ( U"CharaSele\\C1.png" );
-		m_C0 = MakepGrp ( U"CharaSele\\C0.png" );
-		m_chara_pick_Frame0 = MakepGrp ( U"CharaSele\\CharaPick_Frame0.png" );
+		m_chara_pick_Back = MakepGrp ( U"CharaSele\\Pick\\CharaPick_Back.png" );
+		m_C2 = MakepGrp ( U"CharaSele\\Pick\\C2.png" );
+		m_chara_pick_Frame2 = MakepGrp ( U"CharaSele\\Pick\\CharaPick_Frame2.png" );
+		m_chara_pick_Clr = MakepGrp ( U"CharaSele\\Pick\\CharaPick_Clr.png" );
+		m_C1 = MakepGrp ( U"CharaSele\\Pick\\C1.png" );
+		m_C0 = MakepGrp ( U"CharaSele\\Pick\\C0.png" );
+		m_chara_pick_Frame0 = MakepGrp ( U"CharaSele\\Pick\\CharaPick_Frame0.png" );
 
 		m_chara_pick_Back	->SetZ ( Z_EFB - 0.01f * (int)Z_BACK );
 		m_C2				->SetZ ( Z_EFB - 0.01f * (int)Z_C2 );
@@ -55,6 +56,13 @@ namespace GAME
 		m_C0				->SetZ ( Z_EFB - 0.01f * (int)Z_C0 );
 		m_chara_pick_Frame0	->SetZ ( Z_EFB - 0.01f * (int)Z_F0 );
 
+		GRPLST_INSERT ( m_chara_pick_Back );
+		GRPLST_INSERT ( m_C2 );
+		GRPLST_INSERT ( m_chara_pick_Frame2 );
+		GRPLST_INSERT ( m_chara_pick_Clr );
+		GRPLST_INSERT ( m_C1 );
+		GRPLST_INSERT ( m_C0 );
+		GRPLST_INSERT ( m_chara_pick_Frame0 );
 
 		//円顔
 		m_ch_face = std::make_shared < CharaSele_Face > ();
@@ -70,7 +78,6 @@ namespace GAME
 		P_Grp p = std::make_shared < GameGraphic > ();
 		p->AddTexture_FromArchive ( filename );
 		AddpTask ( p );
-		GRPLST_INSERT ( p );
 		return p;
 	}
 
@@ -98,12 +105,19 @@ namespace GAME
 		}
 		TASK_VEC::Load ();
 	}
+
 	void CharaSele_Player_Actor::SetPlayerID ( PLAYER_ID id )
 	{
 		m_id = id;
 		m_ch_stand->SetPlayerID ( id );
 		m_ch_face->SetPlayerID ( id );
 		m_ch_color->SetPlayerID ( id );
+	}
+
+	void CharaSele_Player_Actor::SetpParam ( P_Param p )
+	{
+		m_pParam = p;
+		m_ch_stand->SetpParam ( p );
 	}
 
 	void CharaSele_Player_Actor::Init ()
@@ -132,8 +146,6 @@ namespace GAME
 
 			m_omega = 0.005f;
 			m_omega1 = -0.005f;
-
-//			m_arrow_bx = 0 + 450;
 		}
 		else if ( PLAYER_ID_2 == m_id )
 		{
@@ -150,8 +162,6 @@ namespace GAME
 
 			m_omega = -0.005f;
 			m_omega1 = 0.005f;
-
-//			m_arrow_bx = 1280 - 460;
 		}
 
 		TASK_VEC::Init ();
@@ -170,29 +180,6 @@ namespace GAME
 		m_angle1 += m_omega1;
 		m_C1->SetRadian ( m_angle1 );
 
-
-		//矢印
-#if 0
-
-		const float MAX_TIME = 10000.f;
-		++ m_arrow_time;
-		if ( m_arrow_time >= MAX_TIME ) { m_arrow_time = 0; }
-		float period = D3DX_PI_TWICE / m_arrow_frq;
-		float wrappedTime = fmod ( m_arrow_time, period );
-		float dx = m_arrow_w * sin ( m_arrow_frq * wrappedTime );
-		float ay = 960 - 50;
-
-		P_Ob pob = m_arrow->GetpObject ( 1 );
-		m_arrow->SetPos ( VEC2 ( m_arrow_bx + dx, ay ) );
-		pob->SetPos ( VEC2 ( m_arrow_bx + 160 - dx, ay ) );
-
-		if ( PLAYER_ID_1 == m_id )
-		{
-			DBGOUT_WND_F ( DBGOUT_2, U"arrow_x = {}"_fmt( dx ) );
-		}
-
-#endif // 0
-
 		TASK_VEC::Move ();
 	}
 
@@ -202,29 +189,38 @@ namespace GAME
 		if ( CFG_PUSH_KEY_PL ( m_id, PLY_UP ) )
 		{
 			m_ch_stand->Prev_Chara ();
-			m_ch_face->Prev ();
+			CHARA_NAME name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
+			m_ch_face->Assign ( name );
+			SND_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 		if ( CFG_PUSH_KEY_PL ( m_id, PLY_DOWN ) )
 		{
 			m_ch_stand->Next_Chara ();
-			m_ch_face->Next ();
+			CHARA_NAME name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
+			m_ch_face->Assign ( name );
+			SND_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 		//左右でカラー変更
 		if ( CFG_PUSH_KEY_PL ( m_id, PLY_LEFT ) )
 		{
 			m_ch_stand->Prev_Color ();
-			m_ch_color->Prev ();
+			CHARA_NAME name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
+			m_ch_face->Assign ( name );
+			SND_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 		if ( CFG_PUSH_KEY_PL ( m_id, PLY_RIGHT ) )
 		{
 			m_ch_stand->Next_Color ();
-			m_ch_color->Next ();
+			CHARA_NAME name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
+			m_ch_face->Assign ( name );
+			SND_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 
 		//ボタンで決定
 		if ( CFG_PUSH_KEY_PL ( m_id, PLY_BTN0 ) )
 		{
 			Change_CharaPick_to_Menu ();
+			SND_PLAY_ONESHOT_SE ( SE_select_decide );
 		}
 	}
 
@@ -239,6 +235,11 @@ namespace GAME
 		{
 			mwp_Main.lock()->Menu_Prev ();
 		}
+	}
+
+	bool CharaSele_Player_Actor::Is_Decided () const
+	{
+		return ( m_state == mp_sttMenu );
 	}
 
 	void CharaSele_Player_Actor::Change_CharaPick_to_Menu ()

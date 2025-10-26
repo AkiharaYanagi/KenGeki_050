@@ -147,6 +147,12 @@ namespace GAME
 		return CHARA_NAME_NUM;
 	}
 
+	void GameSettingFile::SetCharaName ( PLAYER_ID pid, CHARA_NAME name )
+	{
+		if ( pid == PLAYER_ID_1 ) { m_name1p = name; }
+		if ( pid == PLAYER_ID_2 ) { m_name2p = name; }
+	}
+
 	//プレイヤ別　キャラカラー
 	CHARA_COLOR GameSettingFile::GetCharaColor ( PLAYER_ID pid ) const
 	{
@@ -154,6 +160,13 @@ namespace GAME
 		if ( pid == PLAYER_ID_2 ) { return m_color2p; }
 		return CH_CLR_1;
 	}
+
+	void GameSettingFile::SetCharaColor ( PLAYER_ID pid, CHARA_COLOR clr )
+	{
+		if ( pid == PLAYER_ID_1 ) { m_color1p = clr; }
+		if ( pid == PLAYER_ID_2 ) { m_color2p = clr; }
+	}
+
 
 	//マッチモード(対戦上のプレイヤの組み合わせ)
 	MUTCH_MODE GameSettingFile::GetMutchMode() const

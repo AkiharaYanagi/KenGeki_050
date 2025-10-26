@@ -1,6 +1,6 @@
 ﻿//=================================================================================================
 //
-//	タイトル
+//	Title
 //
 //=================================================================================================
 #pragma once
@@ -10,6 +10,10 @@
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
 #include "../90_GameMain/Scene.h"
+#include "TitleChara.h"
+#include "TitleDemo.h"
+#include "../80_Common/SelectArrow.h"
+#include "../91_Param/Param.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -17,61 +21,58 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+	//test
+	using CPUSTR = const char32_t *;
+
 
 	class Title : public Scene, public std::enable_shared_from_this < Title >
 	{
+		//背景
 		P_Grp		m_bg;
-#if 0
+		P_Grp		m_rect;
+		float		m_rect_angle { 0 };
+		float		m_rect_omega { -0.05f };
+		float		m_rect_angle1 { 0 };
+		float		m_rect_omega1 { 0.05f };
 
-		P_Grp		m_bg;
-		float		m_bg_x { 0 };
+		//キャラ
+		P_TitleChara	m_chara;
 
+		//ロゴ
 		P_Grp		m_logo;
-		P_Grp		m_menu_1PvsCPU;
-		P_Grp		m_menu_1Pvs2P;
-		P_Grp		m_menu_CPUvsCPU;
-		P_Grp		m_menu_Training;
-		P_Grp		m_cursor;
-		P_Grp		m_inst;		//操作説明
 
-		P_FadeRect	m_fade_in;
-		P_FadeRect	m_fade_out;
-		uint32		m_plus_wait { 0 };
-
-		float		m_cursor_scaling_vy { 0.05f };
-		float		m_cursor_scaling_y { 1.f };
-
-		P_Timer		m_tmr_title_bgm;
-		P_Timer		m_tmr_title_call;
-
-		//シーン選択
-		enum TITLE_TO
-		{
-			TITLE_TO_BATTLE_1PvsCPU,
-			TITLE_TO_BATTLE_1Pvs2P,
-			TITLE_TO_BATTLE_CPUvsCPU,
-//			TITLE_TO_BATTLE,
-			TITLE_TO_TRAINING,
-		};
-
-		TITLE_TO	m_to { TITLE_TO_BATTLE_1PvsCPU };
-
-		//デモモード
-		bool		m_bDemo { F };
-		P_GrpStr	m_strDemo;	//デモ表示 "- Demo Mode -"文字列
-		P_GrpStr	m_strDemoSwitch;	//デモ操作切換 "F9で切換" 文字列
-		P_PrmRect	m_barDemo;	//時間表示バー
-		Timer		m_tmrDemo;	//タイマ
-		P_FadeRect	m_fade_demo;		
+		//メニュー
+		P_Grp		m_menu;
+		P_Grp		m_menu_back;
+		float		m_angle { 0 };
+		float		m_omega { -0.005f };
+		P_Grp		m_item;
+		P_SelectArrow	m_arrow_obj;
 
 		//Ver.
 		P_GrpStr	m_strVer;
 
-		//体験版表示
-		P_Grp		m_trial;
+		//Demoモード
+		P_TitleDemo	m_demo;
 
+		//フェード
+		P_FadeRect	m_fade_in;
+		P_FadeRect	m_fade_out;
+		uint32		m_plus_wait { 0 };
 
-#endif // 0
+		//タイマ
+		P_Timer		m_tmr_title_bgm;
+		P_Timer		m_tmr_title_call;
+
+		//シーン選択
+		enum class TITLE_TO
+		{
+			BATTLE_1PvsCPU,
+			BATTLE_1Pvs2P,
+			BATTLE_CPUvsCPU,
+			TRAINING,
+		};
+		TITLE_TO	m_to { TITLE_TO::BATTLE_1PvsCPU };
 
 	public:
 		Title ();
@@ -79,64 +80,48 @@ namespace GAME
 		~Title ();
 
 		void ParamInit ();
-
 		void Load ();
 		void Move ();
 
+		void Input();
 		P_GameScene Transit ();
 
 	private:
-		void Input ();
 
-#if 0
+		//グラフィックオブジェクト生成(グラフィックリスト追加のためZ位置も同梱)
+		P_Grp MakepGrp ( CPUSTR filename, float Z );
 
-	private:
-		void Input ();
-
-		void ValidDemo ( bool b );
-		void OnDemo ();
-		void OffDemo ();
-
-		CHARA_NAME GetCharaName_Rnd ();
-		STAGE_NAME GetStageName_Rnd ();
-		BGM_ID GetBGM_ID_Rnd ();
-
-		static const char32_t Ver[];	//Version
 #pragma region CONST
 
-		static const float BG_X;	//BG
+		static const char32_t Ver[];	//Version
+		static const float BG_X;
 		static const float BG_Y;
-		static const float BG_VX;	//速度
-		static const float BG_P;	//切り替えポイント
+		static const float BG_VX;
+		static const float BG_P;
 
-		static const float LOGO_X;	//ロゴ
+		static const float LOGO_X;
 		static const float LOGO_Y;
 
-		static const float MENU_X;	//メニュ
+		static const float CURSOR_X;
+		static const float CURSOR_Y;
+		static const float CURSOR_P;
+
+		static const float MENU_X;
 		static const float MENU_Y;
 		static const float MENU_Y0;
 		static const float MENU_Y1;
 		static const float MENU_Y2;
 		static const float MENU_Y3;
 
-		static const float CURSOR_X;	//カーソル
-		static const float CURSOR_Y;
-		static const float CURSOR_P;	//移動ピッチ
-
-		static const float INST_X;	//操作説明
+		static const float INST_X;
 		static const float INST_Y;
 
-		static const uint32 FADE_IN_T;	//フェード時間
-		static const uint32 FADE_OUT_T;	//フェード時間
+		static const uint32 FADE_IN_T;
+		static const uint32 FADE_OUT_T;
 
-		static const uint32 TITLE_CALL_WAIT;	//タイトルコールウェイト
+		static const uint32 TITLE_CALL_WAIT;
 
-		static const int32 WAIT_DEMO;	//待機時間
-		static const int32 BAR_DEMO_Y;	//バー表示Y
 #pragma endregion
-
-#endif // 0
-
 	};
 
 	using P_Title = std::shared_ptr < Title >;

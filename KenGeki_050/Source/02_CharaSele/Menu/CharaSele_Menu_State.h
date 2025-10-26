@@ -25,7 +25,10 @@ namespace GAME
 
 	class CharaSele_Menu_State	: public TASK_VEC
 	{
+	protected:
 		WP_Mn_Actor		mwp_Actor;
+
+		PLAYER_ID		m_id {};
 
 	public:
 		CharaSele_Menu_State ();
@@ -33,8 +36,11 @@ namespace GAME
 		~CharaSele_Menu_State ();
 
 		void Load ();
+		void Move ();
+		void Input ();
 
 		void SetwpActor ( WP_Mn_Actor wp ) { mwp_Actor = wp; }
+		void SetPlayerID ( PLAYER_ID id ) { m_id = id; }
 	};
 
 	using P_Mn_State = std::shared_ptr < CharaSele_Menu_State >;
@@ -42,8 +48,12 @@ namespace GAME
 
 
 	//-------------------------------------------------------------------
+	//ステージ選択
 	class Ch_MnSt_Stage : public CharaSele_Menu_State
 	{
+	public:
+		void Move ();
+		void Input ();
 	};
 
 

@@ -192,10 +192,13 @@
       <UniqueIdentifier>{646d1c9b-3b14-4dfd-b294-ccb555da5778}</UniqueIdentifier>
     </Filter>
     <Filter Include="02_CharaSele\Menu">
-      <UniqueIdentifier>{f791721b-fd33-48fd-9e65-241245c73b6d}</UniqueIdentifier>
+      <UniqueIdentifier>{6d5e0573-8ed4-4af0-9a76-4c2ed1c6c654}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02_CharaSele\Player">
+      <UniqueIdentifier>{0d498fcf-b61a-45f3-a89e-15efea4110bd}</UniqueIdentifier>
     </Filter>
     <Filter Include="02_CharaSele\State">
-      <UniqueIdentifier>{eb78d3fc-b798-4a90-9294-c5b2594ad327}</UniqueIdentifier>
+      <UniqueIdentifier>{64cadde6-4c49-46b0-b82a-4a3d30d9cdac}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -415,32 +418,17 @@
     <ClCompile Include="Source\80_Common\CharaSele_Image.cpp">
       <Filter>80_Common</Filter>
     </ClCompile>
-    <ClCompile Include="Source\01_Title\Title.cpp">
+    <ClCompile Include="Source\80_Common\BattleTime.cpp">
+      <Filter>80_Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\01_Title\TitleChara.cpp">
       <Filter>01_Title</Filter>
     </ClCompile>
-    <ClCompile Include="Source\02_CharaSele\CharaSele_Color.cpp">
-      <Filter>02_CharaSele</Filter>
+    <ClCompile Include="Source\01_Title\TitleDemo.cpp">
+      <Filter>01_Title</Filter>
     </ClCompile>
-    <ClCompile Include="Source\02_CharaSele\CharaSele_Face.cpp">
-      <Filter>02_CharaSele</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\02_CharaSele\CharaSele_Grp.cpp">
-      <Filter>02_CharaSele</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\02_CharaSele\CharaSele_GrpSet.cpp">
-      <Filter>02_CharaSele</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\02_CharaSele\CharaSele_Stand.cpp">
-      <Filter>02_CharaSele</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\02_CharaSele\State\CharaSele_Player_Actor.cpp">
-      <Filter>02_CharaSele\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\02_CharaSele\State\CharaSele_Player_State.cpp">
-      <Filter>02_CharaSele\State</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\02_CharaSele\Menu\CharaSele_Menu.cpp">
-      <Filter>02_CharaSele\Menu</Filter>
+    <ClCompile Include="Source\01_Title\Title.cpp">
+      <Filter>01_Title</Filter>
     </ClCompile>
     <ClCompile Include="Source\02_CharaSele\Menu\CharaSele_Menu_Actor.cpp">
       <Filter>02_CharaSele\Menu</Filter>
@@ -448,10 +436,40 @@
     <ClCompile Include="Source\02_CharaSele\Menu\CharaSele_Menu_State.cpp">
       <Filter>02_CharaSele\Menu</Filter>
     </ClCompile>
+    <ClCompile Include="Source\02_CharaSele\Menu\CharaSele_Menu.cpp">
+      <Filter>02_CharaSele\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Color.cpp">
+      <Filter>02_CharaSele\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Face.cpp">
+      <Filter>02_CharaSele\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Name.cpp">
+      <Filter>02_CharaSele\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Stand.cpp">
+      <Filter>02_CharaSele\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\02_CharaSele\Player\CharaSele_TxSet.cpp">
+      <Filter>02_CharaSele\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\02_CharaSele\Player\CharaSele_CharaGrp.cpp">
+      <Filter>02_CharaSele\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\02_CharaSele\State\CharaSele_Player_State.cpp">
+      <Filter>02_CharaSele\State</Filter>
+    </ClCompile>
     <ClCompile Include="Source\02_CharaSele\CharaSele.cpp">
       <Filter>02_CharaSele</Filter>
     </ClCompile>
-    <ClCompile Include="Source\80_Common\BattleTime.cpp">
+    <ClCompile Include="Source\02_CharaSele\CharaSele_Stage.cpp">
+      <Filter>02_CharaSele</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\02_CharaSele\State\CharaSele_Player_Actor.cpp">
+      <Filter>02_CharaSele\State</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\80_Common\SelectArrow.cpp">
       <Filter>80_Common</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1319,29 +1337,20 @@
     <ClInclude Include="Source\80_Common\CharaSele_Image.h">
       <Filter>80_Common</Filter>
     </ClInclude>
+    <ClInclude Include="Source\80_Common\BattleTime.h">
+      <Filter>80_Common</Filter>
+    </ClInclude>
     <ClInclude Include="Source\01_Title\Title.h">
       <Filter>01_Title</Filter>
     </ClInclude>
-    <ClInclude Include="Source\02_CharaSele\CharaSele_Color.h">
-      <Filter>02_CharaSele</Filter>
+    <ClInclude Include="Source\01_Title\TitleChara.h">
+      <Filter>01_Title</Filter>
     </ClInclude>
-    <ClInclude Include="Source\02_CharaSele\CharaSele_Face.h">
-      <Filter>02_CharaSele</Filter>
+    <ClInclude Include="Source\01_Title\TitleDemo.h">
+      <Filter>01_Title</Filter>
     </ClInclude>
-    <ClInclude Include="Source\02_CharaSele\CharaSele_Grp.h">
-      <Filter>02_CharaSele</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\02_CharaSele\CharaSele_GrpSet.h">
-      <Filter>02_CharaSele</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\02_CharaSele\CharaSele_Stand.h">
-      <Filter>02_CharaSele</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\02_CharaSele\State\CharaSele_Player_Actor.h">
-      <Filter>02_CharaSele\State</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\02_CharaSele\State\CharaSele_Player_State.h">
-      <Filter>02_CharaSele\State</Filter>
+    <ClInclude Include="Source\90_GameMain\VoiceConst.h">
+      <Filter>90_GameMain</Filter>
     </ClInclude>
     <ClInclude Include="Source\02_CharaSele\Menu\CharaSele_Menu.h">
       <Filter>02_CharaSele\Menu</Filter>
@@ -1352,10 +1361,37 @@
     <ClInclude Include="Source\02_CharaSele\Menu\CharaSele_Menu_State.h">
       <Filter>02_CharaSele\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="Source\02_CharaSele\Player\CharaSele_CharaGrp.h">
+      <Filter>02_CharaSele\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Color.h">
+      <Filter>02_CharaSele\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Face.h">
+      <Filter>02_CharaSele\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Name.h">
+      <Filter>02_CharaSele\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Stand.h">
+      <Filter>02_CharaSele\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\02_CharaSele\Player\CharaSele_TxSet.h">
+      <Filter>02_CharaSele\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\02_CharaSele\State\CharaSele_Player_State.h">
+      <Filter>02_CharaSele\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\02_CharaSele\State\CharaSele_Player_Actor.h">
+      <Filter>02_CharaSele\State</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\02_CharaSele\CharaSele_Stage.h">
+      <Filter>02_CharaSele</Filter>
+    </ClInclude>
     <ClInclude Include="Source\02_CharaSele\CharaSele.h">
       <Filter>02_CharaSele</Filter>
     </ClInclude>
-    <ClInclude Include="Source\80_Common\BattleTime.h">
+    <ClInclude Include="Source\80_Common\SelectArrow.h">
       <Filter>80_Common</Filter>
     </ClInclude>
   </ItemGroup>

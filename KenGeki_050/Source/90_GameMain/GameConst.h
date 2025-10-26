@@ -33,10 +33,11 @@ namespace GAME
 		CHARA_KISHI,		//忘れられた英雄
 		CHARA_DOXTUKA,		//ドッカードボル
 		CHARA_ENEMY_ZERO,	//エネミーゼロ
-
-		CHARA_RANDUM,
-		CHARA_NAME_NUM,
+//		CHARA_RANDUM,
+		CHARA_NAME_NUM,		//10
 	};
+	constexpr size_t CHARA_NAME_COUNT = 10;
+
 
 	//カラー指定
 	enum CHARA_COLOR
@@ -56,6 +57,14 @@ namespace GAME
 		START_RESULT,
 		START_TRAINING,
 		TEST_VOID,
+	};
+
+
+	//戦闘（対戦種類：メイン, トレーニング) モード
+	enum class FTG_MODE
+	{
+		MODE_FTG_MAIN,	//対人(メイン)
+		MODE_TRAINING,	//トレーニング
 	};
 
 	//ステージ名
