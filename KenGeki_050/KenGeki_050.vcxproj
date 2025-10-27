@@ -134,7 +134,6 @@
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Face.cpp" />
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Name.cpp" />
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Stand.cpp" />
-    <ClCompile Include="Source\02_CharaSele\Player\CharaSele_TxSet.cpp" />
     <ClCompile Include="Source\02_CharaSele\State\CharaSele_Player_Actor.cpp" />
     <ClCompile Include="Source\02_CharaSele\State\CharaSele_Player_State.cpp" />
     <ClCompile Include="Source\03_FtgMain\Ef\EfClang.cpp" />
@@ -196,7 +195,7 @@
     <ClCompile Include="Source\05_Result\Result.cpp" />
     <ClCompile Include="Source\05_Result\ResultMenu.cpp" />
     <ClCompile Include="Source\80_Common\BattleTime.cpp" />
-    <ClCompile Include="Source\80_Common\CharaSele_Image.cpp" />
+    <ClCompile Include="Source\80_Common\Chara_TxSet.cpp" />
     <ClCompile Include="Source\80_Common\Menu\PauseMenu.cpp" />
     <ClCompile Include="Source\80_Common\Menu\PauseMenuItem.cpp" />
     <ClCompile Include="Source\80_Common\Menu\PauseMenu_Const.cpp" />
@@ -431,7 +430,6 @@
     <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Face.h" />
     <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Name.h" />
     <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Stand.h" />
-    <ClInclude Include="Source\02_CharaSele\Player\CharaSele_TxSet.h" />
     <ClInclude Include="Source\02_CharaSele\State\CharaSele_Player_Actor.h" />
     <ClInclude Include="Source\02_CharaSele\State\CharaSele_Player_State.h" />
     <ClInclude Include="Source\03_FtgMain\Ef\EfClang.h" />
@@ -485,7 +483,7 @@
     <ClInclude Include="Source\05_Result\Result.h" />
     <ClInclude Include="Source\05_Result\ResultMenu.h" />
     <ClInclude Include="Source\80_Common\BattleTime.h" />
-    <ClInclude Include="Source\80_Common\CharaSele_Image.h" />
+    <ClInclude Include="Source\80_Common\Chara_TxSet.h" />
     <ClInclude Include="Source\80_Common\Menu\PauseMenu.h" />
     <ClInclude Include="Source\80_Common\Menu\PauseMenuItem.h" />
     <ClInclude Include="Source\80_Common\Menu\PauseMenu_Const.h" />

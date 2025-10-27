@@ -26,7 +26,7 @@ namespace GAME
 		CHARA_OUKA,			//鵯桜花
 		CHARA_SAE,			//巴紗絵
 		CHARA_RETSUDOU,		//烈火烈堂
-		CHARA_GABADARUGA,	//ギャバダルガ
+		CHARA_GYAVADARUGA,	//ギャバダルガ
 		CHARA_FERARIA,		//フェラリア
 		CHARA_TSUKIHIBOSHI,	//月日星
 		CHARA_REINA,		//レイナ

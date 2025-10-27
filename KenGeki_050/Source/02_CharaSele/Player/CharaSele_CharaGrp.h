@@ -10,7 +10,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
 #include "../../90_GameMain/GameConst.h"
-#include "CharaSele_TxSet.h"
+#include "../../91_Param/Param.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -22,11 +22,11 @@ namespace GAME
 
 	class CharaSele_CharaGrp	: public TASK_VEC
 	{
-		CHARA_NAME	m_name;		//キャラ名
 		PLAYER_ID	m_id { _PLAYER_NUM };	//プレイヤID
 
-
-		P_ChSl_TxSet	m_txSet;	//テクスチャセット
+//		P_ChSl_TxSet	m_txSet;	//テクスチャセット
+		//保存用共通パラメータ
+		P_Param			m_pParam;
 
 		P_Grp		m_ch_stand_large;		//キャラ立ち絵(大)1p/2p
 		P_Grp		m_ch_stand_small;		//キャラ立ち絵(小)1p/2p
@@ -45,13 +45,12 @@ namespace GAME
 		float		m_theta { 0 };	//名前表示必要角度
 		float		m_angle1 { 0 };
 
-		P_Grp	m_test;
-
 	public:
 		CharaSele_CharaGrp ();
 		CharaSele_CharaGrp ( const CharaSele_CharaGrp & rhs ) = delete;
 		~CharaSele_CharaGrp ();
 
+		void SetpParam ( P_Param p );
 		void Load ();
 		void Init ();
 		void Move ();

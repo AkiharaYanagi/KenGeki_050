@@ -1,6 +1,6 @@
 ﻿//=================================================================================================
 //
-//	CharaSele_TxSet
+//	Chara_TxSet
 //
 //=================================================================================================
 #pragma once
@@ -9,7 +9,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
-#include "../../90_GameMain/GameConst.h"
+#include "../90_GameMain/GameConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -22,7 +22,7 @@ namespace GAME
 	using P_GridTx = std::shared_ptr < s3d::Grid < P_Tx > >;
 	using P_ArrayTx = std::shared_ptr < s3d::Array < P_Tx > >;
 
-	class CharaSele_TxSet
+	class Chara_TxSet
 	{
 		//パディング用
 		P_Tx	m_tx_Pad;
@@ -35,9 +35,9 @@ namespace GAME
 		P_ArrayTx		m_aryTxName;		//Name
 
 	public:
-		CharaSele_TxSet ();
-		CharaSele_TxSet ( const CharaSele_TxSet & rhs ) = delete;
-		~CharaSele_TxSet ();
+		Chara_TxSet ();
+		Chara_TxSet ( const Chara_TxSet & rhs ) = delete;
+		~Chara_TxSet ();
 
 		void Load ();
 
@@ -52,7 +52,7 @@ namespace GAME
 		P_Tx GetpTx_Name ( CHARA_NAME name );
 	};
 
-	using P_ChSl_TxSet = std::shared_ptr < CharaSele_TxSet >;
+	using P_Ch_TxSet = std::shared_ptr < Chara_TxSet >;
 
 
 }	//namespace GAME

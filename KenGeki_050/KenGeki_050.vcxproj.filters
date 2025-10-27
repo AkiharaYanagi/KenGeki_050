@@ -415,9 +415,6 @@
     <ClCompile Include="Source\05_Result\Result.cpp">
       <Filter>05_Result</Filter>
     </ClCompile>
-    <ClCompile Include="Source\80_Common\CharaSele_Image.cpp">
-      <Filter>80_Common</Filter>
-    </ClCompile>
     <ClCompile Include="Source\80_Common\BattleTime.cpp">
       <Filter>80_Common</Filter>
     </ClCompile>
@@ -451,9 +448,6 @@
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Stand.cpp">
       <Filter>02_CharaSele\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Source\02_CharaSele\Player\CharaSele_TxSet.cpp">
-      <Filter>02_CharaSele\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_CharaGrp.cpp">
       <Filter>02_CharaSele\Player</Filter>
     </ClCompile>
@@ -470,6 +464,9 @@
       <Filter>02_CharaSele\State</Filter>
     </ClCompile>
     <ClCompile Include="Source\80_Common\SelectArrow.cpp">
+      <Filter>80_Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\80_Common\Chara_TxSet.cpp">
       <Filter>80_Common</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1334,9 +1331,6 @@
     <ClInclude Include="Source\05_Result\Result.h">
       <Filter>05_Result</Filter>
     </ClInclude>
-    <ClInclude Include="Source\80_Common\CharaSele_Image.h">
-      <Filter>80_Common</Filter>
-    </ClInclude>
     <ClInclude Include="Source\80_Common\BattleTime.h">
       <Filter>80_Common</Filter>
     </ClInclude>
@@ -1376,9 +1370,6 @@
     <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Stand.h">
       <Filter>02_CharaSele\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Source\02_CharaSele\Player\CharaSele_TxSet.h">
-      <Filter>02_CharaSele\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Source\02_CharaSele\State\CharaSele_Player_State.h">
       <Filter>02_CharaSele\State</Filter>
     </ClInclude>
@@ -1392,6 +1383,9 @@
       <Filter>02_CharaSele</Filter>
     </ClInclude>
     <ClInclude Include="Source\80_Common\SelectArrow.h">
+      <Filter>80_Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\80_Common\Chara_TxSet.h">
       <Filter>80_Common</Filter>
     </ClInclude>
   </ItemGroup>

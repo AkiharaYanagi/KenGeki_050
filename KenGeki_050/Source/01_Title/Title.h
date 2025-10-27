@@ -67,8 +67,9 @@ namespace GAME
 		//シーン選択
 		enum class TITLE_TO
 		{
-			BATTLE_1PvsCPU,
 			BATTLE_1Pvs2P,
+			BATTLE_1PvsCPU,
+			BATTLE_CPUvs2P,
 			BATTLE_CPUvsCPU,
 			TRAINING,
 		};

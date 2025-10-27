@@ -16,9 +16,6 @@ namespace GAME
 {
 	CharaSele_CharaGrp::CharaSele_CharaGrp ()
 	{
-		//テクスチャセット
-		m_txSet = std::make_shared < CharaSele_TxSet > ();
-
 		//キャラ立ち絵（大）
 		m_ch_stand_large = MakepGrp ();
 		m_ch_stand_large->SetZ ( Z_BG - 0.01f );
@@ -76,9 +73,18 @@ namespace GAME
 	{
 	}
 
+	void CharaSele_CharaGrp::SetpParam ( P_Param p )
+	{
+		m_pParam = p;
+
+		//テクスチャセット
+//		m_txSet = std::make_shared < CharaSele_TxSet > ();
+//		m_txSet->Load ();
+
+	}
+
 	void CharaSele_CharaGrp::Load ()
 	{
-		m_txSet->Load ();
 		TASK_VEC::Load ();
 	}
 
@@ -305,8 +311,9 @@ namespace GAME
 
 	void CharaSele_CharaGrp::Assign ( CHARA_NAME name, CHARA_COLOR clr )
 	{
-		m_ch_stand_large->AssignpTexture( m_txSet->GetpTx_FullBody ( name, clr ) );
-		m_ch_stand_small->AssignpTexture( m_txSet->GetpTx_Stand ( name, clr ) );
+		P_Ch_TxSet ptxSet = m_pParam->GetpChara_TxSet ();
+		m_ch_stand_large->AssignpTexture( ptxSet->GetpTx_FullBody ( name, clr ) );
+		m_ch_stand_small->AssignpTexture( ptxSet->GetpTx_Stand ( name, clr ) );
 
 		//@info
 		//		２つ目以降のObjectは最初のテクスチャサイズを持っていて、
@@ -314,7 +321,7 @@ namespace GAME
 		// ->描画範囲を手動で０にした
 		//	@todo いずれかのタイミングでサイズ０リセットする
 
-		m_ch_name->AssignpTexture ( m_txSet->GetpTx_Name ( name ) );
+		m_ch_name->AssignpTexture ( ptxSet->GetpTx_Name ( name ) );
 		m_ch_name->GetpObject ( 1 )->SetRectF ( RectF { 0, 0, 0, 0 } );
 
 		AngleInit ( name );

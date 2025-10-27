@@ -49,7 +49,7 @@ namespace GAME
 			case CHARA_OUKA:		height = 160; break;
 			case CHARA_SAE:			height = 80; break;
 			case CHARA_RETSUDOU:	height = 240; break;
-			case CHARA_GABADARUGA:	height = 320; break;
+			case CHARA_GYAVADARUGA:	height = 320; break;
 			default: break;
 			}
 

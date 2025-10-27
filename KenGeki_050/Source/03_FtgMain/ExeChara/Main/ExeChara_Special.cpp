@@ -246,7 +246,7 @@ namespace GAME
 
 		//-----------------------------------------------------
 		//ギャバ
-		if ( m_name == CHARA_GABADARUGA )
+		if ( m_name == CHARA_GYAVADARUGA )
 		{
 			if ( IsNameAction ( U"投げ成立0" ) )
 			{

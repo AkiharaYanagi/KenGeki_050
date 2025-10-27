@@ -9,7 +9,6 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
-#include "CharaSele_TxSet.h"
 #include "CharaSele_CharaGrp.h"
 #include "../../91_Param/Param.h"
 
@@ -19,8 +18,6 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-//	using AP_ChGrp = s3d::Array < P_ChSl_ChGrp >;
-
 
 	//キャラ立絵
 	class CharaSele_Stand	: public TASK_VEC
@@ -29,12 +26,6 @@ namespace GAME
 
 		//保存用共通パラメータ
 		P_Param			m_pParam;
-
-//		bool			m_initialized { F };	//初期化済フラグ
-
-//		P_ChSl_TxSet	m_grp;	//キャラテクスチャセット
-//		AP_ChGrp		map_ChGrp;		//各キャラ
-//		P_ChSl_ChGrp	selectedCh;		//選択
 
 		P_ChSl_ChGrp	m_chGrp;	//キャラグラフィック
 		int				m_selectedIndex{0};	//選択インデックス
@@ -53,7 +44,6 @@ namespace GAME
 			m_id = id;
 			m_chGrp->SetPlayerID ( id );
 		}
-//		bool IsInit () const { return m_initialized; }
 		void SetpParam ( P_Param p );
 
 		void Next_Chara ();
@@ -62,7 +52,8 @@ namespace GAME
 		void Next_Color ();
 		void Prev_Color ();
 
-//		void GrpAll_Off ();
+		//グラフィックを直接指定
+		void Assign ( CHARA_NAME name, CHARA_COLOR clr );
 
 		//グラフィックをパラメータに基づいて更新
 		void Assign ();

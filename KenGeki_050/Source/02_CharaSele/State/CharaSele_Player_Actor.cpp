@@ -96,16 +96,6 @@ namespace GAME
 		}
 	}
 
-	void CharaSele_Player_Actor::Load ()
-	{
-		//各子ステートに親アクタポインタを設置
-		for ( P_ChSl_Plr_Stt pSt : m_aryState )
-		{
-			pSt->SetwpCharaSele_Plr_Actor ( shared_from_this () );
-		}
-		TASK_VEC::Load ();
-	}
-
 	void CharaSele_Player_Actor::SetPlayerID ( PLAYER_ID id )
 	{
 		m_id = id;
@@ -117,7 +107,21 @@ namespace GAME
 	void CharaSele_Player_Actor::SetpParam ( P_Param p )
 	{
 		m_pParam = p;
+
 		m_ch_stand->SetpParam ( p );
+		m_ch_stand->Assign ();
+		CHARA_NAME name = p->GetGameSetting ().GetCharaName ( m_id );
+		m_ch_face->Assign ( name );
+	}
+
+	void CharaSele_Player_Actor::Load ()
+	{
+		//各子ステートに親アクタポインタを設置
+		for ( P_ChSl_Plr_Stt pSt : m_aryState )
+		{
+			pSt->SetwpCharaSele_Plr_Actor ( shared_from_this () );
+		}
+		TASK_VEC::Load ();
 	}
 
 	void CharaSele_Player_Actor::Init ()

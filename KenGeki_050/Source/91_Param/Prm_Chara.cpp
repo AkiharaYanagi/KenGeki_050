@@ -351,7 +351,7 @@ namespace GAME
 			if ( m_asyncLoad_Retu.isValid () ) { m_asyncLoad_Retu.wait (); }
 			return m_Retsu.GetpChara ( clr );
 
-		case CHARA_GABADARUGA:
+		case CHARA_GYAVADARUGA:
 			PRINT_F_S ( U"GetpChara ( CHARA_GABADARUGA, CLR_{} )\n"_fmt((int32)clr) );
 			if ( m_asyncLoad_Gaba.isValid () ) { m_asyncLoad_Gaba.wait (); }
 			return m_Gaba.GetpChara ( clr );

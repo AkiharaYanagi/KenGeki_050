@@ -9,6 +9,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "CharaSele.h"
 #include "../90_GameMain/SeConst.h"
+#include "../90_GameMain/SoundConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -113,8 +114,9 @@ namespace GAME
 		m_plrActor_1p->SetwpCharaSeleMain ( shared_from_this () );
 		m_plrActor_2p->SetwpCharaSeleMain ( shared_from_this () );
 
-		m_plrActor_1p->SetpParam ( m_pParam );
-		m_plrActor_2p->SetpParam ( m_pParam );
+		//SOUND
+		SND_STOP_ALL_BGM();
+		SND_PLAY_LOOP_BGM ( BGM_CharaSele );	//初期BGMはキャラセレBGM
 
 		Scene::Load ();
 	}

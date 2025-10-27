@@ -95,6 +95,7 @@ namespace GAME
 		m_item->AddTexture_FromArchive ( U"Title\\1P_vs_CPU.png" );
 		m_item->AddTexture_FromArchive ( U"Title\\CPU_vs_2P.png" );
 		m_item->AddTexture_FromArchive ( U"Title\\CPU_vs_CPU.png" );
+		m_item->AddTexture_FromArchive ( U"Title\\Training.png" );
 
 
 
@@ -259,35 +260,57 @@ namespace GAME
 		if ( CFG_PUSH_KEY_12 ( PLY_LEFT ) )
 		{
 			SND_PLAY_ONESHOT_SE ( SE_select_move );
-			uint32 index = m_item->GetIndexTexture();
-			if ( index == 0 )
+			switch ( m_to )
 			{
+			case TITLE_TO::BATTLE_1Pvs2P:
+				m_to = TITLE_TO::BATTLE_1PvsCPU;
 				m_item->SetIndexTexture ( 1 );
-			}
-			else if ( index == 1 )
-			{
+			break;
+			case TITLE_TO::BATTLE_1PvsCPU:
+				m_to = TITLE_TO::BATTLE_CPUvs2P;
 				m_item->SetIndexTexture ( 2 );
-			}
-			else if ( index == 2 )
-			{
+			break;
+			case TITLE_TO::BATTLE_CPUvs2P:
+				m_to = TITLE_TO::BATTLE_CPUvsCPU;
+				m_item->SetIndexTexture ( 3 );
+			break;
+			case TITLE_TO::BATTLE_CPUvsCPU:
+				m_to = TITLE_TO::TRAINING;
+				m_item->SetIndexTexture ( 4 );
+			break;
+			case TITLE_TO::TRAINING:
+				m_to = TITLE_TO::BATTLE_1Pvs2P;
 				m_item->SetIndexTexture ( 0 );
+			break;
+			default: break;
 			}
 		}
 		if ( CFG_PUSH_KEY_12 ( PLY_RIGHT ) )
 		{
 			SND_PLAY_ONESHOT_SE ( SE_select_move );
-			uint32 index = m_item->GetIndexTexture();
-			if ( index == 0 )
+			switch ( m_to )
 			{
-				m_item->SetIndexTexture ( 2 );
-			}
-			else if ( index == 1 )
-			{
-				m_item->SetIndexTexture ( 0 );
-			}
-			else if ( index == 2 )
-			{
+			case TITLE_TO::BATTLE_1Pvs2P:
+				m_to = TITLE_TO::BATTLE_1PvsCPU;
 				m_item->SetIndexTexture ( 1 );
+			break;
+			case TITLE_TO::BATTLE_1PvsCPU:
+				m_to = TITLE_TO::BATTLE_CPUvs2P;
+				m_item->SetIndexTexture ( 2 );
+			break;
+			case TITLE_TO::BATTLE_CPUvs2P:
+				m_to = TITLE_TO::BATTLE_CPUvsCPU;
+				m_item->SetIndexTexture ( 3 );
+			break;
+			case TITLE_TO::BATTLE_CPUvsCPU:
+				m_to = TITLE_TO::TRAINING;
+				m_item->SetIndexTexture ( 4 );
+			break;
+			case TITLE_TO::TRAINING:
+				m_to = TITLE_TO::BATTLE_1Pvs2P;
+				m_item->SetIndexTexture ( 0 );
+			break;
+			default: break;
 			}
 		}
 
@@ -330,12 +353,16 @@ namespace GAME
 
 				switch ( m_to )
 				{
+				case TITLE_TO::BATTLE_1Pvs2P:
+					rGameStg.SetMutchMode ( MODE_PLAYER_PLAYER );
+					pParam->SetFtgMode ( FTG_MODE::MODE_FTG_MAIN );
+					break;
 				case TITLE_TO::BATTLE_1PvsCPU:
 					rGameStg.SetMutchMode ( MODE_PLAYER_CPU );
 					pParam->SetFtgMode ( FTG_MODE::MODE_FTG_MAIN );
 					break;
-				case TITLE_TO::BATTLE_1Pvs2P:
-					rGameStg.SetMutchMode ( MODE_PLAYER_PLAYER );
+				case TITLE_TO::BATTLE_CPUvs2P:
+					rGameStg.SetMutchMode ( MODE_CPU_PLAYER );
 					pParam->SetFtgMode ( FTG_MODE::MODE_FTG_MAIN );
 					break;
 				case TITLE_TO::BATTLE_CPUvsCPU:

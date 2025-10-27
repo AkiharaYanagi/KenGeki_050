@@ -11,9 +11,7 @@
 #include "Game.h"
 #include "../90_GameMain/Scene.h"
 #include "ResultMenu.h"
-
-//#include "../CharaSele/CharaSele_Image.h"
-#include "../80_Common/CharaSele_Image.h"
+#include "../80_Common/Chara_TxSet.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -26,10 +24,7 @@ namespace GAME
 	{
 		P_GrpMovie		m_mov;		//背景ムービー
 
-//		P_Grp			m_chara;	//キャラ画像
-
-
-		CharaSele_Image		m_img_cmn;	//キャラ立絵 共有テクスチャ
+		P_Ch_TxSet		m_chTxSet;	//キャラ立絵 共有テクスチャ
 		P_Grp			m_stand;	//キャラ立絵
 
 
@@ -81,7 +76,8 @@ namespace GAME
 
 	private:
 
-		P_GrpStr MakeStr ( float x, float y );
+		P_GrpStr MakepStr ( float x, float y );
+		P_Grp MakepGrp ( LPCUSTR filename, float x, float y );
 
 #pragma region CONST
 

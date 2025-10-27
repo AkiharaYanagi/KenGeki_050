@@ -50,13 +50,12 @@ namespace GAME
 	{
 	}
 
-	void CharaSele_Face::Load ()
+	void CharaSele_Face::SetPlayerID ( PLAYER_ID id )
 	{
-		TASK_VEC::Load ();
-	}
+		m_id = id;
 
-	void CharaSele_Face::Init ()
-	{
+		//@info 定数計算かつLoad()前
+
 		//初期化と共通項
 		m_aryPos.clear ();
 		const float radius = 204;
@@ -128,6 +127,15 @@ namespace GAME
 			pob->SetPos ( m_aryPos [ i ] );
 		}
 
+	}
+
+	void CharaSele_Face::Load ()
+	{
+		TASK_VEC::Load ();
+	}
+
+	void CharaSele_Face::Init ()
+	{
 		TASK_VEC::Init ();
 	}
 
@@ -190,7 +198,12 @@ namespace GAME
 	void CharaSele_Face::SetPos ( int pos_turn )
 	{
 		m_pos_turn = pos_turn;
+		ResetPos ();
+	}
 
+	void CharaSele_Face::Assign ( CHARA_NAME name )
+	{
+		m_pos_turn = static_cast < int > ( name );
 		ResetPos ();
 	}
 
@@ -201,17 +214,6 @@ namespace GAME
 			int pos = 0;
 
 			//インデックスはi, 位置はm_pos_turn
-#if 0
-			if ( N <= m_pos_turn + i )	//プラス側のみチェック
-			{
-				pos = m_pos_turn + i - N;
-			}
-			else
-			{
-				pos = m_pos_turn + i;
-			}
-
-#endif // 0
 			if ( i < m_pos_turn )	//マイナス側のみチェック
 			{
 				pos = N + ( i - m_pos_turn );
@@ -238,12 +240,6 @@ namespace GAME
 		}
 
 		m_turn = F;
-	}
-
-	void CharaSele_Face::Assign ( CHARA_NAME name )
-	{
-		m_pos_turn = static_cast < int > ( name );
-		ResetPos ();
 	}
 
 }	//namespace GAME

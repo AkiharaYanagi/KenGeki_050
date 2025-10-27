@@ -407,7 +407,7 @@ namespace GAME
 		case CHARA_OUKA: break;
 		case CHARA_SAE: break;
 		case CHARA_RETSUDOU: break;
-		case CHARA_GABADARUGA: break;
+		case CHARA_GYAVADARUGA: break;
 		default: charaName = CHARA_OUKA; break;
 		}
 

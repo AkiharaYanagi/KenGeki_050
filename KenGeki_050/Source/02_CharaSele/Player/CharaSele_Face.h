@@ -48,7 +48,7 @@ namespace GAME
 		void Next ();
 		void Prev ();
 
-		void SetPlayerID ( PLAYER_ID id ) { m_id = id; }
+		void SetPlayerID ( PLAYER_ID id );
 
 		void SetPos ( int pos_turn );
 

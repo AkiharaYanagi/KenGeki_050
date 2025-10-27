@@ -60,36 +60,34 @@ namespace GAME
 		GRPLST_INSERT ( m_mov );
 
 #if 0
-
-		m_chara = std::make_shared < GameGraphic > ();
-		m_chara->AddTexture_FromArchive ( U"CharaSele\\Stand_Ouka.png" );
-		m_chara->AddTexture_FromArchive ( U"CharaSele\\Stand_Sae.png" );
-		m_chara->AddTexture_FromArchive ( U"CharaSele\\Stand_Retsudou.png" );
-		m_chara->SetPos ( CHARA_SX, CHARA_PY );
-		AddpTask ( m_chara );
-		GRPLST_INSERT ( m_chara );
-
-#endif // 0
 		m_stand = std::make_shared < GameGraphic > ();
 		m_stand->AddTexture ();	//Assign用に１つ枠を取る
 		m_stand->SetPos ( CHARA_SX, CHARA_PY );
 		AddpTask ( m_stand );
 		GRPLST_INSERT ( m_stand );
+#endif // 0
+		m_stand = MakepGrp ( U"1_1_transparent.png", CHARA_SX, CHARA_PY );
+		m_stand->AddTexture ();	//Assign用に１つ枠を取る
 
-
+#if 0
 		m_state = std::make_shared < GameGraphic > ();
 		m_state->AddTexture_FromArchive ( U"Result\\Result_State.png" );
 		m_state->SetPos ( NUM_BG_X, NUM_BG_Y );
 		AddpTask ( m_state );
 		GRPLST_INSERT ( m_state );
+#endif // 0
+		m_state = MakepGrp ( U"Result\\Result_State.png", NUM_BG_X, NUM_BG_Y );
 
 
 		//勝利メッセージウィンドウ
+#if 0
 		m_MsgWnd = std::make_shared < GameGraphic > ();
 		m_MsgWnd->AddTexture_FromArchive ( U"Result\\MsgWnd.png" );
 		m_MsgWnd->SetPos ( MSG_WND_X, MSG_WND_Y  );
 		AddpTask ( m_MsgWnd );
 		GRPLST_INSERT ( m_MsgWnd );
+#endif // 0
+		m_MsgWnd = MakepGrp ( U"Result\\MsgWnd.png", MSG_WND_X, MSG_WND_Y );
 
 
 		//フェードイン
@@ -116,11 +114,14 @@ namespace GAME
 		GRPLST_INSERT ( m_next_tri );
 
 		//操作説明
+#if 0
 		m_inst = std::make_shared < GameGraphic > ();
 		m_inst->AddTexture_FromArchive ( U"Result\\Inst_Result.png" );
 		m_inst->SetPos ( INST_X, INST_Y );
 		AddpTask ( m_inst );
 		GRPLST_INSERT ( m_inst );
+#endif // 0
+		m_inst = MakepGrp ( U"Result\\Inst_Result.png", INST_X, INST_Y );
 
 
 		//メニュ
@@ -139,9 +140,11 @@ namespace GAME
 		m_msg.assign ( U"勝利メッセージのテスト。\n改行" );
 
 
-		m_ch_msg.emplace ( CHARA_OUKA,		U"鵯 桜花：\n花ひらいて雨風多し\n人、生きては別離たる");
-		m_ch_msg.emplace ( CHARA_SAE,		U"巴 紗絵：\nそれでおしまい？　\nもっと本気だしてよ♪");
-		m_ch_msg.emplace ( CHARA_RETSUDOU,	U"烈火 烈堂：\n本当に良い刀ってのは鞘に入ってるもんだぜ･･･");
+		m_ch_msg.emplace ( CHARA_OUKA,			U"鵯 桜花：\n花ひらいて雨風多し\n人、生きては別離たる");
+		m_ch_msg.emplace ( CHARA_SAE,			U"巴 紗絵：\nそれでおしまい？　\nもっと本気だしてよ♪");
+		m_ch_msg.emplace ( CHARA_RETSUDOU,		U"烈火 烈堂：\n本当に良い刀ってのは鞘に入ってるもんだぜ･･･");
+		m_ch_msg.emplace ( CHARA_GYAVADARUGA,	U"ギャバダルガ：\n");
+		m_ch_msg.emplace ( CHARA_FERARIA,		U"フェラリア：\nキミはフェラリアに勝てない　フェラリアは負けない\nあはは♪ざぁ～こざぁ～こ！　\n");
 
 
 
@@ -158,12 +161,12 @@ namespace GAME
 
 
 		//数値
-		m_n_offset = MakeStr ( NUM_X, NUM_Y + NUM_P * 0 );
-		m_n_max_chn = MakeStr ( NUM_X, NUM_Y + NUM_P * 1 );
-		m_n_max_dmg = MakeStr ( NUM_X, NUM_Y + NUM_P * 2 );
+		m_n_offset = MakepStr ( NUM_X, NUM_Y + NUM_P * 0 );
+		m_n_max_chn = MakepStr ( NUM_X, NUM_Y + NUM_P * 1 );
+		m_n_max_dmg = MakepStr ( NUM_X, NUM_Y + NUM_P * 2 );
 	}
 
-	P_GrpStr Result::MakeStr ( float x, float y )
+	P_GrpStr Result::MakepStr ( float x, float y )
 	{
 		P_GrpStr pStr = std::make_shared < GrpStr > ();
 		pStr->SetPos ( x, y );
@@ -172,6 +175,16 @@ namespace GAME
 		pStr->SetStr ( U"{}"_fmt ( y )  );
 		GRPLST_INSERT ( pStr );
 		return pStr;
+	}
+
+	P_Grp Result::MakepGrp ( LPCUSTR filename, float x, float y )
+	{
+		P_Grp pGrp = std::make_shared < GameGraphic > ();
+		pGrp->AddTexture_FromArchive ( filename );
+		pGrp->SetPos ( x, y );
+		AddpTask ( pGrp );
+		GRPLST_INSERT ( pGrp );
+		return pGrp;
 	}
 
 	Result::~Result ()
@@ -197,26 +210,17 @@ namespace GAME
 		GameSettingFile & stg = pParam->GetGameSetting ();
 		Prm_Result & rPrmRslt = pParam->GetPrmResult ();
 
-		PLAYER_ID win_player = rPrmRslt.GetWinner ();
-		CHARA_NAME name = stg.GetCharaName ( win_player );
-		CHARA_COLOR clr = stg.GetCharaColor ( win_player );
+		PLAYER_ID win_player_id = rPrmRslt.GetWinner ();
+		CHARA_NAME name = stg.GetCharaName ( win_player_id );
+		CHARA_COLOR clr = stg.GetCharaColor ( win_player_id );
+
+		name = CHARA_FERARIA;
+		stg.SetCharaName ( win_player_id, name );
+		rPrmRslt.SetWinner ( PLAYER_ID_2 );
 
 		//キャラ
-		m_stand->AssignpTexture ( m_img_cmn.GetpTx ( name, clr ) );
-#if 0
-		switch ( name )
-		{
-		case CHARA_OUKA:
-			m_chara->SetIndexTexture ( 0 );
-			break;
-		case CHARA_SAE:
-			m_chara->SetIndexTexture ( 1 );
-			break;
-		case CHARA_RETSUDOU:
-			m_chara->SetIndexTexture ( 2 );
-			break;
-		}
-#endif // 0
+		m_chTxSet = pParam->GetpChara_TxSet ();
+		m_stand->AssignpTexture ( m_chTxSet->GetpTx_FullBody ( name, clr ) );
 	}
 
 	void Result::Init ()

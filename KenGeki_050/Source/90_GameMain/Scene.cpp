@@ -9,6 +9,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Scene.h"
+#include "../90_GameMain/DebugDisp.h"
 
 //状態遷移先
 #include "../01_Title/Title.h"
@@ -17,10 +18,6 @@
 #include "../04_Training/Training.h"
 #include "../05_Result/Result.h"
 
-#if 0
-#include "../GameMain/SoundConst.h"
-#include "../GameMain/DebugDisp.h"
-#endif // 0
 
 
 //-------------------------------------------------------------------------------------------------
@@ -123,7 +120,10 @@ namespace GAME
 		//格闘部分共通パラメータシングルトン生成
 		G_Ftg::Create ();
 
+		//-------------------------------------
+		//シーン共通パラメータ読込
 		m_pParam->Load ();
+
 		//-------------------------------------
 		//シーン開始
 		Start ();
@@ -147,7 +147,6 @@ namespace GAME
 #endif // 0
 
 
-#if 0
 		//デバッグ表示オン/オフ 初期状態
 		//ExeChara 1p/2p のとき、1pの値を2pで上書きに注意
 #if DEBUG_DISP		
@@ -169,13 +168,14 @@ namespace GAME
 #endif	//DEBUG_DISP
 
 
+
+#if 0
 		if ( startMode == START_TITLE )
 		{
 			//全キャラデータを事前読込
 //			// ここで読込しないとき、バトルメインでキャラの個別読込
 			m_pParam->LoadCharaData_All ();
 		}
-
 #endif // 0
 
 

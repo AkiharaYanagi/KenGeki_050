@@ -13,6 +13,7 @@
 #include "GameSettingFile.h"
 #include "../90_GameMain/GameConst.h"
 #include "../90_GameMain/SoundConst.h"
+#include "../80_Common/Chara_TxSet.h"
 
 #include "Chara.h"
 #include "Prm_Chara.h"
@@ -65,8 +66,10 @@ namespace GAME
 		int32		m_n_max_damege_1p { 0 };		//最大連撃力
 		int32		m_n_max_damege_2p { 0 };		//
 #endif // 0
-		Prm_Result	m_prmResult;
+		Prm_Result		m_prmResult;
 
+		//共通キャラテクスチャ
+		P_Ch_TxSet		m_chTxSet;
 
 	public:
 		Param ();
@@ -197,6 +200,8 @@ namespace GAME
 		void UpdateIfMax_Chain ( PLAYER_ID id, int n );
 #endif // 0
 
+		void SetpChara_TxSet ( P_Ch_TxSet p );
+		P_Ch_TxSet GetpChara_TxSet ();
 	};
 
 	using P_Param = std::shared_ptr < Param >;

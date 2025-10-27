@@ -21,7 +21,7 @@ namespace GAME
 		CHARA_OUKA,			//鵯桜花
 		CHARA_SAE,			//巴紗絵
 		CHARA_RETSUDOU,		//烈火烈堂
-		CHARA_GABADARUGA,	//ギャバダルガ
+		CHARA_GYAVADARUGA,	//ギャバダルガ
 		CHARA_FERARIA,		//フェラリア
 		CHARA_TSUKIHIBOSHI,	//月日星
 		CHARA_REINA,		//レイナ
@@ -34,53 +34,16 @@ namespace GAME
 
 	CharaSele_Stand::CharaSele_Stand ()
 	{
-		//テクスチャセット
-//		m_grp = std::make_shared < CharaSele_TxSet > ();
-
 		//キャラグラフィック
 		m_chGrp = std::make_shared < CharaSele_CharaGrp > ();
 		AddpTask ( m_chGrp );
 
-#if 0
-		map_ChGrp.resize ( CHARA_NAME_COUNT );
-		size_t index = 0;
-		for ( CHARA_NAME name : chara_name )
-		{
-			P_ChSl_GrpSet p = std::make_shared < CharaSele_GrpSet > ();
-			map_ChGrp[ static_cast < size_t > ( index )] = p;
-			p->SetName ( name );
-			p->Off ();
-			p->SetNameTheta ( ARY_NAME_THETA [ index ] );
-			AddpTask ( p );
-
-			++ index;
-		}
-
-#endif // 0
-
 		//最初の選択
 		m_selectedIndex = 0;
-#if 0
-		selectedCh = map_ChGrp [ m_selectedIndex ];
-		selectedCh->On ();
-#endif // 0
 	}
 
 	CharaSele_Stand::~CharaSele_Stand ()
 	{
-	}
-
-	void CharaSele_Stand::Load ()
-	{
-#if 0
-		m_grp->Load ();
-		for ( P_ChSl_GrpSet p : map_ChGrp )
-		{
-			p->SetpGrp ( m_grp );
-		}
-#endif // 0
-
-		TASK_VEC::Load ();
 	}
 
 	void CharaSele_Stand::SetpParam ( P_Param p )
@@ -95,6 +58,13 @@ namespace GAME
 		//有効なキャラ名ならばインデックスを設定
 		m_selectedIndex = static_cast < int > ( name );
 
+		m_chGrp->SetpParam ( p );
+
+	}
+
+	void CharaSele_Stand::Load ()
+	{
+		TASK_VEC::Load ();
 	}
 
 	void CharaSele_Stand::Init ()
@@ -181,6 +151,11 @@ namespace GAME
 
 
 	//グラフィックをパラメータに基づいて更新
+	void CharaSele_Stand::Assign ( CHARA_NAME name, CHARA_COLOR clr )
+	{
+		m_chGrp->Assign ( name, clr );
+	}
+
 	void CharaSele_Stand::Assign ()
 	{
 		P_Param p = m_pParam;

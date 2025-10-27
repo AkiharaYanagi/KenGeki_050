@@ -178,19 +178,19 @@ namespace GAME
 		switch ( m_stage_name )
 		{
 		case STAGE_ASAHINO_HARA:
-			m_bg_C->AddTexture_FromArchive ( U"BG\\BG_noon_C.png" );
+			m_bg_C->AddTexture_FromArchive ( U"BG\\BG_hara_noon.png" );
 			m_bg_L->AddTexture_FromArchive ( U"16_16_Padding.png" );
 			m_bg_R->AddTexture_FromArchive ( U"16_16_Padding.png" );
 		break;
 
 		case STAGE_YUUHINO_HARA:
-			m_bg_C->AddTexture_FromArchive ( U"BG\\BG_evening_C.png" );
+			m_bg_C->AddTexture_FromArchive ( U"BG\\BG_hara_evening.png" );
 			m_bg_L->AddTexture_FromArchive ( U"16_16_Padding.png" );
 			m_bg_R->AddTexture_FromArchive ( U"16_16_Padding.png" );
 		break;
 
 		case STAGE_YORUNO_HARA :
-			m_bg_C->AddTexture_FromArchive ( U"BG\\BG_night_C.png" );
+			m_bg_C->AddTexture_FromArchive ( U"BG\\BG_hara_night.png" );
 			m_bg_L->AddTexture_FromArchive ( U"16_16_Padding.png" );
 			m_bg_R->AddTexture_FromArchive ( U"16_16_Padding.png" );
 		break;

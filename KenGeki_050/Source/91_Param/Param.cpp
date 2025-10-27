@@ -165,6 +165,24 @@ namespace GAME
 	}
 #endif // 0
 
+	void Param::SetpChara_TxSet ( P_Ch_TxSet p )
+	{
+		m_chTxSet = p;
+	}
+
+	P_Ch_TxSet Param::GetpChara_TxSet ()
+	{
+		if ( ! m_chTxSet )
+		{
+			//未作成なら作成
+			P_Ch_TxSet p = std::make_shared < Chara_TxSet > ();
+			p->Load ();
+			m_chTxSet = p;
+		}
+		return m_chTxSet;
+	}
+
+
 
 }	//namespace GAME
 
