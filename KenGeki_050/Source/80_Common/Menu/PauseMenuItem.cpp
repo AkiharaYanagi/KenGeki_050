@@ -42,7 +42,7 @@ namespace GAME
 
 	void PMI_To_Title::Decide ()
 	{
-		SND_PLAY_ONESHOT_SE(SE_select_move);
+		AUD_PLAY_ONESHOT_SE(SE_select_move);
 		P_PauseMenu p = dynamic_pointer_cast < PauseMenu > ( mwp_Parent.lock () );
 		p->OpenYNMenu ();
 	}
@@ -80,7 +80,7 @@ namespace GAME
 
 	void PMI_ResumeGame::Decide ()
 	{
-		SND_PLAY_ONESHOT_SE(SE_select_Cancel);
+		AUD_PLAY_ONESHOT_SE(SE_select_Cancel);
 		P_PauseMenu p = dynamic_pointer_cast <PauseMenu> ( mwp_Parent.lock () );
 		p->Off ();
 	}

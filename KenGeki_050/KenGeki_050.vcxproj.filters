@@ -445,9 +445,6 @@
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Name.cpp">
       <Filter>02_CharaSele\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Stand.cpp">
-      <Filter>02_CharaSele\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_CharaGrp.cpp">
       <Filter>02_CharaSele\Player</Filter>
     </ClCompile>
@@ -468,6 +465,9 @@
     </ClCompile>
     <ClCompile Include="Source\80_Common\Chara_TxSet.cpp">
       <Filter>80_Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Stand.cpp">
+      <Filter>02_CharaSele\Player</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

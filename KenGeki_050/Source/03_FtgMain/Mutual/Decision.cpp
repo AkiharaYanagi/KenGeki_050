@@ -302,7 +302,7 @@ namespace GAME
 			m_efClang->On ( center );
 
 			//SE
-			SND_PLAY_ONESHOT_SE ( SE_Btl_Clang );
+			AUD_PLAY_ONESHOT_SE ( SE_Btl_Clang );
 
 			//記録
 			m_pParam->GetPrmResult().AddOffset ( 1 );

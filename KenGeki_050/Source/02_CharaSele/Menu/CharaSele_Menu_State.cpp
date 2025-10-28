@@ -34,11 +34,11 @@ namespace GAME
 		//左右でメニュー変更
 		if ( CFG_PUSH_KEY_PL ( m_id, PLY_LEFT ) )
 		{
-			SND_PLAY_ONESHOT_SE ( SE_select_move );
+			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 		if ( CFG_PUSH_KEY_PL ( m_id, PLY_RIGHT ) )
 		{
-			SND_PLAY_ONESHOT_SE ( SE_select_move );
+			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 		TASK_VEC::Move ();
 	}
@@ -51,11 +51,11 @@ namespace GAME
 		//上下でステージ変更
 		if ( CFG_PUSH_KEY_PL ( m_id, PLY_UP ) )
 		{
-			SND_PLAY_ONESHOT_SE ( SE_select_move );
+			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 		if ( CFG_PUSH_KEY_PL ( m_id, PLY_DOWN ) )
 		{
-			SND_PLAY_ONESHOT_SE ( SE_select_move );
+			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 	}
 

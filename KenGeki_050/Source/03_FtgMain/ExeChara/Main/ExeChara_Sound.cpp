@@ -137,7 +137,7 @@ namespace GAME
 	void ExeChara::PlaySE ( const s3d::String & se_name )
 	{
 		//名前から再生	
-		SND_PLAY_ONESHOT_SE ( se_name );
+		AUD_PLAY_ONESHOT_SE ( se_name );
 
 		//再生フラグをOn (CharaStateでOff)
 		m_btlPrm.SetFirstSE ( T );
@@ -213,7 +213,7 @@ namespace GAME
 		}
 
 
-		SND_PLAY_ONESHOT_VC ( vc_name );		//名前から再生
+		AUD_PLAY_ONESHOT_VC ( vc_name );		//名前から再生
 	}
 
 

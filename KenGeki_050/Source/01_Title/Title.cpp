@@ -40,19 +40,6 @@ namespace GAME
 	constexpr uint32 FADE_OUT_T = 16;
 	constexpr uint32 TITLE_CALL_WAIT = 2;
 
-#if 0
-
-//	constexpr char32_t BGM_Title []		= U"10_BGM_Title.wav";
-
-	//タイトルコール
-	constexpr char32_t VC_00_SAE_TITLE_CALL []		= U"VC00_99_紗絵_タイトルコール.wav";
-	constexpr char32_t VC_01_RETSUDOU_TITLE_CALL []	= U"VC01_99_烈堂_タイトルコール.wav";
-	constexpr char32_t VC_02_OUKA_TITLE_CALL[]		= U"VC02_33_4_桜花_タイトルコール：剣撃クロスゾーン.wav";
-	constexpr char32_t VC_90_CONSOME_TITLE_CALL[]	= U"VC90_00_剣撃クロスゾーン.wav";
-
-#endif // 0
-
-
 
 	Title::Title ()
 	{
@@ -79,7 +66,6 @@ namespace GAME
 		m_logo->SetPos ( VEC2 ( 1280 / 2 - 804 / 2, -200 ) );
 		m_logo->SetScalingCenter ( VEC2 ( 804/2, 1240/2 ) );
 		m_logo->SetScaling ( VEC2 ( 0.6f, 0.6f ) );
-//		m_logo->SetValid(F);	//最初は非表示
 
 
 		//メニュー
@@ -202,8 +188,8 @@ namespace GAME
 		m_tmr_title_bgm->Move ();
 		if ( m_tmr_title_bgm->IsLast () )
 		{
-			SND_STOP_ALL_BGM ();
-			SND_PLAY_LOOP_BGM ( BGM_Title );
+			AUD_STOP_ALL_BGM ();
+			AUD_PLAY_LOOP_BGM ( BGM_Title );
 		}
 
 
@@ -214,10 +200,10 @@ namespace GAME
 			int rnd = s3d::Random ( 0, 3 );
 			switch ( rnd )
 			{
-			case 0: SND_PLAY_ONESHOT_VC ( VC_00_SAE_TITLE_CALL ); break;
-			case 1: SND_PLAY_ONESHOT_VC ( VC_01_RETSUDOU_TITLE_CALL ); break;
-			case 2: SND_PLAY_ONESHOT_VC ( VC_02_OUKA_TITLE_CALL ); break;
-			case 3: SND_PLAY_ONESHOT_VC(VC_90_CONSOME_TITLE_CALL); break;
+			case 0: AUD_PLAY_ONESHOT_VC ( VC_00_SAE_TITLE_CALL ); break;
+			case 1: AUD_PLAY_ONESHOT_VC ( VC_01_RETSUDOU_TITLE_CALL ); break;
+			case 2: AUD_PLAY_ONESHOT_VC ( VC_02_OUKA_TITLE_CALL ); break;
+			case 3: AUD_PLAY_ONESHOT_VC(VC_90_CONSOME_TITLE_CALL); break;
 			}
 		}
 
@@ -259,7 +245,7 @@ namespace GAME
 		//選択
 		if ( CFG_PUSH_KEY_12 ( PLY_LEFT ) )
 		{
-			SND_PLAY_ONESHOT_SE ( SE_select_move );
+			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 			switch ( m_to )
 			{
 			case TITLE_TO::BATTLE_1Pvs2P:
@@ -287,7 +273,7 @@ namespace GAME
 		}
 		if ( CFG_PUSH_KEY_12 ( PLY_RIGHT ) )
 		{
-			SND_PLAY_ONESHOT_SE ( SE_select_move );
+			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 			switch ( m_to )
 			{
 			case TITLE_TO::BATTLE_1Pvs2P:
@@ -317,7 +303,7 @@ namespace GAME
 		//決定
 		if ( CFG_PUSH_KEY_12 ( PLY_BTN0 ) )
 		{
-			SND_PLAY_ONESHOT_SE ( SE_Sys_Enter );
+			AUD_PLAY_ONESHOT_SE ( SE_Sys_Enter );
 
 			//フェードアウト開始
 			m_fade_out->StartBlackOut ( FADE_OUT_T );
@@ -331,7 +317,7 @@ namespace GAME
 		//デモ フェード待機開始
 		if ( m_demo->IsLast () )
 		{
-			SND_STOP_ALL_BGM ();
+			AUD_STOP_ALL_BGM ();
 			Scene::Transit_Fighting ( MUTCH_MODE::MODE_CPU_CPU );
 		}
 
@@ -375,7 +361,7 @@ namespace GAME
 					break;
 				default: break;
 				}
-				SND_STOP_ALL_BGM ();
+				AUD_STOP_ALL_BGM ();
 				Scene::Transit_CharaSele ();
 
 				m_plus_wait = 0;

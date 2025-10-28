@@ -195,14 +195,14 @@ namespace GAME
 			m_ch_stand->Prev_Chara ();
 			CHARA_NAME name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
 			m_ch_face->Assign ( name );
-			SND_PLAY_ONESHOT_SE ( SE_select_move );
+			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 		if ( CFG_PUSH_KEY_PL ( m_id, PLY_DOWN ) )
 		{
 			m_ch_stand->Next_Chara ();
 			CHARA_NAME name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
 			m_ch_face->Assign ( name );
-			SND_PLAY_ONESHOT_SE ( SE_select_move );
+			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 		//左右でカラー変更
 		if ( CFG_PUSH_KEY_PL ( m_id, PLY_LEFT ) )
@@ -210,21 +210,21 @@ namespace GAME
 			m_ch_stand->Prev_Color ();
 			CHARA_NAME name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
 			m_ch_face->Assign ( name );
-			SND_PLAY_ONESHOT_SE ( SE_select_move );
+			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 		if ( CFG_PUSH_KEY_PL ( m_id, PLY_RIGHT ) )
 		{
 			m_ch_stand->Next_Color ();
 			CHARA_NAME name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
 			m_ch_face->Assign ( name );
-			SND_PLAY_ONESHOT_SE ( SE_select_move );
+			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 
 		//ボタンで決定
 		if ( CFG_PUSH_KEY_PL ( m_id, PLY_BTN0 ) )
 		{
 			Change_CharaPick_to_Menu ();
-			SND_PLAY_ONESHOT_SE ( SE_select_decide );
+			AUD_PLAY_ONESHOT_SE ( SE_select_decide );
 		}
 	}
 

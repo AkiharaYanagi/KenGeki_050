@@ -293,8 +293,8 @@ namespace GAME
 		if ( m_fade_in->IsLast () )
 		{
 			//BGM
-			SND_STOP_ALL_BGM ();
-			SND_PLAY_BGM ( BGM_Result );
+			AUD_STOP_ALL_BGM ();
+			AUD_PLAY_BGM ( BGM_Result );
 		}
 
 		//フェード中は何もしない
@@ -304,7 +304,7 @@ namespace GAME
 		//キー1でシーンを進める
 		if ( CFG_PUSH_KEY ( P1_BTN0 ) || CFG_PUSH_KEY ( P2_BTN0 ) )
 		{
-			SND_PLAY_ONESHOT_SE ( SE_select_decide );
+			AUD_PLAY_ONESHOT_SE ( SE_select_decide );
 
 			//フェード開始
 			m_fade_out->StartBlackOut ( 16 );
@@ -317,7 +317,7 @@ namespace GAME
 		//キー7でリセット
 		if ( CFG_PUSH_KEY ( P1_BTN7 ) || CFG_PUSH_KEY ( P2_BTN7 ) )
 		{
-			SND_STOP_ALL_BGM ();
+			AUD_STOP_ALL_BGM ();
 			Init ();
 		}
 
@@ -339,7 +339,7 @@ namespace GAME
 			}
 			else
 			{
-				SND_PLAY_ONESHOT_SE ( SE_select_decide );
+				AUD_PLAY_ONESHOT_SE ( SE_select_decide );
 
 				//フェード開始
 				m_fade_out->StartBlackOut ( 16 );
@@ -363,7 +363,7 @@ namespace GAME
 			if ( m_plus_wait > 15 )
 			{
 				//SOUND->Stop_BGM ( BGM_Result );
-				SND_STOP_ALL_BGM ();
+				AUD_STOP_ALL_BGM ();
 
 				//シーンパラメータの戦闘数値をここでリセット
 				GetpParam()->GetPrmResult().ResetBattleParam ();

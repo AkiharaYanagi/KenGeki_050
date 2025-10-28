@@ -87,8 +87,8 @@ namespace GAME
 		//BGM
 		P_Param pParam = Scene::GetpParam ();
 		BGM_ID bgm_id = pParam->Get_BGM_ID ();
-		SND_STOP_ALL_BGM ();
-		SND_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+		AUD_STOP_ALL_BGM ();
+		AUD_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
 #endif // 0
 
 
@@ -141,7 +141,7 @@ namespace GAME
 		if ( m_fighting->IsEnd () )
 		{
 			//BGM終了
-			SND_STOP_ALL_BGM ();
+			AUD_STOP_ALL_BGM ();
 
 			//シーン遷移
 			Scene::Transit_Result ();
@@ -151,7 +151,7 @@ namespace GAME
 		if ( m_fighting->IsDrawEnd () )
 		{
 			//BGM終了
-			SND_STOP_ALL_BGM ();
+			AUD_STOP_ALL_BGM ();
 
 			//シーン遷移
 			Scene::Transit_CharaSele ();

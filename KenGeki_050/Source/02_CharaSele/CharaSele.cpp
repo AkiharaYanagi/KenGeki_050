@@ -115,8 +115,8 @@ namespace GAME
 		m_plrActor_2p->SetwpCharaSeleMain ( shared_from_this () );
 
 		//SOUND
-		SND_STOP_ALL_BGM();
-		SND_PLAY_LOOP_BGM ( BGM_CharaSele );	//初期BGMはキャラセレBGM
+		AUD_STOP_ALL_BGM();
+		AUD_PLAY_LOOP_BGM ( BGM_CharaSele );	//初期BGMはキャラセレBGM
 
 		Scene::Load ();
 	}
@@ -129,18 +129,18 @@ namespace GAME
 		if ( CFG_PUSH_KEY_12 ( PLY_BTN1 ) )
 		{
 			m_stage->Next ();
-			SND_PLAY_ONESHOT_SE ( SE_select_move );
+			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 		if ( CFG_PUSH_KEY_12 ( PLY_BTN2 ) )
 		{
 			m_stage->Prev ();
-			SND_PLAY_ONESHOT_SE ( SE_select_move );
+			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 
 		if ( CFG_PUSH_KEY ( P1_BTN7 ) )
 		{
-			SND_STOP_ALL_BGM();
-			SND_PLAY_LOOP_BGM ( U"BGM01_CharaSele.wav" );
+			AUD_STOP_ALL_BGM();
+			AUD_PLAY_LOOP_BGM ( U"BGM01_CharaSele.wav" );
 		}
 		Scene::Move ();
 	}
@@ -155,7 +155,7 @@ namespace GAME
 			bool bCtrlReset = CFG_PUSH_KEY_12 ( PLAYER_INPUT::PLY_BTN7 );
 			if ( bBackSpace || bCtrlReset )
 			{
-				SND_PLAY_ONESHOT_SE ( SE_select_Cancel );
+				AUD_PLAY_ONESHOT_SE ( SE_select_Cancel );
 
 				//フェード開始
 				m_fade_toTitle->StartBlackOut ( 8 );
@@ -170,7 +170,7 @@ namespace GAME
 			bool b2 = m_plrActor_2p->Is_Decided ();
 			if ( b1 && b2 )
 			{
-				SND_PLAY_ONESHOT_SE ( SE_Sys_Enter );
+				AUD_PLAY_ONESHOT_SE ( SE_Sys_Enter );
 				//フェード開始
 				m_fade_toFighting->StartBlackOut ( 8 );
 			}
@@ -185,7 +185,7 @@ namespace GAME
 		if ( m_fade_toTitle->IsLast () )
 		{
 			Save ();
-			SND_STOP_ALL_BGM();
+			AUD_STOP_ALL_BGM();
 			Scene::Transit_Title ();
 		}
 
@@ -193,7 +193,7 @@ namespace GAME
 		if ( m_fade_toFighting->IsLast () )
 		{
 			Save ();
-			SND_STOP_ALL_BGM ();
+			AUD_STOP_ALL_BGM ();
 
 			m_fade_toFighting->ShiftTargetColor ();
 

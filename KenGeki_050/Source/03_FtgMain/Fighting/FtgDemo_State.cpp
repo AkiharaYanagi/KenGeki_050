@@ -104,8 +104,8 @@ namespace GAME
 		if ( ! SND()->IsPlayBGM( bgm_name ) )
 		{
 			//全停止から再生
-			SND_STOP_ALL_BGM ();
-			SND_PLAY_LOOP_BGM ( bgm_name );
+			AUD_STOP_ALL_BGM ();
+			AUD_PLAY_LOOP_BGM ( bgm_name );
 		}
 
 
@@ -115,7 +115,7 @@ namespace GAME
 
 #if 0
 		//SP_VOICE 開幕　コンソメ実況
-		SND_PLAY_ONESHOT_VC(VC_91_CONSOME_START);
+		AUD_PLAY_ONESHOT_VC(VC_91_CONSOME_START);
 #endif // 0
 	}
 
@@ -285,7 +285,7 @@ namespace GAME
 		//SP_VOICE
 		if (WND_UTL::AscKey(VK_F11))
 		{
-			SND_PLAY_ONESHOT_VC(VC_92_CONSOME_MIDDLE);
+			AUD_PLAY_ONESHOT_VC(VC_92_CONSOME_MIDDLE);
 		}
 #endif // 0
 
@@ -450,7 +450,7 @@ namespace GAME
 
 #if 0
 		//SP_VOICE
-		SND_PLAY_ONESHOT_VC(VC_93_CONSOME_FINISH);
+		AUD_PLAY_ONESHOT_VC(VC_93_CONSOME_FINISH);
 #endif // 0
 	}
 
@@ -647,7 +647,7 @@ namespace GAME
 				{
 					//各種終了
 					m_fade->Off ();
-					SND_STOP_ALL_BGM ();
+					AUD_STOP_ALL_BGM ();
 
 					//リザルトへ移行
 					GetwpFtgDemoActor().lock ()->End_Down_To_Result ();

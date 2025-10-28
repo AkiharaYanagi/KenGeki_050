@@ -141,7 +141,7 @@ namespace GAME
 			bool bMenuBtn = ( CFG_PUSH_KEY ( P1_BTN6 ) || CFG_PUSH_KEY ( P2_BTN6 ) );
 			if ( bEsc || bMenuBtn )
 			{
-				SND_PLAY_ONESHOT_SE(SE_select_Cancel);
+				AUD_PLAY_ONESHOT_SE(SE_select_Cancel);
 				Off ();
 				return F;
 			}
@@ -157,7 +157,7 @@ namespace GAME
 		bool bMenuBtn = ( CFG_PUSH_KEY ( P1_BTN6 ) || CFG_PUSH_KEY ( P2_BTN6 ) );
 		if ( bEsc || bMenuBtn )
 		{
-			SND_PLAY_ONESHOT_SE (SE_select_move);
+			AUD_PLAY_ONESHOT_SE (SE_select_move);
 			On ();
 		}
 
@@ -172,12 +172,12 @@ namespace GAME
 		//選択
 		if ( CFG_PUSH_KEY ( P1_DOWN ) || CFG_PUSH_KEY ( P2_DOWN ) )
 		{
-			SND_PLAY_ONESHOT_SE ( SE_select_move );
+			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 			Menu::Next ();
 		}
 		if ( CFG_PUSH_KEY ( P1_UP ) || CFG_PUSH_KEY ( P2_UP ) )
 		{
-			SND_PLAY_ONESHOT_SE (SE_select_move);
+			AUD_PLAY_ONESHOT_SE (SE_select_move);
 			Menu::Prev ();
 		}
 

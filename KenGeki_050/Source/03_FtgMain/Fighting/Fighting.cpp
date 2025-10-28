@@ -195,13 +195,13 @@ namespace GAME
 
 
 		//BGM
-		SND_STOP_ALL_BGM ();
+		AUD_STOP_ALL_BGM ();
 
 		//BGMなし以外は再生開始
 		BGM_ID bgm_id = m_pParam->Get_BGM_ID ();
 		if ( BGM_ID_NONE != bgm_id )
 		{
-			SND_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+			AUD_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
 		}
 	}
 

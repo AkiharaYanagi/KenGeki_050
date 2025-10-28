@@ -124,14 +124,14 @@ namespace GAME
 		G_Ftg::inst()->Init ();
 
 		//BGM
-		SND_STOP_ALL_BGM ();
+		AUD_STOP_ALL_BGM ();
 
 		//BGMなし以外は再生開始
 		BGM_ID bgm_id = pParam->Get_BGM_ID ();
-		SND_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+		AUD_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
 		if ( BGM_ID_NONE != bgm_id )
 		{
-			SND_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+			AUD_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
 		}
 
 		//両者の操作をCPUではなくプレイヤに初期設定
@@ -146,9 +146,9 @@ namespace GAME
 		m_pauseMenu->SetwpParentScene ( shared_from_this () );
 
 		//BGM
-		SND_STOP_ALL_BGM ();
+		AUD_STOP_ALL_BGM ();
 		BGM_ID bgm_id = pParam->Get_BGM_ID ();
-		SND_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+		AUD_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
 #endif // 0
 
 		Scene::Load ();
@@ -206,7 +206,7 @@ namespace GAME
 		//BackSpaceで戻る
 		if ( WND_UTL::AscKey ( VK_BACK ) )
 		{
-			SND_STOP_ALL_BGM ();
+			AUD_STOP_ALL_BGM ();
 			GetwpThis().lock ()->Transit_Title ();
 		}
 

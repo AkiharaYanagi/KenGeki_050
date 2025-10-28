@@ -40,15 +40,15 @@ namespace GAME
 	void YNM_Item_Yes::Decide ()
 	{
 		//BGM
-		SND_PLAY_ONESHOT_SE(SE_select_decide);
-		SND_STOP_ALL_BGM ();
+		AUD_PLAY_ONESHOT_SE(SE_select_decide);
+		AUD_STOP_ALL_BGM ();
 		mwp_Scene.lock()->Transit_Title ();
 	}
 
 	//キャンセル 自メニュを閉じる
 	void YNM_Item_No::Decide ()
 	{
-		SND_PLAY_ONESHOT_SE(SE_select_Cancel);
+		AUD_PLAY_ONESHOT_SE(SE_select_Cancel);
 		P_YesNo_Menu p = std::dynamic_pointer_cast <YesNo_Menu> ( mwp_Parent.lock () );
 		p->Off ();
 	}
@@ -135,12 +135,12 @@ namespace GAME
 		//選択
 		if ( CFG_PUSH_KEY ( P1_RIGHT ) || CFG_PUSH_KEY ( P2_RIGHT ) )
 		{
-			SND_PLAY_ONESHOT_SE(SE_select_move);
+			AUD_PLAY_ONESHOT_SE(SE_select_move);
 			Menu::Next ();
 		}
 		if ( CFG_PUSH_KEY ( P1_LEFT ) || CFG_PUSH_KEY ( P2_LEFT ) )
 		{
-			SND_PLAY_ONESHOT_SE(SE_select_move);
+			AUD_PLAY_ONESHOT_SE(SE_select_move);
 			Menu::Prev ();
 		}
 
