@@ -39,6 +39,11 @@ void Main()
 	//読込
 	Load ();
 
+	//開始時一時停止
+	gameSystem.SetbStop ( T );
+#if WAIT_START
+#endif // WAIT_START
+
 	//========================================
 	//メインループ
 	bool init = F;
