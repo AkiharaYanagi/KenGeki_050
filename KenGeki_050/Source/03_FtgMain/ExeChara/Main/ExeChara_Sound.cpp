@@ -175,7 +175,7 @@ namespace GAME
 		A_Gnrt aGnrt = m_pScript->GetaVC ();
 		for (Generator gnrt : aGnrt)
 		{
-			PlaySE ( gnrt.Name.Get() );
+			PlayVoice ( gnrt.Name.Get() );
 		}
 
 

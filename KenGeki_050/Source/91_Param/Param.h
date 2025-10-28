@@ -152,6 +152,9 @@ namespace GAME
 		//Chara
 		Prm_Chara_all& GetPrmCharaAll () { return m_prmChara_all; }
 
+		//キャラデータ事前読込
+		void LoadCharaData_All ();
+
 		//キャラ指定データ取得
 		P_Chara GetpChara ( CHARA_NAME name, PLAYER_ID pl_id );
 

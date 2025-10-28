@@ -23,7 +23,7 @@ namespace GAME
 	//デストラクタ
 	OperateEffect::~OperateEffect ()
 	{
-		Rele ();
+//		Rele ();
 	}
 
 	void OperateEffect::Init ()

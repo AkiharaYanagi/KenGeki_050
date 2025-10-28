@@ -101,7 +101,7 @@ namespace GAME
 		BGM_NAME bgm_name = BGM_ID_TO_NAME [ bgm_id ];
 
 		//すでに再生中でなければ再生
-		if ( ! SND()->IsPlayBGM( bgm_name ) )
+		if ( ! AUDIO()->IsPlayBGM( bgm_name ) )
 		{
 			//全停止から再生
 			AUD_STOP_ALL_BGM ();

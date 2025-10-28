@@ -34,10 +34,10 @@ namespace GAME
 
 
 		//値
-		m_color_bx = 425;	//基準位置(端からの距離)
+		m_color_bx = 427;	//基準位置(端からの距離)
 
 		m_arrow_bx = m_color_bx + 40;	//基準位置
-		m_arrow_by = 960 - 50;
+		m_arrow_by = 960 - 52;
 
 		m_arrow_frq = 0.15f;
 		m_arrow_w = 3.f;

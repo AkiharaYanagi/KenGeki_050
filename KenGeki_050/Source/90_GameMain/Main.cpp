@@ -73,6 +73,9 @@ void Load ()
 	gameMain->Load ();
 	gameMain->Init ();
 
+	G_Audio::Inst ()->HandLoad ();
+//	G_Audio::Inst ()->AllWait ();
+
 	//ゲームシステムにゲームメインオブジェクトを追加
 	gameSystem.SetpGameMain ( std::move ( gameMain ) );
 }

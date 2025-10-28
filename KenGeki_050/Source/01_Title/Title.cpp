@@ -169,6 +169,10 @@ namespace GAME
 
 	void Title::Move ()
 	{
+		s3d::ClearPrint ();
+		G_Audio::Inst()->CheckAudio ();
+
+
 		//背景四角
 		m_rect_angle += m_rect_omega;
 		m_rect->SetRadian ( m_rect_angle );
@@ -189,6 +193,10 @@ namespace GAME
 		if ( m_tmr_title_bgm->IsLast () )
 		{
 			AUD_STOP_ALL_BGM ();
+			if ( ! s3d::AudioAsset::IsReady ( BGM_Title ) )
+			{
+				s3d::AudioAsset::Wait ( BGM_Title );
+			}
 			AUD_PLAY_LOOP_BGM ( BGM_Title );
 		}
 
@@ -198,13 +206,16 @@ namespace GAME
 		if ( m_tmr_title_call->IsLast () )
 		{
 			int rnd = s3d::Random ( 0, 3 );
+			LPCUSTR vc_name = U"";
 			switch ( rnd )
 			{
-			case 0: AUD_PLAY_ONESHOT_VC ( VC_00_SAE_TITLE_CALL ); break;
-			case 1: AUD_PLAY_ONESHOT_VC ( VC_01_RETSUDOU_TITLE_CALL ); break;
-			case 2: AUD_PLAY_ONESHOT_VC ( VC_02_OUKA_TITLE_CALL ); break;
-			case 3: AUD_PLAY_ONESHOT_VC(VC_90_CONSOME_TITLE_CALL); break;
+			case 0: vc_name = VC_00_SAE_TITLE_CALL; break;
+			case 1: vc_name = VC_01_RETSUDOU_TITLE_CALL; break;
+			case 2: vc_name = VC_02_OUKA_TITLE_CALL; break;
+			case 3: vc_name = VC_90_CONSOME_TITLE_CALL; break;
 			}
+			s3d::AudioAsset::Wait ( vc_name );
+			AUD_PLAY_ONESHOT_VC ( vc_name );
 		}
 
 

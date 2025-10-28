@@ -191,11 +191,6 @@ namespace GAME
 		m_Ouka.SetStrImg_2p ( CHARA_IMG2_OUKA );
 		m_Ouka.SetStrGns ( CHARA_GNS_OUKA );
 
-		m_Fera.SetStrScp ( CHARA_DAT_FERA );
-		m_Fera.SetStrImg_1p ( CHARA_IMG1_FERA );
-		m_Fera.SetStrImg_2p ( CHARA_IMG2_FERA );
-		m_Fera.SetStrGns ( CHARA_GNS_FERA );
-
 		m_Sae.SetStrScp ( CHARA_DAT_SAE );
 		m_Sae.SetStrImg_1p ( CHARA_IMG1_SAE );
 		m_Sae.SetStrImg_2p ( CHARA_IMG2_SAE );
@@ -210,6 +205,11 @@ namespace GAME
 		m_Gaba.SetStrImg_1p ( CHARA_IMG1_GABA );
 		m_Gaba.SetStrImg_2p ( CHARA_IMG2_GABA );
 		m_Gaba.SetStrGns ( CHARA_GNS_GABA );
+
+		m_Fera.SetStrScp ( CHARA_DAT_FERA );
+		m_Fera.SetStrImg_1p ( CHARA_IMG1_FERA );
+		m_Fera.SetStrImg_2p ( CHARA_IMG2_FERA );
+		m_Fera.SetStrGns ( CHARA_GNS_FERA );
 	}
 
 	Prm_Chara_all::Prm_Chara_all ( const Prm_Chara_all & rhs )
@@ -247,10 +247,10 @@ namespace GAME
 		PRINT_F_S ( U"Prm_Chara_all::LoadAll\n" );
 
 		m_asyncLoad_Ouka = s3d::Async ( _Load_Ouka, this );
-		m_asyncLoad_Fera = s3d::Async ( _Load_Ouka, this );
 		m_asyncLoad_Sae_ = s3d::Async ( _Load_Sae_, this );
 		m_asyncLoad_Retu = s3d::Async ( _Load_Retu, this );
 		m_asyncLoad_Gaba = s3d::Async ( _Load_Gaba, this );
+		m_asyncLoad_Fera = s3d::Async ( _Load_Ouka, this );
 	}
 
 	//すべて読込(同期処理)
@@ -299,13 +299,6 @@ namespace GAME
 		PRINT_F_S ( U"End Prm_Chara_all::_Load_Ouka\n" );
 	}
 
-	void Prm_Chara_all::_Load_Fera ( Prm_Chara_all * pThis )
-	{
-		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Sae_\n" );
-		pThis->m_Fera.Load ();
-		PRINT_F_S ( U"End Prm_Chara_all::_Load_Sae_\n" );
-	}
-
 	void Prm_Chara_all::_Load_Sae_ ( Prm_Chara_all * pThis )
 	{
 		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Sae_\n" );
@@ -325,6 +318,13 @@ namespace GAME
 		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Gaba\n" );
 		pThis->m_Gaba.Load ();
 		PRINT_F_S ( U"End Prm_Chara_all::_Load_Gaba\n" );
+	}
+
+	void Prm_Chara_all::_Load_Fera ( Prm_Chara_all * pThis )
+	{
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Sae_\n" );
+		pThis->m_Fera.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Sae_\n" );
 	}
 
 
