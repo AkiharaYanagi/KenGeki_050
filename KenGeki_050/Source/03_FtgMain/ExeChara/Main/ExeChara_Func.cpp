@@ -60,12 +60,13 @@ namespace GAME
 			//入力が合った場合
 			if ( pOther->m_pCharaInput->PushSomething () )
 			{
-				//@info スタミナゲージ消費
-				//バランス消費で移項可能かチェック
+#if 0
+
+				//@info 剣撃ゲージ消費で移項可能かチェック
 
 				//現在値と比較
-				int balance = pOther->m_btlPrm.GetBalance ();
 				const int COST = 500;
+				int balance = pOther->m_btlPrm.GetBalance ();
 				if ( balance < COST )
 				{
 					//足りないとき遷移しない
@@ -76,8 +77,6 @@ namespace GAME
 					pOther->m_btlPrm.AddBalance ( -1 * COST );
 
 					//成立時
-					//recoil_i *= 10;
-					//recoil_i += -10;
 					accRecoil *= 10;
 					accRecoil += -10;
 
@@ -89,6 +88,36 @@ namespace GAME
 					//自身の受付時間を解除
 					pOther->m_btlPrm.GetTmr_Taikou()->Clear ();;
 				}
+
+#endif // 0
+
+				//@info アクセルゲージ消費で移項可能かチェック
+
+				//現在値と比較
+				const int COST = 500;
+				int accel = pOther->m_btlPrm.GetAccel ();
+				if ( accel < ACCEL_MIN + 500 )
+				{
+					//足りないとき遷移しない
+				}
+				else
+				{
+					//必要量があれば消費して遷移する
+					pOther->m_btlPrm.AddAccel ( -1 * COST );
+
+					//成立時
+					accRecoil *= 10;
+					accRecoil += -10;
+
+					//成立フラグ
+					pOther->m_btlPrm.SetTaikou ( T );
+					//フレーム最初にFalse、以降同一フレーム処理で判定に用いる
+					//主にエフェクト発生
+
+					//自身の受付時間を解除
+					pOther->m_btlPrm.GetTmr_Taikou()->Clear ();;
+				}
+
 
 				//値を再保存
 				m_btlPrm.SetAccRecoil ( accRecoil );
