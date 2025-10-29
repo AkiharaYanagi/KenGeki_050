@@ -40,8 +40,8 @@ void Main()
 	Load ();
 
 	//開始時一時停止
-	gameSystem.SetbStop ( T );
 #if WAIT_START
+	gameSystem.SetbStop ( T );
 #endif // WAIT_START
 
 	//========================================

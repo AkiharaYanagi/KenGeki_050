@@ -250,7 +250,7 @@ namespace GAME
 		m_asyncLoad_Sae_ = s3d::Async ( _Load_Sae_, this );
 		m_asyncLoad_Retu = s3d::Async ( _Load_Retu, this );
 		m_asyncLoad_Gaba = s3d::Async ( _Load_Gaba, this );
-		m_asyncLoad_Fera = s3d::Async ( _Load_Ouka, this );
+		m_asyncLoad_Fera = s3d::Async ( _Load_Fera, this );
 	}
 
 	//すべて読込(同期処理)

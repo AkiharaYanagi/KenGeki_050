@@ -214,9 +214,14 @@ namespace GAME
 		CHARA_NAME name = stg.GetCharaName ( win_player_id );
 		CHARA_COLOR clr = stg.GetCharaColor ( win_player_id );
 
-		name = CHARA_FERARIA;
-		stg.SetCharaName ( win_player_id, name );
-		rPrmRslt.SetWinner ( PLAYER_ID_2 );
+
+		//test
+		//name = CHARA_FERARIA;
+		//name = CHARA_GYAVADARUGA;
+
+		//stg.SetCharaName ( win_player_id, name );
+//		rPrmRslt.SetWinner ( PLAYER_ID_2 );
+
 
 		//キャラ
 		m_chTxSet = pParam->GetpChara_TxSet ();
