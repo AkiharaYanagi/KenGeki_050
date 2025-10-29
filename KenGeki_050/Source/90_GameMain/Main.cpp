@@ -40,8 +40,8 @@ void Main()
 	Load ();
 
 	//開始時一時停止
-#if WAIT_START
 	gameSystem.SetbStop ( T );
+#if WAIT_START
 #endif // WAIT_START
 
 	//========================================
@@ -77,6 +77,10 @@ void Load ()
 	UP_GameMain gameMain = std::make_unique < GameMain > ();
 	gameMain->Load ();
 	gameMain->Init ();
+
+	DebugOutPrint::OpenPrompt ();
+	std::cout << s3d::String ( U"start DebugOutPrint." ) << std::endl;
+	PRINT_F_S ( U"start DebugOutPrint.\n" );
 
 	G_Audio::Inst ()->HandLoad ();
 //	G_Audio::Inst ()->AllWait ();

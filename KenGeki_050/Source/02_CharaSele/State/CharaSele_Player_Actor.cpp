@@ -223,6 +223,8 @@ namespace GAME
 		//ボタンで決定
 		if ( CFG_PUSH_KEY_PL ( m_id, PLY_BTN0 ) )
 		{
+			m_pParam->GetGameSetting().Save ();	//ファイルに保存
+
 			Change_CharaPick_to_Menu ();
 			AUD_PLAY_ONESHOT_SE ( SE_select_decide );
 		}

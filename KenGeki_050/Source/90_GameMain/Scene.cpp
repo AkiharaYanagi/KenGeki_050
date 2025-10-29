@@ -150,12 +150,13 @@ namespace GAME
 		//デバッグ表示オン/オフ 初期状態
 		//ExeChara 1p/2p のとき、1pの値を2pで上書きに注意
 #if DEBUG_DISP		
-		//ゲーム内表示のオフ
+		//ゲーム内表示のオン
 		DBGOUT_WND_ON ();
 
 		//コマンドプロンプト表示
 //		DebugOutPrint::Create ();
 		DebugOutPrint::OpenPrompt ();
+		std::cout << s3d::String ( U"start DebugOutPrint." ) << std::endl;
 		PRINT_F_S ( U"start DebugOutPrint.\n" );
 
 #else

@@ -570,6 +570,9 @@ namespace GAME
 		void SetNameChangeOther ( s3d::String name ) { m_nameChangeOther = name; }
 
 		//------------------------------------------------
+
+		//テスト用 敗北
+		void Test_Lose () { m_btlPrm.SetLife ( 0 ); }
 	};
 
 

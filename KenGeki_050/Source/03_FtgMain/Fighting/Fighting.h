@@ -169,6 +169,8 @@ namespace GAME
 			m_btlTime->SetTraining ();
 		}
 
+		void Test_Win_1p () { m_exeChara2->Test_Lose();}
+		void Test_Win_2p () { m_exeChara1->Test_Lose();}
 
 	private:
 		//共通グラフィック処理
