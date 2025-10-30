@@ -69,6 +69,7 @@ namespace GAME
 
 
 		//メニュー
+#if 0
 		m_menu_back = MakepGrp ( U"Title\\Title_Menu_Back.png", Z_MENU + 0.001f );
 		m_menu_back->SetPos ( VEC2 ( 1280/2-664/2, 960 - 664/2 +60 ) );
 		m_menu_back->SetRotationCenter ( VEC2 ( 664/2, 664/2 ) );
@@ -76,8 +77,11 @@ namespace GAME
 		m_menu = MakepGrp ( U"Title\\Title_Menu.png", Z_MENU );
 		m_menu->SetPos ( VEC2 ( 0, 960 - 300 ) );
 
+		m_item_bx = 1280/2- 303.f/2;
+		m_item_vx = 10;
+		m_item_x = m_item_bx;
 		m_item = MakepGrp ( U"Title\\1P_vs_2P.png", Z_MENU );
-		m_item->SetPos ( VEC2 ( 1280/2- 303.f/2, 960 - 200 ) );
+		m_item->SetPos ( VEC2 ( m_item_x, 960 - 200 ) );
 		m_item->AddTexture_FromArchive ( U"Title\\1P_vs_CPU.png" );
 		m_item->AddTexture_FromArchive ( U"Title\\CPU_vs_2P.png" );
 		m_item->AddTexture_FromArchive ( U"Title\\CPU_vs_CPU.png" );
@@ -89,7 +93,10 @@ namespace GAME
 		m_arrow_obj = std::make_shared < SelectArrow > ( SelectArrow::DIR::LEFT_RIGHT, Z_MENU );
 		AddpTask(m_arrow_obj);
 		m_arrow_obj->SetPos ( VEC2 ( 1280 / 2, 775 ) );
-		m_arrow_obj->SetW ( 350 );
+		m_arrow_obj->SetW ( 380 );
+#endif // 0
+		m_menu = std::make_shared < TitleMenu > ();
+		AddpTask ( m_menu );
 
 
 		//Ver.
@@ -125,7 +132,7 @@ namespace GAME
 		m_tmr_title_call->Start ();
 	}
 
-	P_Grp Title::MakepGrp ( CPUSTR filename, float Z = 0.5f )
+	P_Grp Title::MakepGrp ( LPCUSTR filename, float Z = 0.5f )
 	{
 		P_Grp p = std::make_shared < GameGraphic > ();
 		p->AddTexture_FromArchive ( filename );
@@ -169,8 +176,10 @@ namespace GAME
 
 	void Title::Move ()
 	{
+#if 0
 		s3d::ClearPrint ();
 		G_Audio::Inst()->CheckAudio ();
+#endif // 0
 
 
 		//背景四角
@@ -180,12 +189,25 @@ namespace GAME
 		m_rect->GetpObject ( 1 )->SetRadian ( m_rect_angle1 );
 
 #if 0
-
 		//メニュー背景回転
 		m_angle += m_omega;
 		m_menu_back->SetRadian ( m_angle );
 
 #endif // 0
+
+		//menu
+		if ( m_item_x < m_item_bx )
+		{
+			m_item_x += m_item_vx;
+		}
+		else if ( m_item_bx < m_item_x )
+		{
+			m_item_x -= m_item_vx;
+		}
+
+		//m_item_x = m_item_bx;
+		m_item->SetPos ( VEC2 ( m_item_x, 960 - 200 ) );
+
 
 
 		//BGM開始のチェック
@@ -218,31 +240,17 @@ namespace GAME
 			AUD_PLAY_ONESHOT_VC ( vc_name );
 		}
 
-
-#if 0
-		//時間
-		const float MAX_TIME = 10000.f;
-		++ m_arrow_time;
-		if ( m_arrow_time >= MAX_TIME ) { m_arrow_time = 0; }
-
-		//角度と位置
-		float period = D3DX_PI_TWICE / m_arrow_frq;
-		float wrappedTime = fmod ( m_arrow_time, period );
-		float dx = m_arrow_w * sin ( m_arrow_frq * wrappedTime );
-		DBGOUT_WND_F ( DBGOUT_2, U"arrow_x = {}"_fmt( dx ) );
-
-		float bx0 = m_arrow_bx0;
-		float bx1 = m_arrow_bx1;
-		float by = m_arrow_by;
-		P_Ob pob = m_arrow->GetpObject ( 1 );
-
-		//位置に設定
-		m_arrow->SetPos (	VEC2( bx0 + dx, by ) );
-		pob->SetPos (		VEC2( bx1 - dx, by ) );
-#endif
-
-
 		//----------------------------------
+		//デモ時は入力しないで終了
+		if ( m_demo->IsDemo () )
+		{
+			OffMenu ();
+			TASK_VEC::Move ();
+			return;
+		}
+
+		OnMenu ();
+		
 		//入力
 		Input ();
 
@@ -253,6 +261,19 @@ namespace GAME
 
 	void Title::Input ()
 	{
+		//F9でデモ切替 (プレイヤーボタン：リセットでも切換)
+		if ( WND_UTL::AscKey ( VK_F9 ) || CFG_PUSH_KEY_12 ( PLY_BTN7 ) )
+		{
+			//切替
+			m_demo->SwitchDemo ();
+
+			//パラメータに反映
+			P_Param pPrm = GetpParam();
+			GameSettingFile stg = pPrm->GetGameSetting ();
+			stg.SetDemo ( m_demo->IsDemo () );
+		}
+
+
 		//選択
 		if ( CFG_PUSH_KEY_12 ( PLY_LEFT ) )
 		{
@@ -281,6 +302,8 @@ namespace GAME
 			break;
 			default: break;
 			}
+			m_item_x -= 50;
+			m_item->SetPos ( VEC2 ( m_item_x, 960 - 200 ) );
 		}
 		if ( CFG_PUSH_KEY_12 ( PLY_RIGHT ) )
 		{
@@ -309,6 +332,8 @@ namespace GAME
 			break;
 			default: break;
 			}
+			m_item_x += 50;
+			m_item->SetPos ( VEC2 ( m_item_x, 960 - 200 ) );
 		}
 
 		//決定
@@ -329,6 +354,7 @@ namespace GAME
 		if ( m_demo->IsLast () )
 		{
 			AUD_STOP_ALL_BGM ();
+			SaveParam ();
 			Scene::Transit_Fighting ( MUTCH_MODE::MODE_CPU_CPU );
 		}
 
@@ -372,7 +398,9 @@ namespace GAME
 					break;
 				default: break;
 				}
+
 				AUD_STOP_ALL_BGM ();
+				SaveParam ();
 				Scene::Transit_CharaSele ();
 
 				m_plus_wait = 0;
@@ -382,6 +410,26 @@ namespace GAME
 		}
 
 		return Scene::Transit ();
+	}
+
+	void Title::SaveParam ()
+	{
+		//ゲーム共通パラメータ
+		P_Param pParam = Scene::GetpParam ();
+		GameSettingFile & rGameStg = pParam->GetGameSetting();
+		rGameStg.Save ();
+	}
+
+	void Title::OnMenu ()
+	{
+		m_arrow_obj->On ();
+		m_item->SetValid ( T );
+	}
+
+	void Title::OffMenu ()
+	{
+		m_arrow_obj->Off ();
+		m_item->SetValid ( F );
 	}
 
 

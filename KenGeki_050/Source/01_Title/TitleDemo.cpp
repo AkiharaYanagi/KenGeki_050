@@ -79,11 +79,11 @@ namespace GAME
 			m_barDemo->SetPos ( 640 + 150 - w, BAR_Y );
 		}
 
-
 		Input ();
 
 		TASK_VEC::Move ();
 	}
+
 
 	void TitleDemo::Input ()
 	{

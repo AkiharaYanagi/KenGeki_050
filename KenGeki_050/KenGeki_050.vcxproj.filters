@@ -469,6 +469,9 @@
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Stand.cpp">
       <Filter>02_CharaSele\Player</Filter>
     </ClCompile>
+    <ClCompile Include="Source\01_Title\TitleMenu.cpp">
+      <Filter>01_Title</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -597,6 +600,9 @@
     </Text>
     <Text Include="App\example\LICENSE.txt">
       <Filter>99_Resource Files\example</Filter>
+    </Text>
+    <Text Include="Source\00_Document\メモ.txt">
+      <Filter>00_Document</Filter>
     </Text>
   </ItemGroup>
   <ItemGroup>
@@ -1387,6 +1393,9 @@
     </ClInclude>
     <ClInclude Include="Source\80_Common\Chara_TxSet.h">
       <Filter>80_Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\01_Title\TitleMenu.h">
+      <Filter>01_Title</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

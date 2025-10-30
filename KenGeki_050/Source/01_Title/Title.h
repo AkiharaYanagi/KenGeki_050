@@ -11,6 +11,7 @@
 #include "Game.h"
 #include "../90_GameMain/Scene.h"
 #include "TitleChara.h"
+#include "TitleMenu.h"
 #include "TitleDemo.h"
 #include "../80_Common/SelectArrow.h"
 #include "../91_Param/Param.h"
@@ -21,10 +22,6 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	//test
-	using CPUSTR = const char32_t *;
-
-
 	class Title : public Scene, public std::enable_shared_from_this < Title >
 	{
 		//背景
@@ -42,12 +39,18 @@ namespace GAME
 		P_Grp		m_logo;
 
 		//メニュー
+#if 0
 		P_Grp		m_menu;
 		P_Grp		m_menu_back;
 		float		m_angle { 0 };
 		float		m_omega { -0.005f };
 		P_Grp		m_item;
 		P_SelectArrow	m_arrow_obj;
+		float		m_item_x;
+		float		m_item_vx;
+		float		m_item_bx;
+#endif // 0
+		P_TitleMenu m_menu;
 
 		//Ver.
 		P_GrpStr	m_strVer;
@@ -87,10 +90,17 @@ namespace GAME
 		void Input();
 		P_GameScene Transit ();
 
+		void SaveParam ();
+
 	private:
 
 		//グラフィックオブジェクト生成(グラフィックリスト追加のためZ位置も同梱)
-		P_Grp MakepGrp ( CPUSTR filename, float Z );
+		P_Grp MakepGrp ( LPCUSTR filename, float Z );
+
+		//メニュ表示切替
+		void OnMenu ();
+		void OffMenu ();
+
 
 #pragma region CONST
 
@@ -107,13 +117,6 @@ namespace GAME
 		static const float CURSOR_Y;
 		static const float CURSOR_P;
 
-		static const float MENU_X;
-		static const float MENU_Y;
-		static const float MENU_Y0;
-		static const float MENU_Y1;
-		static const float MENU_Y2;
-		static const float MENU_Y3;
-
 		static const float INST_X;
 		static const float INST_Y;
 
@@ -123,6 +126,7 @@ namespace GAME
 		static const uint32 TITLE_CALL_WAIT;
 
 #pragma endregion
+
 	};
 
 	using P_Title = std::shared_ptr < Title >;

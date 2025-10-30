@@ -125,6 +125,7 @@
     <ClCompile Include="Source\01_Title\Title.cpp" />
     <ClCompile Include="Source\01_Title\TitleChara.cpp" />
     <ClCompile Include="Source\01_Title\TitleDemo.cpp" />
+    <ClCompile Include="Source\01_Title\TitleMenu.cpp" />
     <ClCompile Include="Source\02_CharaSele\CharaSele.cpp" />
     <ClCompile Include="Source\02_CharaSele\CharaSele_Stage.cpp" />
     <ClCompile Include="Source\02_CharaSele\Menu\CharaSele_Menu.cpp" />
@@ -261,6 +262,7 @@
     <Text Include="App\example\txt\kr.txt" />
     <Text Include="App\example\txt\sc.txt" />
     <Text Include="App\example\video\river.txt" />
+    <Text Include="Source\00_Document\メモ.txt" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".editorconfig" />
@@ -422,6 +424,7 @@
     <ClInclude Include="Source\01_Title\Title.h" />
     <ClInclude Include="Source\01_Title\TitleChara.h" />
     <ClInclude Include="Source\01_Title\TitleDemo.h" />
+    <ClInclude Include="Source\01_Title\TitleMenu.h" />
     <ClInclude Include="Source\02_CharaSele\CharaSele.h" />
     <ClInclude Include="Source\02_CharaSele\CharaSele_Stage.h" />
     <ClInclude Include="Source\02_CharaSele\Menu\CharaSele_Menu.h" />

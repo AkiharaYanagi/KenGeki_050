@@ -154,7 +154,6 @@ namespace GAME
 		DBGOUT_WND_ON ();
 
 		//コマンドプロンプト表示
-//		DebugOutPrint::Create ();
 		DebugOutPrint::OpenPrompt ();
 		std::cout << s3d::String ( U"start DebugOutPrint." ) << std::endl;
 		PRINT_F_S ( U"start DebugOutPrint.\n" );
@@ -170,13 +169,13 @@ namespace GAME
 
 
 
+#if 0
 		if ( startMode == START_TITLE )
 		{
 			//全キャラデータを事前読込
 //			// ここで読込しないとき、バトルメインでキャラの個別読込
 			m_pParam->LoadCharaData_All ();
 		}
-#if 0
 #endif // 0
 
 

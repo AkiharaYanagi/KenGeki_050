@@ -165,6 +165,16 @@ namespace GAME
 		pob3->SetPos ( x3, y3 );
 	}
 
+	void SelectArrow::On ()
+	{
+		m_arrow->SetValid ( T );
+	}
+
+	void SelectArrow::Off ()
+	{
+		m_arrow->SetValid ( F );
+	}
+
 
 
 }	//namespace GAME

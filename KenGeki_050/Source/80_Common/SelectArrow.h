@@ -60,6 +60,10 @@ namespace GAME
 		void MoveUpDown ( float offset );
 		void MoveLeftRight ( float offset );
 		void MoveAll ( float offset );
+
+		//表示切替
+		void Off ();
+		void On ();
 	};
 
 	using P_SelectArrow = std::shared_ptr < SelectArrow >;

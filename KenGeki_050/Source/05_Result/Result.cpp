@@ -51,6 +51,7 @@ namespace GAME
 
 	Result::Result ()
 	{
+		//背景動画
 		m_mov = std::make_shared < GrpMov > ();
 		m_mov->SetMovName ( U"Mov\\Result.mp4" );
 		m_mov->Loop ( T );
@@ -59,36 +60,15 @@ namespace GAME
 		AddpTask ( m_mov );
 		GRPLST_INSERT ( m_mov );
 
-#if 0
-		m_stand = std::make_shared < GameGraphic > ();
-		m_stand->AddTexture ();	//Assign用に１つ枠を取る
-		m_stand->SetPos ( CHARA_SX, CHARA_PY );
-		AddpTask ( m_stand );
-		GRPLST_INSERT ( m_stand );
-#endif // 0
+		//立絵
 		m_stand = MakepGrp ( U"1_1_transparent.png", CHARA_SX, CHARA_PY );
 		m_stand->AddTexture ();	//Assign用に１つ枠を取る
 
-#if 0
-		m_state = std::make_shared < GameGraphic > ();
-		m_state->AddTexture_FromArchive ( U"Result\\Result_State.png" );
-		m_state->SetPos ( NUM_BG_X, NUM_BG_Y );
-		AddpTask ( m_state );
-		GRPLST_INSERT ( m_state );
-#endif // 0
+		//ステート
 		m_state = MakepGrp ( U"Result\\Result_State.png", NUM_BG_X, NUM_BG_Y );
 
-
 		//勝利メッセージウィンドウ
-#if 0
-		m_MsgWnd = std::make_shared < GameGraphic > ();
-		m_MsgWnd->AddTexture_FromArchive ( U"Result\\MsgWnd.png" );
-		m_MsgWnd->SetPos ( MSG_WND_X, MSG_WND_Y  );
-		AddpTask ( m_MsgWnd );
-		GRPLST_INSERT ( m_MsgWnd );
-#endif // 0
 		m_MsgWnd = MakepGrp ( U"Result\\MsgWnd.png", MSG_WND_X, MSG_WND_Y );
-
 
 		//フェードイン
 		m_fade_in = std::make_shared < FadeRect > ();
@@ -114,13 +94,6 @@ namespace GAME
 		GRPLST_INSERT ( m_next_tri );
 
 		//操作説明
-#if 0
-		m_inst = std::make_shared < GameGraphic > ();
-		m_inst->AddTexture_FromArchive ( U"Result\\Inst_Result.png" );
-		m_inst->SetPos ( INST_X, INST_Y );
-		AddpTask ( m_inst );
-		GRPLST_INSERT ( m_inst );
-#endif // 0
 		m_inst = MakepGrp ( U"Result\\Inst_Result.png", INST_X, INST_Y );
 
 
@@ -130,11 +103,14 @@ namespace GAME
 
 
 		//勝利メッセージ
+#if 0
 		m_win_msg = std::make_shared < GrpStr > ();
 		m_win_msg->SetPos ( MSG_X, MSG_Y );
 		m_win_msg->SetSize ( G_Font::SIZE_40 );
 		AddpTask ( m_win_msg );
 		GRPLST_INSERT ( m_win_msg );
+#endif // 0
+		m_win_msg = MakepStr ( MSG_X, MSG_Y );
 
 		//@info size40で22文字で枠内
 		m_msg.assign ( U"勝利メッセージのテスト。\n改行" );
@@ -145,7 +121,6 @@ namespace GAME
 		m_ch_msg.emplace ( CHARA_RETSUDOU,		U"烈火 烈堂：\n本当に良い刀ってのは鞘に入ってるもんだぜ･･･");
 		m_ch_msg.emplace ( CHARA_GYAVADARUGA,	U"ギャバダルガ：\n");
 		m_ch_msg.emplace ( CHARA_FERARIA,		U"フェラリア：\nキミはフェラリアに勝てない　フェラリアは負けない\nあはは♪ざぁ～こざぁ～こ！　\n");
-
 
 
 		//終了タイマ
@@ -172,7 +147,6 @@ namespace GAME
 		pStr->SetPos ( x, y );
 		pStr->SetSize ( G_Font::SIZE_40 );
 		AddpTask ( pStr );
-		pStr->SetStr ( U"{}"_fmt ( y )  );
 		GRPLST_INSERT ( pStr );
 		return pStr;
 	}
@@ -283,7 +257,6 @@ namespace GAME
 		m_chara_x += CHARA_VX;
 		if ( m_chara_x > CHARA_PX ) { m_chara_x = CHARA_PX; }
 
-//		m_chara->SetPos ( m_chara_x, CHARA_PY );
 		m_stand->SetPos ( m_chara_x, CHARA_PY );
 
 
@@ -329,7 +302,6 @@ namespace GAME
 
 		//メッセージ
 		const size_t length = static_cast < size_t > ( m_time_count ++ / 5 );
-		//m_win_msg->SetStr ( m_msg.substr ( 0, length ) );
 		m_win_msg->SetStr ( m_ch_msg [ name ].substr ( 0, length ) );
 
 

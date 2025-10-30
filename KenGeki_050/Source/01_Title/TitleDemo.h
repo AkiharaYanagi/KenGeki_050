@@ -37,12 +37,17 @@ namespace GAME
 		void Move ();
 		void Input ();
 
+		void SwitchDemo ();	//On, Off切替
 		void OnDemo();
 		void OffDemo();
 
+
+		bool IsDemo () const { return m_bDemo; }
 		bool IsStartDemo () const { return m_bStartDemo; }
 
 		bool IsLast () const { return m_tmrDemo.IsLast (); }
+
+
 
 	private:
 		static const int32 WAIT_DEMO;
