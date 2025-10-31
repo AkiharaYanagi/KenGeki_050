@@ -46,6 +46,11 @@ namespace GAME
 		P_Plgn		m_hissatsu_mask;		//ポリゴンマスク 必殺
 		P_Plgn		m_accel_mask;		//ポリゴンマスク アクセル
 
+#if 0
+		P_Grp		m_face;		//顔
+		P_Grp		m_name;		//名前
+#endif // 0
+
 		//-----------------------------------------------------
 		enum DISP_FE_CONST
 		{
@@ -72,6 +77,8 @@ namespace GAME
 		void UpdateGauge ( const BtlParam & btlPrm );
 
 	private:
+
+		P_Grp	MakepGrp ( float z );
 
 #pragma region CONST
 		//定数

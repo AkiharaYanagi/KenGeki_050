@@ -32,60 +32,103 @@ inline double mapRange
 	DispFrontEnd_all::DispFrontEnd_all ()
 	{
 		//総合ゲージ背景
+#if 0
 		m_gauge_all_bg = std::make_shared < GameGraphic > ();
 		m_gauge_all_bg->AddTexture_FromArchive ( U"Battle\\gauge_all.png" );
 		m_gauge_all_bg->SetZ ( Z_SHADOW );
 		GRPLST_INSERT ( m_gauge_all_bg );
 		AddpTask ( m_gauge_all_bg );
+#endif // 0
+		m_gauge_all_bg = MakepGrp ( Z_SHADOW );
+		m_gauge_all_bg->AddTexture_FromArchive ( U"Battle\\gauge_all.png" );
+
 
 		//ライフゲージ
+#if 0
  		m_life_value = std::make_shared < GameGraphic > ();
 		//m_life_value->AddTexture_FromArchive ( U"Battle\\life_value.png" );
 		m_life_value->SetZ ( Z_SHADOW - 0.01f );
 		m_life_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
 		GRPLST_INSERT ( m_life_value );
 		AddpTask ( m_life_value );
+#endif // 0
+		m_life_value = MakepGrp ( Z_SHADOW - 0.01f );
+		m_life_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
+
 
 		//ライフゲージ 白
+#if 0
  		m_life_white_value = std::make_shared < GameGraphic > ();
 		//m_life_value->AddTexture_FromArchive ( U"Battle\\life_value.png" );
 		m_life_white_value->SetZ ( Z_SHADOW - 0.01f );
 		m_life_white_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
 		GRPLST_INSERT ( m_life_white_value );
 		AddpTask ( m_life_white_value );
+#endif // 0
+		m_life_white_value = MakepGrp ( Z_SHADOW - 0.01f );
+		m_life_white_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
 
  		//ライフゲージ 赤
+#if 0
 		m_life_red_value = std::make_shared < GameGraphic > ();
 		//m_life_value->AddTexture_FromArchive ( U"Battle\\life_value.png" );
 		m_life_red_value->SetZ ( Z_SHADOW - 0.01f );
 		m_life_red_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
 		GRPLST_INSERT ( m_life_red_value );
 		AddpTask ( m_life_red_value );
+#endif // 0
+		m_life_red_value = MakepGrp ( Z_SHADOW - 0.01f );
+		m_life_red_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
 
 
 		//剣撃ゲージ
+#if 0
 		m_stamina_value = std::make_shared < GameGraphic > ();
 		//m_stamina_value->AddTexture_FromArchive ( U"Battle\\stumina_value.png" );
 		m_stamina_value->SetZ ( Z_SHADOW - 0.01f );
 		m_stamina_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
 		GRPLST_INSERT ( m_stamina_value );
 		AddpTask ( m_stamina_value );
+#endif // 0
+		m_stamina_value = MakepGrp ( Z_SHADOW - 0.01f );
+		m_stamina_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
+
 
 		//必殺ゲージ
+#if 0
 		m_hissatsu_value = std::make_shared < GameGraphic > ();
 		//m_hissatsu_value->AddTexture_FromArchive ( U"Battle\\hissatsu_value.png" );
 		m_hissatsu_value->SetZ ( Z_SHADOW - 0.01f );
 		m_hissatsu_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
 		GRPLST_INSERT ( m_hissatsu_value );
 		AddpTask ( m_hissatsu_value );
+#endif // 0
+		m_hissatsu_value = MakepGrp ( Z_SHADOW - 0.01f );
+		m_hissatsu_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
+
 
 		//アクセルゲージ
+#if 0
 		m_accel_value = std::make_shared < GameGraphic > ();
 		//m_accel_value->AddTexture_FromArchive ( U"Battle\\accel_value.png" );
 		m_accel_value->SetZ ( Z_SHADOW - 0.01f );
 		m_accel_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
 		GRPLST_INSERT ( m_accel_value );
 		AddpTask ( m_accel_value );
+#endif // 0
+		m_accel_value = MakepGrp ( Z_SHADOW - 0.01f );
+		m_accel_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
+
+
+	}
+
+	P_Grp DispFrontEnd_all::MakepGrp ( float z )
+	{
+		P_Grp p = std::make_shared < GameGraphic > ();
+		p->SetZ ( z );
+		GRPLST_INSERT ( p );
+		AddpTask ( p );
+		return p;
 	}
 
 	DispFrontEnd_all::~DispFrontEnd_all ()
@@ -98,13 +141,7 @@ inline double mapRange
 		TASK_VEC::Load ();
 	}
 
-	//パラメータ初期化
-	void DispFrontEnd_all::ParamInit ( P_Param pParam )
-	{
-		(void)pParam;
-	}
-
-	//プレイヤ側で初期化
+	//プレイヤ側で初期化 (上位コンストラクタで行う)
 	void DispFrontEnd_all::LoadPlayer ( PLAYER_ID playerID )
 	{
 		m_playerID = playerID;
@@ -201,6 +238,8 @@ inline double mapRange
 			m_accel_value->SetPosInMask ( POS_ACCEL_VALUE_1P );
 			m_accel_value->SetpPolygon ( m_accel_mask );
 			m_accel_value->AddTexture_FromArchive_mrr ( U"Battle\\accel_value.png" );
+
+
 		}
 		else if ( PLAYER_ID_2 == playerID )
 		{
@@ -253,9 +292,25 @@ inline double mapRange
 			m_accel_value->SetPosInMask ( POS_ACCEL_VALUE_2P );
 			m_accel_value->SetpPolygon ( m_accel_mask );
 			m_accel_value->AddTexture_FromArchive ( U"Battle\\accel_value.png" );
+
 		}
 
 	}
+
+	//パラメータ初期化(プレイヤ決定後)
+	void DispFrontEnd_all::ParamInit ( P_Param pParam )
+	{
+		( void ) pParam;
+#if 0
+
+		GameSettingFile & stg = pParam->GetGameSetting ();
+		CHARA_NAME name = stg.GetCharaName ( m_playerID );
+		CHARA_COLOR clr = stg.GetCharaColor ( m_playerID );
+
+#endif // 0
+
+	}
+
 
 	//------------------------
 	//更新

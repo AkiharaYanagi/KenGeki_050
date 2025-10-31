@@ -72,12 +72,8 @@ namespace GAME
 	//シーンパラメータ関連初期化
 	void DispChara::ParamInit ( P_Param pParam )
 	{
-		(void)pParam;
-#if 0
 		m_frontEnd->ParamInit ( pParam );
-
-#endif // 0
-
+		m_gauge_all->ParamInit ( pParam );
 
 #if 0
 

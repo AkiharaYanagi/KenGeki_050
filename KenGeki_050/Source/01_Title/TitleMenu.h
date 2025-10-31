@@ -20,21 +20,22 @@ namespace GAME
 	class TitleMenu : public TASK_VEC
 	{
 		//背景
-		P_Grp		m_menu_back;
+		P_Grp		m_bg;
 		float		m_angle { 0 };
 		float		m_omega { -0.005f };
 
 
 		//枠
-		P_Grp		m_menu;
+		P_Grp		m_frame;
 
 		//項目
 		P_Grp		m_item;
-		P_SelectArrow	m_arrow_obj;
 		float		m_item_x;
 		float		m_item_vx;
-		float		m_item_bx;
+//		float		m_item_bx;
 
+		//矢印
+		P_SelectArrow	m_arrow;
 
 		//シーン選択
 		enum class TITLE_TO
@@ -53,26 +54,24 @@ namespace GAME
 		~TitleMenu ();
 
 		void ParamInit ();
-		void Load ();
 		void Move ();
 
-		void Input();
-
-	private:
+		void Left ();
+		void Right ();
 
 		//メニュ表示切替
 		void On ();
 		void Off ();
+
+	private:
+		//グラフィックオブジェクト生成(グラフィックリスト追加のためZ位置も同梱)
+		P_Grp MakepGrp ( LPCUSTR filename, float Z );
 
 
 #pragma region CONST
 
 		static const float MENU_X;
 		static const float MENU_Y;
-		static const float MENU_Y0;
-		static const float MENU_Y1;
-		static const float MENU_Y2;
-		static const float MENU_Y3;
 
 #pragma endregion
 

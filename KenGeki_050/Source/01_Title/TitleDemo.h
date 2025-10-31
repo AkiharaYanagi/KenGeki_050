@@ -35,12 +35,11 @@ namespace GAME
 
 		void Load ();
 		void Move ();
-		void Input ();
 
-		void SwitchDemo ();	//On, Off切替
+		void SetDemo ( bool b );
+		void Switch ();	//On, Off切替
 		void OnDemo();
 		void OffDemo();
-
 
 		bool IsDemo () const { return m_bDemo; }
 		bool IsStartDemo () const { return m_bStartDemo; }
@@ -51,7 +50,6 @@ namespace GAME
 
 	private:
 		static const int32 WAIT_DEMO;
-	//	static const int32 WAIT_DEMO;
 		static const int32 BY;
 		static const int32 BAR_Y;
 		static const int32 STR_Y;

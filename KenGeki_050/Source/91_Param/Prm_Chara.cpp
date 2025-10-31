@@ -262,10 +262,6 @@ namespace GAME
 		m_Ouka.Load ();
 		PRINT_F_S ( U"End Prm_Chara_all::_Load_Ouka\n" );
 
-		PRINT_F_S ( U"Start Prm_Chara_all::_Load_m_Fera\n" );
-		m_Fera.Load ();
-		PRINT_F_S ( U"End Prm_Chara_all::_Load_m_Fera\n" );
-
 		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Sae_\n" );
 		m_Sae.Load ();
 		PRINT_F_S ( U"End Prm_Chara_all::_Load_Sae_\n" );
@@ -274,7 +270,13 @@ namespace GAME
 		m_Retsu.Load ();
 		PRINT_F_S ( U"End Prm_Chara_all::_Load_Retu\n" );
 
-//		m_Gaba.Load ();
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_m_Gaba\n" );
+		m_Gaba.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_m_Gaba\n" );
+
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_m_Fera\n" );
+		m_Fera.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_m_Fera\n" );
 
 		PRINT_F_S ( U"End Prm_Chara_all::_LoadAll\n" );
 	}

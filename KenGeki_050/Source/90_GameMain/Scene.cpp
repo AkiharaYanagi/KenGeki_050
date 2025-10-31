@@ -138,10 +138,10 @@ namespace GAME
 		START_MODE startMode = stgs.GetStartMode ();
 
 		//テスト用 開始状態選択
-		startMode = START_TITLE;
+//		startMode = START_TITLE;
 //		startMode = START_CHARA_SELE;
 //		startMode = START_BATTLE;
-//		startMode = START_TRAINING;
+		startMode = START_TRAINING;
 //		startMode = START_RESULT;
 #if 0
 #endif // 0
@@ -150,13 +150,15 @@ namespace GAME
 		//デバッグ表示オン/オフ 初期状態
 		//ExeChara 1p/2p のとき、1pの値を2pで上書きに注意
 #if DEBUG_DISP		
-		//ゲーム内表示のオン
+		//ゲーム内ウィンドウデバッグ表示のオン
 		DBGOUT_WND_ON ();
 
+#if 0
 		//コマンドプロンプト表示
 		DebugOutPrint::OpenPrompt ();
 		std::cout << s3d::String ( U"start DebugOutPrint." ) << std::endl;
 		PRINT_F_S ( U"start DebugOutPrint.\n" );
+#endif // 0
 
 #else
 		//Siv3D IDE出力 Loggerの非表示

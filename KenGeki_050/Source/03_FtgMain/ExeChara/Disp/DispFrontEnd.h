@@ -51,6 +51,9 @@ namespace GAME
 
 		CHARA_NAME	m_chara_name { CHARA_OUKA };	//キャラ名保存
 
+		P_Grp		m_face;		//顔
+		P_Grp		m_name;		//名前
+
 		//剣撃抗圧
 		P_EfKouAtsu	m_taikou;
 
@@ -148,7 +151,13 @@ namespace GAME
 		void EndBattle ();
 
 	private:
+		P_Grp MakepGrp ( float z );
 		P_Grp MakepGrpPlyr ( s3d::String str );
+
+		static const VEC2 POS_FACE_1P;	//顔
+		static const VEC2 POS_FACE_2P;
+		static const VEC2 POS_NAME_1P;	//名前
+		static const VEC2 POS_NAME_2P;
 
 		static const VEC2 POS_PL_CP_1P;
 		static const VEC2 POS_PL_CP_2P;

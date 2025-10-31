@@ -153,11 +153,8 @@ namespace GAME
 		P_Param pPrm = GetpParam();
 		GameSettingFile stg = pPrm->GetGameSetting ();
 
-#if 0
-		//デモ切換
-		m_bDemo = stg.GetDemo();
-		ValidDemo ( m_bDemo );
-#endif // 0
+		//パラメータからデモ切換
+		m_demo->SetDemo ( stg.GetDemo() );
 	}
 
 
@@ -193,7 +190,6 @@ namespace GAME
 		m_angle += m_omega;
 		m_menu_back->SetRadian ( m_angle );
 
-#endif // 0
 
 		//menu
 		if ( m_item_x < m_item_bx )
@@ -208,6 +204,7 @@ namespace GAME
 		//m_item_x = m_item_bx;
 		m_item->SetPos ( VEC2 ( m_item_x, 960 - 200 ) );
 
+#endif // 0
 
 
 		//BGM開始のチェック
@@ -261,23 +258,34 @@ namespace GAME
 
 	void Title::Input ()
 	{
+		//----------------------------------------------------------
 		//F9でデモ切替 (プレイヤーボタン：リセットでも切換)
 		if ( WND_UTL::AscKey ( VK_F9 ) || CFG_PUSH_KEY_12 ( PLY_BTN7 ) )
 		{
 			//切替
-			m_demo->SwitchDemo ();
+			m_demo->Switch ();
+
+			if ( m_demo->IsDemo () )
+			{
+				m_menu->Off ();	
+			}
+			else
+			{	
+				m_menu->On ();
+			}
 
 			//パラメータに反映
-			P_Param pPrm = GetpParam();
-			GameSettingFile stg = pPrm->GetGameSetting ();
+			GameSettingFile stg = GetpParam()->GetGameSetting ();
 			stg.SetDemo ( m_demo->IsDemo () );
 		}
 
 
+		//----------------------------------------------------------
 		//選択
 		if ( CFG_PUSH_KEY_12 ( PLY_LEFT ) )
 		{
-			AUD_PLAY_ONESHOT_SE ( SE_select_move );
+#if 0
+
 			switch ( m_to )
 			{
 			case TITLE_TO::BATTLE_1Pvs2P:
@@ -304,10 +312,16 @@ namespace GAME
 			}
 			m_item_x -= 50;
 			m_item->SetPos ( VEC2 ( m_item_x, 960 - 200 ) );
+
+#endif // 0
+
+			AUD_PLAY_ONESHOT_SE ( SE_select_move );
+			m_menu->Left ();
 		}
 		if ( CFG_PUSH_KEY_12 ( PLY_RIGHT ) )
 		{
-			AUD_PLAY_ONESHOT_SE ( SE_select_move );
+#if 0
+
 			switch ( m_to )
 			{
 			case TITLE_TO::BATTLE_1Pvs2P:
@@ -334,8 +348,14 @@ namespace GAME
 			}
 			m_item_x += 50;
 			m_item->SetPos ( VEC2 ( m_item_x, 960 - 200 ) );
+
+#endif // 0
+
+			AUD_PLAY_ONESHOT_SE ( SE_select_move );
+			m_menu->Right ();
 		}
 
+		//----------------------------------------------------------
 		//決定
 		if ( CFG_PUSH_KEY_12 ( PLY_BTN0 ) )
 		{
@@ -422,14 +442,12 @@ namespace GAME
 
 	void Title::OnMenu ()
 	{
-		m_arrow_obj->On ();
-		m_item->SetValid ( T );
+		m_menu->On ();
 	}
 
 	void Title::OffMenu ()
 	{
-		m_arrow_obj->Off ();
-		m_item->SetValid ( F );
+		m_menu->Off ();
 	}
 
 
@@ -447,13 +465,6 @@ namespace GAME
 	const float Title::CURSOR_X = 400;
 	const float Title::CURSOR_Y = 720;
 	const float Title::CURSOR_P = 50;
-
-	const float Title::MENU_X = CURSOR_X + 100;
-	const float Title::MENU_Y = CURSOR_Y - 7;
-	const float Title::MENU_Y0 = MENU_Y  + 0;
-	const float Title::MENU_Y1 = MENU_Y0 + CURSOR_P;
-	const float Title::MENU_Y2 = MENU_Y1 + CURSOR_P;
-	const float Title::MENU_Y3 = MENU_Y2 + CURSOR_P;
 
 	const float Title::INST_X = 0;
 	const float Title::INST_Y = 960 - 27;

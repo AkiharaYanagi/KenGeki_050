@@ -17,6 +17,14 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+	//顔
+	const VEC2 DispFrontEnd::POS_FACE_1P ( 0 + 165 - 0, 30 );
+	const VEC2 DispFrontEnd::POS_FACE_2P ( 1280 - 165 - 0, 30 );
+
+	//名前
+	const VEC2 DispFrontEnd::POS_NAME_1P ( 0 + 200 - 0, 39 );
+	const VEC2 DispFrontEnd::POS_NAME_2P ( 1280 - 350 - 0, 39 );
+
 	VEC2 const DispFrontEnd::POS_PL_CP_1P ( 5, LIFE_GAUGE_Y );
 	VEC2 const DispFrontEnd::POS_PL_CP_2P ( 1280 - 64 - 5, LIFE_GAUGE_Y );
 	const float DispFrontEnd::FACE_X = 80;
@@ -91,6 +99,12 @@ namespace GAME
 
 
 #endif // 0
+
+		//顔
+		m_face = MakepGrp ( Z_SHADOW - 0.01f );
+
+		//名前
+		m_name = MakepGrp ( Z_SHADOW - 0.01f );
 
 		//-----------------------------------------------------
 		//プレイヤー表示
@@ -235,6 +249,17 @@ namespace GAME
 		GRPLST_INSERT ( m_taikou );
 	}
 
+	//グラフィック生成用
+	P_Grp DispFrontEnd::MakepGrp ( float z )
+	{
+		P_Grp p = std::make_shared < GameGraphic > ();
+		p->SetZ ( z );
+		GRPLST_INSERT ( p );
+		AddpTask ( p );
+		return p;
+	}
+
+
 	//オブジェクト生成用
 	P_Grp DispFrontEnd::MakepGrpPlyr ( s3d::String str )
 	{
@@ -305,6 +330,30 @@ namespace GAME
 		//プレイヤー別初期化位置
 		if ( PLAYER_ID_1 == playerID )
 		{
+
+			//-----------------------------------------------------------------
+			m_face->SetPos ( POS_FACE_1P );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Ouka_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Ouka_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Sae_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Sae_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Retsu_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Retsu_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Gyava_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Gyava_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Fera_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Fera_2p.png" );
+			m_face->SetScaling ( -1, 1 );
+
+			m_name->SetPos ( POS_NAME_1P );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Ouka.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Sae.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Retsu.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Gyava.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Fera.png" );
+
+			//-----------------------------------------------------------------
+
 			m_grp_Cst_Player1P2P->SetPos ( POS_PL_CP_1P );
 			m_grp_Cst_Player1P2P->SetIndexTexture ( SIDE_1P );
 			m_grp_Cst_InputPlayerCOM->SetPos ( POS_PL_CP_1P + VEC2 ( 0, 18 ) );
@@ -312,6 +361,27 @@ namespace GAME
 		}
 		else if ( PLAYER_ID_2 == playerID )
 		{
+			//-----------------------------------------------------------------
+			m_face->SetPos ( POS_FACE_2P );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Ouka_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Ouka_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Sae_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Sae_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Retsu_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Retsu_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Gyava_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Gyava_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Fera_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Fera_2p.png" );
+
+			m_name->SetPos ( POS_NAME_2P );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Ouka.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Sae.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Retsu.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Gyava.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Fera.png" );
+
+			//-----------------------------------------------------------------
 			m_grp_Cst_Player1P2P->SetPos ( POS_PL_CP_2P );
 			m_grp_Cst_Player1P2P->SetIndexTexture ( SIDE_2P );
 			m_grp_Cst_InputPlayerCOM->SetPos ( POS_PL_CP_2P + VEC2 ( 0, 18 ) );
@@ -410,6 +480,39 @@ namespace GAME
 		case CHARA_GYAVADARUGA: break;
 		default: charaName = CHARA_OUKA; break;
 		}
+
+
+		CHARA_NAME name = stg.GetCharaName ( m_playerID );
+		CHARA_COLOR clr = stg.GetCharaColor ( m_playerID );
+
+		uint32 fc = 0;
+		uint32 nm = 0;
+
+		if ( CHARA_COLOR::CH_CLR_1 == clr )
+		{
+			switch( name )
+			{
+			case CHARA_NAME::CHARA_OUKA:		fc = 0; nm = 0; break;
+			case CHARA_NAME::CHARA_SAE:			fc = 2; nm = 1; break;
+			case CHARA_NAME::CHARA_RETSUDOU:	fc = 4; nm = 2; break;
+			case CHARA_NAME::CHARA_GYAVADARUGA:	fc = 6; nm = 3; break;
+			case CHARA_NAME::CHARA_FERARIA:		fc = 8; nm = 4; break;
+			}
+		}
+		else if ( CHARA_COLOR::CH_CLR_2 == clr )
+		{
+			switch( name )
+			{
+			case CHARA_NAME::CHARA_OUKA:		fc = 1; nm = 0; break;
+			case CHARA_NAME::CHARA_SAE:			fc = 3; nm = 1; break;
+			case CHARA_NAME::CHARA_RETSUDOU:	fc = 4; nm = 2; break;
+			case CHARA_NAME::CHARA_GYAVADARUGA:	fc = 5; nm = 3; break;
+			case CHARA_NAME::CHARA_FERARIA:		fc = 7; nm = 4; break;
+			}
+		}
+
+		m_face->SetIndexTexture ( fc );
+		m_name->SetIndexTexture ( nm );
 
 #if 0
 

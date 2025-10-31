@@ -299,7 +299,9 @@ namespace GAME
 			gnrt.Name.Set ( m_utl.LoadS3dString ( buf, pos ) );
 			gnrt.m_cnd.Set ( (GENERATE_CONDITION)m_utl.LoadInt( buf, pos ) );
 			gnrt.m_group.Set ( m_utl.LoadUInt( buf, pos ) );
-			gnrt.m_target_id.Set ( m_utl.LoadUInt( buf, pos ) );
+
+//			gnrt.m_target_id.Set ( m_utl.LoadUInt( buf, pos ) );
+			//->ファイル名アセットで再生
 
 			//フレームに設定
 			frm.GetaSE().push_back ( gnrt );
@@ -314,7 +316,9 @@ namespace GAME
 			gnrt.Name.Set ( m_utl.LoadS3dString ( buf, pos ) );
 			gnrt.m_cnd.Set ( (GENERATE_CONDITION)m_utl.LoadInt( buf, pos ) );
 			gnrt.m_group.Set ( m_utl.LoadUInt( buf, pos ) );
-			gnrt.m_target_id.Set ( m_utl.LoadUInt( buf, pos ) );
+
+//			gnrt.m_target_id.Set ( m_utl.LoadUInt( buf, pos ) );
+			//->ファイル名アセットで再生
 
 			//フレームに設定
 			frm.GetaVC().push_back ( gnrt );

@@ -25,6 +25,8 @@ namespace GAME
 		//------------------------------------------------
 		P_Sequence		m_pEffect;		//実効エフェクトポインタ
 
+		P_EfGnrt		m_pEfGnrt;		//エフェクト生成ポインタ
+
 		P_Chara			m_pChara;		//キャラ
 		AP_Brc			m_vpBranch;		//エフェクトの分岐
 		AP_Rut			m_vpRoute;		//ルート
@@ -44,7 +46,10 @@ namespace GAME
 
 		VEC2		m_ptGnrt;		//エフェクト発生位置
 		bool		m_gnrt;			//生成
-		bool		m_loop;			//繰返
+
+		INT32		m_loop{1};			//繰返
+		INT32		m_loop_count{0};		//カウント
+
 		bool		m_sync;			//同期
 
 		bool		m_dirRight;	//エフェクトの向き
@@ -55,6 +60,8 @@ namespace GAME
 
 		bool		m_offset{F};		//相殺
 		bool		m_hit{F};			//ヒット
+
+
 		bool		m_immortal{F};		//相殺やヒットで終了しない
 
 

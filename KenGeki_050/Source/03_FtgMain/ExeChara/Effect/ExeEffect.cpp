@@ -44,7 +44,6 @@ namespace GAME
 		m_dispEffect = std::make_shared < DispEffect > ( pChara->GetGarnish().GetpapTx(), pEfGnrt->Z.Get() );
 		m_dispEffect->SetpChara ( pChara );
 		AddpTask ( m_dispEffect );
-
 		m_dispEffect->SetpCharaRect ( m_charaRect );
 	}
 
@@ -54,6 +53,7 @@ namespace GAME
 
 	void ExeEffect::SetpEfGnrt ( P_EfGnrt p )
 	{
+		m_pEfGnrt = p;
 		m_ptGnrt = p->Pos.Get ();
 		m_gnrt = p->Gnrt.Get ();
 		m_loop = p->Loop.Get ();
@@ -71,6 +71,11 @@ namespace GAME
 		m_dispEffect->SetValid ( F );
 		m_offset = F;
 		m_hit = F;
+
+		m_loop_count = 0;
+		//m_loopなど
+		//生成時パラメータから取得する値は初期化しない
+
 		TASK_VEC::Init ();
 	}
 
@@ -143,8 +148,10 @@ namespace GAME
 			}
 			else
 			{
-				if ( m_loop )
+				if ( m_pEfGnrt->Loop.Get() > m_loop_count )
 				{
+					//ループ回数カウント
+					++ m_loop_count;
 					m_frame = 0;	//ループ
 				}
 				else

@@ -79,57 +79,35 @@ namespace GAME
 			m_barDemo->SetPos ( 640 + 150 - w, BAR_Y );
 		}
 
-		Input ();
-
 		TASK_VEC::Move ();
 	}
 
 
-	void TitleDemo::Input ()
+	void TitleDemo::SetDemo ( bool b )
 	{
-		//F9でデモ切替 (プレイヤーボタン：リセットでも切換)
-		if ( WND_UTL::AscKey ( VK_F9 ) || CFG_PUSH_KEY_12 ( PLY_BTN7 ) )
+		m_bDemo = b;
+		if ( m_bDemo )
 		{
-			if ( m_bDemo )
-			{
-				m_bDemo = F;
-				OffDemo();
-			}
-			else
-			{
-				m_bDemo = T;
-				OnDemo();
-			}
+			OnDemo();
+		}
+		else
+		{
+			OffDemo();
+		}
+	}
 
-#if 0
 
-			//値の取得
-			P_Param pPrm = GetpParam();
-			GameSettingFile & rGameStg = pPrm->GetGameSetting();
-
-			//反転
-			m_bDemo = ! m_bDemo;
-			ValidDemo ( m_bDemo );
-
-			//開始時
-			if ( m_bDemo )
-			{
-				//デモモードタイマのスタート
-				m_tmrDemo.Start ();
-			}
-			else
-			{
-				//プレイヤ操作
-				rGameStg.SetMutchMode ( MUTCH_MODE::MODE_PLAYER_PLAYER );
-			}
-
-			//保存
-			rGameStg.SetDemo ( m_bDemo );
-			pPrm->GetGameSetting ().Save ();
-
-//			bool b = GetpParam()->GetGameSetting().GetDemo ();
-
-#endif // 0
+	void TitleDemo::Switch ()
+	{
+		if ( m_bDemo )
+		{
+			m_bDemo = F;
+			OffDemo();
+		}
+		else
+		{
+			m_bDemo = T;
+			OnDemo();
 		}
 	}
 
