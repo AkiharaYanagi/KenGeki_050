@@ -177,7 +177,7 @@ namespace GAME
 	//トレーニングモード設定
 	void MutualChara::SetTraining ()
 	{
-		m_utl.OnDispPlayerInput ();
+//		m_utl.OnDispPlayerInput ();
 	}
 
 	//トレーニングモード初期化

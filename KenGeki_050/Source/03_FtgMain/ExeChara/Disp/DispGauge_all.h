@@ -39,6 +39,12 @@ namespace GAME
 		P_Grp		m_hissatsu_value;	//必殺
 		P_Grp		m_accel_value;		//アクセル
 
+		P_Grp		m_hissatsu_mark;	//必殺マーク
+		P_Grp		m_hissatsu_ring;	//必殺回転円型
+
+		float		m_theta { 0 };
+		float		m_omega { 0 }; 
+
 		//-----------------------------------------------------
 		enum DISP_FE_CONST
 		{
@@ -85,6 +91,9 @@ namespace GAME
 		static const VEC2 POS_HISSATSU_VALUE_2P;
 		static const VEC2 POS_ACCEL_VALUE_1P;	//アクセル
 		static const VEC2 POS_ACCEL_VALUE_2P;
+		static const VEC2 POS_HISSATSU_1P;
+		static const VEC2 POS_HISSATSU_2P;
+
 
 #pragma endregion
 

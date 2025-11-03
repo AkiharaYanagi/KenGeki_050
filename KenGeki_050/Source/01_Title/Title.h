@@ -39,17 +39,6 @@ namespace GAME
 		P_Grp		m_logo;
 
 		//メニュー
-#if 0
-		P_Grp		m_menu;
-		P_Grp		m_menu_back;
-		float		m_angle { 0 };
-		float		m_omega { -0.005f };
-		P_Grp		m_item;
-		P_SelectArrow	m_arrow_obj;
-		float		m_item_x;
-		float		m_item_vx;
-		float		m_item_bx;
-#endif // 0
 		P_TitleMenu m_menu;
 
 		//Ver.
@@ -57,6 +46,9 @@ namespace GAME
 
 		//Demoモード
 		P_TitleDemo	m_demo;
+
+		//Inst
+		P_Grp		m_inst;
 
 		//フェード
 		P_FadeRect	m_fade_in;
@@ -67,6 +59,8 @@ namespace GAME
 		P_Timer		m_tmr_title_bgm;
 		P_Timer		m_tmr_title_call;
 
+#if 0
+
 		//シーン選択
 		enum class TITLE_TO
 		{
@@ -76,7 +70,9 @@ namespace GAME
 			BATTLE_CPUvsCPU,
 			TRAINING,
 		};
-		TITLE_TO	m_to { TITLE_TO::BATTLE_1PvsCPU };
+//		TITLE_TO	m_to { TITLE_TO::BATTLE_1PvsCPU };
+
+#endif // 0
 
 	public:
 		Title ();

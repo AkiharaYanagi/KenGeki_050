@@ -30,8 +30,8 @@ namespace GAME
 	Round::Round ()
 	{
 		m_roundDisp_1p = std::make_shared < GameGraphic > ();
-		m_roundDisp_1p->AddTexture_FromArchive ( U"WinMark_Win.png" );
-		m_roundDisp_1p->AddTexture_FromArchive ( U"WinMark_Win.png" );
+		m_roundDisp_1p->AddTexture_FromArchive ( U"Battle\\win_mark.png" );
+//		m_roundDisp_1p->AddTexture_FromArchive ( U"Battle\\WinMark_Win.png" );
 		m_roundDisp_1p->SetZ ( Z_SHADOW );
 		AddpTask ( m_roundDisp_1p );
 		GRPLST_INSERT ( m_roundDisp_1p );
@@ -44,21 +44,27 @@ namespace GAME
 		m_roundDisp_1p->AddpObject ( m_ob_1p0 );
 		m_roundDisp_1p->AddpObject ( m_ob_1p1 );
 
+#if 0
 		m_roundDisp_2p = std::make_shared < GameGraphic > ();
-//		m_roundDisp_2p->AddTexture_FromArchive ( U"1_1_transparent.png" );
-		m_roundDisp_2p->AddTexture_FromArchive ( U"WinMark_Win.png" );
-		m_roundDisp_2p->AddTexture_FromArchive ( U"WinMark_Win.png" );
+		m_roundDisp_2p->AddTexture_FromArchive ( U"Battle\\WinMark_Win.png" );
+		m_roundDisp_2p->AddTexture_FromArchive ( U"Battle\\WinMark_Win.png" );
 		m_roundDisp_2p->SetZ ( Z_SHADOW );
 		AddpTask ( m_roundDisp_2p );
 		GRPLST_INSERT ( m_roundDisp_2p );
+#endif // 0
 
 		m_ob_2p0 = std::make_shared < GameObject > ();
 		m_ob_2p0->SetPos ( VEC2 ( POS_BX20, POS_BY ) );
 		m_ob_2p1 = std::make_shared < GameObject > ();
 		m_ob_2p1->SetPos ( VEC2 ( POS_BX21, POS_BY ) );
+
+#if 0
 		m_roundDisp_2p->ClearObject ();
 		m_roundDisp_2p->AddpObject ( m_ob_2p0 );
 		m_roundDisp_2p->AddpObject ( m_ob_2p1 );
+#endif // 0
+		m_roundDisp_1p->AddpObject ( m_ob_2p0 );
+		m_roundDisp_1p->AddpObject ( m_ob_2p1 );
 	}
 
 	Round::~Round ()
@@ -68,14 +74,17 @@ namespace GAME
 
 	void Round::Init ()
 	{
-		//m_round_1p = 0;
-		//m_round_2p = 0;
+		m_round_1p = 0;
+		m_round_2p = 0;
 		TASK_VEC::Init ();
 	}
 
 
 	void Round::Move ()
 	{
+		On ();
+#if 0
+
 		//ラウンド現在数で表示を切替
 		switch ( m_round_1p )
 		{
@@ -109,6 +118,8 @@ namespace GAME
 			break;
 		}
 
+
+#endif // 0
 
 		TASK_VEC::Move ();
 	}
@@ -150,7 +161,7 @@ namespace GAME
 	void Round::On ()
 	{
 		m_roundDisp_1p->SetValid ( T );
-		m_roundDisp_2p->SetValid ( T );
+//		m_roundDisp_2p->SetValid ( T );
 		m_ob_1p0->SetValid ( T );
 		m_ob_1p1->SetValid ( T );
 		m_ob_2p0->SetValid ( T );
@@ -160,7 +171,7 @@ namespace GAME
 	void Round::Off ()
 	{
 		m_roundDisp_1p->SetValid ( F );
-		m_roundDisp_2p->SetValid ( F );
+//		m_roundDisp_2p->SetValid ( F );
 		m_ob_1p0->SetValid ( F );
 		m_ob_1p1->SetValid ( F );
 		m_ob_2p0->SetValid ( F );

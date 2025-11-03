@@ -126,6 +126,10 @@ namespace GAME
 
 		//空振り時
 		case GNRT_THR:
+			if ( ! m_btlPrm.GetHitEst () )
+			{
+				PlaySE ( gnrt.Name.Get () );
+			}
 		break;
 
 		default: break;

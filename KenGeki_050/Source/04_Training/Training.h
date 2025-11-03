@@ -14,9 +14,9 @@
 
 
 
-#if 0
-#include "../Menu/PauseMenu.h"
+#include "../80_Common/Menu/PauseMenu.h"
 //#include "Training_Menu.h"
+#if 0
 #endif // 0
 
 
@@ -47,12 +47,12 @@ namespace GAME
 
 #endif // 0
 
-#if 0
 
 		//ポーズメニュ
 		P_PauseMenu		m_pauseMenu;
 //		P_Training_Menu		m_pauseMenu;
 
+#if 0
 #endif // 0
 
 		static const float	BX;

@@ -119,7 +119,7 @@ namespace GAME
 		m_ch_msg.emplace ( CHARA_OUKA,			U"鵯 桜花：\n花ひらいて雨風多し\n人、生きては別離たる");
 		m_ch_msg.emplace ( CHARA_SAE,			U"巴 紗絵：\nそれでおしまい？　\nもっと本気だしてよ♪");
 		m_ch_msg.emplace ( CHARA_RETSUDOU,		U"烈火 烈堂：\n本当に良い刀ってのは鞘に入ってるもんだぜ･･･");
-		m_ch_msg.emplace ( CHARA_GYAVADARUGA,	U"ギャバダルガ：\n");
+		m_ch_msg.emplace ( CHARA_GYAVADARUGA,	U"ギャバダルガ：\n牙が無ぇ奴に生きる資格はねぇ!!!!\n血の滾り！マグマより熱く!!");
 		m_ch_msg.emplace ( CHARA_FERARIA,		U"フェラリア：\nキミはフェラリアに勝てない　フェラリアは負けない\nあはは♪ざぁ～こざぁ～こ！　\n");
 
 

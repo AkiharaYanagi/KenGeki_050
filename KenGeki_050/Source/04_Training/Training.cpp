@@ -62,11 +62,11 @@ namespace GAME
 		m_fighting->SetTraining ();
 
 
-#if 0
 		//ポーズメニュ
 		m_pauseMenu = std::make_shared < PauseMenu > ();
 		AddpTask ( m_pauseMenu );
 
+#if 0
 #endif // 0
 
 
@@ -141,10 +141,10 @@ namespace GAME
 		m_fighting->SetbTraining ( T );	//トレーニングモード設定(タイマ無効など)
 
 
-#if 0
 		//Menu用にthisを保存
 		m_pauseMenu->SetwpParentScene ( shared_from_this () );
 
+#if 0
 		//BGM
 		AUD_STOP_ALL_BGM ();
 		BGM_ID bgm_id = pParam->Get_BGM_ID ();
@@ -177,6 +177,7 @@ namespace GAME
 
 
 #if 0
+#endif // 0
 
 		//メニュポーズ中
 		if ( m_pauseMenu->MenuCheck () )
@@ -193,7 +194,6 @@ namespace GAME
 			m_fighting->TrainingRestart ();
 		}
 
-#endif // 0
 
 		//通常動作
 		Scene::Move ();
@@ -201,8 +201,6 @@ namespace GAME
 
 	P_GameScene Training::Transit ()
 	{
-#if 0
-
 		//BackSpaceで戻る
 		if ( WND_UTL::AscKey ( VK_BACK ) )
 		{
@@ -210,7 +208,6 @@ namespace GAME
 			GetwpThis().lock ()->Transit_Title ();
 		}
 
-#endif // 0
 		return Scene::Transit ();
 	}
 

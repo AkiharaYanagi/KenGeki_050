@@ -39,8 +39,8 @@ namespace GAME
 		//矢印
 		m_arrow = std::make_shared < SelectArrow > ( SelectArrow::DIR::LEFT_RIGHT, Z_MENU );
 		AddpTask(m_arrow);
-		m_arrow->SetPos ( VEC2 ( 1280 / 2, 775 ) );
-		m_arrow->SetW ( 380 );
+		m_arrow->SetPos ( VEC2 ( 1280 / 2, 790 ) );
+		m_arrow->SetW ( 375 );
 
 	}
 
@@ -87,7 +87,7 @@ namespace GAME
 		{
 			m_item_x = MENU_X;
 		}
-		m_item->SetPos ( VEC2 ( m_item_x, 960 - 200 ) );
+		m_item->SetPos ( VEC2 ( m_item_x, MENU_Y ) );
 
 
 		TASK_VEC::Move ();
@@ -98,24 +98,24 @@ namespace GAME
 		switch ( m_to )
 		{
 		case TITLE_TO::BATTLE_1Pvs2P:
-			m_to = TITLE_TO::BATTLE_1PvsCPU;
-			m_item->SetIndexTexture ( 1 );
+			m_to = TITLE_TO::TRAINING;
+			m_item->SetIndexTexture ( (int)TITLE_TO::TRAINING );
 		break;
 		case TITLE_TO::BATTLE_1PvsCPU:
-			m_to = TITLE_TO::BATTLE_CPUvs2P;
-			m_item->SetIndexTexture ( 2 );
+			m_to = TITLE_TO::BATTLE_1Pvs2P;
+			m_item->SetIndexTexture ( (int)TITLE_TO::BATTLE_1Pvs2P );
 		break;
 		case TITLE_TO::BATTLE_CPUvs2P:
-			m_to = TITLE_TO::BATTLE_CPUvsCPU;
-			m_item->SetIndexTexture ( 3 );
+			m_to = TITLE_TO::BATTLE_1PvsCPU;
+			m_item->SetIndexTexture ( (int)TITLE_TO::BATTLE_1PvsCPU );
 		break;
 		case TITLE_TO::BATTLE_CPUvsCPU:
-			m_to = TITLE_TO::TRAINING;
-			m_item->SetIndexTexture ( 4 );
+			m_to = TITLE_TO::BATTLE_CPUvs2P;
+			m_item->SetIndexTexture ( (int)TITLE_TO::BATTLE_CPUvs2P );
 		break;
 		case TITLE_TO::TRAINING:
-			m_to = TITLE_TO::BATTLE_1Pvs2P;
-			m_item->SetIndexTexture ( 0 );
+			m_to = TITLE_TO::BATTLE_CPUvsCPU;
+			m_item->SetIndexTexture ( (int)TITLE_TO::BATTLE_CPUvsCPU );
 		break;
 		default: break;
 		}
@@ -132,23 +132,23 @@ namespace GAME
 		{
 		case TITLE_TO::BATTLE_1Pvs2P:
 			m_to = TITLE_TO::BATTLE_1PvsCPU;
-			m_item->SetIndexTexture ( 1 );
+			m_item->SetIndexTexture ( (int)TITLE_TO::BATTLE_1PvsCPU );
 		break;
 		case TITLE_TO::BATTLE_1PvsCPU:
 			m_to = TITLE_TO::BATTLE_CPUvs2P;
-			m_item->SetIndexTexture ( 2 );
+			m_item->SetIndexTexture ( (int)TITLE_TO::BATTLE_CPUvs2P );
 		break;
 		case TITLE_TO::BATTLE_CPUvs2P:
 			m_to = TITLE_TO::BATTLE_CPUvsCPU;
-			m_item->SetIndexTexture ( 3 );
+			m_item->SetIndexTexture ( (int)TITLE_TO::BATTLE_CPUvsCPU );
 		break;
 		case TITLE_TO::BATTLE_CPUvsCPU:
 			m_to = TITLE_TO::TRAINING;
-			m_item->SetIndexTexture ( 4 );
+			m_item->SetIndexTexture ( (int)TITLE_TO::TRAINING );
 		break;
 		case TITLE_TO::TRAINING:
 			m_to = TITLE_TO::BATTLE_1Pvs2P;
-			m_item->SetIndexTexture ( 0 );
+			m_item->SetIndexTexture ( (int)TITLE_TO::BATTLE_1Pvs2P );
 		break;
 		default: break;
 		}
@@ -175,7 +175,7 @@ namespace GAME
 #pragma region CONST
 
 	const float TitleMenu::MENU_X = 1280/2- 303.f/2;
-	const float TitleMenu::MENU_Y = 960 - 200;
+	const float TitleMenu::MENU_Y = 960 - 190;
 
 #pragma endregion
 

@@ -96,6 +96,7 @@ namespace GAME
 		GNRT_ALL,	//常時
 		GNRT_HIT,	//ヒット時
 		GNRT_GRD,	//ガード時
+		GNRT_OFS,	//総裁時
 		GNRT_THR,	//空振り時
 	};
 

@@ -54,7 +54,6 @@ namespace GAME
 		P_Ob pob = m_rect->GetpObject ( 1 );
 		pob->SetPos ( VEC2 ( 1280 / 2 - 500 / 2, 100 ) );
 		pob->SetRotationCenter ( VEC2 ( 250, 250 ) );
-//		pob->SetColor ( _CLR(0xff800000) );
 		m_rect_omega1 = 0.01f;
 
 		//キャラ
@@ -63,46 +62,16 @@ namespace GAME
 
 		//ロゴ
 		m_logo = MakepGrp ( U"Title\\Title_Logo.png", Z_EFF );
-		m_logo->SetPos ( VEC2 ( 1280 / 2 - 804 / 2, -200 ) );
-		m_logo->SetScalingCenter ( VEC2 ( 804/2, 1240/2 ) );
-		m_logo->SetScaling ( VEC2 ( 0.6f, 0.6f ) );
-
+		m_logo->SetPos ( VEC2 ( LOGO_X, LOGO_Y ) );
 
 		//メニュー
-#if 0
-		m_menu_back = MakepGrp ( U"Title\\Title_Menu_Back.png", Z_MENU + 0.001f );
-		m_menu_back->SetPos ( VEC2 ( 1280/2-664/2, 960 - 664/2 +60 ) );
-		m_menu_back->SetRotationCenter ( VEC2 ( 664/2, 664/2 ) );
-
-		m_menu = MakepGrp ( U"Title\\Title_Menu.png", Z_MENU );
-		m_menu->SetPos ( VEC2 ( 0, 960 - 300 ) );
-
-		m_item_bx = 1280/2- 303.f/2;
-		m_item_vx = 10;
-		m_item_x = m_item_bx;
-		m_item = MakepGrp ( U"Title\\1P_vs_2P.png", Z_MENU );
-		m_item->SetPos ( VEC2 ( m_item_x, 960 - 200 ) );
-		m_item->AddTexture_FromArchive ( U"Title\\1P_vs_CPU.png" );
-		m_item->AddTexture_FromArchive ( U"Title\\CPU_vs_2P.png" );
-		m_item->AddTexture_FromArchive ( U"Title\\CPU_vs_CPU.png" );
-		m_item->AddTexture_FromArchive ( U"Title\\Training.png" );
-
-
-
-		//矢印
-		m_arrow_obj = std::make_shared < SelectArrow > ( SelectArrow::DIR::LEFT_RIGHT, Z_MENU );
-		AddpTask(m_arrow_obj);
-		m_arrow_obj->SetPos ( VEC2 ( 1280 / 2, 775 ) );
-		m_arrow_obj->SetW ( 380 );
-#endif // 0
 		m_menu = std::make_shared < TitleMenu > ();
 		AddpTask ( m_menu );
 
-
 		//Ver.
 		m_strVer = std::make_shared < GrpStr > ();
-		m_strVer->SetPos ( 1185, 905 );
-		m_strVer->SetZ ( Z_MENU );
+		m_strVer->SetPos ( 1280/2 - 40, 934 );
+		m_strVer->SetZ ( Z_MENU - 0.001f );
 		m_strVer->SetStr ( Ver );
 		AddpTask ( m_strVer );
 		GRPLST_INSERT ( m_strVer );
@@ -111,17 +80,21 @@ namespace GAME
 		m_demo = std::make_shared < TitleDemo >();
 		AddpTask ( m_demo );
 
+		//Inst
+		m_inst = MakepGrp ( U"Title\\Title_Inst.png", Z_MENU - 0.001f );
+		m_inst->SetPos ( VEC2 ( 0, 0 ) );
+		//m_inst->SetValid ( F );
 
 		//フェードイン
 		m_fade_in = std::make_shared < FadeRect > ();
 		AddpTask ( m_fade_in );
 		GRPLST_INSERT ( m_fade_in );
-		m_fade_in->StartWhiteIn ( FADE_IN_T );
+//		m_fade_in->StartWhiteIn ( FADE_IN_T );
+		m_fade_in->StartBlackIn ( FADE_IN_T );
 
 		//フェードアウト
 		m_fade_out = std::make_shared < FadeRect > ();
 		m_fade_out->SetAfterClear ( F );
-//		m_fade_out->SetAfterClear ( T );
 		AddpTask ( m_fade_out );
 		GRPLST_INSERT ( m_fade_out );
 
@@ -237,27 +210,6 @@ namespace GAME
 			AUD_PLAY_ONESHOT_VC ( vc_name );
 		}
 
-		//----------------------------------
-		//デモ時は入力しないで終了
-		if ( m_demo->IsDemo () )
-		{
-			OffMenu ();
-			TASK_VEC::Move ();
-			return;
-		}
-
-		OnMenu ();
-		
-		//入力
-		Input ();
-
-
-		TASK_VEC::Move ();
-	}
-
-
-	void Title::Input ()
-	{
 		//----------------------------------------------------------
 		//F9でデモ切替 (プレイヤーボタン：リセットでも切換)
 		if ( WND_UTL::AscKey ( VK_F9 ) || CFG_PUSH_KEY_12 ( PLY_BTN7 ) )
@@ -267,10 +219,12 @@ namespace GAME
 
 			if ( m_demo->IsDemo () )
 			{
+				OnMenu ();
 				m_menu->Off ();	
 			}
 			else
 			{	
+				OffMenu ();
 				m_menu->On ();
 			}
 
@@ -278,6 +232,21 @@ namespace GAME
 			GameSettingFile stg = GetpParam()->GetGameSetting ();
 			stg.SetDemo ( m_demo->IsDemo () );
 		}
+
+		//----------------------------------
+		//入力はデモ時以外のみ
+		if ( ! m_demo->IsDemo () )
+		{
+			//入力
+			Input ();
+		}
+
+		TASK_VEC::Move ();
+	}
+
+
+	void Title::Input ()
+	{
 
 
 		//----------------------------------------------------------
@@ -394,25 +363,25 @@ namespace GAME
 				P_Param pParam = Scene::GetpParam ();
 				GameSettingFile & rGameStg = pParam->GetGameSetting();
 
-				switch ( m_to )
+				switch ( m_menu->GetTo() )
 				{
-				case TITLE_TO::BATTLE_1Pvs2P:
+				case TitleMenu::TITLE_TO::BATTLE_1Pvs2P:
 					rGameStg.SetMutchMode ( MODE_PLAYER_PLAYER );
 					pParam->SetFtgMode ( FTG_MODE::MODE_FTG_MAIN );
 					break;
-				case TITLE_TO::BATTLE_1PvsCPU:
+				case TitleMenu::TITLE_TO::BATTLE_1PvsCPU:
 					rGameStg.SetMutchMode ( MODE_PLAYER_CPU );
 					pParam->SetFtgMode ( FTG_MODE::MODE_FTG_MAIN );
 					break;
-				case TITLE_TO::BATTLE_CPUvs2P:
+				case TitleMenu::TITLE_TO::BATTLE_CPUvs2P:
 					rGameStg.SetMutchMode ( MODE_CPU_PLAYER );
 					pParam->SetFtgMode ( FTG_MODE::MODE_FTG_MAIN );
 					break;
-				case TITLE_TO::BATTLE_CPUvsCPU:
+				case TitleMenu::TITLE_TO::BATTLE_CPUvsCPU:
 					rGameStg.SetMutchMode ( MODE_CPU_CPU );
 					pParam->SetFtgMode ( FTG_MODE::MODE_FTG_MAIN );
 					break;
-				case TITLE_TO::TRAINING:
+				case TitleMenu::TITLE_TO::TRAINING:
 					rGameStg.SetMutchMode ( MODE_PLAYER_PLAYER );
 					pParam->SetFtgMode ( FTG_MODE::MODE_TRAINING );
 					break;
@@ -459,8 +428,8 @@ namespace GAME
 	const float Title::BG_VX = -64.f;
 	const float Title::BG_P = (-7680 + 1920);
 
-	const float Title::LOGO_X = ( WINDOW_WIDTH - 648 ) * 0.5f;
-	const float Title::LOGO_Y = 0;
+	const float Title::LOGO_X = -40 + 1280 / 2 - 900 / 2;
+	const float Title::LOGO_Y = - 110;
 
 	const float Title::CURSOR_X = 400;
 	const float Title::CURSOR_Y = 720;

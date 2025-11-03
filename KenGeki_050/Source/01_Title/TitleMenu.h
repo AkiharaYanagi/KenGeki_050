@@ -37,6 +37,7 @@ namespace GAME
 		//矢印
 		P_SelectArrow	m_arrow;
 
+	public:
 		//シーン選択
 		enum class TITLE_TO
 		{
@@ -46,6 +47,7 @@ namespace GAME
 			BATTLE_CPUvsCPU,
 			TRAINING,
 		};
+	private:
 		TITLE_TO	m_to { TITLE_TO::BATTLE_1PvsCPU };
 
 	public:
@@ -62,6 +64,9 @@ namespace GAME
 		//メニュ表示切替
 		void On ();
 		void Off ();
+
+		//シーン選択取得
+		TITLE_TO GetTo () const { return m_to; }
 
 	private:
 		//グラフィックオブジェクト生成(グラフィックリスト追加のためZ位置も同梱)

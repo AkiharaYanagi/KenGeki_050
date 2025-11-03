@@ -34,11 +34,7 @@ GameSystem gameSystem;
 //メインループ
 void Main()
 {
-	//タイトル
-	Window::SetTitle ( U"剣撃クロスゾーン" );
-
-	//読込
-	Load ();
+	Load ();	//読込
 
 	//========================================
 	//メインループ
@@ -48,29 +44,35 @@ void Main()
 		//初期化
 		if ( ! init ) { Init (); init = T; }
 
-		//動作
-		Move ();
-
-		//描画
-		Draw ();
+		Move ();	//動作
+		Draw ();	//描画
 	}
 	//========================================
 
-	//終了時の解放
-	gameSystem.SystemRele ();
+	Rele ();	//解放
 }
 
 
 
+//---------------------------------------------------
 //起動後１回のみの初期化
 void Load ()
 {
 	//-------------------------------------
+	//タイトル
+	Window::SetTitle ( U"剣撃クロスゾーン" );
+
+	//-------------------------------------
+	//デバッグ用コマンドプロンプト表示
+	if ( g_bCMDPRMPT_DISP )
+	{
+		DebugOutPrint::OpenPrompt ();
+		PRINT_F_S ( U"start DebugOutPrint.\n" );
+	}
+
+	//-------------------------------------
 	//システム初期化
 	gameSystem.SystemLoad ();
-	DebugOutPrint::OpenPrompt ();
-	std::cout << s3d::String ( U"start DebugOutPrint." ) << std::endl;
-	PRINT_F_S ( U"start DebugOutPrint.\n" );
 
 
 	//ゲームメイン
@@ -79,18 +81,12 @@ void Load ()
 	gameMain->Init ();
 
 
-	//-------------------------------------
-	//デバッグ用
-#if CMDPRMPT_DISP
-	DebugOutPrint::OpenPrompt ();
-	std::cout << s3d::String ( U"start DebugOutPrint." ) << std::endl;
-	PRINT_F_S ( U"start DebugOutPrint.\n" );
-#endif // 0
 	
 	//開始時一時停止
-#if WAIT_START
-	gameSystem.SetbStop ( T );
-#endif // WAIT_START
+	if ( g_bWAIT_START )
+	{
+		gameSystem.SetbStop ( T );
+	}
 
 
 	//-------------------------------------
@@ -98,16 +94,16 @@ void Load ()
 	gameSystem.SetpGameMain ( std::move ( gameMain ) );
 }
 
-void Rele ()
-{
-	//システム初期化
-	gameSystem.SystemRele ();
-}
 
+//---------------------------------------------------
 //メインループ中の最初の１回のみの初期化
 void Init ()
 {
 	//ウィンドウ設定
+	GameInit gameInit;
+	gameInit.Do ();
+
+#if 0
 
 	//ゲーム表示サイズ
 	s3d::Size size = s3d::Scene::Size ();
@@ -144,26 +140,27 @@ void Init ()
 //	s3d::Cursor::SetPos ( winStt.virtualSize );	//右下
 	s3d::Cursor::SetPos ( winStt.virtualSize.x - 165 , -20 );	//右上
 
+#endif // 0
 }
-
 
 
 //---------------------------------------------------
 // 動作
-//---------------------------------------------------
 void Move ()
 {
-	//ゲームメイン
 	gameSystem.Move ();
 }
 
-
 //---------------------------------------------------
 // 描画
-//---------------------------------------------------
 void Draw ()
 {
-	//ゲームメイン
 	gameSystem.Draw ();
 }
 
+//---------------------------------------------------
+// 解放
+void Rele ()
+{
+	gameSystem.SystemRele ();
+}

@@ -505,9 +505,9 @@ namespace GAME
 			{
 			case CHARA_NAME::CHARA_OUKA:		fc = 1; nm = 0; break;
 			case CHARA_NAME::CHARA_SAE:			fc = 3; nm = 1; break;
-			case CHARA_NAME::CHARA_RETSUDOU:	fc = 4; nm = 2; break;
-			case CHARA_NAME::CHARA_GYAVADARUGA:	fc = 5; nm = 3; break;
-			case CHARA_NAME::CHARA_FERARIA:		fc = 7; nm = 4; break;
+			case CHARA_NAME::CHARA_RETSUDOU:	fc = 5; nm = 2; break;
+			case CHARA_NAME::CHARA_GYAVADARUGA:	fc = 7; nm = 3; break;
+			case CHARA_NAME::CHARA_FERARIA:		fc = 9; nm = 4; break;
 			}
 		}
 

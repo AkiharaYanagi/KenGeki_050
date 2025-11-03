@@ -323,7 +323,7 @@ namespace GAME
 #endif // 0
 
 			//-------------------------------------------------------------------------
-			if ( IsNameAction ( U"超必殺技A0" ) )
+			if ( IsNameAction ( U"超必殺技B0" ) )
 			{
 				if ( m_pScript->Index.Is ( 0 ) )
 				{
@@ -348,7 +348,7 @@ namespace GAME
 				}
 			}
 
-			if ( IsNameAction ( U"超必殺技A1" ) )
+			if ( IsNameAction ( U"超必殺技B1" ) )
 			{
 #if 0
 				if ( m_pScript->GetFrame () == 0 )
@@ -368,10 +368,10 @@ namespace GAME
 				//状態指定
 				if ( m_pScript->Index.Is ( 121 ) )
 				{
-					m_pOther.lock()->SetAction ( U"ギャバ_超必殺技Aやられ0" );
+					m_pOther.lock()->SetAction ( U"ギャバ_超必Bやられダウン持続" );
 				}
 			}
-			if ( IsNameAction ( U"超必殺技A3" ) )
+			if ( IsNameAction ( U"超必殺技B3" ) )
 			{
 				//状態指定
 				if ( m_pAction->IsEndScript ( m_pScript->Index.Get () ) )

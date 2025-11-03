@@ -137,28 +137,40 @@ namespace GAME
 		GameSettingFile stgs = m_pParam->GetGameSetting ();
 		START_MODE startMode = stgs.GetStartMode ();
 
+#if 0
 		//テスト用 開始状態選択
-//		startMode = START_TITLE;
+		startMode = START_TITLE;
 //		startMode = START_CHARA_SELE;
 //		startMode = START_BATTLE;
-		startMode = START_TRAINING;
+//		startMode = START_TRAINING;
 //		startMode = START_RESULT;
-#if 0
 #endif // 0
 
 
-		//デバッグ表示オン/オフ 初期状態
-		//ExeChara 1p/2p のとき、1pの値を2pで上書きに注意
+	//デバッグ表示オン/オフ 初期状態
+	//ExeChara 1p/2p のとき、1pの値を2pで上書きに注意
+	if ( g_bDEBUG_DISP )
+	{
+		//ゲーム内ウィンドウデバッグ表示のオン
+		DBGOUT_WND_ON ();
+	}
+	else
+	{
+		//Siv3D IDE出力 Loggerの非表示
+		s3d::Logger.disable ();
+
+		//ゲーム内表示のオフ
+		DBGOUT_WND_OFF ();
+		Print;
+	}
+
+
+#if 0
+
 #if DEBUG_DISP		
 		//ゲーム内ウィンドウデバッグ表示のオン
 		DBGOUT_WND_ON ();
 
-#if 0
-		//コマンドプロンプト表示
-		DebugOutPrint::OpenPrompt ();
-		std::cout << s3d::String ( U"start DebugOutPrint." ) << std::endl;
-		PRINT_F_S ( U"start DebugOutPrint.\n" );
-#endif // 0
 
 #else
 		//Siv3D IDE出力 Loggerの非表示
@@ -169,16 +181,18 @@ namespace GAME
 		Print;
 #endif	//DEBUG_DISP
 
+#endif // 0
 
 
-#if 0
+
 		if ( startMode == START_TITLE )
 		{
 			//全キャラデータを事前読込
 //			// ここで読込しないとき、バトルメインでキャラの個別読込
 			m_pParam->LoadCharaData_All ();
-		}
+#if 0
 #endif // 0
+		}
 
 
 		//開始シーンの選択

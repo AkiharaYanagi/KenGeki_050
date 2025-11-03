@@ -28,7 +28,7 @@ namespace GAME
 		P_Grp	m_roundDisp_1p;
 		P_Ob	m_ob_1p0;
 		P_Ob	m_ob_1p1;
-		P_Grp	m_roundDisp_2p;
+//		P_Grp	m_roundDisp_2p;
 		P_Ob	m_ob_2p0;
 		P_Ob	m_ob_2p1;
 

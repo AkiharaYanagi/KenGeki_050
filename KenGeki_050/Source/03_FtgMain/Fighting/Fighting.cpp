@@ -324,7 +324,7 @@ namespace GAME
 		if ( life_1 > life_2 )
 		{
 			//ラウンド加算
-//			m_round->AddRound_1p ();
+			m_round->AddRound_1p ();
 
 			//シーンパラメータに保存
 			m_pParam->GetPrmResult().SetWinner ( PLAYER_ID_1 );
@@ -333,7 +333,7 @@ namespace GAME
 		else if ( life_1 < life_2 )
 		{
 			//ラウンド加算
-//			m_round->AddRound_2p ();
+			m_round->AddRound_2p ();
 
 			//シーンパラメータに保存
 			m_pParam->GetPrmResult().SetWinner ( PLAYER_ID_2 );

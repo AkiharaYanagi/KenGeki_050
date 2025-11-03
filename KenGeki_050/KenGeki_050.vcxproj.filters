@@ -472,6 +472,9 @@
     <ClCompile Include="Source\01_Title\TitleMenu.cpp">
       <Filter>01_Title</Filter>
     </ClCompile>
+    <ClCompile Include="Source\90_GameMain\DebugDisp.cpp">
+      <Filter>90_GameMain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -602,6 +605,12 @@
       <Filter>99_Resource Files\example</Filter>
     </Text>
     <Text Include="Source\00_Document\メモ.txt">
+      <Filter>00_Document</Filter>
+    </Text>
+    <Text Include="Source\00_Document\[共通デモアクション].txt">
+      <Filter>00_Document</Filter>
+    </Text>
+    <Text Include="Source\00_Document\修正点.txt">
       <Filter>00_Document</Filter>
     </Text>
   </ItemGroup>

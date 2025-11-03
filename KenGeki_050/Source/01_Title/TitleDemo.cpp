@@ -134,7 +134,7 @@ namespace GAME
 
 	const int32 TitleDemo::WAIT_DEMO = 300;
 //	const int32 TitleTitleDemo::WAIT_DEMO = 180;
-	const int32 TitleDemo::BY = 850;
+	const int32 TitleDemo::BY = 750;
 	const int32 TitleDemo::BAR_Y = BY + 52;
 	const int32 TitleDemo::STR_Y = BY + 58;
 
