@@ -264,7 +264,6 @@
     <Text Include="App\example\txt\sc.txt" />
     <Text Include="App\example\video\river.txt" />
     <Text Include="Source\00_Document\[共通デモアクション].txt" />
-    <Text Include="Source\00_Document\メモ.txt" />
     <Text Include="Source\00_Document\修正点.txt" />
   </ItemGroup>
   <ItemGroup>

@@ -23,15 +23,6 @@ namespace GAME
 {
 	Param::Param ()
 	{
-#if 0
-		//ゲーム設定ファイル開始
-		m_setting.Load ();
-
-		m_chara_name_1p = m_setting.GetName1p ();
-		m_chara_name_2p = m_setting.GetName2p ();
-
-#endif // 0
-
 	}
 
 	//コピーコンストラクタ
@@ -51,72 +42,6 @@ namespace GAME
 		m_setting.Load ();		//ゲーム設定ファイル読込
 	}
 
-#if 0
-
-	void Param::SetMutchMode ( MUTCH_MODE mode )
-	{
-		m_mutchMode = mode; 
-
-		switch ( mode )
-		{
-		case MODE_PLAYER_PLAYER:	m_setting.SetPlayerMode ( MODE_PLAYER, MODE_PLAYER );	break;
-		case MODE_PLAYER_CPU:		m_setting.SetPlayerMode ( MODE_PLAYER, MODE_CPU );	break;
-		case MODE_CPU_PLAYER:		m_setting.SetPlayerMode ( MODE_CPU, MODE_PLAYER );	break;
-		case MODE_CPU_CPU:			m_setting.SetPlayerMode ( MODE_CPU, MODE_CPU );	break;
-		case MODE_PLAYER_NETWORK:	m_setting.SetPlayerMode ( MODE_PLAYER, MODE_NETWORK );	break;
-		}
-	}
-
-	void Param::SetMutchMode ( PLAYER_MODE mode1p, PLAYER_MODE mode2p )
-	{
-		if ( MODE_PLAYER == mode1p )
-		{
-			if ( MODE_PLAYER == mode2p ) { m_mutchMode = MODE_PLAYER_PLAYER; }
-			if ( MODE_CPU == mode2p ) { m_mutchMode = MODE_PLAYER_CPU; }
-			if ( MODE_NETWORK == mode2p ) { m_mutchMode = MODE_PLAYER_NETWORK; }
-		}
-		else if ( MODE_CPU == mode1p )
-		{
-			if ( MODE_PLAYER == mode2p ) { m_mutchMode = MODE_CPU_PLAYER; }
-			if ( MODE_CPU == mode2p ) { m_mutchMode = MODE_CPU_CPU; }
-		}
-	}
-
-	PLAYER_MODE Param::GetPlayerMode ( PLAYER_ID id ) const
-	{
-		PLAYER_MODE pm = MODE_PLAYER;
-		if ( id == PLAYER_ID_1 )
-		{
-			switch ( m_mutchMode )
-			{
-			case MODE_PLAYER_PLAYER:	pm = MODE_PLAYER;	break;
-			case MODE_PLAYER_CPU:		pm = MODE_PLAYER; 	break;
-			case MODE_CPU_PLAYER:		pm = MODE_CPU;	  	break;
-			case MODE_CPU_CPU:			pm = MODE_CPU;	  	break;
-			case MODE_PLAYER_NETWORK:	pm = MODE_PLAYER; 	break;
-			default: break;
-			}
-		}
-		if ( id == PLAYER_ID_2 )
-		{
-			switch ( m_mutchMode )
-			{
-			case MODE_PLAYER_PLAYER:	pm = MODE_PLAYER;	break;
-			case MODE_PLAYER_CPU:		pm = MODE_CPU;	  	break;
-			case MODE_CPU_PLAYER:		pm = MODE_PLAYER; 	break;
-			case MODE_CPU_CPU:			pm = MODE_CPU;	  	break;
-			case MODE_PLAYER_NETWORK:	pm = MODE_NETWORK; 	break;
-			default: break;
-			}
-		}
-		return pm;
-	}
-
-	void Param::SetRandomChara ()
-	{
-	}
-
-#endif // 0
 	//-----------------------------------------------------------------
 	//各キャラの読込
 
@@ -146,25 +71,8 @@ namespace GAME
 		return m_prmChara_all.GetpChara ( name, clr );
 	}
 
-#if 0
-	//-----------------------------------------------------------------
-	void Param::ResetBattleParam ()
-	{
-		m_prmResult.Reset ();
-	}
 
-	//最大だったら更新する
-	void Param::UpdateIfMAX_DMG ( PLAYER_ID id, int n )
-	{
-		m_prmResult.UpdateIfMAX_DMG ( id, n );
-	}
-
-	void Param::UpdateIfMax_Chain ( PLAYER_ID id, int n )
-	{
-		m_prmResult.UpdateIfMax_Chain ( id, n );
-	}
-#endif // 0
-
+	//共通キャラテクスチャ
 	void Param::SetpChara_TxSet ( P_Ch_TxSet p )
 	{
 		m_chTxSet = p;

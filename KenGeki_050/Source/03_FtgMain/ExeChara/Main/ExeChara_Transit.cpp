@@ -126,8 +126,11 @@ namespace GAME
 		//相殺キャンセルチェック
 		if ( m_btlPrm.GetTmr_OfstCncl()->IsActive () )
 		{
+			//位置が基準より上だったら
+			bool bAir = ( (float)PLAYER_BASE_Y > m_btlPrm.GetPos().y );
+
 			//空中は現在不可
-			if ( ! IsAir () )
+			if ( ! IsAir () && ! bAir )
 			{
 
 				//コマンドが完成したIDを優先順に保存したリスト

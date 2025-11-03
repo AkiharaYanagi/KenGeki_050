@@ -103,6 +103,11 @@ namespace GAME
 		m_tmr_title_bgm->Start ();
 		m_tmr_title_call = std::make_shared < Timer > ( TITLE_CALL_WAIT );
 		m_tmr_title_call->Start ();
+
+
+		//now loading
+		m_now_loading = MakepGrp ( U"Title\\now_loading.png", Z_FADE - 0.01f );
+		m_now_loading->SetPos ( VEC2 ( 1280 - 264 - 100, 960 - 217 - 100 ) );
 	}
 
 	P_Grp Title::MakepGrp ( LPCUSTR filename, float Z = 0.5f )
@@ -141,43 +146,40 @@ namespace GAME
 		Scene::SetwpThis ( shared_from_this () );
 		//==================================================
 
+
 		Scene::Load ();
 	}
 
 	void Title::Move ()
 	{
-#if 0
 		s3d::ClearPrint ();
 		G_Audio::Inst()->CheckAudio ();
-#endif // 0
 
+		//start
+		if ( ! m_bStart )
+		{
+			m_bStart = T;
+			TASK_VEC::Move ();
+			return;
+		}
+
+		//now loading
+		if ( ! m_bLoading )
+		{
+			//全キャラデータを事前読込
+			// ここで読込しないとき、バトルメインでキャラの個別読込
+//			GetpParam()->LoadCharaData_All ();
+		}
+		else
+		{
+			return;
+		}
 
 		//背景四角
 		m_rect_angle += m_rect_omega;
 		m_rect->SetRadian ( m_rect_angle );
 		m_rect_angle1 += m_rect_omega1;
 		m_rect->GetpObject ( 1 )->SetRadian ( m_rect_angle1 );
-
-#if 0
-		//メニュー背景回転
-		m_angle += m_omega;
-		m_menu_back->SetRadian ( m_angle );
-
-
-		//menu
-		if ( m_item_x < m_item_bx )
-		{
-			m_item_x += m_item_vx;
-		}
-		else if ( m_item_bx < m_item_x )
-		{
-			m_item_x -= m_item_vx;
-		}
-
-		//m_item_x = m_item_bx;
-		m_item->SetPos ( VEC2 ( m_item_x, 960 - 200 ) );
-
-#endif // 0
 
 
 		//BGM開始のチェック

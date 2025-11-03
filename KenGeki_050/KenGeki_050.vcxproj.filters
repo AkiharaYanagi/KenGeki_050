@@ -604,9 +604,6 @@
     <Text Include="App\example\LICENSE.txt">
       <Filter>99_Resource Files\example</Filter>
     </Text>
-    <Text Include="Source\00_Document\メモ.txt">
-      <Filter>00_Document</Filter>
-    </Text>
     <Text Include="Source\00_Document\[共通デモアクション].txt">
       <Filter>00_Document</Filter>
     </Text>

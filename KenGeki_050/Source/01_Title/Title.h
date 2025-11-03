@@ -59,20 +59,11 @@ namespace GAME
 		P_Timer		m_tmr_title_bgm;
 		P_Timer		m_tmr_title_call;
 
-#if 0
+		//now loading
+		P_Grp		m_now_loading;
+		bool		m_bLoading { F };
+		bool		m_bStart { F };
 
-		//シーン選択
-		enum class TITLE_TO
-		{
-			BATTLE_1Pvs2P,
-			BATTLE_1PvsCPU,
-			BATTLE_CPUvs2P,
-			BATTLE_CPUvsCPU,
-			TRAINING,
-		};
-//		TITLE_TO	m_to { TITLE_TO::BATTLE_1PvsCPU };
-
-#endif // 0
 
 	public:
 		Title ();
