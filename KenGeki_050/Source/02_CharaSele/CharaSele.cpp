@@ -45,6 +45,32 @@ namespace GAME
 		GRPLST_INSERT ( m_KaiSen );
 
 
+		//1P,2P,CPU表示
+		m_playerInput = std::make_shared < GameGraphic > ();
+		m_playerInput->AddTexture_FromArchive ( U"Player_1P.png" );
+		m_playerInput->AddTexture_FromArchive ( U"Player_2P.png" );
+		m_playerInput->AddTexture_FromArchive ( U"Player_CPU.png" );
+		m_playerInput->SetZ ( Z_EFF );
+		AddpTask ( m_playerInput );
+		GRPLST_INSERT ( m_playerInput );
+
+		m_playerInput->AddObject ();
+		m_pl_1p = m_playerInput->GetpObject ( 0 );
+		m_pl_1p->SetPos ( VEC2 ( PL_1P_X, PL_Y ) );
+		m_pl_2p = m_playerInput->GetpObject ( 1 );
+		m_pl_2p->SetPos ( VEC2 ( PL_2P_X, PL_Y ) );
+
+
+		//トレーニング表示
+		m_training = std::make_shared < GameGraphic > ();
+		m_training->AddTexture_FromArchive ( U"Title\\Training.png" );
+		m_training->SetPos ( 640 - 303.f * 0.5f, 320 );
+		m_training->SetZ ( Z_EFF );
+		AddpTask ( m_training );
+		GRPLST_INSERT ( m_training );
+		m_training->SetValid ( F );
+
+
 		//アクタ (1p/2p)
 		m_plrActor_1p = std::make_shared < CharaSele_Player_Actor > ();
 		m_plrActor_1p->SetPlayerID ( PLAYER_ID_1 );
@@ -99,6 +125,93 @@ namespace GAME
 		m_stage->SetpParam ( p );
 		m_plrActor_1p->SetpParam ( p );
 		m_plrActor_2p->SetpParam ( p );
+
+#if 0
+
+		//プレイヤーCPU操作表示
+		PLAYER_MODE plMode1p = stg.GetPlayerMode1p ();
+		if ( MODE_PLAYER == plMode1p )
+		{
+			m_pl_1p->SetIndexTexture ( PL_INDEX_1P );
+		}
+		else if ( MODE_CPU == plMode1p )
+		{
+			m_pl_1p->SetIndexTexture ( PL_INDEX_CPU );
+		}
+		PLAYER_MODE plMode2p = p->GetGameSetting ().GetPlayerMode2p ();
+		if ( MODE_PLAYER == plMode2p )
+		{
+			m_pl_2p->SetIndexTexture ( PL_INDEX_2P );
+		}
+		else if ( MODE_CPU == plMode2p )
+		{
+			m_pl_2p->SetIndexTexture ( PL_INDEX_CPU );
+		}
+
+#endif // 0
+
+		//対戦によって操作・表示切替
+		const GameSettingFile stg = p->GetGameSetting ();
+		switch ( stg.GetMutchMode () )
+		{
+		case MODE_PLAYER_PLAYER :
+			m_pl_1p->SetIndexTexture ( PL_INDEX_1P );
+			m_plrActor_1p->SetInputPlayer ( PLAYER_ID_1 );
+			m_plrActor_1p->Set_Active ();
+
+			m_pl_2p->SetIndexTexture ( PL_INDEX_2P );
+			m_plrActor_2p->SetInputPlayer ( PLAYER_ID_2 );
+			m_plrActor_2p->Set_Active ();
+		break;
+
+		case MODE_PLAYER_CPU:
+			m_pl_1p->SetIndexTexture ( PL_INDEX_1P );
+			m_plrActor_1p->SetInputPlayer ( PLAYER_ID_1 );
+			m_plrActor_1p->Set_Active ();
+
+			m_pl_2p->SetIndexTexture ( PL_INDEX_CPU );
+			m_plrActor_2p->SetInputPlayer ( PLAYER_ID_1 );
+			m_plrActor_2p->Set_Wait ();
+		break;
+
+		case MODE_CPU_PLAYER:
+			m_pl_1p->SetIndexTexture ( PL_INDEX_CPU );
+			m_plrActor_1p->SetInputPlayer ( PLAYER_ID_2 );
+			m_plrActor_1p->Set_Wait ();
+
+			m_pl_2p->SetIndexTexture ( PL_INDEX_2P );
+			m_plrActor_2p->SetInputPlayer ( PLAYER_ID_2 );
+			m_plrActor_2p->Set_Active ();
+		break;
+
+		case MODE_CPU_CPU:
+			m_pl_1p->SetIndexTexture ( PL_INDEX_CPU );
+			m_plrActor_1p->SetInputPlayer ( PLAYER_ID_1 );
+			m_plrActor_1p->Set_Active ();
+
+			m_pl_2p->SetIndexTexture ( PL_INDEX_CPU );
+			m_plrActor_2p->SetInputPlayer ( PLAYER_ID_1 );
+			m_plrActor_2p->Set_Wait ();
+		break;
+
+		case MODE_PLAYER_NETWORK:
+			m_pl_1p->SetIndexTexture ( PL_INDEX_1P );
+			m_plrActor_1p->SetInputPlayer ( PLAYER_ID_1 );
+			m_plrActor_1p->Set_Active ();
+
+			m_pl_2p->SetIndexTexture ( PL_INDEX_2P );
+			m_plrActor_2p->SetInputPlayer ( PLAYER_ID_1 );
+			m_plrActor_2p->Set_Wait ();
+		break;
+
+		}
+
+		//トレーニング表示
+		FTG_MODE ftgMode = p->GetFtgMode();
+		if ( FTG_MODE::MODE_TRAINING == ftgMode )
+		{
+			m_training->SetValid ( T );
+		}
 	}
 
 	void CharaSele::Load()
@@ -123,6 +236,7 @@ namespace GAME
 
 	void CharaSele::Move()
 	{
+		//全体操作
 		Input ();
 
 		//ステージ選択
@@ -137,14 +251,11 @@ namespace GAME
 			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 
-		if ( CFG_PUSH_KEY ( P1_BTN7 ) )
-		{
-			AUD_STOP_ALL_BGM();
-			AUD_PLAY_LOOP_BGM ( U"BGM01_CharaSele.wav" );
-		}
 		Scene::Move ();
 	}
 
+
+	//全体操作
 	void CharaSele::Input ()
 	{
 		//BackSpaceでタイトルに戻る (ESCは直接終了)
@@ -161,8 +272,22 @@ namespace GAME
 				m_fade_toTitle->StartBlackOut ( 8 );
 			}
 		}
+	}
 
 
+	P_GameScene CharaSele::Transit()
+	{
+		//---------------------------------------------------
+		//タイトルに移行
+		if ( m_fade_toTitle->IsLast () )
+		{
+			Save ();
+			AUD_STOP_ALL_BGM();
+			Scene::Transit_Title ();
+		}
+
+
+		//---------------------------------------------------
 		//プレイヤ２人が決定済みなら移項
 		if ( ! m_fade_toFighting->IsActive () )
 		{
@@ -172,23 +297,10 @@ namespace GAME
 			{
 				AUD_PLAY_ONESHOT_SE ( SE_Sys_Enter );
 				//フェード開始
+				m_fade_toFighting->Reset ();
 				m_fade_toFighting->StartBlackOut ( 8 );
 			}
 		}
-
-	}
-
-	P_GameScene CharaSele::Transit()
-	{
-
-		//タイトルに移行
-		if ( m_fade_toTitle->IsLast () )
-		{
-			Save ();
-			AUD_STOP_ALL_BGM();
-			Scene::Transit_Title ();
-		}
-
 		//戦闘に移行
 		if ( m_fade_toFighting->IsLast () )
 		{
@@ -203,13 +315,14 @@ namespace GAME
 			{
 				Scene::Transit_Fighting ();
 			}
-			else if ( FTG_MODE::MODE_TRAINING == pPrm->GetFtgMode () )
+			else
 			{
 				Scene::Transit_Training ();
 			}
 		}
 
 
+		//---------------------------------------------------
 		//通常時は自身を返す
 		//他のシーンが確保されたなら遷移する
 		return Scene::Transit ();
@@ -225,19 +338,6 @@ namespace GAME
 	{
 		//パラメータには随時設定されているので書出のみ
 		P_Param pPrm = Scene::GetpParam ();
-#if 0
-		//パラメータに記録し、次シーン以降で用いる
-		P_Param pPrm = Scene::GetpParam ();
-		GameSettingFile& rGameStg = pPrm->GetGameSetting ();
-
-		rGameStg.SetCharaName1p ( m_plrActor_1p->GetCharaName() );
-		rGameStg.SetCharaName2p ( m_plrActor_2p->GetCharaName() );
-		rGameStg.SetCharaColor1p ( m_plrActor_1p->GetColor() );
-		rGameStg.SetCharaColor2p ( m_plrActor_2p->GetColor() );
-		rGameStg.SetStage_Name ( m_stage->GetStageName () );
-		rGameStg.SetBGM_ID ( m_bgm->Get_ID () );
-
-#endif // 0
 
 		//設定ファイルに書出
 		pPrm->GetGameSetting().Save ();
@@ -247,6 +347,14 @@ namespace GAME
 #pragma region CONST
 	const uint32 CharaSele::FADE_IN_T = 8;
 	const uint32 CharaSele::FADE_OUT_T = 8;
+
+	const UINT32 CharaSele::PL_INDEX_1P = 0;
+	const UINT32 CharaSele::PL_INDEX_2P = 1;
+	const UINT32 CharaSele::PL_INDEX_CPU = 2;
+
+	const float CharaSele::PL_1P_X = 20;
+	const float CharaSele::PL_2P_X = 1280 - 20 - 64;
+	const float CharaSele::PL_Y = 100;
 #pragma endregion
 
 

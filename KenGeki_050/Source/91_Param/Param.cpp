@@ -40,20 +40,21 @@ namespace GAME
 	void Param::Load()
 	{
 		m_setting.Load ();		//ゲーム設定ファイル読込
+//		PRINT_F_S ( U"Param::Load{} Start_Mode = {}"_fmt ( m_setting.GetStartMode() ) );
 	}
 
 	//-----------------------------------------------------------------
 	//各キャラの読込
 
 
-	//	タイトルから開始時は全キャラ先に読込
+	//全キャラ先に読込
 	void Param::LoadCharaData_All ()
 	{
 		//非同期処理
-//		m_prmChara_all.LoadAll ();
+//		m_prmChara_all.LoadAll_Async ();
 
 		//同期処理
-		m_prmChara_all._LoadAll ();
+		m_prmChara_all.LoadAll_Sync ();
 	}
 
 
@@ -64,7 +65,7 @@ namespace GAME
 	//キャラ指定データ取得
 	P_Chara Param::GetpChara(CHARA_NAME name, PLAYER_ID pl_id)
 	{
-		PRINT_F_S(U"Load {}P : name = {}\n"_fmt( (int32)pl_id, (int32)name ));
+		PRINT_F_S(U"Load {}P : name = {}"_fmt( (int32)pl_id, (int32)name ));
 
 		//プレイヤ側でカラー番号を取得
 		CHARA_COLOR clr = m_setting.GetCharaColor ( pl_id );

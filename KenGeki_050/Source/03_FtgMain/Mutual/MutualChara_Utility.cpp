@@ -49,6 +49,23 @@ namespace GAME
 
 		//------------------------------------------------
 		//デバッグ用枠表示初期切替
+		if ( g_bDEBUG_DISP )
+		{
+			OnDispRect ();
+			OnDispInput ();
+			OnDispFrontEnd ();
+			OnDispPlayerInput ();		//CPU操作表示は初期値でON
+		}
+		else
+		{
+			OffDispRect ();
+			OffDispInput ();
+			OffDispFrontEnd ();
+			OffDispPlayerInput ();
+		}
+
+#if 0
+
 #if DEBUG_DISP
 		OnDispRect ();
 		OnDispInput ();
@@ -61,6 +78,8 @@ namespace GAME
 		OffDispFrontEnd ();
 		OffDispPlayerInput ();
 #endif // DISP_RECT
+
+#endif // 0
 
 
 	}

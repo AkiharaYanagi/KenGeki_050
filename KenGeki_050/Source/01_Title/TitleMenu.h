@@ -21,8 +21,8 @@ namespace GAME
 	{
 		//背景
 		P_Grp		m_bg;
-		float		m_angle { 0 };
-		float		m_omega { -0.005f };
+		float		m_theta { 0 };
+		float		m_omega { 0 };
 
 
 		//枠
@@ -33,6 +33,8 @@ namespace GAME
 		float		m_item_x;
 		float		m_item_vx;
 //		float		m_item_bx;
+		P_Ob		m_right;
+		P_Ob		m_left;
 
 		//矢印
 		P_SelectArrow	m_arrow;
@@ -48,7 +50,7 @@ namespace GAME
 			TRAINING,
 		};
 	private:
-		TITLE_TO	m_to { TITLE_TO::BATTLE_1PvsCPU };
+		TITLE_TO	m_to { TITLE_TO::BATTLE_1Pvs2P };
 
 	public:
 		TitleMenu ();
@@ -72,11 +74,17 @@ namespace GAME
 		//グラフィックオブジェクト生成(グラフィックリスト追加のためZ位置も同梱)
 		P_Grp MakepGrp ( LPCUSTR filename, float Z );
 
+		UINT32 RightIndex () const;
+		UINT32 LeftIndex () const;
 
 #pragma region CONST
 
 		static const float MENU_X;
 		static const float MENU_Y;
+		static const float MENU_RX;
+		static const float MENU_RY;
+		static const float MENU_LX;
+		static const float MENU_LY;
 
 #pragma endregion
 

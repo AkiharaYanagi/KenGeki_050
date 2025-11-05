@@ -29,7 +29,7 @@ namespace GAME
 	{
 		//戦闘（対戦種類：メイン, トレーニング) モード
 		//(現在値なのでファイルには保存しない)
-		FTG_MODE		m_FtgMode;
+		FTG_MODE		m_FtgMode { FTG_MODE::MODE_FTG_MAIN };
 
 		//ゲーム設定 ( 外部ファイル読込 )
 		GameSettingFile		m_setting;

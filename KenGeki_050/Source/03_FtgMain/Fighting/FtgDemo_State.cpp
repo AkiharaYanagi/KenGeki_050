@@ -33,7 +33,18 @@ namespace GAME
 		pGrp->SetSecondVel ( VEC2 ( -0.001f, -0.001f ) );
 		pGrp->SetZ ( Z_SYS );	//@info SetZはGRPLST_INSERT()の後では行わない(リストが崩れる)
 		pGrp->SetValid ( F );
+		AddpTask ( pGrp );
+		GRPLST_INSERT ( pGrp );
+		return pGrp;
+	}
 
+	//共通　GrpDemo作成
+	P_GrpDemo FtgDemoState::MakeGrpDemo ( s3d::String txName )
+	{
+		P_GrpDemo pGrp = std::make_shared < GrpDemo > ();
+		pGrp->AddTexture_FromArchive ( txName );
+		pGrp->SetZ ( Z_SYS );	//@info SetZはGRPLST_INSERT()の後では行わない(リストが崩れる)
+		pGrp->SetValid ( F );
 		AddpTask ( pGrp );
 		GRPLST_INSERT ( pGrp );
 		return pGrp;
@@ -558,30 +569,17 @@ namespace GAME
 		m_dispTimer = std::make_shared < Timer > ( 240 );
 		AddpTask ( m_dispTimer );
 
-		m_grpWinner = std::make_shared < GrpDemo > ();
-		m_grpWinner ->AddTexture_FromArchive ( U"Demo_Winner.png" );
+		m_grpWinner = MakeGrpDemo ( U"Demo_Winner.png" );
 		m_grpWinner->SetPos ( VEC2 ( 1.f * 1280 / 2 - 1024 / 2, 200.f ) );
 		m_grpWinner->SetEnd ( 240 );
-		m_grpWinner->SetValid ( F );
-		AddpTask ( m_grpWinner );
-		GRPLST_INSERT ( m_grpWinner );
 
-		m_grp1p = std::make_shared < GrpDemo > ();
-		m_grp1p ->AddTexture_FromArchive ( U"Demo_1P.png" );
+		m_grp1p = MakeGrpDemo ( U"Demo_1P.png" );
 		m_grp1p->SetPos ( VEC2 ( 1.f * 1280 / 2 - 256 / 2, 400.f ) );
 		m_grp1p->SetEnd ( 240 );
-		m_grp1p->SetValid ( F );
-		AddpTask ( m_grp1p );
-		GRPLST_INSERT ( m_grp1p );
 
-		m_grp2p = std::make_shared < GrpDemo > ();
-		m_grp2p ->AddTexture_FromArchive ( U"Demo_2P.png" );
-//		m_grp2p->SetScalingCenter ( VEC2 ( 128, 128 ) );
+		m_grp2p = MakeGrpDemo ( U"Demo_2P.png" );
 		m_grp2p->SetPos ( VEC2 ( 1.f * 1280 / 2 - 256 / 2, 400.f ) );
 		m_grp2p->SetEnd ( 240 );
-		m_grp2p->SetValid ( F );
-		AddpTask ( m_grp2p );
-		GRPLST_INSERT ( m_grp2p );
 
 		m_grpDraw = MakeGrpValue ( U"Demo_Draw.png" );
 //		m_grpDraw->SetScalingCenter ( VEC2 ( 256, 256 ) );

@@ -43,6 +43,7 @@ namespace GAME
 		m_pActor = std::make_shared < ExeChara_Actor > ();
 
 
+#if 0
 
 		//テスト
 		m_testCutIn = std::make_shared < GameGraphic > ();
@@ -51,6 +52,8 @@ namespace GAME
 		m_testCutIn->SetValid ( F );
 		AddpTask ( m_testCutIn );
 		GRPLST_INSERT ( m_testCutIn );
+
+#endif // 0
 
 
 	}

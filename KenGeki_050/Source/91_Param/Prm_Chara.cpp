@@ -91,12 +91,15 @@ namespace GAME
 
 		//---------------------------------------------------
 		//スクリプト　
+		PRINT_F_S( U"スクリプト" );
 		m_pChara = std::make_shared < Chara > ();	//キャラデータ実体
 		LoadCharaBin_s3d lcb;
 		lcb.Load ( m_filename_scp, * m_pChara );
+		PRINT_F_S( U"OK" );
 
 		//---------------------------------------------------
 		//カラー
+		PRINT_F_S( U"カラー" );
 		//ビヘイビア
 		LoadImgFile lif;
 
@@ -105,6 +108,10 @@ namespace GAME
 
 		//2p
 		//test
+		m_papTx_clr2 = m_papTx_clr1;
+#if 0
+
+		
 		//1p2p同じファイル名のとき既存データ利用
 		s3d::String clr1 ( m_filename_img_1p );
 		s3d::String clr2 ( m_filename_img_2p );
@@ -117,15 +124,20 @@ namespace GAME
 			m_papTx_clr2 = lif.LoadLz4_Bhv ( m_filename_img_2p );
 		}
 
+#endif // 0
+
 		//キャラに設置(初期値1p)
 		m_pChara->SetpapTx_Main ( m_papTx_clr1 );
+		PRINT_F_S( U"OK" );
 
 		//---------------------------------------------------
+		PRINT_F_S( U"エフェクト" );
 		//ガーニッシュ
 		m_papTx_gns = lif.LoadLz4_Gns ( m_filename_gns );
 
 		//キャラに設置(初期値1p)
 		m_pChara->SetpapTx_Ef ( m_papTx_clr1 );
+		PRINT_F_S( U"OK" );
 	}
 
 
@@ -140,7 +152,7 @@ namespace GAME
 			LoadCharaBin_s3d lcb;
 			lcb.Load ( m_filename_scp, * m_pChara );
 		}
-		PRINT_F_S( U"OK\n" );
+		PRINT_F_S( U"OK" );
 
 
 		PRINT_F_S( U"カラー" );
@@ -160,9 +172,10 @@ namespace GAME
 			{
 				m_papTx_clr2 = lif.LoadLz4_Bhv ( m_filename_img_2p );
 			}
+
 			m_pChara->SetpapTx_Main ( m_papTx_clr2 );
 		}
-		PRINT_F_S( U"OK\n" );
+		PRINT_F_S( U"OK" );
 
 
 		PRINT_F_S( U"エフェクト" );
@@ -173,7 +186,7 @@ namespace GAME
 			m_papTx_gns = lif.LoadLz4_Gns ( m_filename_gns );
 		}
 		m_pChara->SetpapTx_Ef ( m_papTx_gns );
-		PRINT_F_S( U"OK\n" );
+		PRINT_F_S( U"OK" );
 
 
 
@@ -242,9 +255,9 @@ namespace GAME
 
 
 	//すべて読込(非同期処理)
-	void Prm_Chara_all::LoadAll ()
+	void Prm_Chara_all::LoadAll_Async ()
 	{
-		PRINT_F_S ( U"Prm_Chara_all::LoadAll\n" );
+		PRINT_F_S ( U"Prm_Chara_all::LoadAll_Async" );
 
 		m_asyncLoad_Ouka = s3d::Async ( _Load_Ouka, this );
 		m_asyncLoad_Sae_ = s3d::Async ( _Load_Sae_, this );
@@ -254,79 +267,79 @@ namespace GAME
 	}
 
 	//すべて読込(同期処理)
-	void Prm_Chara_all::_LoadAll ()
+	void Prm_Chara_all::LoadAll_Sync ()
 	{
-		PRINT_F_S ( U"Start Prm_Chara_all::_LoadAll\n" );
+		PRINT_F_S ( U"Start Prm_Chara_all::_LoadAll_Sync" );
 
-		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Ouka\n" );
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Ouka" );
 		m_Ouka.Load ();
-		PRINT_F_S ( U"End Prm_Chara_all::_Load_Ouka\n" );
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Ouka" );
 
-		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Sae_\n" );
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Sae_" );
 		m_Sae.Load ();
-		PRINT_F_S ( U"End Prm_Chara_all::_Load_Sae_\n" );
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Sae_" );
 
-		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Retu\n" );
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Retu" );
 		m_Retsu.Load ();
-		PRINT_F_S ( U"End Prm_Chara_all::_Load_Retu\n" );
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Retu" );
 
-		PRINT_F_S ( U"Start Prm_Chara_all::_Load_m_Gaba\n" );
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_m_Gaba" );
 		m_Gaba.Load ();
-		PRINT_F_S ( U"End Prm_Chara_all::_Load_m_Gaba\n" );
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_m_Gaba" );
 
-		PRINT_F_S ( U"Start Prm_Chara_all::_Load_m_Fera\n" );
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_m_Fera" );
 		m_Fera.Load ();
-		PRINT_F_S ( U"End Prm_Chara_all::_Load_m_Fera\n" );
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_m_Fera" );
 
-		PRINT_F_S ( U"End Prm_Chara_all::_LoadAll\n" );
+		PRINT_F_S ( U"End Prm_Chara_all::_LoadAll_Sync" );
 	}
 
 
 	//すべて読込
 	void Prm_Chara_all::_LoadAll ( Prm_Chara_all * pThis )
 	{
-		PRINT_F_S ( U"Start Prm_Chara_all::_LoadAll\n" );
+		PRINT_F_S ( U"Start Prm_Chara_all::_LoadAll" );
 		pThis->m_Ouka.Load ();
 		pThis->m_Fera.Load ();
 		pThis->m_Sae.Load ();
 		pThis->m_Retsu.Load ();
 		pThis->m_Gaba.Load ();
-		PRINT_F_S ( U"End Prm_Chara_all::_LoadAll\n" );
+		PRINT_F_S ( U"End Prm_Chara_all::_LoadAll" );
 	}
 
 	void Prm_Chara_all::_Load_Ouka ( Prm_Chara_all * pThis )
 	{
-		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Ouka\n" );
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Ouka" );
 		pThis->m_Ouka.Load ();
-		PRINT_F_S ( U"End Prm_Chara_all::_Load_Ouka\n" );
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Ouka" );
 	}
 
 	void Prm_Chara_all::_Load_Sae_ ( Prm_Chara_all * pThis )
 	{
-		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Sae_\n" );
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Sae_" );
 		pThis->m_Sae.Load ();
-		PRINT_F_S ( U"End Prm_Chara_all::_Load_Sae_\n" );
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Sae_" );
 	}
 
 	void Prm_Chara_all::_Load_Retu ( Prm_Chara_all * pThis )
 	{
-		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Retu\n" );
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Retu" );
 		pThis->m_Retsu.Load ();
-		PRINT_F_S ( U"End Prm_Chara_all::_Load_Retu\n" );
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Retu" );
 	}
 
 	void Prm_Chara_all::_Load_Gaba ( Prm_Chara_all * pThis )
 	{
-		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Gaba\n" );
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Gaba" );
 		pThis->m_Gaba.Load ();
-		PRINT_F_S ( U"End Prm_Chara_all::_Load_Gaba\n" );
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Gaba" );
 	}
 
 	void Prm_Chara_all::_Load_Fera ( Prm_Chara_all * pThis )
 	{
-		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Sae_\n" );
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Fera" );
 		pThis->m_Fera.Load ();
-		PRINT_F_S ( U"End Prm_Chara_all::_Load_Sae_\n" );
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Fera" );
 	}
 
 
@@ -336,7 +349,7 @@ namespace GAME
 		switch ( name )
 		{
 		case CHARA_OUKA:
-			PRINT_F_S ( U"GetpChara ( CHARA_OUKA, CLR_{} )\n"_fmt((int32)clr) );
+			PRINT_F_S ( U"GetpChara ( CHARA_OUKA, CLR_{} )"_fmt((int32)clr) );
 			if ( m_asyncLoad_Ouka.isValid () )
 			{
 				m_asyncLoad_Ouka.wait ();
@@ -344,22 +357,22 @@ namespace GAME
 			return m_Ouka.GetpChara ( clr );
 
 		case CHARA_SAE:
-			PRINT_F_S ( U"GetpChara ( CHARA_SAE, CLR_{} )\n"_fmt((int32)clr) );
+			PRINT_F_S ( U"GetpChara ( CHARA_SAE, CLR_{} )"_fmt((int32)clr) );
 			if ( m_asyncLoad_Sae_.isValid () ) { m_asyncLoad_Sae_.wait (); }
 			return m_Sae.GetpChara ( clr );
 
 		case CHARA_RETSUDOU:
-			PRINT_F_S ( U"GetpChara ( CHARA_RETSUDOU, CLR_{} )\n"_fmt((int32)clr) );
+			PRINT_F_S ( U"GetpChara ( CHARA_RETSUDOU, CLR_{} )"_fmt((int32)clr) );
 			if ( m_asyncLoad_Retu.isValid () ) { m_asyncLoad_Retu.wait (); }
 			return m_Retsu.GetpChara ( clr );
 
 		case CHARA_GYAVADARUGA:
-			PRINT_F_S ( U"GetpChara ( CHARA_GABADARUGA, CLR_{} )\n"_fmt((int32)clr) );
+			PRINT_F_S ( U"GetpChara ( CHARA_GABADARUGA, CLR_{} )"_fmt((int32)clr) );
 			if ( m_asyncLoad_Gaba.isValid () ) { m_asyncLoad_Gaba.wait (); }
 			return m_Gaba.GetpChara ( clr );
 
 		case CHARA_FERARIA:
-			PRINT_F_S ( U"GetpChara ( CHARA_FERA, CLR_{} )\n"_fmt((int32)clr) );
+			PRINT_F_S ( U"GetpChara ( CHARA_FERARIA, CLR_{} )"_fmt((int32)clr) );
 			if ( m_asyncLoad_Fera.isValid () ) { m_asyncLoad_Fera.wait (); }
 			return m_Fera.GetpChara ( clr );
 

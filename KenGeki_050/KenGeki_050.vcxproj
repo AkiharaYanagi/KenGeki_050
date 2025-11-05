@@ -135,6 +135,7 @@
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Color.cpp" />
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Face.cpp" />
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Name.cpp" />
+    <ClCompile Include="Source\02_CharaSele\Player\CharaSele_PickFrame.cpp" />
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Stand.cpp" />
     <ClCompile Include="Source\02_CharaSele\State\CharaSele_Player_Actor.cpp" />
     <ClCompile Include="Source\02_CharaSele\State\CharaSele_Player_State.cpp" />
@@ -436,6 +437,7 @@
     <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Color.h" />
     <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Face.h" />
     <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Name.h" />
+    <ClInclude Include="Source\02_CharaSele\Player\CharaSele_PickFrame.h" />
     <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Stand.h" />
     <ClInclude Include="Source\02_CharaSele\State\CharaSele_Player_Actor.h" />
     <ClInclude Include="Source\02_CharaSele\State\CharaSele_Player_State.h" />

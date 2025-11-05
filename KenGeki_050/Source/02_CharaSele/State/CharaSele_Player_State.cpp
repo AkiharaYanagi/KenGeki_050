@@ -16,6 +16,7 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+	//---------------------------------------------------
 	CharaSele_Player_State::CharaSele_Player_State ()
 	{
 	}
@@ -30,20 +31,21 @@ namespace GAME
 	}
 
 
-	void ChSl_Plr_Stt_Wait::Input ()
+	//---------------------------------------------------
+
+
+	//---------------------------------------------------
+	void ChSl_Plr_Stt_Active::Input ()
 	{
 		mwp_Actor.lock()->Input_CharaPick ();
 	}
 
-
-	void ChSl_Plr_Stt_Move::Input ()
-	{
-	}
-
+	//---------------------------------------------------
 	void ChSl_Plr_Stt_Decide::Input ()
 	{
 	}
 
+	//---------------------------------------------------
 	void ChSl_Plr_Stt_Menu::Input ()
 	{
 		mwp_Actor.lock()->Input_Menu ();

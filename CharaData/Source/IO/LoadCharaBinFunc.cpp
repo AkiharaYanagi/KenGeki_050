@@ -583,6 +583,15 @@ namespace GAME
 
 			//同一で遷移
 			brc->Other.Set ( m_utl.LoadBool ( buf, pos ) );
+
+#if 0
+
+			if ( brc->Condition.Is( BRANCH_CONDITION::BRC_THR_E ) )
+			{
+				TRACE_F_S ( U"Load Branch Command Name" );
+			}
+
+#endif // 0
 		}
 		ch.SetaBranch ( std::move ( paBrc ) );
 	}

@@ -22,19 +22,15 @@ namespace GAME
 //	0 : OFF
 //  1 : ON
 
-#define DEBUG_DISP	0
-
 extern const bool g_bDEBUG_DISP;
 
 #if 0
-		//使用例
-		
-		//デバッグ表示あり
-		//DBGOUT_WND_F は　ExeChara中で用いると２P側で上書きされる
+	//使用例
+	//DBGOUT_WND_F は　ExeChara中で用いると２P側で上書きされる
 //		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
-		{
-			DBGOUT_WND_F ( DBGOUT_6, U"OperateEffect::m_bGenerate{}"_fmt( m_bGenerate ) );
-		}
+	{
+		DBGOUT_WND_F ( DBGOUT_6, U"OperateEffect::m_bGenerate{}"_fmt( m_bGenerate ) );
+	}
 #endif // 0
 //====================================================
 

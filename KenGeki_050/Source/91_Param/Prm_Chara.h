@@ -24,7 +24,6 @@ namespace GAME
 	//キャラ個別データ
 	class Prm_Chara
 	{
-
 		//ポインタのみ
 		P_Chara		m_pChara { nullptr };
 
@@ -100,8 +99,8 @@ namespace GAME
 
 
 		//すべて読込
-		void LoadAll ();
-		void _LoadAll ();
+		void LoadAll_Async ();
+		void LoadAll_Sync ();
 
 		//キャラ名とカラーからデータポインタを取得
 		P_Chara GetpChara ( CHARA_NAME name, CHARA_COLOR clr );

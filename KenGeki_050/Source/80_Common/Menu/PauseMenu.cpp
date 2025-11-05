@@ -42,7 +42,7 @@ namespace GAME
 		//--------------------------------------------
 		//カーソル
 		m_cursor = std::make_shared < GameGraphic > ();
-		m_cursor->AddTexture_FromArchive ( U"Title\\title_cursor.png" );
+		m_cursor->AddTexture_FromArchive ( U"cursor.png" );
 		m_cursor->SetPos ( CURSOR_X, CURSOR_Y );
 		m_cursor->SetZ ( Z_MENU_STR );
 		m_cursor->SetScalingCenter ( 0, 12.5f );

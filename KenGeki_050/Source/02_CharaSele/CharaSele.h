@@ -36,6 +36,14 @@ namespace GAME
 		P_Grp		m_center_button;
 		P_Grp		m_KaiSen;
 
+		//1P,2P,CPU表示
+		P_Grp		m_playerInput;
+		P_Ob		m_pl_1p;
+		P_Ob		m_pl_2p;
+
+		//トレーニング表示
+		P_Grp		m_training;
+
 
 		//アクタ・ステート
 		P_ChSl_Plr_Actor	m_plrActor_1p;
@@ -76,6 +84,14 @@ namespace GAME
 #pragma region CONST
 		static const uint32 FADE_IN_T;
 		static const uint32 FADE_OUT_T;
+
+		static const UINT32 PL_INDEX_1P;
+		static const UINT32 PL_INDEX_2P;
+		static const UINT32 PL_INDEX_CPU;
+
+		static const float PL_1P_X;
+		static const float PL_2P_X;
+		static const float PL_Y;
 #pragma endregion
 	};
 

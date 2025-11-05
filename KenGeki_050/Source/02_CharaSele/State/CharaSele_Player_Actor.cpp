@@ -21,12 +21,12 @@ namespace GAME
 	{
 		//state
 		mp_sttWait = std::make_shared < ChSl_Plr_Stt_Wait > ();
-		mp_sttMove = std::make_shared < ChSl_Plr_Stt_Move > ();
+		mp_sttActive = std::make_shared < ChSl_Plr_Stt_Active > ();
 		mp_sttDecide = std::make_shared < ChSl_Plr_Stt_Decide > ();
 		mp_sttMenu = std::make_shared < ChSl_Plr_Stt_Menu > ();
 
 		m_aryState.push_back ( mp_sttWait );
-		m_aryState.push_back ( mp_sttMove );
+		m_aryState.push_back ( mp_sttActive );
 		m_aryState.push_back ( mp_sttDecide );
 		m_aryState.push_back ( mp_sttMenu );
 
@@ -38,6 +38,7 @@ namespace GAME
 		m_ch_stand = std::make_shared < CharaSele_Stand > ();
 		AddpTask ( m_ch_stand );
 
+#if 0
 
 		//グラフィック
 		m_chara_pick_Back = MakepGrp ( U"CharaSele\\Pick\\CharaPick_Back.png" );
@@ -63,6 +64,12 @@ namespace GAME
 		GRPLST_INSERT ( m_C1 );
 		GRPLST_INSERT ( m_C0 );
 		GRPLST_INSERT ( m_chara_pick_Frame0 );
+
+#endif // 0
+
+		//選択枠
+		m_pickFrame = std::make_shared < CharaSele_PickFrame > ();
+		AddpTask ( m_pickFrame );
 
 		//円顔
 		m_ch_face = std::make_shared < CharaSele_Face > ();
@@ -102,6 +109,7 @@ namespace GAME
 		m_ch_stand->SetPlayerID ( id );
 		m_ch_face->SetPlayerID ( id );
 		m_ch_color->SetPlayerID ( id );
+		m_pickFrame->SetPlayerID ( id );
 	}
 
 	void CharaSele_Player_Actor::SetpParam ( P_Param p )
@@ -112,6 +120,7 @@ namespace GAME
 		m_ch_stand->Assign ();
 		CHARA_NAME name = p->GetGameSetting ().GetCharaName ( m_id );
 		m_ch_face->Assign ( name );
+		m_pickFrame->SetpParam ( p );
 	}
 
 	void CharaSele_Player_Actor::Load ()
@@ -126,6 +135,8 @@ namespace GAME
 
 	void CharaSele_Player_Actor::Init ()
 	{
+#if 0
+
 		//位置の設定
 		if ( PLAYER_ID_1 == m_id )
 		{
@@ -148,8 +159,9 @@ namespace GAME
 			m_C0->SetScaling ( -1, 1 );
 			m_chara_pick_Frame0->SetScaling ( -1, 1 );
 
-			m_omega = 0.005f;
+			m_omega2 =  0.005f;
 			m_omega1 = -0.005f;
+			m_omega0 =  0.005f;
 		}
 		else if ( PLAYER_ID_2 == m_id )
 		{
@@ -164,9 +176,12 @@ namespace GAME
 			m_C0->SetRotationCenter ( VEC2 { 246 / 2, 246 / 2 } );
 			m_chara_pick_Frame0->SetPos ( 1280 - 290, 960 - 330 );
 
-			m_omega = -0.005f;
-			m_omega1 = 0.005f;
+			m_omega2 = -0.005f;
+			m_omega1 =  0.005f;
+			m_omega0 = -0.005f;
 		}
+
+#endif // 0
 
 		TASK_VEC::Init ();
 	}
@@ -176,13 +191,18 @@ namespace GAME
 		//各種ステートのInput()
 		m_state->Input ();
 
+#if 0
 
-		m_angle += m_omega;
-		m_C0->SetRadian ( m_angle );
-		m_C2->SetRadian ( m_angle );
+		m_angle2 += m_omega2;
+		m_C2->SetRadian ( m_angle0 );
 
 		m_angle1 += m_omega1;
 		m_C1->SetRadian ( m_angle1 );
+
+		m_angle0 += m_omega0;
+		m_C0->SetRadian ( m_angle0 );
+
+#endif // 0
 
 		TASK_VEC::Move ();
 	}
@@ -243,15 +263,40 @@ namespace GAME
 		}
 	}
 
-	bool CharaSele_Player_Actor::Is_Decided () const
+	void CharaSele_Player_Actor::Set_Wait ()
 	{
-		return ( m_state == mp_sttMenu );
+		m_state = mp_sttWait;
+	}
+
+	void CharaSele_Player_Actor::Set_Active ()
+	{
+		m_state = mp_sttActive;
 	}
 
 	void CharaSele_Player_Actor::Change_CharaPick_to_Menu ()
 	{
 		m_state = mp_sttMenu;
-		m_omega1 = 0.5f;
+
+#if 0
+		//高速回転
+		if ( PLAYER_ID_1 == m_id )
+		{
+			m_omega1 = -0.5f;
+			m_omega0 =  0.5f;
+		}
+		else if ( PLAYER_ID_2 == m_id )
+		{
+
+			m_omega1 =  0.5f;
+			m_omega0 = -0.5f;
+		}
+#endif // 0
+		m_pickFrame->Decide ();
+	}
+
+	bool CharaSele_Player_Actor::Is_Decided () const
+	{
+		return ( m_state == mp_sttMenu );
 	}
 
 

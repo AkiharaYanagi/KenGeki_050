@@ -74,17 +74,6 @@ namespace GAME
 	{
 		m_frontEnd->ParamInit ( pParam );
 		m_gauge_all->ParamInit ( pParam );
-
-#if 0
-
-#if DEBUG_DISP
-		OnRect ();
-#else
-		OffRect ();
-#endif // DEBUG_DISP
-
-#endif // 0
-
 	}
 
 	//キャラデータを設定

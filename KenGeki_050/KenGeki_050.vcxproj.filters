@@ -475,6 +475,9 @@
     <ClCompile Include="Source\90_GameMain\DebugDisp.cpp">
       <Filter>90_GameMain</Filter>
     </ClCompile>
+    <ClCompile Include="Source\02_CharaSele\Player\CharaSele_PickFrame.cpp">
+      <Filter>02_CharaSele\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -1402,6 +1405,9 @@
     </ClInclude>
     <ClInclude Include="Source\01_Title\TitleMenu.h">
       <Filter>01_Title</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\02_CharaSele\Player\CharaSele_PickFrame.h">
+      <Filter>02_CharaSele\Player</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

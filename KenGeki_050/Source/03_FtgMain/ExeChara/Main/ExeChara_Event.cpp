@@ -80,6 +80,10 @@ namespace GAME
 		//全体振動
 		m_pFtgGrp->StartVibration ( 10 );
 
+		//ゲージ増加
+		m_btlPrm.AddBalance ( 200 );
+		m_btlPrm.AddMana ( 50 );
+
 
 		//@todo 相殺２撃目にアサート（名前指定？）
 

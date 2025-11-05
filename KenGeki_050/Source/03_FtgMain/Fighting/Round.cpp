@@ -65,6 +65,8 @@ namespace GAME
 #endif // 0
 		m_roundDisp_1p->AddpObject ( m_ob_2p0 );
 		m_roundDisp_1p->AddpObject ( m_ob_2p1 );
+
+		Reset ();
 	}
 
 	Round::~Round ()
@@ -72,17 +74,25 @@ namespace GAME
 	}
 
 
-	void Round::Init ()
+	void Round::Reset ()
 	{
 		m_round_1p = 0;
 		m_round_2p = 0;
+		m_ob_1p0->SetValid ( F );
+		m_ob_1p1->SetValid ( F );
+		m_ob_2p0->SetValid ( F );
+		m_ob_2p1->SetValid ( F );
+		TASK_VEC::Init ();
+	}
+
+	void Round::Init ()
+	{
 		TASK_VEC::Init ();
 	}
 
 
 	void Round::Move ()
 	{
-		On ();
 #if 0
 
 		//ラウンド現在数で表示を切替
@@ -127,29 +137,29 @@ namespace GAME
 	void Round::SetRound_1p ( UINT i )
 	{
 		m_round_1p = i;
-		if ( i == 1 ) { m_ob_1p0->SetIndexTexture ( 1 ); }
-		if ( i == 2 ) { m_ob_1p1->SetIndexTexture ( 1 ); }
+		if ( i == 1 ) { m_ob_1p0->SetValid ( T ); }
+		if ( i == 2 ) { m_ob_1p1->SetValid ( T ); }
 	}
 
 	void Round::AddRound_1p ()
 	{
 		++ m_round_1p;
-		if ( m_round_1p == 1 ) { m_ob_1p0->SetIndexTexture ( 1 ); }
-		if ( m_round_1p == 2 ) { m_ob_1p1->SetIndexTexture ( 1 ); }
+		if ( m_round_1p == 1 ) { m_ob_1p0->SetValid ( T ); }
+		if ( m_round_1p == 2 ) { m_ob_1p1->SetValid ( T ); }
 	}
 
 	void Round::SetRound_2p ( UINT i )
 	{
 		m_round_2p = i;
-		if ( i == 1 ) { m_ob_2p0->SetIndexTexture ( 1 ); }
-		if ( i == 2 ) { m_ob_2p1->SetIndexTexture ( 1 ); }
+		if ( i == 1 ) { m_ob_2p0->SetValid ( T ); }
+		if ( i == 2 ) { m_ob_2p1->SetValid ( T ); }
 	}
 
 	void Round::AddRound_2p ()
 	{
 		++ m_round_2p;
-		if ( m_round_2p == 1 ) { m_ob_2p0->SetIndexTexture ( 1 ); }
-		if ( m_round_2p == 2 ) { m_ob_2p1->SetIndexTexture ( 1 ); }
+		if ( m_round_2p == 1 ) { m_ob_2p0->SetValid ( T ); }
+		if ( m_round_2p == 2 ) { m_ob_2p1->SetValid ( T ); }
 	}
 
 	bool Round::IsEndMutch ()

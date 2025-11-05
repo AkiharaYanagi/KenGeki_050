@@ -37,6 +37,7 @@ namespace GAME
 		Round ( const Round & rhs ) = delete;
 		~Round ();
 
+		void Reset ();
 		void Init ();
 		void Move ();
 

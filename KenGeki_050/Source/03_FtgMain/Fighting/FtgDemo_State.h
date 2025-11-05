@@ -78,6 +78,7 @@ namespace GAME
 
 	protected:
 		P_GrpDemo MakeGrpValue ( s3d::String txName );	//内部オブジェクト作成用
+		P_GrpDemo MakeGrpDemo ( s3d::String txName );	//内部オブジェクト作成用
 	};
 	using P_FtgDemo = std::shared_ptr < FtgDemoState >;
 

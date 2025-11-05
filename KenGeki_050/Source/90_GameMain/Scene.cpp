@@ -147,42 +147,22 @@ namespace GAME
 #endif // 0
 
 
-	//デバッグ表示オン/オフ 初期状態
-	//ExeChara 1p/2p のとき、1pの値を2pで上書きに注意
-	if ( g_bDEBUG_DISP )
-	{
-		//ゲーム内ウィンドウデバッグ表示のオン
-		DBGOUT_WND_ON ();
-	}
-	else
-	{
-		//Siv3D IDE出力 Loggerの非表示
-		s3d::Logger.disable ();
+		//デバッグ表示オン/オフ 初期状態
+		//ExeChara 1p/2p のとき、1pの値を2pで上書きに注意
+		if ( g_bDEBUG_DISP )
+		{
+			//ゲーム内ウィンドウデバッグ表示のオン
+			DBGOUT_WND_ON ();
+		}
+		else
+		{
+			//Siv3D IDE出力 Loggerの非表示
+			s3d::Logger.disable ();
 
-		//ゲーム内表示のオフ
-		DBGOUT_WND_OFF ();
-		Print;
-	}
-
-
-#if 0
-
-#if DEBUG_DISP		
-		//ゲーム内ウィンドウデバッグ表示のオン
-		DBGOUT_WND_ON ();
-
-
-#else
-		//Siv3D IDE出力 Loggerの非表示
-		s3d::Logger.disable ();
-
-		//ゲーム内表示のオフ
-		DBGOUT_WND_OFF ();
-		Print;
-#endif	//DEBUG_DISP
-
-#endif // 0
-
+			//ゲーム内表示のオフ
+			DBGOUT_WND_OFF ();
+			Print;
+		}
 
 
 		//全キャラデータを事前読込

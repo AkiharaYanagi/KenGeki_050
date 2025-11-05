@@ -332,8 +332,20 @@ inline double mapRange
 			m_accel_value->SetpPolygon ( m_accel_mask );
 		}
 
-		m_theta += m_omega;
-		m_hissatsu_ring->SetRadian ( m_theta );
+		//必殺マーク
+		//必殺ゲージが満タンで点灯回転
+		if ( MANA_MAX == hissatsu )
+		{
+			m_hissatsu_mark->SetValid ( T );
+			m_hissatsu_ring->SetValid ( T );
+			m_theta += m_omega;
+			m_hissatsu_ring->SetRadian ( m_theta );
+		}
+		else
+		{
+			m_hissatsu_mark->SetValid ( F );
+			m_hissatsu_ring->SetValid ( F );
+		}
 	}
 
 

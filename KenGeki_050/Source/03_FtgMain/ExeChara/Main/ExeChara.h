@@ -126,10 +126,13 @@ namespace GAME
 		ExeChara_OnHit		m_OnHit { m_btlPrm };
 		ExeChara_OnDamaged	m_OnDamaged { m_btlPrm };
 
+#if 0
 
 		//テスト
 		//カットイン
 		P_Grp		m_testCutIn;
+
+#endif // 0
 
 
 

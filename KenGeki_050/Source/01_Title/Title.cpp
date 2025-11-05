@@ -107,7 +107,7 @@ namespace GAME
 
 		//now loading
 		m_now_loading = MakepGrp ( U"Title\\now_loading.png", Z_FADE - 0.01f );
-		m_now_loading->SetPos ( VEC2 ( 1280 - 264 - 100, 960 - 217 - 100 ) );
+		m_now_loading->SetPos ( VEC2 ( 1280 - 265, 960 - 228 ) );
 	}
 
 	P_Grp Title::MakepGrp ( LPCUSTR filename, float Z = 0.5f )
@@ -152,8 +152,11 @@ namespace GAME
 
 	void Title::Move ()
 	{
+#if 0
+		//BGM読込状況
 		s3d::ClearPrint ();
 		G_Audio::Inst()->CheckAudio ();
+#endif // 0
 
 		//start
 		if ( ! m_bStart )
@@ -166,15 +169,17 @@ namespace GAME
 		//now loading
 		if ( ! m_bLoading )
 		{
+#if 0
 			//全キャラデータを事前読込
 			// ここで読込しないとき、バトルメインでキャラの個別読込
-//			GetpParam()->LoadCharaData_All ();
-		}
-		else
-		{
-			return;
+			GetpParam()->LoadCharaData_All ();
+#endif // 0
+
+			m_bLoading = T;
+			m_now_loading->SetValid ( F );
 		}
 
+		//----------------------------------------------------------
 		//背景四角
 		m_rect_angle += m_rect_omega;
 		m_rect->SetRadian ( m_rect_angle );

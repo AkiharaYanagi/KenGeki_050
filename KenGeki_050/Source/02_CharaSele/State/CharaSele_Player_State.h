@@ -54,18 +54,17 @@ namespace GAME
 	class ChSl_Plr_Stt_Wait : public CharaSele_Player_State
 	{
 	public:
-		void Input ();
 	};
 	using P_ChSl_Plr_Stt_Wait = std::shared_ptr < ChSl_Plr_Stt_Wait >;
 
 
-	//移動
-	class ChSl_Plr_Stt_Move : public CharaSele_Player_State
+	//稼働状態
+	class ChSl_Plr_Stt_Active : public CharaSele_Player_State
 	{
 	public:
 		void Input ();
 	};
-	using P_ChSl_Plr_Stt_Move = std::shared_ptr < ChSl_Plr_Stt_Move >;
+	using P_ChSl_Plr_Stt_Active = std::shared_ptr < ChSl_Plr_Stt_Active >;
 
 
 	//決定
