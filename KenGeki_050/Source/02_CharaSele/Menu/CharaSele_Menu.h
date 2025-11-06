@@ -9,6 +9,8 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
+#include "../../80_Common/SelectArrow.h"
+
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
@@ -25,12 +27,17 @@ namespace GAME
 		float		m_angle { 0 };
 		float		m_omega { -0.005f };
 
+#if 0
+
 		P_Grp		m_arrow;		//矢印
 		s3d::Array < P_Ob >		m_aryPob { 4 };		//操作用
 		s3d::Array < VEC2 >		m_aryBasePos;	//基準位置
 		float		m_arrow_frq{0};		//周波数
 		float		m_arrow_time{0};	//時間
 		float		m_arrow_w{0};	//幅
+
+#endif // 0
+		P_SelectArrow		m_arrow;	//選択矢印
 
 
 		//メニュー項目

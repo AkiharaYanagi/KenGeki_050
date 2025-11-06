@@ -78,18 +78,22 @@ namespace GAME
 		//カラー選択
 		m_ch_color = std::make_shared < CharaSele_Color > ();
 		AddpTask ( m_ch_color );
+
 	}
 
-	P_Grp CharaSele_Player_Actor::MakepGrp ( const s3d::String & filename )
-	{
-		P_Grp p = std::make_shared < GameGraphic > ();
-		p->AddTexture_FromArchive ( filename );
-		AddpTask ( p );
-		return p;
-	}
 
 	CharaSele_Player_Actor::~CharaSele_Player_Actor ()
 	{
+	}
+
+	//表示プレイヤー側（生成後即指定）
+	void CharaSele_Player_Actor::SetPlayerID ( PLAYER_ID id )
+	{
+		m_id = id;
+		m_ch_stand->SetPlayerID ( id );
+		m_ch_face->SetPlayerID ( id );
+		m_ch_color->SetPlayerID ( id );
+		m_pickFrame->SetPlayerID ( id );
 	}
 
 	void CharaSele_Player_Actor::SetwpCharaSeleMain ( WP_ChSl wp )
@@ -103,13 +107,10 @@ namespace GAME
 		}
 	}
 
-	void CharaSele_Player_Actor::SetPlayerID ( PLAYER_ID id )
+	//操作プレイヤー側指定
+	void CharaSele_Player_Actor:: SetInputPlayer ( PLAYER_ID id )
 	{
-		m_id = id;
-		m_ch_stand->SetPlayerID ( id );
-		m_ch_face->SetPlayerID ( id );
-		m_ch_color->SetPlayerID ( id );
-		m_pickFrame->SetPlayerID ( id );
+		m_input_id = id;
 	}
 
 	void CharaSele_Player_Actor::SetpParam ( P_Param p )
@@ -122,6 +123,7 @@ namespace GAME
 		m_ch_face->Assign ( name );
 		m_pickFrame->SetpParam ( p );
 	}
+
 
 	void CharaSele_Player_Actor::Load ()
 	{

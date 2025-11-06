@@ -30,14 +30,15 @@ namespace GAME
 		m_frame->SetPos ( VEC2 ( 0, 960 - 300 ) );
 
 		//項目
-		m_item_vx = 10;
-		m_item_x = MENU_X;
 		m_item = MakepGrp ( U"Title\\1P_vs_2P.png", Z_MENU );
 		m_item->SetPos ( VEC2 ( MENU_X, MENU_Y ) );
 		m_item->AddTexture_FromArchive ( U"Title\\1P_vs_CPU.png" );
 		m_item->AddTexture_FromArchive ( U"Title\\CPU_vs_2P.png" );
 		m_item->AddTexture_FromArchive ( U"Title\\CPU_vs_CPU.png" );
 		m_item->AddTexture_FromArchive ( U"Title\\Training.png" );
+
+		m_dx = 0;
+		m_vx = 10;
 
 		//左右サブ表示
 		m_item->AddObject ();
@@ -93,21 +94,23 @@ namespace GAME
 #endif // 0
 
 		//位置
-		if ( m_item_x < MENU_X )
+		if ( m_dx < 0 )	//左
 		{
-			m_item_x += m_item_vx;
+			m_dx += m_vx;
 		}
-		else if ( MENU_X < m_item_x )
+		else if ( 0 < m_dx )	//右
 		{
-			m_item_x -= m_item_vx;
+			m_dx -= m_vx;
 		}
 
 		//差が少ないならば固定
-		if ( std::abs ( MENU_X - m_item_x ) < 0.1f )
+		if ( std::abs ( m_dx ) < 0.1f )
 		{
-			m_item_x = MENU_X;
+			m_dx = 0;
 		}
-		m_item->SetPos ( VEC2 ( m_item_x, MENU_Y ) );
+		m_item->SetPos ( VEC2 ( MENU_X + m_dx, MENU_Y ) );
+		m_right->SetPos ( VEC2 ( MENU_RX + m_dx * 0.1f, MENU_RY ) );
+		m_left->SetPos ( VEC2 ( MENU_LX + m_dx * 0.1f, MENU_LY ) );
 
 
 		//背景回転
@@ -148,8 +151,8 @@ namespace GAME
 		m_left->SetIndexTexture ( LeftIndex () );
 
 		//位置
-		m_item_x -= 50;
-		m_item->SetPos ( VEC2 ( m_item_x, MENU_Y ) );
+		m_dx -= 50;
+		m_item->SetPos ( VEC2 ( MENU_X + m_dx, MENU_Y ) );
 	}
 
 
@@ -184,8 +187,8 @@ namespace GAME
 		m_left->SetIndexTexture ( LeftIndex () );
 
 		//位置
-		m_item_x += 50;
-		m_item->SetPos ( VEC2 ( m_item_x, MENU_Y ) );
+		m_dx += 50;
+		m_item->SetPos ( VEC2 ( MENU_X +m_dx, MENU_Y ) );
 	}
 
 

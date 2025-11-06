@@ -442,9 +442,6 @@
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Face.cpp">
       <Filter>02_CharaSele\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Name.cpp">
-      <Filter>02_CharaSele\Player</Filter>
-    </ClCompile>
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_CharaGrp.cpp">
       <Filter>02_CharaSele\Player</Filter>
     </ClCompile>
@@ -476,6 +473,9 @@
       <Filter>90_GameMain</Filter>
     </ClCompile>
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_PickFrame.cpp">
+      <Filter>02_CharaSele\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Name.cpp">
       <Filter>02_CharaSele\Player</Filter>
     </ClCompile>
   </ItemGroup>
@@ -1379,9 +1379,6 @@
     <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Face.h">
       <Filter>02_CharaSele\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Name.h">
-      <Filter>02_CharaSele\Player</Filter>
-    </ClInclude>
     <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Stand.h">
       <Filter>02_CharaSele\Player</Filter>
     </ClInclude>
@@ -1407,6 +1404,9 @@
       <Filter>01_Title</Filter>
     </ClInclude>
     <ClInclude Include="Source\02_CharaSele\Player\CharaSele_PickFrame.h">
+      <Filter>02_CharaSele\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Name.h">
       <Filter>02_CharaSele\Player</Filter>
     </ClInclude>
   </ItemGroup>

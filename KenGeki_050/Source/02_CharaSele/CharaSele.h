@@ -41,6 +41,11 @@ namespace GAME
 		P_Ob		m_pl_1p;
 		P_Ob		m_pl_2p;
 
+		//操作位置1P,2P
+		P_Grp		m_input_pos;
+		P_Ob		m_ob_input_1p;
+		P_Ob		m_ob_input_2p;
+
 		//トレーニング表示
 		P_Grp		m_training;
 
@@ -78,8 +83,11 @@ namespace GAME
 
 
 	private:
+		P_Grp MakepGrp ( const s3d::String & filename, float z );
 		void Input ();
 		void Save ();
+
+		void SwitchMode ();
 
 #pragma region CONST
 		static const uint32 FADE_IN_T;
@@ -92,6 +100,10 @@ namespace GAME
 		static const float PL_1P_X;
 		static const float PL_2P_X;
 		static const float PL_Y;
+
+		static const float INPUT_1P_X;
+		static const float INPUT_2P_X;
+		static const float INPUT_Y;
 #pragma endregion
 	};
 

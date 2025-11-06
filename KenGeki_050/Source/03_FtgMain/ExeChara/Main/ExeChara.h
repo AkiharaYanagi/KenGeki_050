@@ -91,7 +91,7 @@ namespace GAME
 		UINT			m_actionID { 0 };	//実効現在アクションID
 		P_Sequence		m_pAction;			//実効アクションポインタ
 		UINT			m_frame { 0 };		//実効内部フレーム(スクリプトID)
-		P_Frame		m_pScript;			//実効スクリプトポインタ
+		P_Frame			m_pScript;			//実効スクリプトポインタ
 
 
 		//------------------------------------------------
@@ -576,6 +576,9 @@ namespace GAME
 
 		//テスト用 敗北
 		void Test_Lose () { m_btlPrm.SetLife ( 0 ); }
+
+		//勝敗決着時に強制敗北ダウン
+		void Lose () { StartDown (); };
 	};
 
 

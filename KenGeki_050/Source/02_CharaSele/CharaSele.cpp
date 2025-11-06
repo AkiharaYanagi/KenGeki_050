@@ -30,6 +30,8 @@ namespace GAME
 
 
 		//開戦ボタン
+#if 0
+
 		m_center_button = std::make_shared < GameGraphic > ();
 		m_center_button->AddTexture_FromArchive ( U"CharaSele\\center_button.png" );
 		m_center_button->SetPos ( 640 - 435 / 2, 960 - 435 / 2 );
@@ -44,8 +46,16 @@ namespace GAME
 		AddpTask ( m_KaiSen );
 		GRPLST_INSERT ( m_KaiSen );
 
+#endif // 0
+		m_center_button = MakepGrp ( U"CharaSele\\center_button.png", Z_SHADOW );
+		m_center_button->SetPos ( 640 - 435 / 2, 960 - 435 / 2 );
+		m_KaiSen = MakepGrp ( U"CharaSele\\KaiSen.png", Z_EFF );
+		m_KaiSen->SetPos ( 640 - 198 / 2, 960 - 104 );
+
 
 		//1P,2P,CPU表示
+#if 0
+
 		m_playerInput = std::make_shared < GameGraphic > ();
 		m_playerInput->AddTexture_FromArchive ( U"Player_1P.png" );
 		m_playerInput->AddTexture_FromArchive ( U"Player_2P.png" );
@@ -54,6 +64,11 @@ namespace GAME
 		AddpTask ( m_playerInput );
 		GRPLST_INSERT ( m_playerInput );
 
+#endif // 0
+		m_playerInput = MakepGrp ( U"Player_1P.png", Z_EFF );
+		m_playerInput->AddTexture_FromArchive ( U"Player_2P.png" );
+		m_playerInput->AddTexture_FromArchive ( U"Player_CPU.png" );
+
 		m_playerInput->AddObject ();
 		m_pl_1p = m_playerInput->GetpObject ( 0 );
 		m_pl_1p->SetPos ( VEC2 ( PL_1P_X, PL_Y ) );
@@ -61,13 +76,36 @@ namespace GAME
 		m_pl_2p->SetPos ( VEC2 ( PL_2P_X, PL_Y ) );
 
 
+		//操作位置1P,2P
+		m_input_pos = MakepGrp ( U"Demo_1P.png", Z_EFF );
+		m_input_pos->AddTexture_FromArchive ( U"Demo_2P.png" );
+
+		m_input_pos->AddObject ();
+
+		m_ob_input_1p = m_input_pos->GetpObject ( 0 );
+		m_ob_input_1p->SetPos ( VEC2 ( INPUT_1P_X, INPUT_Y ) );
+		m_ob_input_1p->SetIndexTexture ( 0 );
+
+		m_ob_input_2p = m_input_pos->GetpObject ( 1 );
+		m_ob_input_2p->SetIndexTexture ( 1 );
+		m_ob_input_2p->SetPos ( VEC2 ( INPUT_2P_X, INPUT_Y ) );
+
+
+		m_input_pos->SetValid ( F );
+
+
 		//トレーニング表示
+#if 0
 		m_training = std::make_shared < GameGraphic > ();
 		m_training->AddTexture_FromArchive ( U"Title\\Training.png" );
 		m_training->SetPos ( 640 - 303.f * 0.5f, 320 );
 		m_training->SetZ ( Z_EFF );
 		AddpTask ( m_training );
 		GRPLST_INSERT ( m_training );
+		m_training->SetValid ( F );
+#endif // 0
+		m_training = MakepGrp ( U"Title\\Training.png", Z_EFF );
+		m_training->SetPos ( 640 - 303.f * 0.5f, 320 );
 		m_training->SetValid ( F );
 
 
@@ -114,6 +152,16 @@ namespace GAME
 
 	}
 
+	P_Grp CharaSele::MakepGrp ( const s3d::String & filename, float z )
+	{
+		P_Grp p = std::make_shared < GameGraphic > ();
+		p->AddTexture_FromArchive ( filename );
+		p->SetZ ( z );
+		AddpTask ( p );
+		GRPLST_INSERT ( p );
+		return p;
+	}
+
 	CharaSele::~CharaSele()
 	{
 
@@ -152,6 +200,36 @@ namespace GAME
 
 		//対戦によって操作・表示切替
 		const GameSettingFile stg = p->GetGameSetting ();
+
+		//トレーニング
+		if ( FTG_MODE::MODE_TRAINING == p->GetFtgMode () )
+		{
+			m_training->SetValid ( T );
+
+			// MODE_PLAYER_PLAYER : で操作は両者とも1P
+			m_pl_1p->SetIndexTexture ( PL_INDEX_1P );
+			m_plrActor_1p->SetInputPlayer ( PLAYER_ID_1 );
+			m_plrActor_1p->Set_Active ();
+
+			m_pl_2p->SetIndexTexture ( PL_INDEX_2P );
+			m_plrActor_2p->SetInputPlayer ( PLAYER_ID_1 );
+			m_plrActor_2p->Set_Wait ();
+			m_ob_input_2p->SetValid ( F );
+		}
+		else //通常バトル
+		{
+			SwitchMode ();
+		}
+
+	}
+
+	void CharaSele::SwitchMode()
+	{
+		P_Param p = GetpParam ();
+		const GameSettingFile stg = p->GetGameSetting ();
+
+		//バトル
+		//プレイヤーによって表示と操作を設定
 		switch ( stg.GetMutchMode () )
 		{
 		case MODE_PLAYER_PLAYER :
@@ -172,12 +250,14 @@ namespace GAME
 			m_pl_2p->SetIndexTexture ( PL_INDEX_CPU );
 			m_plrActor_2p->SetInputPlayer ( PLAYER_ID_1 );
 			m_plrActor_2p->Set_Wait ();
+			m_ob_input_2p->SetValid ( F );
 		break;
 
 		case MODE_CPU_PLAYER:
 			m_pl_1p->SetIndexTexture ( PL_INDEX_CPU );
 			m_plrActor_1p->SetInputPlayer ( PLAYER_ID_2 );
 			m_plrActor_1p->Set_Wait ();
+			m_ob_input_1p->SetValid ( F );
 
 			m_pl_2p->SetIndexTexture ( PL_INDEX_2P );
 			m_plrActor_2p->SetInputPlayer ( PLAYER_ID_2 );
@@ -192,6 +272,7 @@ namespace GAME
 			m_pl_2p->SetIndexTexture ( PL_INDEX_CPU );
 			m_plrActor_2p->SetInputPlayer ( PLAYER_ID_1 );
 			m_plrActor_2p->Set_Wait ();
+			m_ob_input_2p->SetValid ( F );
 		break;
 
 		case MODE_PLAYER_NETWORK:
@@ -204,13 +285,6 @@ namespace GAME
 			m_plrActor_2p->Set_Wait ();
 		break;
 
-		}
-
-		//トレーニング表示
-		FTG_MODE ftgMode = p->GetFtgMode();
-		if ( FTG_MODE::MODE_TRAINING == ftgMode )
-		{
-			m_training->SetValid ( T );
 		}
 	}
 
@@ -352,9 +426,13 @@ namespace GAME
 	const UINT32 CharaSele::PL_INDEX_2P = 1;
 	const UINT32 CharaSele::PL_INDEX_CPU = 2;
 
-	const float CharaSele::PL_1P_X = 20;
-	const float CharaSele::PL_2P_X = 1280 - 20 - 64;
-	const float CharaSele::PL_Y = 100;
+	const float CharaSele::PL_1P_X = 19;
+	const float CharaSele::PL_2P_X = 1280 - 19 - 64;
+	const float CharaSele::PL_Y = 89;
+
+	const float CharaSele::INPUT_1P_X = 250;
+	const float CharaSele::INPUT_2P_X = 1280 - 200 - 256;
+	const float CharaSele::INPUT_Y = 960 - 250;
 #pragma endregion
 
 

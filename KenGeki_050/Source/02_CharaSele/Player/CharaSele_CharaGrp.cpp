@@ -17,16 +17,14 @@ namespace GAME
 	CharaSele_CharaGrp::CharaSele_CharaGrp ()
 	{
 		//キャラ立ち絵（大）
-		m_ch_stand_large = MakepGrp ();
-		m_ch_stand_large->SetZ ( Z_BG - 0.01f );
-		GRPLST_INSERT ( m_ch_stand_large );
+		m_ch_stand_large = MakepGrp ( Z_BG - 0.01f );
 
 		//キャラ立ち絵（小）
-		m_ch_stand_small = MakepGrp ();
-		m_ch_stand_small->SetZ ( Z_BG - 0.01f );
-		GRPLST_INSERT ( m_ch_stand_small );
+		m_ch_stand_small = MakepGrp ( Z_BG - 0.01f );
 
 		//キャラ名前
+#if 0
+
 		m_ch_name = MakepGrp ();
 		//m_C2	 ->SetZ ( Z_EFB - 0.01f * (int)Z_C2 );
 		m_ch_name->SetZ ( Z_EFB - 0.01f * 3 + 0.005f );	//Z値はGRPLST_INSERTより先
@@ -37,6 +35,11 @@ namespace GAME
 		m_ch_name->AddObject ();
 		P_Ob pob = m_ch_name->GetpObject(1);
 		pob->SetColor ( 0xffa0a0a0 );
+
+#endif // 0
+		m_name = std::make_shared < CharaSele_Name > ();
+		AddpTask ( m_name );
+
 
 		m_base_y = 70;
 		m_vx = 20;
@@ -61,11 +64,13 @@ namespace GAME
 #endif // 0
 	}
 
-	P_Grp CharaSele_CharaGrp::MakepGrp ()
+	P_Grp CharaSele_CharaGrp::MakepGrp ( float z )
 	{
 		P_Grp p = std::make_shared < GameGraphic > ();
 		p->AddTexture();	//空を１つ確保
+		p->SetZ ( z );	//GRPLST_INSERT前にZ値を設定
 		AddpTask ( p );
+		GRPLST_INSERT ( p );
 		return p;
 	}
 
@@ -76,11 +81,7 @@ namespace GAME
 	void CharaSele_CharaGrp::SetpParam ( P_Param p )
 	{
 		m_pParam = p;
-
-		//テクスチャセット
-//		m_txSet = std::make_shared < CharaSele_TxSet > ();
-//		m_txSet->Load ();
-
+		m_name->SetpParam ( p );
 	}
 
 	void CharaSele_CharaGrp::Load ()
@@ -97,17 +98,19 @@ namespace GAME
 			m_ch_stand_large->SetPos ( m_base_x, m_base_y );
 			m_ch_stand_small->SetPos ( m_base_x, 200 );
 
+#if 0
 			m_ch_name->SetPos ( 0 - 0.5f - 715 / 2, 960 + 0.5f -36 - 715 / 2 );
 			m_ch_name->SetRotationCenter ( VEC2 { - 0.5f + 715 / 2, 0.5f + 715 / 2 } );
 			P_Ob pob = m_ch_name->GetpObject(1);
 			pob->SetPos ( 0 - 0.5f - 715 / 2, 960 + 0.5f -36 - 715 / 2 );
 			pob->SetRotationCenter ( VEC2 { 0.5f + 715 / 2, 0.5f + 715 / 2 } );
+			AngleInit ( CHARA_OUKA );
+#endif // 0
 
 
 			m_ch_stand_large->SetScaling ( -1.f, 1.f );
 			m_ch_stand_small->SetScaling ( -1.f, 1.f );
 
-			AngleInit ( CHARA_OUKA );
 
 #if 0
 
@@ -126,6 +129,7 @@ namespace GAME
 			m_base_x = 1280 - 700;
 			m_ch_stand_large->SetPos ( m_base_x, m_base_y );
 			m_ch_stand_small->SetPos ( m_base_x, 200 );
+#if 0
 
 			m_ch_name->SetPos ( 1280 + 0.5f - 715 / 2, 960 + 0.5f -36 - 715 / 2 );
 			m_ch_name->SetRotationCenter ( VEC2 { 0.5f + 715 / 2, 0.5f + 715 / 2 } );
@@ -134,6 +138,8 @@ namespace GAME
 			pob->SetRotationCenter ( VEC2 { 0.5f + 715 / 2, 0.5f + 715 / 2 } );
 
 			AngleInit ( CHARA_SAE );
+
+#endif // 0
 
 #if 0
 			m_test->SetPos ( 1000,200 );
@@ -171,6 +177,7 @@ namespace GAME
 		//名前角度
 
 
+#if 0
 		if ( PLAYER_ID_1 == m_id )
 		{
 #if 0
@@ -212,8 +219,6 @@ namespace GAME
 				m_angle1 -= 2 * m_theta;	//２周めはtheta2つ分戻ってからスタート
 			}
 
-#if 0
-#endif // 0
 
 			DBGOUT_WND_F ( DBGOUT_0, U"theta0 = {}"_fmt( m_angle0 ) );
 			DBGOUT_WND_F ( DBGOUT_1, U"theta1 = {}"_fmt( m_angle1 ) );
@@ -237,8 +242,7 @@ namespace GAME
 		m_ch_name->SetRadian ( m_angle0 );
 		P_Ob pob = m_ch_name->GetpObject(1);
 		pob->SetRadian ( m_angle1 );
-
-
+#endif // 0
 
 
 		TASK_VEC::Move ();
@@ -315,16 +319,23 @@ namespace GAME
 		m_ch_stand_large->AssignpTexture( ptxSet->GetpTx_FullBody ( name, clr ) );
 		m_ch_stand_small->AssignpTexture( ptxSet->GetpTx_Stand ( name, clr ) );
 
+		//===============================================================
 		//@info
 		//		２つ目以降のObjectは最初のテクスチャサイズを持っていて、
 		//		Draw時にサイズ０ではないとき、前のサイズ（範囲）で描画してしまう。
 		// ->描画範囲を手動で０にした
 		//	@todo いずれかのタイミングでサイズ０リセットする
+		//===============================================================
+		m_name->Assign ( name );
+
+#if 0
 
 		m_ch_name->AssignpTexture ( ptxSet->GetpTx_Name ( name ) );
 		m_ch_name->GetpObject ( 1 )->SetRectF ( RectF { 0, 0, 0, 0 } );
 
 		AngleInit ( name );
+
+#endif // 0
 		
 #if 0
 		m_theta = ARY_NAME_THETA [ static_cast < int > ( name ) ];
@@ -336,6 +347,8 @@ namespace GAME
 
 #endif // 0
 	}
+
+#if 0
 
 	void CharaSele_CharaGrp::AngleInit ( CHARA_NAME name )
 	{
@@ -356,6 +369,8 @@ namespace GAME
 			m_angle1 = m_angle0 - m_theta;
 		}
 	}
+
+#endif // 0
 
 #if 0
 

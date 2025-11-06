@@ -150,12 +150,13 @@ namespace GAME
 	}
 
 
-	//グラフィックをパラメータに基づいて更新
+	//グラフィックをパラメータに基づいて直接更新
 	void CharaSele_Stand::Assign ( CHARA_NAME name, CHARA_COLOR clr )
 	{
 		m_chGrp->Assign ( name, clr );
 	}
 
+	//保存した値を参照して更新
 	void CharaSele_Stand::Assign ()
 	{
 		P_Param p = m_pParam;

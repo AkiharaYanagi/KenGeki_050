@@ -128,10 +128,17 @@ namespace GAME
 
 		//BGMなし以外は再生開始
 		BGM_ID bgm_id = pParam->Get_BGM_ID ();
-		AUD_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+
 		if ( BGM_ID_NONE != bgm_id )
 		{
-			AUD_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+			//ロード済チェックしてから再生
+			BGM_NAME bgm_name = BGM_ID_TO_NAME [ bgm_id ];
+			if ( ! s3d::AudioAsset::IsReady ( bgm_name ) )
+			{
+				s3d::AudioAsset::Wait ( bgm_name );
+			}
+
+			AUD_PLAY_LOOP_BGM ( bgm_name );
 		}
 
 		//両者の操作をCPUではなくプレイヤに初期設定

@@ -50,65 +50,29 @@ namespace GAME
 		P_ChSl_Plr_Stt_Menu		mp_sttMenu;
 
 		//-----------------------------
-		P_ChSl_Std	m_ch_stand;		//キャラ立絵
-
-#if 0
-
-		//後ろ
-		P_Grp		m_chara_pick_Back;		//背景
-		P_Grp		m_C2;
-		P_Grp		m_chara_pick_Frame2;		//枠
-		P_Grp		m_chara_pick_Clr;		//色選択
-		P_Grp		m_C1;
-		P_Grp		m_C0;
-		P_Grp		m_chara_pick_Frame0;		//枠
-		//前
-
-		P_ChSl_Fc	m_ch_face;		//キャラ顔
-
-		float		m_angle2 { 0 };
-		float		m_omega2 { -0.005f };
-
-		float		m_angle1 { 0 };
-		float		m_omega1 { 0.005f };
-
-		float		m_angle0 { 0 };
-		float		m_omega0 { -0.005f };
-
-		enum Z
-		{	//後
-			Z_BACK,
-			Z_C2,
-			Z_F2,
-			Z_Clr,
-			Z_C1,
-			Z_C0,
-			Z_F0,
-		};	//前
-
-#endif // 0
-		P_ChSl_PickFrame	m_pickFrame;	//選択枠
-
-		P_ChSl_Fc	m_ch_face;		//キャラ顔
-
-		P_CharaSele_Color		m_ch_color;	//カラー
+		P_ChSl_Std				m_ch_stand;		//キャラ立絵
+		P_ChSl_PickFrame		m_pickFrame;	//選択枠
+		P_ChSl_Fc				m_ch_face;		//キャラ顔
+		P_CharaSele_Color		m_ch_color;		//カラー
 
 	public:
 		CharaSele_Player_Actor ();
 		CharaSele_Player_Actor ( const CharaSele_Player_Actor & rhs ) = delete;
 		~CharaSele_Player_Actor ();
 
+		//表示プレイヤー側（生成後即指定）
+		void SetPlayerID ( PLAYER_ID id );
+
 		void SetpParam ( P_Param p );
 		void Load ();
 		void Init ();
 		void Move ();
 
-
-		void SetInputPlayer ( PLAYER_ID id ) { m_input_id = id; }
-
+		//親オブジェクト設定
 		void SetwpCharaSeleMain ( WP_ChSl wp );
-		void SetPlayerID ( PLAYER_ID id );
 
+		//操作プレイヤー側指定
+		void SetInputPlayer ( PLAYER_ID id );
 
 		//State別
 		void Input_CharaPick ();
@@ -122,7 +86,7 @@ namespace GAME
 		bool Is_Decided () const;
 
 	private:
-		P_Grp MakepGrp ( const s3d::String & filename );
+//		P_Grp MakepGrp ( const s3d::String & filename );
 	};
 
 	using P_ChSl_Plr_Actor = std::shared_ptr < CharaSele_Player_Actor >;

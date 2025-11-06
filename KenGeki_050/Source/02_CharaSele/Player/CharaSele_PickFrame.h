@@ -10,6 +10,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
 #include "../../91_Param/Param.h"
+#include "../../80_Common/SelectArrow.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -59,19 +60,19 @@ namespace GAME
 			Z_F0,
 		};	//前
 
+
+		P_SelectArrow		m_arrow;	//選択矢印
+
 	public:
 		CharaSele_PickFrame ();
 		CharaSele_PickFrame ( const CharaSele_PickFrame & rhs ) = delete;
 		~CharaSele_PickFrame ();
+		void SetPlayerID ( PLAYER_ID id );
 
 		void Load ();
 		void Init ();
 		void Move ();
 
-		void SetPlayerID ( PLAYER_ID id )
-		{
-			m_id = id;
-		}
 		void SetpParam ( P_Param p );
 
 		void Decide ();

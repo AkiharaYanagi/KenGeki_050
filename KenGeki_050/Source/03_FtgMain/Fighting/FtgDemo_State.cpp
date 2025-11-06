@@ -116,6 +116,11 @@ namespace GAME
 		{
 			//全停止から再生
 			AUD_STOP_ALL_BGM ();
+			//ロード済チェックしてから再生
+			if ( ! s3d::AudioAsset::IsReady ( bgm_name ) )
+			{
+				s3d::AudioAsset::Wait ( bgm_name );
+			}
 			AUD_PLAY_LOOP_BGM ( bgm_name );
 		}
 

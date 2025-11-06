@@ -38,6 +38,9 @@ namespace GAME
 
 
 		//矢印
+
+#if 0
+
 		m_arrow = std::make_shared < GameGraphic > ();
 		m_arrow->AddTexture_FromArchive ( U"CharaSele\\Arrow.png" );
 		AddpTask ( m_arrow );
@@ -77,6 +80,14 @@ namespace GAME
 
 
 
+#endif // 0
+
+		//選択矢印
+		m_arrow = std::make_shared < SelectArrow > ( SelectArrow::DIR::UP_DOWN, Z_MENU );
+		m_arrow->SetPos ( VEC2 ( 1280 / 2 - 18 / 2, 175 ) );
+		m_arrow->SetH ( 50 );
+		AddpTask ( m_arrow );
+
 		//----------------------------------------------------------
 		m_Item = std::make_shared < GameGraphic > ();
 		AddpTask ( m_Item );
@@ -110,6 +121,7 @@ namespace GAME
 			if ( index != 0 )
 			{
 				pob->SetScaling ( VEC2 ( 0.6f, 0.6f ) );
+				pob->SetColor ( 0xff808080 );
 			}
 			else
 			{
@@ -137,6 +149,8 @@ namespace GAME
 		//円盤回転
 		m_angle += m_omega;
 		m_part_upper_back->SetRadian ( m_angle );
+
+#if 0
 
 
 		//時間
@@ -169,6 +183,8 @@ namespace GAME
 		pos3.x = m_aryBasePos [ 3 ].x;
 		pos3.y = m_aryBasePos [ 3 ].y + dx;
 		m_aryPob [ 3 ]->SetPos ( pos3 );
+
+#endif // 0
 
 
 		TASK_VEC::Move ();

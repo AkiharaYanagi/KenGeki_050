@@ -24,15 +24,14 @@ namespace GAME
 		float		m_theta { 0 };
 		float		m_omega { 0 };
 
-
 		//枠
 		P_Grp		m_frame;
 
 		//項目
 		P_Grp		m_item;
-		float		m_item_x;
-		float		m_item_vx;
-//		float		m_item_bx;
+		float		m_dx;
+		float		m_vx;
+
 		P_Ob		m_right;
 		P_Ob		m_left;
 

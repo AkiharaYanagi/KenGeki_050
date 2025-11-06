@@ -11,6 +11,7 @@
 #include "Game.h"
 #include "../../90_GameMain/GameConst.h"
 #include "../../91_Param/Param.h"
+#include "CharaSele_Name.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -24,7 +25,6 @@ namespace GAME
 	{
 		PLAYER_ID	m_id { _PLAYER_NUM };	//プレイヤID
 
-//		P_ChSl_TxSet	m_txSet;	//テクスチャセット
 		//保存用共通パラメータ
 		P_Param			m_pParam;
 
@@ -39,11 +39,17 @@ namespace GAME
 		float		m_vx { 0 };
 		float		m_start_x { 0 };
 
+#if 0
+
 		P_Grp		m_ch_name;		//キャラ名前
 		float		m_angle0 { 0 };
 		float		m_omega { 0 };
 		float		m_theta { 0 };	//名前表示必要角度
 		float		m_angle1 { 0 };
+
+#endif // 0
+		//キャラ名前
+		P_ChSl_Nm	m_name;
 
 	public:
 		CharaSele_CharaGrp ();
@@ -55,40 +61,30 @@ namespace GAME
 		void Init ();
 		void Move ();
 
-		void SetPlayerID ( PLAYER_ID id ) { m_id = id; }
-
-		void SetNameTheta ( float f ) { m_theta = f; m_angle1 = -f; }
+		void SetPlayerID ( PLAYER_ID id ) { m_id = id; m_name->SetPlayerID ( id ); }
 
 #if 0
-
+		void SetNameTheta ( float f ) { m_theta = f; m_angle1 = -f; }
 		void SetName ( CHARA_NAME name );
 		CHARA_NAME GetName () const { return m_name; }
-
-
 		void SetpGrp ( P_ChSl_TxSet p );
-
-
-#endif // 0
-
-#if 0
-		void On ();
-		void Off ();
 #endif // 0
 
 		void Assign ( CHARA_NAME name, CHARA_COLOR clr );
 
 #if 0
-
 		void NextColor ();
 		void PrevColor ();
 
 #endif // 0
 
 	private:
-		P_Grp MakepGrp ();
+		P_Grp MakepGrp ( float z );
 
 		const static UINT32 CLR_0 {0};
 		const static UINT32 CLR_1 {1};
+
+#if 0
 
 		//名前の輪っか表示幅
 		static constexpr std::array < float, CHARA_NAME_COUNT > ARY_NAME_THETA = 
@@ -106,6 +102,8 @@ namespace GAME
 		};
 
 		void AngleInit ( CHARA_NAME name );
+
+#endif // 0
 	};
 
 	using P_ChSl_ChGrp = std::shared_ptr < CharaSele_CharaGrp >;

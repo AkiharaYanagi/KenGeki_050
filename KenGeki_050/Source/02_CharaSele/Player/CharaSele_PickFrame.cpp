@@ -41,6 +41,11 @@ namespace GAME
 		GRPLST_INSERT ( m_C0 );
 		GRPLST_INSERT ( m_chara_pick_Frame0 );
 
+
+		//選択矢印
+		m_arrow = std::make_shared < SelectArrow > ( SelectArrow::DIR::UP_DOWN, Z_MENU );
+		m_arrow->SetH ( 150 );
+		AddpTask ( m_arrow );
 	}
 
 	P_Grp CharaSele_PickFrame::MakepGrp ( const s3d::String & filename )
@@ -53,6 +58,21 @@ namespace GAME
 
 	CharaSele_PickFrame::~CharaSele_PickFrame ()
 	{
+	}
+
+	void CharaSele_PickFrame::SetPlayerID ( PLAYER_ID id )
+	{
+		m_id = id;
+
+		//位置の設定
+		if ( PLAYER_ID_1 == m_id )
+		{
+			m_arrow->SetPos ( VEC2 ( 135, 763 ) );
+		}
+		else if ( PLAYER_ID_2 == m_id )
+		{
+			m_arrow->SetPos ( VEC2 ( 1280 - 135 - 16, 763 ) );
+		}
 	}
 
 	void CharaSele_PickFrame::SetpParam ( P_Param p )

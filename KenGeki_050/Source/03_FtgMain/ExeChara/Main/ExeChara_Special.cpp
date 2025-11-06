@@ -371,12 +371,36 @@ namespace GAME
 					m_pOther.lock()->SetAction ( U"ギャバ_超必Bやられダウン持続" );
 				}
 			}
+			if ( IsNameAction ( U"超必殺技B2" ) )
+			{
+				//勝敗決定時
+				if ( m_pOther.lock()->IsZeroLife() )
+				{
+					m_pOther.lock()->SetAction ( U"ギャバ_超必Bやられダウン持続" );
+				}
+			}
 			if ( IsNameAction ( U"超必殺技B3" ) )
 			{
-				//状態指定
+				//勝敗決定時
+				if ( m_pOther.lock()->IsZeroLife() )
+				{
+					m_pOther.lock()->SetAction ( U"ギャバ_超必Bやられダウン持続" );
+				}
+
+				//最終スクリプト
 				if ( m_pAction->IsEndScript ( m_pScript->Index.Get () ) )
 				{
-					m_pOther.lock()->SetAction ( U"ダウン" );
+					//勝敗決定時
+					if ( m_pOther.lock()->IsZeroLife() )
+					{
+						//状態指定でアクタを敗北時ダウンに移行
+						m_pOther.lock()->Lose ();	
+					}
+					else
+					{
+						//戦闘続行
+						m_pOther.lock()->SetAction ( U"ダウン" );
+					}
 				}
 			}
 
