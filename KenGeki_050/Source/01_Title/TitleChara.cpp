@@ -17,6 +17,8 @@ namespace GAME
 	TitleChara::TitleChara ()
 	{
 		m_chara = std::make_shared < GameGraphic > ();
+#if 0
+#endif // 0
 		m_chara->AddTexture_FromArchive ( U"Title\\CutIn_Ouka_1p.png" );
 		m_chara->AddTexture_FromArchive ( U"Title\\CutIn_Sae_1p.png" );
 		m_chara->AddTexture_FromArchive ( U"Title\\CutIn_Retsu_1p.png" );

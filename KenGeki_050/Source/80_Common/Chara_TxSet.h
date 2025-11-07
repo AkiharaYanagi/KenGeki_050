@@ -34,6 +34,9 @@ namespace GAME
 		//キャラテクスチャ配列 [キャラ名前]
 		P_ArrayTx		m_aryTxName;		//Name
 
+		//カットイン
+		P_GridTx		m_gridTxCutIn;		//cutin
+
 	public:
 		Chara_TxSet ();
 		Chara_TxSet ( const Chara_TxSet & rhs ) = delete;

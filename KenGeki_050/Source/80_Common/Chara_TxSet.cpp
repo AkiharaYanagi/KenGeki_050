@@ -100,6 +100,28 @@ namespace GAME
 		(*m_aryTxName)[CHARA_KISHI] = TxUtl::MakeTx_FromArchive			( U"dummy.png" );
 		(*m_aryTxName)[CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive		( U"dummy.png" );
 		(*m_aryTxName)[CHARA_ENEMY_ZERO] = TxUtl::MakeTx_FromArchive	( U"dummy.png" );
+
+		//=============================================================================================
+		(*m_gridTxFullBody)[CH_CLR_1][CHARA_OUKA] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Ouka.png" );
+		(*m_gridTxFullBody)[CH_CLR_2][CHARA_OUKA] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Ouka_2p.png" );
+		(*m_gridTxFullBody)[CH_CLR_1][CHARA_SAE] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Sae.png" );
+		(*m_gridTxFullBody)[CH_CLR_2][CHARA_SAE] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Sae_2p.png" );
+		(*m_gridTxFullBody)[CH_CLR_1][CHARA_RETSUDOU] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Retsu.png" );
+		(*m_gridTxFullBody)[CH_CLR_2][CHARA_RETSUDOU] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Retsu_2p.png" );
+		(*m_gridTxFullBody)[CH_CLR_1][CHARA_GYAVADARUGA] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Gaba.png" );
+		(*m_gridTxFullBody)[CH_CLR_2][CHARA_GYAVADARUGA] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Gaba_2p.png" );
+		(*m_gridTxFullBody)[CH_CLR_1][CHARA_FERARIA] = TxUtl::MakeTx_FromArchive ( U"CutIn\\Stand_Fera.png" );
+		(*m_gridTxFullBody)[CH_CLR_2][CHARA_FERARIA] = TxUtl::MakeTx_FromArchive ( U"CutIn\\Stand_Fera_2p.png" );
+		(*m_gridTxFullBody)[CH_CLR_1][CHARA_TSUKIHIBOSHI] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxFullBody)[CH_CLR_2][CHARA_TSUKIHIBOSHI] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxFullBody)[CH_CLR_1][CHARA_REINA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxFullBody)[CH_CLR_2][CHARA_REINA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxFullBody)[CH_CLR_1][CHARA_KISHI] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxFullBody)[CH_CLR_2][CHARA_KISHI] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxFullBody)[CH_CLR_1][CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxFullBody)[CH_CLR_2][CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxFullBody)[CH_CLR_1][CHARA_ENEMY_ZERO] = TxUtl::MakeTx_FromArchive ( U"CutIn\\Stand_FeraUra.png" );
+		(*m_gridTxFullBody)[CH_CLR_2][CHARA_ENEMY_ZERO] = TxUtl::MakeTx_FromArchive ( U"CutInStand_FeraUra_2p.png" );
 	}
 
 #if 0
