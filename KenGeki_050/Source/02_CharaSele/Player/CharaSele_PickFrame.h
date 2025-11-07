@@ -75,6 +75,8 @@ namespace GAME
 
 		void SetpParam ( P_Param p );
 
+		void Wait ();
+		void Start ();
 		void Decide ();
 
 #pragma region CONST

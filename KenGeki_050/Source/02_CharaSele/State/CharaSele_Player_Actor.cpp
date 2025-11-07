@@ -137,89 +137,36 @@ namespace GAME
 
 	void CharaSele_Player_Actor::Init ()
 	{
-#if 0
-
-		//位置の設定
-		if ( PLAYER_ID_1 == m_id )
-		{
-			m_chara_pick_Back->SetPos ( 0 + 527, 960 - 439 );
-			m_C2->SetPos ( 0 + 704 / 2, 960 - 36 - 704 / 2 );
-			m_C2->SetRotationCenter ( VEC2 { - 704 / 2, 704 / 2 } );
-			m_chara_pick_Frame2->SetPos ( 0 + 353, 960 - 393 );
-			m_chara_pick_Clr->SetPos ( 0 + 527, 960 - 439 );
-			m_C1->SetPos ( 0 + 576 / 2, 960 - 36 - 576 / 2 );
-			m_C1->SetRotationCenter ( VEC2 { - 576 / 2, 576 / 2 } );
-			m_C0->SetPos ( 0 + 246 / 2, 960 - 36 - 246 / 2);
-			m_C0->SetRotationCenter ( VEC2 { - 246 / 2, 246 / 2 } );
-			m_chara_pick_Frame0->SetPos ( 0 + 290, 960 - 330 );
-
-			m_chara_pick_Back->SetScaling ( -1, 1 );
-			m_C2->SetScaling ( -1, 1 );
-			m_chara_pick_Frame2->SetScaling ( -1, 1 );
-			m_chara_pick_Clr->SetScaling ( -1, 1 );
-			m_C1->SetScaling ( -1, 1 );
-			m_C0->SetScaling ( -1, 1 );
-			m_chara_pick_Frame0->SetScaling ( -1, 1 );
-
-			m_omega2 =  0.005f;
-			m_omega1 = -0.005f;
-			m_omega0 =  0.005f;
-		}
-		else if ( PLAYER_ID_2 == m_id )
-		{
-			m_chara_pick_Back->SetPos ( 1280 - 527, 960 - 439 );
-			m_C2->SetPos ( 1280 - 704 / 2, 960 - 36 - 704 / 2 );
-			m_C2->SetRotationCenter ( VEC2 { 704 / 2, 704 / 2 } );
-			m_chara_pick_Frame2->SetPos ( 1280 - 353, 960 - 393 );
-			m_chara_pick_Clr->SetPos ( 1280 - 527, 960 - 439 );
-			m_C1->SetPos ( 1280 - 576 / 2, 960 - 36 - 576 / 2 );
-			m_C1->SetRotationCenter ( VEC2 { 576 / 2, 576 / 2 } );
-			m_C0->SetPos ( 1280 - 246 / 2, 960 - 36 - 246 / 2);
-			m_C0->SetRotationCenter ( VEC2 { 246 / 2, 246 / 2 } );
-			m_chara_pick_Frame0->SetPos ( 1280 - 290, 960 - 330 );
-
-			m_omega2 = -0.005f;
-			m_omega1 =  0.005f;
-			m_omega0 = -0.005f;
-		}
-
-#endif // 0
-
 		TASK_VEC::Init ();
 	}
 
 	void CharaSele_Player_Actor::Move ()
 	{
+		//移行時、入力を連続で見てしまうため１フレーム待つ
+		if ( m_wait > 0 )
+		{
+			m_wait = 0;
+			TASK_VEC::Move ();
+			return;
+		}
+
 		//各種ステートのInput()
 		m_state->Input ();
-
-#if 0
-
-		m_angle2 += m_omega2;
-		m_C2->SetRadian ( m_angle0 );
-
-		m_angle1 += m_omega1;
-		m_C1->SetRadian ( m_angle1 );
-
-		m_angle0 += m_omega0;
-		m_C0->SetRadian ( m_angle0 );
-
-#endif // 0
-
+		
 		TASK_VEC::Move ();
 	}
 
 	void CharaSele_Player_Actor::Input_CharaPick ()
 	{
 		//上下でキャラ変更
-		if ( CFG_PUSH_KEY_PL ( m_id, PLY_UP ) )
+		if ( CFG_PUSH_KEY_PL ( m_input_id, PLY_UP ) )
 		{
 			m_ch_stand->Prev_Chara ();
 			CHARA_NAME name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
 			m_ch_face->Assign ( name );
 			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
-		if ( CFG_PUSH_KEY_PL ( m_id, PLY_DOWN ) )
+		if ( CFG_PUSH_KEY_PL ( m_input_id, PLY_DOWN ) )
 		{
 			m_ch_stand->Next_Chara ();
 			CHARA_NAME name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
@@ -227,14 +174,14 @@ namespace GAME
 			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 		//左右でカラー変更
-		if ( CFG_PUSH_KEY_PL ( m_id, PLY_LEFT ) )
+		if ( CFG_PUSH_KEY_PL ( m_input_id, PLY_LEFT ) )
 		{
 			m_ch_stand->Prev_Color ();
 			CHARA_NAME name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
 			m_ch_face->Assign ( name );
 			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
-		if ( CFG_PUSH_KEY_PL ( m_id, PLY_RIGHT ) )
+		if ( CFG_PUSH_KEY_PL ( m_input_id, PLY_RIGHT ) )
 		{
 			m_ch_stand->Next_Color ();
 			CHARA_NAME name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
@@ -243,11 +190,11 @@ namespace GAME
 		}
 
 		//ボタンで決定
-		if ( CFG_PUSH_KEY_PL ( m_id, PLY_BTN0 ) )
+		if ( CFG_PUSH_KEY_PL ( m_input_id, PLY_BTN0 ) )
 		{
 			m_pParam->GetGameSetting().Save ();	//ファイルに保存
 
-			Change_CharaPick_to_Menu ();
+			Change_CharaPick_to_Decide ();
 			AUD_PLAY_ONESHOT_SE ( SE_select_decide );
 		}
 	}
@@ -268,37 +215,62 @@ namespace GAME
 	void CharaSele_Player_Actor::Set_Wait ()
 	{
 		m_state = mp_sttWait;
+		m_pickFrame->Wait ();
 	}
 
 	void CharaSele_Player_Actor::Set_Active ()
 	{
 		m_state = mp_sttActive;
+		m_wait = 1;
+		m_pickFrame->Start ();
+	}
+
+
+	//決定
+	void CharaSele_Player_Actor::Change_CharaPick_to_Decide ()
+	{
+		m_state = mp_sttDecide;
+
+		m_pickFrame->Decide ();
+
+		//決定後、反対側を操作するかどうか
+#if 0
+//		PLAYER_ID other_id = ( PLAYER_ID_1 == m_id ) ? PLAYER_ID_2: PLAYER_ID_1;
+//		PLAYER_ID input_id = mwp_Main.lock()->GetInputPlayer( other_id );
+		//反対側が待機状態なら入力受付開始
+		if ( mwp_Main.lock()->IsWait ( other_id ) )
+		{
+			 mwp_Main.lock()->StartInput ( other_id );
+		}
+#endif // 0
+
+		//反対側入力ID
+		PLAYER_ID input_id = mwp_Other.lock()->GetInputPlayer();
+		if ( input_id == m_id )
+		{
+			//反対側が待機状態なら入力受付開始
+			if ( mwp_Other.lock()->Is_Wait () )
+			{
+				mwp_Other.lock()->Set_Active ();
+			}
+		}
+		
 	}
 
 	void CharaSele_Player_Actor::Change_CharaPick_to_Menu ()
 	{
 		m_state = mp_sttMenu;
 
-#if 0
-		//高速回転
-		if ( PLAYER_ID_1 == m_id )
-		{
-			m_omega1 = -0.5f;
-			m_omega0 =  0.5f;
-		}
-		else if ( PLAYER_ID_2 == m_id )
-		{
-
-			m_omega1 =  0.5f;
-			m_omega0 = -0.5f;
-		}
-#endif // 0
 		m_pickFrame->Decide ();
 	}
 
+	bool CharaSele_Player_Actor::Is_Wait () const
+	{
+		return ( m_state == mp_sttWait );
+	}
 	bool CharaSele_Player_Actor::Is_Decided () const
 	{
-		return ( m_state == mp_sttMenu );
+		return ( m_state == mp_sttDecide );
 	}
 
 

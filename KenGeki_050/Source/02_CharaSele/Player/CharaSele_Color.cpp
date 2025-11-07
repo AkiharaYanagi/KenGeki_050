@@ -34,7 +34,7 @@ namespace GAME
 
 
 		//値
-		m_color_bx = 427;	//基準位置(端からの距離)
+		m_color_bx = 435;	//基準位置(端からの距離)
 
 		m_arrow_bx = m_color_bx + 40;	//基準位置
 		m_arrow_by = 960 - 52;
@@ -68,7 +68,7 @@ namespace GAME
 		if ( PLAYER_ID_1 == m_id )
 		{
 			//P1はテクスチャ向き逆(文字はそのまま)
-			m_color->SetPos ( VEC2( 0 + cx - w, y + 2 ) );
+			m_color->SetPos ( VEC2( 0 + cx - w, y + 0 ) );
 			//m_color->SetScaling ( -1, 1 );	//逆向
 
 			m_arrow->SetPos ( VEC2( 0 + ax, y ) );
@@ -81,7 +81,7 @@ namespace GAME
 		else if ( PLAYER_ID_2 == m_id )
 		{
 			//P2がテクスチャ向き正
-			m_color->SetPos ( VEC2( 1280 - cx, y + 2 ) );
+			m_color->SetPos ( VEC2( 1280 - cx, y + 0 ) );
 
 			m_arrow->SetPos ( VEC2( 1280 - ax, y ) );
 			P_Ob pob = m_arrow->GetpObject ( 1 );

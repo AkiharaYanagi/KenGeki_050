@@ -174,30 +174,6 @@ namespace GAME
 		m_plrActor_1p->SetpParam ( p );
 		m_plrActor_2p->SetpParam ( p );
 
-#if 0
-
-		//プレイヤーCPU操作表示
-		PLAYER_MODE plMode1p = stg.GetPlayerMode1p ();
-		if ( MODE_PLAYER == plMode1p )
-		{
-			m_pl_1p->SetIndexTexture ( PL_INDEX_1P );
-		}
-		else if ( MODE_CPU == plMode1p )
-		{
-			m_pl_1p->SetIndexTexture ( PL_INDEX_CPU );
-		}
-		PLAYER_MODE plMode2p = p->GetGameSetting ().GetPlayerMode2p ();
-		if ( MODE_PLAYER == plMode2p )
-		{
-			m_pl_2p->SetIndexTexture ( PL_INDEX_2P );
-		}
-		else if ( MODE_CPU == plMode2p )
-		{
-			m_pl_2p->SetIndexTexture ( PL_INDEX_CPU );
-		}
-
-#endif // 0
-
 		//対戦によって操作・表示切替
 		const GameSettingFile stg = p->GetGameSetting ();
 
@@ -298,8 +274,14 @@ namespace GAME
 		Scene::SetwpThis ( shared_from_this () );
 		//==================================================
 
+		//アクタに親ポインタを設定
 		m_plrActor_1p->SetwpCharaSeleMain ( shared_from_this () );
 		m_plrActor_2p->SetwpCharaSeleMain ( shared_from_this () );
+
+		//互いを設定
+		m_plrActor_1p->SetwpOther ( m_plrActor_2p );
+		m_plrActor_2p->SetwpOther ( m_plrActor_1p );
+
 
 		//SOUND
 		AUD_STOP_ALL_BGM();
@@ -400,6 +382,49 @@ namespace GAME
 		//通常時は自身を返す
 		//他のシーンが確保されたなら遷移する
 		return Scene::Transit ();
+	}
+
+	//指定アクタがどちらの操作か取得
+	PLAYER_ID CharaSele::GetInputPlayer ( PLAYER_ID id )
+	{
+		PLAYER_ID ret = PLAYER_ID_1;
+		if ( PLAYER_ID_1 == id )
+		{
+			ret = m_plrActor_1p->GetInputPlayer ();
+		}
+		else
+		{
+			ret = m_plrActor_2p->GetInputPlayer ();
+		}
+		return ret;
+	}
+
+	//入力開始
+	bool CharaSele::IsWait ( PLAYER_ID id ) const
+	{
+		bool ret = T;
+		if ( PLAYER_ID_1 == id )
+		{
+			ret = m_plrActor_1p->Is_Wait ();
+		}
+		else
+		{
+			ret = m_plrActor_2p->Is_Wait ();
+		}
+		return ret;
+	}
+
+	//入力開始
+	void CharaSele::StartInput ( PLAYER_ID id )
+	{
+		if ( PLAYER_ID_1 == id )
+		{
+			m_plrActor_1p->Set_Active ();
+		}
+		else
+		{
+			m_plrActor_2p->Set_Active ();
+		}
 	}
 
 

@@ -23,8 +23,8 @@ namespace GAME
 		m_bg->SetZ ( Z_BG );
 
 		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_hara_evening.png" );
-		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_hara_night.png" );
 		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_hara_noon.png" );
+		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_hara_night.png" );
 		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_school_morning.png" );
 		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_school_night.png" );
 		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_school_noon.png" );
@@ -35,6 +35,15 @@ namespace GAME
 
 	CharaSele_Stage::~CharaSele_Stage ()
 	{
+	}
+
+
+	void CharaSele_Stage::SetpParam ( P_Param p )
+	{
+		m_pParam = p;
+		STAGE_NAME name = p->GetGameSetting ().GetStage_Name ();
+		m_index = static_cast < INT32 > ( name );
+		m_bg->SetIndexTexture ( m_index );
 	}
 
 	void CharaSele_Stage::Load ()

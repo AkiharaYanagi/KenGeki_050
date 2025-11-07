@@ -10,6 +10,7 @@
 #include "Title.h"
 #include "../90_GameMain/SeConst.h"
 #include "../90_GameMain/VoiceConst.h"
+#include "../90_GameMain/DebugDisp.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -169,11 +170,12 @@ namespace GAME
 		//now loading
 		if ( ! m_bLoading )
 		{
-#if 0
-			//全キャラデータを事前読込
-			// ここで読込しないとき、バトルメインでキャラの個別読込
-			GetpParam()->LoadCharaData_All ();
-#endif // 0
+			if ( g_bALL_CHARA_LOAD_IN_TITLE )
+			{
+				//全キャラデータを事前読込
+				// ここで読込しないとき、バトルメインでキャラの個別読込
+				GetpParam()->LoadCharaData_All ();
+			}
 
 			m_bLoading = T;
 			m_now_loading->SetValid ( F );

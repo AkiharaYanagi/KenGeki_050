@@ -83,7 +83,6 @@ namespace GAME
 		m_pauseMenu->SetwpParentScene ( shared_from_this () );
 
 #if 0
-
 		//BGM
 		P_Param pParam = Scene::GetpParam ();
 		BGM_ID bgm_id = pParam->Get_BGM_ID ();

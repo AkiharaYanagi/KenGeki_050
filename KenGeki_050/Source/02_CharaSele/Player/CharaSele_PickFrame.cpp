@@ -73,20 +73,6 @@ namespace GAME
 		{
 			m_arrow->SetPos ( VEC2 ( 1280 - 135 - 16, 763 ) );
 		}
-	}
-
-	void CharaSele_PickFrame::SetpParam ( P_Param p )
-	{
-		m_pParam = p;
-	}
-
-	void CharaSele_PickFrame::Load ()
-	{
-		TASK_VEC::Load ();
-	}
-
-	void CharaSele_PickFrame::Init ()
-	{
 		//位置の設定
 		if ( PLAYER_ID_1 == m_id )
 		{
@@ -131,6 +117,20 @@ namespace GAME
 			m_omega0 = -0.005f;
 		}
 
+	}
+
+	void CharaSele_PickFrame::SetpParam ( P_Param p )
+	{
+		m_pParam = p;
+	}
+
+	void CharaSele_PickFrame::Load ()
+	{
+		TASK_VEC::Load ();
+	}
+
+	void CharaSele_PickFrame::Init ()
+	{
 		TASK_VEC::Init ();
 	}
 
@@ -149,6 +149,46 @@ namespace GAME
 
 	}
 
+	void CharaSele_PickFrame::Wait ()
+	{
+		//回転停止
+		if ( PLAYER_ID_1 == m_id )
+		{
+			m_omega2 = 0;
+			m_omega1 = 0;
+			m_omega0 = 0;
+		}
+		else if ( PLAYER_ID_2 == m_id )
+		{
+			m_omega2 = 0;
+			m_omega1 = 0;
+			m_omega0 = 0;
+		}
+
+		//矢印消去
+		m_arrow->Off ();
+	}
+
+	void CharaSele_PickFrame::Start ()
+	{
+		//通常回転
+		if ( PLAYER_ID_1 == m_id )
+		{
+			m_omega2 =  0.005f;
+			m_omega1 = -0.005f;
+			m_omega0 =  0.005f;
+		}
+		else if ( PLAYER_ID_2 == m_id )
+		{
+			m_omega2 = -0.005f;
+			m_omega1 =  0.005f;
+			m_omega0 = -0.005f;
+		}
+
+		//矢印消去
+		m_arrow->On ();
+	}
+
 	void CharaSele_PickFrame::Decide ()
 	{
 		//高速回転
@@ -159,10 +199,12 @@ namespace GAME
 		}
 		else if ( PLAYER_ID_2 == m_id )
 		{
-
 			m_omega1 =  0.5f;
 			m_omega0 = -0.5f;
 		}
+
+		//矢印消去
+		m_arrow->Off ();
 	}
 
 

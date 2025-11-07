@@ -22,6 +22,8 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+	using WP_ChPl_Actor = std::weak_ptr < CharaSele_Player_Actor >;
+
 
 	class CharaSele_Player_Actor	: public TASK_VEC, public std::enable_shared_from_this < CharaSele_Player_Actor >
 	{
@@ -33,6 +35,9 @@ namespace GAME
 
 		//親オブジェクト
 		WP_ChSl			mwp_Main;
+
+		//反対側ポインタ
+		WP_ChPl_Actor	mwp_Other;
 
 		//保存用共通パラメータ
 		P_Param			m_pParam;
@@ -55,6 +60,9 @@ namespace GAME
 		P_ChSl_Fc				m_ch_face;		//キャラ顔
 		P_CharaSele_Color		m_ch_color;		//カラー
 
+		//待機移行時の１フレーム待ち
+		INT32	m_wait { 0 };
+
 	public:
 		CharaSele_Player_Actor ();
 		CharaSele_Player_Actor ( const CharaSele_Player_Actor & rhs ) = delete;
@@ -71,8 +79,12 @@ namespace GAME
 		//親オブジェクト設定
 		void SetwpCharaSeleMain ( WP_ChSl wp );
 
+		//反対側プレイヤー設定
+		void SetwpOther ( WP_ChPl_Actor wp ) { mwp_Other = wp; }
+
 		//操作プレイヤー側指定
 		void SetInputPlayer ( PLAYER_ID id );
+		PLAYER_ID GetInputPlayer () const { return m_input_id; }
 
 		//State別
 		void Input_CharaPick ();
@@ -81,8 +93,10 @@ namespace GAME
 		//State変更
 		void Set_Wait ();
 		void Set_Active ();
+		void Change_CharaPick_to_Decide ();
 		void Change_CharaPick_to_Menu ();
 
+		bool Is_Wait() const;
 		bool Is_Decided () const;
 
 	private:

@@ -81,6 +81,13 @@ namespace GAME
 		void Menu_Prev () { m_menu->Prev(); }
 		P_GameScene Transit () override;
 
+		//指定アクタがどちらの操作か取得
+		PLAYER_ID GetInputPlayer ( PLAYER_ID id );
+
+		bool IsWait ( PLAYER_ID id ) const;
+		//入力開始
+		void StartInput ( PLAYER_ID id );
+
 
 	private:
 		P_Grp MakepGrp ( const s3d::String & filename, float z );

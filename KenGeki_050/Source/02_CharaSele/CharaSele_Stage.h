@@ -33,7 +33,7 @@ namespace GAME
 		CharaSele_Stage ( const CharaSele_Stage & rhs ) = delete;
 		~CharaSele_Stage ();
 
-		void SetpParam ( P_Param p ) { m_pParam = p; }
+		void SetpParam ( P_Param p );
 		void Load ();
 		void Move ();
 

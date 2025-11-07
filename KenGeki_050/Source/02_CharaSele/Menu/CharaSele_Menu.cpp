@@ -28,67 +28,15 @@ namespace GAME
 		AddpTask ( m_part_upper );
 		GRPLST_INSERT ( m_part_upper );
 
-#if 0
-		m_part_upper_item = std::make_shared < GameGraphic > ();
-		m_part_upper_item->SetPos ( 640 - 248 / 2, 150 );
-		m_part_upper_item->AddTexture_FromArchive ( U"Item.png" );
-		AddpTask ( m_part_upper_item );
-		GRPLST_INSERT ( m_part_upper_item );
-#endif // 0
-
-
-		//矢印
-
-#if 0
-
-		m_arrow = std::make_shared < GameGraphic > ();
-		m_arrow->AddTexture_FromArchive ( U"CharaSele\\Arrow.png" );
-		AddpTask ( m_arrow );
-		GRPLST_INSERT ( m_arrow );
-
-		//矢印にオブジェクトを増やす
-		m_arrow->AddObject ();
-		m_arrow->AddObject ();
-		m_arrow->AddObject ();
-
-		for ( int i = 0; i < 4; ++ i )
-		{
-			m_aryPob [ i ] = m_arrow->GetpObject ( i );
-		}
-
-		float by = 175;
-		m_aryBasePos.push_back (  VEC2 ( 1280 / 2 - 18 / 2 - 150, by ) );
-		m_aryBasePos.push_back (  VEC2 ( 1280 / 2 - 18 / 2		 , by - 50 ));
-		m_aryBasePos.push_back (  VEC2 ( 1280 / 2 - 18 / 2 + 150, by ) );
-		m_aryBasePos.push_back (  VEC2 ( 1280 / 2 - 18 / 2		 , by + 50 ));
-
-		for ( int i = 0; i < m_aryBasePos.size (); ++ i )
-		{
-			m_aryPob [ i ]->SetPos ( m_aryBasePos [ i ] );
-			m_aryPob [ i ]->SetRotationCenter ( VEC2 ( 18 / 2, 31 * 0.5f ) );
-			m_aryPob [ i ]->SetRadian ( D3DX_PI_HALF * i );	//[0] [<] が正
-		}
-
-		//[0] [<] が正
-		//	  3
-		//	0   2
-		//	  1
-
-
-		m_arrow_frq = 0.15f;
-		m_arrow_w = 3.f;
-
-
-
-#endif // 0
 
 		//選択矢印
 		m_arrow = std::make_shared < SelectArrow > ( SelectArrow::DIR::UP_DOWN, Z_MENU );
 		m_arrow->SetPos ( VEC2 ( 1280 / 2 - 18 / 2, 175 ) );
-		m_arrow->SetH ( 50 );
+		m_arrow->SetH ( 100 );
 		AddpTask ( m_arrow );
 
 		//----------------------------------------------------------
+		//項目
 		m_Item = std::make_shared < GameGraphic > ();
 		AddpTask ( m_Item );
 		GRPLST_INSERT ( m_Item );

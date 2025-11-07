@@ -21,16 +21,24 @@ namespace GAME
 	//====================================================
 	//ゲーム内ウィンドウへのデバッグ表示切替
 
-//	const bool g_bDEBUG_DISP = T;
-	const bool g_bDEBUG_DISP = F;
+	const bool g_bDEBUG_DISP = T;
+//	const bool g_bDEBUG_DISP = F;
 	//====================================================
 
 
 	//====================================================
 	//デバッグ用コマンドプロンプト表示切替
 
-//	const bool g_bCMDPRMPT_DISP = T;
-	const bool g_bCMDPRMPT_DISP = F;
+	const bool g_bCMDPRMPT_DISP = T;
+//	const bool g_bCMDPRMPT_DISP = F;
+	//====================================================
+
+
+	//====================================================
+	//タイトル画面で全キャラ読込
+
+//	const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
+	const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
 	//====================================================
 
 
