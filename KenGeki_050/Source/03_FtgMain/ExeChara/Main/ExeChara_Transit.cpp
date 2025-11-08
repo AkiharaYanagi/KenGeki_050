@@ -105,6 +105,11 @@ namespace GAME
 		m_pCharaInput->MakeTransitIDList ( *m_pChara, m_pScript, m_btlPrm.GetDirRight () );
 		const V_UINT32 & vCompID = m_pCharaInput->GetvCompID ();
 
+		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
+		{
+			DBGOUT_WND_F ( DBGOUT_9, U"vCompID.size = {}"_fmt( vCompID.size() ) );
+		}
+
 		uint32 transitID = (uint32)NO_COMPLETE;
 		for ( UINT id : vCompID )
 		{

@@ -30,9 +30,11 @@ namespace GAME
 
 
 		//選択矢印
-		m_arrow = std::make_shared < SelectArrow > ( SelectArrow::DIR::UP_DOWN, Z_MENU );
+		m_arrow = std::make_shared < SelectArrow > ( SelectArrow::DIR::LEFT_RIGHT, Z_MENU );
+//		m_arrow = std::make_shared < SelectArrow > ( SelectArrow::DIR::UP_DOWN, Z_MENU );
+//		m_arrow->SetH ( 100 );
+		m_arrow->SetW ( 305 );
 		m_arrow->SetPos ( VEC2 ( 1280 / 2 - 18 / 2, 175 ) );
-		m_arrow->SetH ( 100 );
 		AddpTask ( m_arrow );
 
 		//----------------------------------------------------------
@@ -45,6 +47,12 @@ namespace GAME
 		m_Item->AddTexture_FromArchive ( U"CharaSele\\Menu\\ChSl_Round.png" );
 		m_Item->AddTexture_FromArchive ( U"CharaSele\\Menu\\ChSl_Cmd.png" );
 		m_Item->AddTexture_FromArchive ( U"CharaSele\\Menu\\ChSl_Volume.png" );
+#if 0
+		m_Item->AddTexture_FromArchive ( U"1_1_transparent.png" );
+		m_Item->AddTexture_FromArchive ( U"1_1_transparent.png" );
+		m_Item->AddTexture_FromArchive ( U"1_1_transparent.png" );
+		m_Item->AddTexture_FromArchive ( U"1_1_transparent.png" );
+#endif // 0
 
 		s3d::Array < VEC2 > aryPos =
 		{
@@ -81,6 +89,20 @@ namespace GAME
 			++ index;
 		}
 
+
+		m_Btn5 = std::make_shared < GameGraphic > ();
+		m_Btn5->AddTexture_FromArchive ( U"CharaSele\\ChSl_Btn5.png" );
+		m_Btn5->SetPos ( 640 - 180 - 113 / 2, 145 );
+		m_Btn5->SetZ ( Z_MENU );
+		AddpTask ( m_Btn5 );
+		GRPLST_INSERT ( m_Btn5 );
+
+		m_Btn6 = std::make_shared < GameGraphic > ();
+		m_Btn6->AddTexture_FromArchive ( U"CharaSele\\ChSl_Btn6.png" );
+		m_Btn6->SetPos ( 640 + 240 / 2, 145 );
+		m_Btn6->SetZ ( Z_MENU );
+		AddpTask ( m_Btn6 );
+		GRPLST_INSERT ( m_Btn6 );
 	}
 
 	CharaSele_Menu::~CharaSele_Menu ()
@@ -95,8 +117,8 @@ namespace GAME
 	void CharaSele_Menu::Move ()
 	{
 		//円盤回転
-		m_angle += m_omega;
-		m_part_upper_back->SetRadian ( m_angle );
+//		m_angle += m_omega;
+//		m_part_upper_back->SetRadian ( m_angle );
 
 #if 0
 

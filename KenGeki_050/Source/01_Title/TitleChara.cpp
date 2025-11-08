@@ -16,30 +16,21 @@ namespace GAME
 {
 	TitleChara::TitleChara ()
 	{
-		m_chara = std::make_shared < GameGraphic > ();
-#if 0
-#endif // 0
-		m_chara->AddTexture_FromArchive ( U"Title\\CutIn_Ouka_1p.png" );
-		m_chara->AddTexture_FromArchive ( U"Title\\CutIn_Sae_1p.png" );
-		m_chara->AddTexture_FromArchive ( U"Title\\CutIn_Retsu_1p.png" );
-		m_chara->AddTexture_FromArchive ( U"Title\\CutIn_Fera_1p.png" );
-		AddpTask ( m_chara );
-		GRPLST_INSERT ( m_chara );
+		m_chara_1p = std::make_shared < GameGraphic > ();
+		m_chara_1p->AddTexture ();	//テクスチャ指定のため１つ確保
+		AddpTask ( m_chara_1p );
+		GRPLST_INSERT ( m_chara_1p );
+		m_chara_1p->SetPos ( START_X_1P, 0 );
 
-		m_chara->AddObject ();
 
-		m_ob_1p = m_chara->GetpObject ( 0 );
-		m_ob_2p = m_chara->GetpObject ( 1 );
+		m_chara_2p = std::make_shared < GameGraphic > ();
+		m_chara_2p->AddTexture ();	//テクスチャ指定のため１つ確保
+		AddpTask ( m_chara_2p );
+		GRPLST_INSERT ( m_chara_2p );
 
-		m_start_pos_1p = VEC2 ( -900, 0 );
-		m_tx1 = -350;
-		m_ob_1p->SetPos ( m_start_pos_1p );
-
-		m_start_pos_2p = VEC2 ( 1280 - 950 + 900, 0 );
-		m_tx2 = 1280 - 950 + 350;
-		m_ob_2p->SetPos ( m_start_pos_2p );
-		m_ob_2p->SetScalingCenter ( VEC2 ( 950/2, 1000/2 ) );
-		m_ob_2p->SetScaling ( VEC2 ( -1, 1 ) );
+		m_chara_2p->SetPos ( START_X_2P, 0 );
+		m_chara_2p->SetScalingCenter ( VEC2 ( TX_W/2, 1000/2 ) );
+		m_chara_2p->SetScaling ( VEC2 ( -1, 1 ) );
 
 		m_vx = 50.f;
 
@@ -52,6 +43,23 @@ namespace GAME
 	{
 	}
 
+	void TitleChara::SetpParam ( P_Param p )
+	{
+		m_pParam = p;
+		const GameSettingFile stg = p->GetGameSetting ();
+
+		//最初は選択キャラ
+		CHARA_NAME name1p = stg.GetCharaName1p ();
+		CHARA_COLOR clr1p = stg.GetCharaColor1p ();
+		P_Tx ptx1p = p->GetpChara_TxSet()->GetpTx_CutIn ( name1p, clr1p );
+		m_chara_1p->AssignpTexture ( ptx1p );
+
+		CHARA_NAME name2p = stg.GetCharaName2p ();
+		CHARA_COLOR clr2p = stg.GetCharaColor2p ();
+		P_Tx ptx2p = p->GetpChara_TxSet()->GetpTx_CutIn ( name2p, clr2p );
+		m_chara_2p->AssignpTexture ( ptx2p );
+	}
+
 	void TitleChara::Load ()
 	{
 		TASK_VEC::Load ();
@@ -59,16 +67,7 @@ namespace GAME
 
 	void TitleChara::Init ()
 	{
-		m_x1 = m_start_pos_1p.x;
-		m_active1 = T;
-		m_ob_1p->SetIndexTexture ( s3d::Random(0,3) );
-
-		m_x2 = m_start_pos_2p.x;
-		m_active2 = T;
-		m_ob_2p->SetIndexTexture ( s3d::Random(0,3) );
-
-		m_tmr->Start ();
-
+		ResetChara ();
 		TASK_VEC::Init ();
 	}
 
@@ -76,9 +75,9 @@ namespace GAME
 	{
 		if ( m_active1 )
 		{
-			if ( m_x1 > m_tx1 + 50 )
+			if ( m_x1 > TARGET_X_1P + m_vx )
 			{
-				m_x1 = m_tx1;
+				m_x1 = TARGET_X_1P;
 				m_active1 = F;
 			}
 			else
@@ -89,9 +88,9 @@ namespace GAME
 
 		if ( m_active2 )
 		{
-			if ( m_x2 < m_tx2 - 50 )
+			if ( m_x2 < TARGET_X_2P - m_vx )
 			{
-				m_x2 = m_tx2;
+				m_x2 = TARGET_X_2P;
 				m_active2 = F;
 			}
 			else
@@ -100,27 +99,68 @@ namespace GAME
 			}
 		}
 
-		m_ob_1p->SetPosX ( m_x1 );
-		m_ob_2p->SetPosX ( m_x2 );
+		m_chara_1p->SetPosX ( m_x1 );
+		m_chara_2p->SetPosX ( m_x2 );
 
+
+		//test 手動変更
+		if ( CFG_PUSH_KEY_12 ( PLY_BTN5 ) )
+		{
+			CHARA_NAME name1p = static_cast < CHARA_NAME > ( s3d::Random(0,4) );
+			CHARA_COLOR clr1p = static_cast < CHARA_COLOR > ( s3d::Random(0,1) );
+			P_Tx ptx1p = m_pParam->GetpChara_TxSet()->GetpTx_CutIn ( name1p, clr1p );
+			m_chara_1p->AssignpTexture ( ptx1p );
+
+			CHARA_NAME name2p = static_cast < CHARA_NAME > ( s3d::Random(0,4) );
+			CHARA_COLOR clr2p = static_cast < CHARA_COLOR > ( s3d::Random(0,1) );
+			P_Tx ptx2p = m_pParam->GetpChara_TxSet()->GetpTx_CutIn ( name2p, clr2p );
+			m_chara_2p->AssignpTexture ( ptx2p );
+		}
 
 #if 0
-		if ( CFG_PUSH_KEY_12 ( PLY_BTN0 ) )
-		{
-			Init();
-		}
 #endif // 0
 
 		//タイマでリセット
 		if ( m_tmr->IsLast () )
 		{
-			Init ();
+			ResetChara ();
 			m_tmr->Start ();
 		}
 
 
 		TASK_VEC::Move ();
 	}
+
+	void TitleChara::ResetChara ()
+	{
+		m_x1 = START_X_1P;
+		m_active1 = T;
+		CHARA_NAME name1p = static_cast < CHARA_NAME > ( s3d::Random(0,4) );
+		CHARA_COLOR clr1p = static_cast < CHARA_COLOR > ( s3d::Random(0,1) );
+		P_Tx ptx1p = m_pParam->GetpChara_TxSet()->GetpTx_CutIn ( name1p, clr1p );
+		m_chara_1p->AssignpTexture ( ptx1p );
+
+		m_x2 = START_X_2P;
+		m_active2 = T;
+		CHARA_NAME name2p = static_cast < CHARA_NAME > ( s3d::Random(0,4) );
+		CHARA_COLOR clr2p = static_cast < CHARA_COLOR > ( s3d::Random(0,1) );
+		P_Tx ptx2p = m_pParam->GetpChara_TxSet()->GetpTx_CutIn ( name2p, clr2p );
+		m_chara_2p->AssignpTexture ( ptx2p );
+
+		m_tmr->Start ();
+
+	}
+
+
+
+#pragma region CONST
+	const float TitleChara::TX_W = 950;
+	const float TitleChara::START_X_1P = - 1000;
+	const float TitleChara::START_X_2P = 1280 - TX_W + 1000;
+	const float TitleChara::TARGET_X_1P = - 400;
+	const float TitleChara::TARGET_X_2P = 1280 - TX_W + 400;
+
+#pragma endregion
 
 
 }	//namespace GAME

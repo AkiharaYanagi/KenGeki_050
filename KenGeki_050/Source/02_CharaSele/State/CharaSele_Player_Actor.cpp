@@ -122,6 +122,8 @@ namespace GAME
 		CHARA_NAME name = p->GetGameSetting ().GetCharaName ( m_id );
 		m_ch_face->Assign ( name );
 		m_pickFrame->SetpParam ( p );
+		CHARA_COLOR clr = m_pParam->GetGameSetting ().GetCharaColor ( m_id );
+		m_ch_color->Assign ( clr );
 	}
 
 
@@ -177,15 +179,15 @@ namespace GAME
 		if ( CFG_PUSH_KEY_PL ( m_input_id, PLY_LEFT ) )
 		{
 			m_ch_stand->Prev_Color ();
-			CHARA_NAME name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
-			m_ch_face->Assign ( name );
+			CHARA_COLOR clr = m_pParam->GetGameSetting ().GetCharaColor ( m_id );
+			m_ch_color->Assign ( clr );
 			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 		if ( CFG_PUSH_KEY_PL ( m_input_id, PLY_RIGHT ) )
 		{
 			m_ch_stand->Next_Color ();
-			CHARA_NAME name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
-			m_ch_face->Assign ( name );
+			CHARA_COLOR clr = m_pParam->GetGameSetting ().GetCharaColor ( m_id );
+			m_ch_color->Assign ( clr );
 			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 
@@ -216,6 +218,7 @@ namespace GAME
 	{
 		m_state = mp_sttWait;
 		m_pickFrame->Wait ();
+		m_ch_color->Wait ();
 	}
 
 	void CharaSele_Player_Actor::Set_Active ()
@@ -223,6 +226,7 @@ namespace GAME
 		m_state = mp_sttActive;
 		m_wait = 1;
 		m_pickFrame->Start ();
+		m_ch_color->Active ();
 	}
 
 
@@ -232,6 +236,7 @@ namespace GAME
 		m_state = mp_sttDecide;
 
 		m_pickFrame->Decide ();
+		m_ch_color->Decide ();
 
 		//決定後、反対側を操作するかどうか
 #if 0

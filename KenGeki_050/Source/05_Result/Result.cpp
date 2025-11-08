@@ -309,6 +309,8 @@ namespace GAME
 		m_tmrEnd.Move ();
 		if ( m_tmrEnd.IsLast () )
 		{
+			AUD_PLAY_ONESHOT_SE ( SE_select_decide );
+
 			//デモモードのとき、タイトルにもどる
 			if ( GetpParam()->GetGameSetting().GetDemo () )
 			{
@@ -316,8 +318,6 @@ namespace GAME
 			}
 			else
 			{
-				AUD_PLAY_ONESHOT_SE ( SE_select_decide );
-
 				//フェード開始
 				m_fade_out->StartBlackOut ( 16 );
 			}

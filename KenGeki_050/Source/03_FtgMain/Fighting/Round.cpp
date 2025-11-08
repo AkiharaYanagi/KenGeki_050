@@ -164,7 +164,8 @@ namespace GAME
 
 	bool Round::IsEndMutch ()
 	{
-		return ( m_round_1p == m_targetRound || m_round_2p == m_targetRound );
+		//どちらかが目標値と同じか越えたら
+		return ( m_targetRound <= m_round_1p || m_targetRound <= m_round_2p );
 	}
 
 

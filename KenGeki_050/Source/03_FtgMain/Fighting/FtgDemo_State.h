@@ -210,6 +210,8 @@ namespace GAME
 	class FTG_DM_TimeUpWait : public FtgDemoState
 	{
 		P_GrpDemo		m_grpTimeUp;
+		P_Timer			m_timer;	//強制移行タイマ
+
 	public:
 		FTG_DM_TimeUpWait ();
 		FTG_DM_TimeUpWait ( const FTG_DM_TimeUpWait & rhs ) = delete;

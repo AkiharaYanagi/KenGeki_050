@@ -567,10 +567,10 @@ namespace GAME
 			for (UINT32 iCmd = 0; iCmd < nCmd; ++ iCmd )
 			{
 				brc->NameCommand.Set ( m_utl.LoadS3dString ( buf, pos ) );
-			}
 
-			//条件コマンドインデックス
-			brc->IndexCommand.Set ( m_utl.LoadUInt ( buf, pos ) );
+				//条件コマンドインデックス
+				brc->IndexCommand.Set ( m_utl.LoadUInt ( buf, pos ) );
+			}
 
 			//遷移先シークエン名
 			brc->NameSequence.Set ( m_utl.LoadS3dString ( buf, pos ) );

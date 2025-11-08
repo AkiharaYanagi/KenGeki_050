@@ -28,7 +28,9 @@ namespace GAME
 		P_Tx	m_tx_Pad;
 
 		//キャラテクスチャ配列 [キャラ別][カラー]
+		//キャラセレ全身
 		P_GridTx		m_gridTxFullBody;	//FullBody
+		//立絵
 		P_GridTx		m_gridTxStand;		//Stand
 
 		//キャラテクスチャ配列 [キャラ名前]
@@ -53,6 +55,9 @@ namespace GAME
 
 		//名前テクスチャ
 		P_Tx GetpTx_Name ( CHARA_NAME name );
+
+		//カットイン
+		P_Tx GetpTx_CutIn ( CHARA_NAME name, CHARA_COLOR clr );
 	};
 
 	using P_Ch_TxSet = std::shared_ptr < Chara_TxSet >;

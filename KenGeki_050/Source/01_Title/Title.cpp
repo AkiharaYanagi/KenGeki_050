@@ -134,6 +134,16 @@ namespace GAME
 
 		//パラメータからデモ切換
 		m_demo->SetDemo ( stg.GetDemo() );
+		if ( m_demo->IsDemo () )
+		{
+			OffMenu ();
+		}
+		else
+		{	
+			OnMenu ();
+		}
+
+		m_chara->SetpParam ( pPrm );
 	}
 
 
@@ -206,15 +216,21 @@ namespace GAME
 		m_tmr_title_call->Move ();
 		if ( m_tmr_title_call->IsLast () )
 		{
-			int rnd = s3d::Random ( 0, 3 );
+#if 0
+			LPCUSTR vc_name = VC_04_FERARIA_TITLE_CALL;
+
+#endif // 0
+			int rnd = s3d::Random ( 0, 4 );
 			LPCUSTR vc_name = U"";
 			switch ( rnd )
 			{
 			case 0: vc_name = VC_00_SAE_TITLE_CALL; break;
 			case 1: vc_name = VC_01_RETSUDOU_TITLE_CALL; break;
 			case 2: vc_name = VC_02_OUKA_TITLE_CALL; break;
-			case 3: vc_name = VC_90_CONSOME_TITLE_CALL; break;
+			case 3: vc_name = VC_04_FERARIA_TITLE_CALL; break;
+			case 4: vc_name = VC_90_CONSOME_TITLE_CALL; break;
 			}
+
 			s3d::AudioAsset::Wait ( vc_name );
 			AUD_PLAY_ONESHOT_VC ( vc_name );
 		}
@@ -228,13 +244,15 @@ namespace GAME
 
 			if ( m_demo->IsDemo () )
 			{
-				OnMenu ();
-				m_menu->Off ();	
+				//OnMenu ();
+				//m_menu->Off ();	
+				OffMenu ();
 			}
 			else
 			{	
-				OffMenu ();
-				m_menu->On ();
+				//OffMenu ();
+				//m_menu->On ();
+				OnMenu ();
 			}
 
 			//パラメータに反映
@@ -351,6 +369,17 @@ namespace GAME
 		//デモ フェード待機開始
 		if ( m_demo->IsLast () )
 		{
+			//パラメータに反映
+			//すべてランダム
+			P_Param pParam = Scene::GetpParam ();
+			GameSettingFile & rGameStg = pParam->GetGameSetting();
+			rGameStg.SetCharaName_Rnd ();
+			rGameStg.SetCharaClr_Rnd ();
+			rGameStg.SetBGM_Rnd ();
+			rGameStg.SetStage_Rnd ();
+
+			rGameStg.SetDemo ( T );
+
 			AUD_STOP_ALL_BGM ();
 			SaveParam ();
 			Scene::Transit_Fighting ( MUTCH_MODE::MODE_CPU_CPU );

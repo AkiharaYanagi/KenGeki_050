@@ -516,6 +516,9 @@ namespace GAME
 		m_grpTimeUp->SetPos ( VEC2 ( ( WINDOW_WIDTH - 1024 ) * 0.5f, 400.f ) );
 		m_grpTimeUp->SetValid ( F );
 		m_grpTimeUp->SetEnd ( 120 );
+
+		m_timer = std::make_shared < Timer > ( 240 );
+		m_timer->Start ();
 	}
 
 	void FTG_DM_TimeUpWait::Start ()
@@ -530,7 +533,8 @@ namespace GAME
 		bool bDispOff = ! m_grpTimeUp->GetValid ();
 
 		//両者待機状態かつ表示終了時
-		if ( bWait && bDispOff )
+		//または時間で強制
+		if ( ( bWait && bDispOff ) || ( m_timer->IsLast () ) )
 		{
 			//タイムアップ
 			GetwpFtgDemoActor ().lock ()->Change_Main_To_TimeUp ();

@@ -152,6 +152,11 @@ namespace GAME
 		}
 	}
 
+	void CharaSele_Color::Assign ( CHARA_COLOR clr )
+	{
+		m_color->SetIndexTexture ( static_cast < int > ( clr ) );
+	}
+
 
 }	//namespace GAME
 

@@ -296,12 +296,12 @@ namespace GAME
 		Input ();
 
 		//ステージ選択
-		if ( CFG_PUSH_KEY_12 ( PLY_BTN1 ) )
+		if ( CFG_PUSH_KEY_12 ( PLY_BTN4 ) )
 		{
 			m_stage->Next ();
 			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
-		if ( CFG_PUSH_KEY_12 ( PLY_BTN2 ) )
+		if ( CFG_PUSH_KEY_12 ( PLY_BTN5 ) )
 		{
 			m_stage->Prev ();
 			AUD_PLAY_ONESHOT_SE ( SE_select_move );
@@ -357,6 +357,21 @@ namespace GAME
 				m_fade_toFighting->StartBlackOut ( 8 );
 			}
 		}
+
+		//タイマで強制移行
+		if ( m_battleTime->IsTimeUp () )
+		{
+			if ( ! m_fade_toFighting->IsActive () )
+			{
+				m_plrActor_1p->Change_CharaPick_to_Decide ();
+				m_plrActor_2p->Change_CharaPick_to_Decide ();
+				AUD_PLAY_ONESHOT_SE ( SE_Sys_Enter );
+				//フェード開始
+				m_fade_toFighting->Reset ();
+				m_fade_toFighting->StartBlackOut ( 8 );
+			}
+		}
+
 		//戦闘に移行
 		if ( m_fade_toFighting->IsLast () )
 		{

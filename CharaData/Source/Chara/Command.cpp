@@ -41,7 +41,8 @@ namespace GAME
 	bool Command::Compare( const A_GK & aGk, bool dirRight )
 	{
 		//キー配列長さか、コマンド受付時間の短い方で検索
-		UINT32 len = (UINT32)ma_Gkc.size();
+//		UINT32 len = (UINT32)ma_Gkc.size();	//コマンド長さ
+		UINT32 len = (UINT32)aGk.size();	//ゲーム入力保存長さ
 		UINT32 lmt_tm = LimitTime.Get();
 		UINT32 frame = ( lmt_tm < len ) ? lmt_tm: len;
 

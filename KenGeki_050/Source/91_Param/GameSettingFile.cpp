@@ -153,6 +153,12 @@ namespace GAME
 		if ( pid == PLAYER_ID_2 ) { m_name2p = name; }
 	}
 
+	void GameSettingFile::SetCharaName_Rnd ()
+	{
+		m_name1p = static_cast < CHARA_NAME > ( s3d::Random ( 0, 4 ) );
+		m_name2p = static_cast < CHARA_NAME > ( s3d::Random ( 0, 4 ) );
+	}
+
 	//プレイヤ別　キャラカラー
 	CHARA_COLOR GameSettingFile::GetCharaColor ( PLAYER_ID pid ) const
 	{
@@ -165,6 +171,26 @@ namespace GAME
 	{
 		if ( pid == PLAYER_ID_1 ) { m_color1p = clr; }
 		if ( pid == PLAYER_ID_2 ) { m_color2p = clr; }
+	}
+
+	void GameSettingFile::SetCharaClr_Rnd ()
+	{
+		m_color1p = static_cast < CHARA_COLOR > ( s3d::Random ( 0, 1 ) );
+		m_color2p = static_cast < CHARA_COLOR > ( s3d::Random ( 0, 1 ) );
+	}
+
+	//BGM
+	void GameSettingFile::SetBGM_Rnd ()
+	{
+		//NONEだけ弾く
+		int i = s3d::Random ( 1, 5 );
+		m_bgm_id = static_cast < BGM_ID > ( i );
+	}
+
+	//Stage
+	void GameSettingFile::SetStage_Rnd ()
+	{
+		m_stage_name = static_cast < STAGE_NAME > ( s3d::Random ( 0, 8 ) );
 	}
 
 

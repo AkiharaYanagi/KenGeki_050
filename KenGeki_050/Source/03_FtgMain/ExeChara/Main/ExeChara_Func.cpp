@@ -94,9 +94,9 @@ namespace GAME
 				//@info アクセルゲージ消費で移項可能かチェック
 
 				//現在値と比較
-				const int COST = 500;
+				const int COST = 50;
 				int accel = pOther->m_btlPrm.GetAccel ();
-				if ( accel < ACCEL_MIN + 500 )
+				if ( accel < ACCEL_MIN + 50 )
 				{
 					//足りないとき遷移しない
 				}
@@ -106,6 +106,7 @@ namespace GAME
 					pOther->m_btlPrm.AddAccel ( -1 * COST );
 
 					//成立時
+					accRecoil += -10;
 					accRecoil *= 10;
 					accRecoil += -10;
 

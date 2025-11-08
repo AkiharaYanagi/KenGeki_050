@@ -53,13 +53,14 @@ namespace GAME
 		if ( pEffect->Name.Is ( U"4L_Shot" ) ) { pExeEffect->SetShader ( F ); }
 
 
+		//相殺やヒットで消えない
+//		if ( pEffect->Name.Is ( U"空中竜巻_鞘" ) ) { pExeEffect->SetImmortal ( T ); }
+		//@todo 攻撃判定が残るのをどうするか
 
-		if ( pEffect->Name.Is ( U"4H_Shot" ) )
-		{
-			pExeEffect->SetImmortal ( T );
-		}
+		if ( pEffect->Name.Is ( U"4H_Shot" ) ) { pExeEffect->SetImmortal ( T ); }
 
 
+		//特殊
 		if ( pEffect->Name.Is ( U"4M_Shot" ) )
 		{
 			int x = (int)pEfGnrt->Pos.Get().x;

@@ -45,6 +45,9 @@ namespace GAME
 		s3d::Array < VEC2 >		m_posItem;	//位置
 		UINT32		m_pos { 0 };
 
+		P_Grp		m_Btn5;
+		P_Grp		m_Btn6;
+
 
 	public:
 		CharaSele_Menu ();

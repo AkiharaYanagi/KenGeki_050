@@ -9,6 +9,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
+#include "../../90_GameMain/GameConst.h"
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
@@ -46,6 +47,13 @@ namespace GAME
 
 		void Next ();
 		void Prev ();
+
+		void Assign ( CHARA_COLOR clr );
+
+		void Wait () { m_arrow->SetValid ( F ); }
+		void Active () { m_arrow->SetValid ( T ); }
+		void Decide () { m_arrow->SetValid ( F ); }
+
 	};
 
 	using P_CharaSele_Color = std::shared_ptr < CharaSele_Color >;

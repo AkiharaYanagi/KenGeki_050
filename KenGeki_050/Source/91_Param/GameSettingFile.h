@@ -84,6 +84,8 @@ namespace GAME
 		void SetCharaName1p ( CHARA_NAME name ) { m_name1p = name; }
 		void SetCharaName2p ( CHARA_NAME name ) { m_name2p = name; }
 
+		void SetCharaName_Rnd();
+
 		//キャラカラー
 		CHARA_COLOR GetCharaColor ( PLAYER_ID pid ) const;
 		CHARA_COLOR GetCharaColor1p() const { return m_color1p; }
@@ -92,14 +94,20 @@ namespace GAME
 		void SetCharaColor1p ( CHARA_COLOR clr ) { m_color1p = clr; }
 		void SetCharaColor2p ( CHARA_COLOR clr ) { m_color2p = clr; }
 
+		void SetCharaClr_Rnd();
+
 		//デモ (設定ファイルにも記録)
 		GET_SET ( bool, GetDemo, SetDemo, m_demo )
 		 
 		//BGM
 		GET_SET ( BGM_ID, GetBGM_ID, SetBGM_ID, m_bgm_id )
+
+		void SetBGM_Rnd();
 		 
 		//Stage
 		GET_SET ( STAGE_NAME, GetStage_Name, SetStage_Name, m_stage_name )
+		 
+		void SetStage_Rnd();
 		 
 		//-----------------------------------------
 
