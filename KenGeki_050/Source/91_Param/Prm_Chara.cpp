@@ -38,6 +38,7 @@ namespace GAME
 
 	constexpr char32_t CHARA_IMG1_GABA []	= U"Chara\\Gabadaruga_1p_bhv.lz4";
 	constexpr char32_t CHARA_IMG2_GABA []	= U"Chara\\Gabadaruga_2p_bhv.lz4";
+//	constexpr char32_t CHARA_IMG2_GABA []	= U"Chara\\Gabadaruga_2p_bhv.lz4";
 
 	constexpr char32_t CHARA_IMG1_FERA []	= U"Chara\\Ferallia_1p_bhv.lz4";
 	constexpr char32_t CHARA_IMG2_FERA []	= U"Chara\\Ferallia_2p_bhv.lz4";
@@ -107,10 +108,11 @@ namespace GAME
 		m_papTx_clr1 = lif.LoadLz4_Bhv ( m_filename_img_1p );
 
 		//2p
+#if 0
 		//test
 		m_papTx_clr2 = m_papTx_clr1;
-#if 0
 
+#endif // 0
 		
 		//1p2p同じファイル名のとき既存データ利用
 		s3d::String clr1 ( m_filename_img_1p );
@@ -124,7 +126,6 @@ namespace GAME
 			m_papTx_clr2 = lif.LoadLz4_Bhv ( m_filename_img_2p );
 		}
 
-#endif // 0
 
 		//キャラに設置(初期値1p)
 		m_pChara->SetpapTx_Main ( m_papTx_clr1 );

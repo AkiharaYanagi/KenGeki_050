@@ -124,10 +124,20 @@ namespace GAME
 		AddpTask ( m_battleTime );
 		m_battleTime->Start ();
 
-		m_battleTime->SetPos_BG ( VEC2 ( (1280 / 2) - (185 / 2), 0 ) );
+		m_battleTime->SetPos_BG ( VEC2 ( (1280 / 2) - (185 / 2), 10 ) );
 		m_battleTime->SetPos_Digit ( VEC2 { 16 + (1280 * 0.5f) - (128 / 2), 15 } );
 		m_battleTime->SetZ ( Z_SYS );
 		m_battleTime->ValidBG ( F );
+
+
+		//BGM
+		m_bgmName = MakepGrp ( U"1_1_transparent.png", Z_EFF );
+		m_bgmName->SetPos ( 640 - 303.f/2, 2 );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Gaba.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Ouka.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Sae.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Retsudou.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_FERARIA.png" );
 
 
 		//保存用共通パラメータ
@@ -197,6 +207,8 @@ namespace GAME
 			SwitchMode ();
 		}
 
+		BGM_ID bgm_id = m_pParam->GetGameSetting().GetBGM_ID ();
+		m_bgmName->SetIndexTexture ( bgm_id );
 	}
 
 	void CharaSele::SwitchMode()
@@ -305,6 +317,37 @@ namespace GAME
 		{
 			m_stage->Prev ();
 			AUD_PLAY_ONESHOT_SE ( SE_select_move );
+		}
+
+
+		//BGM選択
+		if ( CFG_PUSH_KEY_12 ( PLY_BTN2 ) )
+		{
+			GameSettingFile& stg = m_pParam->GetGameSetting();
+			stg.NextBGM ();
+			m_bgmName->SetIndexTexture (stg.GetBGM_ID () );
+
+			//BGMなし以外は再生開始
+			AUD_STOP_ALL_BGM ();
+			BGM_ID bgm_id = m_pParam->Get_BGM_ID ();
+			if ( BGM_ID_NONE != bgm_id )
+			{
+				AUD_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+			}
+		}
+		if ( CFG_PUSH_KEY_12 ( PLY_BTN3 ) )
+		{
+			GameSettingFile& stg = m_pParam->GetGameSetting();
+			stg.PrevBGM ();
+			m_bgmName->SetIndexTexture ( stg.GetBGM_ID () );
+
+			//BGMなし以外は再生開始
+			AUD_STOP_ALL_BGM ();
+			BGM_ID bgm_id = m_pParam->Get_BGM_ID ();
+			if ( BGM_ID_NONE != bgm_id )
+			{
+				AUD_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+			}
 		}
 
 		Scene::Move ();

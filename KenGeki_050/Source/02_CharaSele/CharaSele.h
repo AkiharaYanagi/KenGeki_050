@@ -58,6 +58,9 @@ namespace GAME
 		//タイマ
 		P_BattleTime		m_battleTime;
 
+		//BGM
+		P_Grp	m_bgmName;
+
 		//保存用共通パラメータ
 		P_Param			m_pParam;
 

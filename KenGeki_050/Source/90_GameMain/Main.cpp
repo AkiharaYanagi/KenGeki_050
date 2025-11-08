@@ -101,6 +101,7 @@ void Init ()
 {
 	//ウィンドウ設定
 	GameInit gameInit;
+	gameInit.SetStartCursorPos ( F );
 	gameInit.Do ();
 
 #if 0

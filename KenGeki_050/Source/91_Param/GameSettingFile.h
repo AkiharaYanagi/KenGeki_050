@@ -102,7 +102,9 @@ namespace GAME
 		//BGM
 		GET_SET ( BGM_ID, GetBGM_ID, SetBGM_ID, m_bgm_id )
 
-		void SetBGM_Rnd();
+		void SetBGM_Rnd ();
+		void NextBGM ();
+		void PrevBGM ();
 		 
 		//Stage
 		GET_SET ( STAGE_NAME, GetStage_Name, SetStage_Name, m_stage_name )

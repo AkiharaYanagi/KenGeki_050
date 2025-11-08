@@ -187,6 +187,30 @@ namespace GAME
 		m_bgm_id = static_cast < BGM_ID > ( i );
 	}
 
+	void GameSettingFile::NextBGM ()
+	{
+		switch ( m_bgm_id  )
+		{
+		case BGM_ID_NONE:	m_bgm_id = BGM_ID_GABA; break;
+		case BGM_ID_GABA:	m_bgm_id = BGM_ID_OUKA; break;
+		case BGM_ID_OUKA:	m_bgm_id = BGM_ID_RETSU; break;
+		case BGM_ID_RETSU:	m_bgm_id = BGM_ID_FERA; break;
+		case BGM_ID_FERA:	m_bgm_id = BGM_ID_NONE; break;
+		}
+	}
+
+	void GameSettingFile::PrevBGM ()
+	{
+		switch ( m_bgm_id  )
+		{
+		case BGM_ID_NONE:	m_bgm_id = BGM_ID_FERA; break;
+		case BGM_ID_GABA:	m_bgm_id = BGM_ID_NONE; break;
+		case BGM_ID_OUKA:	m_bgm_id = BGM_ID_GABA; break;
+		case BGM_ID_RETSU:	m_bgm_id = BGM_ID_OUKA; break;
+		case BGM_ID_FERA:	m_bgm_id = BGM_ID_RETSU; break;
+		}
+	}
+
 	//Stage
 	void GameSettingFile::SetStage_Rnd ()
 	{
