@@ -644,6 +644,9 @@ namespace GAME
 		if ( m_pSequence->Name.Is ( U"前歩き")		) { return T; }
 		if ( m_pSequence->Name.Is ( U"後歩き")		) { return T; }
 		if ( m_pSequence->Name.Is ( U"着地")		) {	return T; }
+		if ( m_pSequence->Name.Is ( U"勝利")		) {	return T; }
+		if ( m_pSequence->Name.Is ( U"時間切れ敗北")		) {	return T; }
+		if ( m_pSequence->Name.Is ( U"引分")		) {	return T; }
 #if 0						
 		if ( m_pSequence>Name.Is ( U"ダメージ小")	) {	return T; }
 		if ( m_pSequence>Name.Is ( U"空中やられ")	) {	return T; }

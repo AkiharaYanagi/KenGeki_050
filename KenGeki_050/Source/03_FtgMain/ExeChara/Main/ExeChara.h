@@ -314,7 +314,9 @@ namespace GAME
 		void StartGetReady () { m_pActor->StartGetReady (); }
 		void StartFighting () { m_pActor->StartFighting (); }
 		void StartTimeUp   () { m_pActor->StartTimeUp (); }
+		bool IsState_TimeUp () { return m_pActor->IsTimeUp (); }
 		void StartEndWait  () { m_pActor->StartEndWait (); }
+		bool IsState_EndWait () { return m_pActor->IsEndWait (); }
 		void StartDown		() { m_pActor->StartDown (); }
 		bool IsDown_Calm () { return IsNameAction ( U"敗北ダウン" ); }
 		void StartWinner	() { m_pActor->StartWinner (); }

@@ -78,6 +78,9 @@ namespace GAME
 		void ShiftSlowSkip ();
 		void ShiftWallBreak ();
 
+		//状態確認
+		bool IsTimeUp () const { return mp_state == m_TimeUp; }
+		bool IsEndWait () const { return mp_state == m_EndWait; }
 
 		//==========================================================
 		//MutualCharaから呼ばれる主な関数

@@ -200,7 +200,6 @@ namespace GAME
 #endif // 0
 
 
-#if 0
 		//------------------------------------------------------
 		//打合：攻撃判定と攻撃判定、または攻撃判定と相殺判定 (相殺と相殺は何もしない)
 
@@ -213,7 +212,6 @@ namespace GAME
 		//相殺時には各エフェクトに相殺状態をセット(反映はExeEffectがまとめて後に行う)
 		DcsOffsetEf (plpExEf1, plpExEf2, pCharaRect2p);		//p1からp2へのチェック
 		DcsOffsetEf (plpExEf2, plpExEf1, pCharaRect1p);		//p2からp1へのチェック
-#endif // 0
 
 		//------------------------------------------------------
 		//エフェクトのヒットチェック
@@ -222,12 +220,10 @@ namespace GAME
 
 		//p1からp2へのチェック
 		int powerEf1p = 0;
-//		m_Efhit2P = DcsHitEf ( plpExEf1, pvHRect2, m_pExeChara2p, powerEf1p );
 		efHit2p = DcsHitEf ( plpExEf1, pvHRect2, m_pExeChara2p, powerEf1p );
 		
 		//p2からp1へのチェック	
 		int powerEf2p = 0;
-//		m_Efhit1P = DcsHitEf ( plpExEf2, pvHRect1, m_pExeChara1p, powerEf2p );
 		efHit1p = DcsHitEf ( plpExEf2, pvHRect1, m_pExeChara1p, powerEf2p );
 
 
@@ -464,35 +460,9 @@ namespace GAME
 
 
 
-#if 0
 	//------------------------------------------------------
 	//	内部関数
 	//------------------------------------------------------
-	bool Decision::DashDecision ( P_CharaRect pcr1, P_CharaRect pcr2, VEC2 & center )
-	{
-		tstring name = _T ( "FrontDash" );
-		bool p1_dash = m_pExeChara1p->IsNameAction ( name );
-		bool p2_dash = m_pExeChara1p->IsNameAction ( name );
-		bool b = OverlapAryRect_Center ( pcr1->GetpvORect (), pcr2->GetpvORect (), center );
-		return p1_dash & p2_dash & b;
-	}
-
-	//攻撃枠 同士判定　(中心付)
-	bool Decision::DcsAtoA (P_CharaRect pcr1, P_CharaRect pcr2, VEC2 & center)
-	{
-		//攻撃枠を取得
-		PV_RECT pvARect1 = pcr1->GetpvARect ();
-		PV_RECT pvARect2 = pcr2->GetpvARect ();
-
-		//------------------------------------------------------
-		//攻撃判定と攻撃判定が重なっていたらtrue
-		if (OverlapAryRect_Center (pvARect1, pvARect2, center))
-		{
-			return true;
-		}
-
-		return false;
-	}
 
 	//相殺枠判定(中心付)
 	bool Decision::DcsOffset (P_CharaRect pcr1, P_CharaRect pcr2, VEC2 & center)
@@ -518,7 +488,7 @@ namespace GAME
 	}
 
 	//エフェクトの相殺枠判定
-	void Decision::DcsOffsetEf (PLP_ExEf plpExEf1, PLP_ExEf plpExEf2, P_CharaRect pCharaRect2p)
+	void Decision::DcsOffsetEf ( PLP_ExEf plpExEf1, PLP_ExEf plpExEf2, P_CharaRect pCharaRect )
 	{
 		VEC2 centeref = VEC2 (0, 0);
 
@@ -528,7 +498,7 @@ namespace GAME
 			P_CharaRect pcref1 = pexef1->GetpCharaRect ();
 
 			//Chara
-			if (DcsOffset (pcref1, pCharaRect2p, centeref))
+			if (DcsOffset (pcref1, pCharaRect, centeref))
 			{
 				//Efに相殺状態を設定
 				pexef1->SetOffset (true);
@@ -547,7 +517,6 @@ namespace GAME
 		}
 
 	}
-#endif // 0
 
 
 
@@ -589,7 +558,34 @@ namespace GAME
 
 		return ret;
 	}
+
+
 #if 0
+	bool Decision::DashDecision ( P_CharaRect pcr1, P_CharaRect pcr2, VEC2 & center )
+	{
+		tstring name = _T ( "FrontDash" );
+		bool p1_dash = m_pExeChara1p->IsNameAction ( name );
+		bool p2_dash = m_pExeChara1p->IsNameAction ( name );
+		bool b = OverlapAryRect_Center ( pcr1->GetpvORect (), pcr2->GetpvORect (), center );
+		return p1_dash & p2_dash & b;
+	}
+
+	//攻撃枠 同士判定　(中心付)
+	bool Decision::DcsAtoA (P_CharaRect pcr1, P_CharaRect pcr2, VEC2 & center)
+	{
+		//攻撃枠を取得
+		PV_RECT pvARect1 = pcr1->GetpvARect ();
+		PV_RECT pvARect2 = pcr2->GetpvARect ();
+
+		//------------------------------------------------------
+		//攻撃判定と攻撃判定が重なっていたらtrue
+		if (OverlapAryRect_Center (pvARect1, pvARect2, center))
+		{
+			return true;
+		}
+
+		return false;
+	}
 
 	//判定後にキャラに反映する
 	void Decision::Propagate ()

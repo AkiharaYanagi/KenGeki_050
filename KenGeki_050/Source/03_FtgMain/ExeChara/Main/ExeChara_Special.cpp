@@ -279,6 +279,20 @@ namespace GAME
 			if ( IsNameAction ( U"昇竜投げ着地" ) )
 			{
 //				m_pOther.lock()->SetPos ( pos_rev );	//位置同期
+// 
+				//タイムアップ時にConduct_InDemoになるため直接指定
+				if ( m_pScript->Index.Is ( 1 ) )
+				{
+					//ライフ０かつタイムアップ時のとき
+					if ( m_pOther.lock()->IsZeroLife() )
+					{
+						if ( IsState_EndWait () )
+						{
+							m_pOther.lock()->SetAction ( U"ギャバ_昇竜投げやられ着地" );
+						}
+						//タイムアップ時以外の決着時は何もしないで続行
+					}
+				}
 			}
 
 
