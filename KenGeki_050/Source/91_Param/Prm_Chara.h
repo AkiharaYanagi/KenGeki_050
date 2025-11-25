@@ -51,6 +51,13 @@ namespace GAME
 		//すべて読込
 		void Load ();
 
+		//個別キャラデータを取得 (未ロード時はロードしてから取得)
+		P_Chara GetpChara ( CHARA_COLOR clr );
+
+
+		//すべてのファイル名設定
+		void SetFileName ( LPCUSTR SCP, LPCUSTR IMG1, LPCUSTR IMG2, LPCUSTR GNS );
+
 		//スクリプトファイル名を設定
 		void SetStrScp ( LPCUSTR pStr ) { m_filename_scp = pStr; }
 
@@ -61,9 +68,6 @@ namespace GAME
 		//エフェクトイメージファイル名を設定
 		void SetStrGns ( LPCUSTR pStr ) { m_filename_gns = pStr; }
 
-
-		//個別キャラデータを取得 (未ロード時はロードしてから取得)
-		P_Chara GetpChara ( CHARA_COLOR clr );
 	};
 
 
@@ -77,6 +81,7 @@ namespace GAME
 		s3d::AsyncTask < void >	m_asyncLoad_Retu;
 		s3d::AsyncTask < void >	m_asyncLoad_Gaba;
 		s3d::AsyncTask < void >	m_asyncLoad_Fera;
+		s3d::AsyncTask < void >	m_asyncLoad_Tuki;
 
 		//終了ミューテックス
 		std::mutex				m_mutex;
@@ -91,6 +96,7 @@ namespace GAME
 		Prm_Chara		m_Retsu;
 		Prm_Chara		m_Gaba;
 		Prm_Chara		m_Fera;
+		Prm_Chara		m_Tsuki;
 
 	public:
 		Prm_Chara_all ();

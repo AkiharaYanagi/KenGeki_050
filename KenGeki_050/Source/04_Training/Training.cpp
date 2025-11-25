@@ -120,6 +120,9 @@ namespace GAME
 		Scene::SetwpThis ( shared_from_this () );
 		P_Param pParam = Scene::GetpParam ();
 
+		//直接トレーニング開始時に状態を設定する
+		pParam->SetFtgMode ( FTG_MODE::MODE_TRAINING );
+
 		//戦闘共通
 		G_Ftg::inst()->Init ();
 

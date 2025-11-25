@@ -49,19 +49,7 @@ namespace GAME
 	{
 		//--------------------------------------------
 		//m_pCharaのデータ読込
-#if 0
-		//ゲームパラメータで最初に読み込み済みかどうか
-		if ( m_pParam->IsReadChara () )
-		{
-			LoadCharaData ();
-		}
-		else
-		{
-			LoadCharaData_test ();
-		}
-#endif // 0
 		LoadCharaData ();
-
 
 		//--------------------------------------------
 		//アクタ・ステートに用いる状態パラメータに登録
@@ -161,6 +149,7 @@ namespace GAME
 		TASK_VEC::Init ();
 	}
 
+#if 0
 
 	void ExeChara::LoadCharaData_test ()
 	{
@@ -227,38 +216,13 @@ namespace GAME
 
 	}
 
+#endif // 0
+
 
 	void ExeChara::LoadCharaData ()
 	{
 		//m_pCharaのデータ読込
 		m_pChara = m_pParam->GetpChara ( m_name, GetPlayerID () );
-
-
-#if 0
-		//パラメータによるキャラの選択
-		PLAYER_ID id = GetPlayerID ();
-		switch ( m_name )
-		{
-		case CHARA_OUKA:		m_pChara = m_pParam->GetpChara_Ouka ( id );		break;
-		case CHARA_SAE:			m_pChara = m_pParam->GetpChara_Sae ( id );		 break;
-		case CHARA_RETSUDOU:	m_pChara = m_pParam->GetpChara_Retsudou ( id );	 break;
-		case CHARA_GABADARUGA:	m_pChara = m_pParam->GetpChara_Gabadaruga ( id );	 break;
-		default: break;
-		}
-#endif // 0
-
-#if 0
-		//パラメータによるキャラの選択
-		switch ( m_name )
-		{
-		case CHARA_OUKA:		m_pChara = m_pParam->GetpChara_Ouka (  );		break;
-		case CHARA_SAE:			m_pChara = m_pParam->GetpChara_Sae (  );		 break;
-		case CHARA_RETSUDOU:	m_pChara = m_pParam->GetpChara_Retsudou (  );	 break;
-		case CHARA_GABADARUGA:	m_pChara = m_pParam->GetpChara_Gabadaruga (  );	 break;
-		default: break;
-		}
-#endif // 0
-
 	}
 
 

@@ -472,16 +472,6 @@ namespace GAME
 		m_chara_name = charaName;
 
 		//キャラ名による初期化
-		switch ( charaName )
-		{
-		case CHARA_OUKA: break;
-		case CHARA_SAE: break;
-		case CHARA_RETSUDOU: break;
-		case CHARA_GYAVADARUGA: break;
-		default: charaName = CHARA_OUKA; break;
-		}
-
-
 		CHARA_NAME name = stg.GetCharaName ( m_playerID );
 		CHARA_COLOR clr = stg.GetCharaColor ( m_playerID );
 
@@ -497,6 +487,7 @@ namespace GAME
 			case CHARA_NAME::CHARA_RETSUDOU:	fc = 4; nm = 2; break;
 			case CHARA_NAME::CHARA_GYAVADARUGA:	fc = 6; nm = 3; break;
 			case CHARA_NAME::CHARA_FERARIA:		fc = 8; nm = 4; break;
+			case CHARA_NAME::CHARA_TSUKIHIBOSHI:fc = 8; nm = 4; break;
 			}
 		}
 		else if ( CHARA_COLOR::CH_CLR_2 == clr )
@@ -508,6 +499,7 @@ namespace GAME
 			case CHARA_NAME::CHARA_RETSUDOU:	fc = 5; nm = 2; break;
 			case CHARA_NAME::CHARA_GYAVADARUGA:	fc = 7; nm = 3; break;
 			case CHARA_NAME::CHARA_FERARIA:		fc = 9; nm = 4; break;
+			case CHARA_NAME::CHARA_TSUKIHIBOSHI:fc = 9; nm = 4; break;
 			}
 		}
 

@@ -48,6 +48,9 @@ namespace GAME
 		//イベント：被ダメージ時
 		void OnDamaged ();
 
+		//エフェクトヒット発生(攻撃成立側)
+		void OnEfDamaged ();
+
 		//ガード成立かどうか
 		bool CheckGuard ();
 

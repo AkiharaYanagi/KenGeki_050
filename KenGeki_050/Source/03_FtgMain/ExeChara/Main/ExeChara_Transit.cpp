@@ -428,6 +428,8 @@ namespace GAME
 	//アクション移行(条件チェック) 名前を返す
 	s3d::String ExeChara::Check_TransitAction_Condition_str ( BRANCH_CONDITION BRC_CND ) const
 	{
+#if 0
+
 		//キャラの持つルート,ブランチ,コマンドの参照
 		const AP_Rut& vpRoute = m_pChara->GetvpRoute ();
 		const AP_Brc& vpBranch = m_pChara->GetvpBranch ();
@@ -447,7 +449,34 @@ namespace GAME
 				return vpBranch [ id ]->NameSequence.Get ();
 			}
 		}
-		return U"";
+		return BLANK_USTR;
+
+#endif // 0
+		return Check_TransitAction_Condition_str ( m_pScript, BRC_CND );
+	}
+
+	s3d::String ExeChara::Check_TransitAction_Condition_str ( P_Frame pFrm, BRANCH_CONDITION BRC_CND ) const
+	{
+		//キャラの持つルート,ブランチ,コマンドの参照
+		const AP_Rut& vpRoute = m_pChara->GetvpRoute ();
+		const AP_Brc& vpBranch = m_pChara->GetvpBranch ();
+
+		//スクリプトの持つルートリスト
+		for ( UINT indexRut : pFrm->GetcaRouteID () )
+		{
+			const V_UINT32 & vBrcID = vpRoute [ indexRut ]->GetcaIDBranch ();
+
+			//対象のブランチリスト
+			for ( UINT id : vBrcID )
+			{
+				//条件不成立は続行
+				if ( vpBranch [ id ]->Condition.Nis ( BRC_CND ) ) { continue; }
+
+				//条件成立
+				return vpBranch [ id ]->NameSequence.Get ();
+			}
+		}
+		return BLANK_USTR;
 	}
 
 	//-------------------------------------------------------------------------------------------------

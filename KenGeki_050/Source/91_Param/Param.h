@@ -54,6 +54,8 @@ namespace GAME
 		//内部設定
 		void SetFtgMode ( FTG_MODE mode ) { m_FtgMode = mode; }
 		FTG_MODE GetFtgMode () const { return m_FtgMode; }
+		bool IsTrainingMode () const { return m_FtgMode == FTG_MODE::MODE_TRAINING; }
+
 
 
 		//ゲーム設定 ( 外部ファイル読込 )

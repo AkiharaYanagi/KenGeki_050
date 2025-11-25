@@ -308,13 +308,14 @@ namespace GAME
 				}
 			}
 
-#if 0
-			//EX時乗算カラー変更
 			bool b_ex0 = IsNameAction ( U"竜巻EX0" );
 			bool b_ex1 = IsNameAction ( U"竜巻EX1" );
 			bool b_ex2 = IsNameAction ( U"竜巻EX2" );
 			if ( b_ex0 || b_ex1 || b_ex2 )
 			{
+#if 0
+
+				//EX時乗算カラー変更
 				if ( m_frame == 0 )
 				{
 					m_dispChara->SetColor ( 0xffffff00 );
@@ -333,8 +334,20 @@ namespace GAME
 				{
 					m_dispChara->SetColor ( 0xffffffff );
 				}
-			}
+
 #endif // 0
+				//スタミナ回復制限
+				//最初
+				if ( m_frame == 0 )
+				{
+					m_btlPrm.SetRecoveringStamina ( F );
+				}
+			}
+			else
+			{
+				//それ以外は常に回復可能
+				m_btlPrm.SetRecoveringStamina ( T );
+			}
 
 			//-------------------------------------------------------------------------
 			if ( IsNameAction ( U"超必殺技B0" ) )
@@ -407,8 +420,17 @@ namespace GAME
 					//勝敗決定時
 					if ( m_pOther.lock()->IsZeroLife() )
 					{
-						//状態指定でアクタを敗北時ダウンに移行
-						m_pOther.lock()->Lose ();	
+						//トレーニングモードを除く
+						if ( m_pParam->IsTrainingMode () )
+						{
+							//戦闘続行
+							m_pOther.lock()->SetAction ( U"ダウン" );
+						}
+						else
+						{
+							//状態指定でアクタを敗北時ダウンに移行
+							m_pOther.lock()->Lose ();	
+						}
 					}
 					else
 					{

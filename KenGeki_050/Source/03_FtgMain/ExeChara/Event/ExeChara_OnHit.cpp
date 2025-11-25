@@ -67,7 +67,10 @@ namespace GAME
 			m_btlPrm.AddMana ( (int)dp );
 
 			//バランス固定回復
-			m_btlPrm.AddBalance ( 100 );
+			if ( m_btlPrm.GetRecoveringStamina() )
+			{
+				m_btlPrm.AddBalance ( 100 );
+			}
 		}
 
 
@@ -297,6 +300,7 @@ namespace GAME
 	//エフェクトヒット発生(攻撃成立側)
 	void ExeChara_OnHit::OnEfHit ()
 	{
+#if 0
 		P_ExeChara pSelf = m_pSelf.lock ();		//自分
 		P_ExeChara pOther = m_pOther.lock ();	//相手
 
@@ -314,6 +318,59 @@ namespace GAME
 		pSelf->SetNameChangeOther ( nameAction );
 		
 		//-------------------------------------------------
+
+#endif // 0
+
+
+		P_ExeChara pSelf = m_pSelf.lock ();		//自分
+		P_ExeChara pOther = m_pOther.lock ();	//相手
+
+//		P_Frame pScp = pSelf->GetpScript ();
+		P_Frame pFrm = pSelf->GetpExEf()->GetpScript ();
+
+
+		//-----------------------------------------------------
+		//ゲージ増減 (超必殺以外)
+		if ( ! pSelf->IsActCtg ( AC_OVERDRIVE ) )
+		{
+			//攻撃値を超必殺技ゲージに加算
+			int p = pFrm->Get_FP_B().Power.Get();
+
+			//アクセルゲージ補正 ( -1.000倍 ~ +2.000倍 )
+			//( -500 ~ +1000 )
+			double dp = p * 0.002f * m_btlPrm.GetAccel();
+
+			m_btlPrm.AddMana ( (int)dp );
+
+			//バランス固定回復
+			if ( m_btlPrm.GetRecoveringStamina() )
+			{
+				m_btlPrm.AddBalance ( 100 );
+			}
+		}
+
+		//-----------------------------------------------------
+		//条件分岐 (相手→自分でないとスクリプトが変わってしまう)
+
+		//自分のエフェクトからブランチ（相手ヒット）を検索し、遷移先アクション名を取得する
+		const s3d::String& nameAction = pSelf->Check_TransitAction_Condition_str ( pFrm, BRC_HIT_E );
+
+		m_btlPrm.SetHitEst ( true );		//攻撃成立フラグ
+//		m_tmrHitstop->Start ();		//エフェクトはヒットストップしない
+		m_btlPrm.GetTmr_HitPitch ()->Start ();
+
+		//相手の変更先アクション名を保存
+		pSelf->SetNameChangeOther ( nameAction );
+
+
+		//-------------------------------------------------
+		//ノックバック
+		//OnKnockBack ();
+		
+		//-----------------------------------------------------
+		//パラメータ
+		m_btlPrm.OnHit ();
+
 	}
 
 

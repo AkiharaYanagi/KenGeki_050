@@ -148,7 +148,14 @@ namespace GAME
 			}
 			else
 			{
-				if ( m_pEfGnrt->Loop.Get() > m_loop_count )
+				INT32 loop = m_pEfGnrt->Loop.Get();
+
+				//ループ数が０は無限
+				if ( 0 == loop )
+				{
+					//何もしない
+				}
+				else if ( loop > m_loop_count )
 				{
 					//ループ回数カウント
 					++ m_loop_count;

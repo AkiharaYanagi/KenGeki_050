@@ -54,7 +54,7 @@ namespace GAME
 
 	//定数
 	constexpr UINT32 CLR_LOOP_NUM { 8 };
-
+	constexpr LPCUSTR BLANK_USTR = U"";
 
 
 
@@ -152,7 +152,7 @@ namespace GAME
 	private:
 		//初期化
 		void LoadCharaData ();
-		void LoadCharaData_test ();
+		//void LoadCharaData_test ();
 		void LoadInput ();
 		//===========================================================
 
@@ -244,6 +244,8 @@ namespace GAME
 //==========================================================================
 
 	public:
+		P_Chara GetpChara () const { return m_pChara; }
+
 		//----------------------
 		// 外部からの状態確認
 		//----------------------
@@ -358,6 +360,7 @@ namespace GAME
 		void SetHit ( bool b ) { m_btlPrm.SetHitEst ( b ); }
 		void OnHit ();
 		void OnEfHit ();
+		P_ExEf GetpExEf ();
 
 
 		//相手・攻撃 → 自分・くらい
@@ -366,6 +369,7 @@ namespace GAME
 		void SetDamaged ( bool b ) { m_btlPrm.SetDamaged ( b ); }
 //		void OnDamaged ( int damage );
 		void OnDamaged ();
+		void OnEfDamaged ();
 
 #if 0
 		bool CanGuard () const;			//ガードできる状態かどうか
@@ -469,6 +473,7 @@ namespace GAME
 		//アクション移行(条件チェック) 名前を返す
 //		tstring Check_TransitAction_Condition_str ( BRANCH_CONDITION CONDITION ) const;	
 		s3d::String Check_TransitAction_Condition_str ( BRANCH_CONDITION CONDITION ) const;	
+		s3d::String Check_TransitAction_Condition_str ( P_Frame pFrm, BRANCH_CONDITION CONDITION ) const;	
 
 //		bool TranditAction_Command_Special ();	//アクション移項（コマンドに関する処理）限定
 		void TranditAction_Special ();	//特殊条件移行

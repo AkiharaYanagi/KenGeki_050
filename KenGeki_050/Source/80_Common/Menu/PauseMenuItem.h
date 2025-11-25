@@ -66,6 +66,24 @@ namespace GAME
 	};
 	using P_PMI_ResumeGame = std::shared_ptr < PMI_ResumeGame >;
 
+
+	//--------------------------------------------------------------
+	//剣撃対抗 (オン/オフ)
+	class PMI_Taikou : public PauseMenuItem
+	{
+		P_MenuString	m_grpStr;
+	public:
+		PMI_Taikou ();
+		PMI_Taikou ( const PMI_Taikou & rhs ) = delete;
+		~PMI_Taikou ();
+
+		void Do ();
+		void Decide ();
+		void Off ();
+		void On ();
+	};
+	using P_PMI_ResumeGame = std::shared_ptr < PMI_ResumeGame >;
+
 	//=========================================================
 
 }	//namespace GAME

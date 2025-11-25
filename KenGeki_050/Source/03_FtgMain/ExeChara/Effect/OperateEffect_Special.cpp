@@ -50,14 +50,23 @@ namespace GAME
 		if ( pEffect->Name.Is ( U"OD_A_G" ) ) { pExeEffect->SetShader ( F ); }
 		if ( pEffect->Name.Is ( U"Ef_テル・プム" ) ) { pExeEffect->SetShader ( F ); }
 		if ( pEffect->Name.Is ( U"Ef_ニャムヒー" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"4L_Shot" ) ) { pExeEffect->SetShader ( F ); }
 
 
 		//相殺やヒットで消えない
 //		if ( pEffect->Name.Is ( U"空中竜巻_鞘" ) ) { pExeEffect->SetImmortal ( T ); }
 		//@todo 攻撃判定が残るのをどうするか
 
-		if ( pEffect->Name.Is ( U"4H_Shot" ) ) { pExeEffect->SetImmortal ( T ); }
+		if ( pEffect->Name.Is ( U"4L_Shot" ) )
+		{
+			pExeEffect->GetpEfGnrt()->Loop.Set ( 0 );
+			pExeEffect->SetShader ( F );
+		}
+
+		if ( pEffect->Name.Is ( U"4H_Shot" ) )
+		{
+			//pExeEffect->GetpEfGnrt()->Loop.Set ( 0 );
+			pExeEffect->SetImmortal ( T );
+		}
 
 
 		//特殊
@@ -93,6 +102,8 @@ namespace GAME
 			}
 
 
+			//pExeEffect->SetImmortal ( T );
+			pExeEffect->GetpEfGnrt()->Loop.Set ( 0 );
 			pExeEffect->SetCalcOff ( T );
 			pExeEffect->SetShader ( F );
 

@@ -373,6 +373,22 @@ namespace GAME
 		m_OnHit.OnEfHit ();
 	}
 
+	P_ExEf ExeChara::GetpExEf ()
+	{
+		PLP_ExEf plpExEf1 = m_oprtEf->GetplpExEf ();
+
+		//エフェクトリストのヒットチェック
+		for ( P_ExEf pexef1 : (*plpExEf1) )
+		{
+			if ( pexef1->GetHit () )
+			{
+				return pexef1;
+			}
+		}
+		return nullptr;
+	}
+
+
 #if 0
 	//エフェクトヒット発生(攻撃成立側)
 	void ExeChara::OnEfHit ()
@@ -443,6 +459,11 @@ namespace GAME
 	void ExeChara::OnDamaged ()
 	{
 		m_OnDamaged.OnDamaged ();
+	}
+
+	void ExeChara::OnEfDamaged ()
+	{
+		m_OnDamaged.OnEfDamaged ();
 	}
 
 #if 0

@@ -52,6 +52,7 @@ namespace GAME
 		m_balance_max = rhs.m_balance_max;	//バランス最大値
 		m_white_damage = rhs.m_white_damage;	//白ダメージ
 		m_red_damage = rhs.m_red_damage;	//赤ダメージ
+		m_recovering_stamina = rhs.m_recovering_stamina;	//スタミナ回復制限
 
 		m_power = rhs.m_power;			//実効攻撃値
 		m_damaged = rhs.m_damaged;		//くらいフラグ
@@ -166,6 +167,7 @@ namespace GAME
 		m_accel = ACCEL_START;
 		m_white_damage = 0;
 		m_red_damage = 0;
+		m_recovering_stamina = T;
 
 		m_power = 0;
 
@@ -488,8 +490,12 @@ namespace GAME
 		//アクセル値が他ゲージに影響
 		int balance_recovery = 1 * m_accel / 100;
 
+
 		//通常スタミナ値回復
-		AddBalance ( balance_recovery );
+		if ( m_recovering_stamina )
+		{
+			AddBalance ( balance_recovery );
+		}
 	}
 
 

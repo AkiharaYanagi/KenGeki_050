@@ -174,8 +174,6 @@ namespace GAME
 		PLP_ExEf plpExEf1 = m_pExeChara1p->GetplpExEf ();
 		PLP_ExEf plpExEf2 = m_pExeChara2p->GetplpExEf ();
 
-
-
 		//重なり中心位置
 		VEC2 center = VEC2 (0, 0);
 
@@ -207,6 +205,18 @@ namespace GAME
 
 		//------------------------------------------------------
 		//エフェクト
+
+#if 0
+		//エフェクトの相殺チェック
+		bool efOffset1p = F;
+		bool efOffset2p = F;
+		bool bOffset = F;
+		
+		//エフェクトのヒットチェック
+		bool efHit1p = F;
+		bool efHit2p = F;
+#endif // 0
+
 
 		//エフェクトリストの相殺チェック
 		//相殺時には各エフェクトに相殺状態をセット(反映はExeEffectがまとめて後に行う)
@@ -251,6 +261,7 @@ namespace GAME
 //		m_bOffsetChara = DcsOffset ( pCharaRect1p, pCharaRect2p, center );
 //		m_bOffsetChara = offset_aa || offset_ao || offset_oa;
 		bool bOffset = offset_aa || offset_ao || offset_oa;
+
 
 
 		//------------------------------------------------------
@@ -338,7 +349,7 @@ namespace GAME
 			//SOUND->Play_SE ( SE_Btl_Hit );
 
 			m_pExeChara1p->OnEfHit ();		//ヒット状態
-			m_pExeChara2p->OnDamaged ();		//くらい状態・ダメージ処理
+			m_pExeChara2p->OnEfDamaged ();		//くらい状態・ダメージ処理
 		}
 
 		if ( efHit1p )
@@ -347,7 +358,7 @@ namespace GAME
 			//SOUND->Play_SE ( SE_Btl_Hit );
 
 			m_pExeChara2p->OnEfHit ();		//ヒット状態
-			m_pExeChara1p->OnDamaged ();		//くらい状態・ダメージ処理
+			m_pExeChara1p->OnEfDamaged ();		//くらい状態・ダメージ処理
 		}
 
 
@@ -463,6 +474,102 @@ namespace GAME
 	//------------------------------------------------------
 	//	内部関数
 	//------------------------------------------------------
+	//枠チェック
+	bool Decision::RectCheck_Offset ()
+	{
+		//------------------------------------------------------
+		//枠の取得
+
+		//枠管理の取得
+		P_CharaRect pCharaRect1p = m_pExeChara1p->GetpCharaRect ();
+		P_CharaRect pCharaRect2p = m_pExeChara2p->GetpCharaRect ();
+
+		//攻撃枠を取得
+		PV_RECT pvARect1 = pCharaRect1p->GetpvARect ();
+		PV_RECT pvARect2 = pCharaRect2p->GetpvARect ();
+
+		//相殺枠を取得
+		PV_RECT pvORect1 = pCharaRect1p->GetpvORect ();
+		PV_RECT pvORect2 = pCharaRect2p->GetpvORect ();
+
+		//当り枠を取得
+		PV_RECT pvHRect1 = pCharaRect1p->GetpvHRect ();
+		PV_RECT pvHRect2 = pCharaRect2p->GetpvHRect ();
+
+		//エフェクトリストの取得
+		PLP_ExEf plpExEf1 = m_pExeChara1p->GetplpExEf ();
+		PLP_ExEf plpExEf2 = m_pExeChara2p->GetplpExEf ();
+
+		//重なり中心位置
+		VEC2 center = VEC2 (0, 0);
+
+		//------------------------------------------------------
+		//エフェクト
+
+		//エフェクトリストの相殺チェック
+		//相殺時には各エフェクトに相殺状態をセット(反映はExeEffectがまとめて後に行う)
+		DcsOffsetEf (plpExEf1, plpExEf2, pCharaRect2p);		//p1からp2へのチェック
+		DcsOffsetEf (plpExEf2, plpExEf1, pCharaRect1p);		//p2からp1へのチェック
+
+		//------------------------------------------------------
+		//エフェクトのヒットチェック
+		bool efHit1p = false;
+		bool efHit2p = false;
+
+		//p1からp2へのチェック
+		int powerEf1p = 0;
+		efHit2p = DcsHitEf ( plpExEf1, pvHRect2, m_pExeChara2p, powerEf1p );
+		
+		//p2からp1へのチェック	
+		int powerEf2p = 0;
+		efHit1p = DcsHitEf ( plpExEf2, pvHRect1, m_pExeChara1p, powerEf2p );
+
+
+		return F;
+	}
+
+
+	bool Decision::RectCheck_Hit ()
+	{
+#if 0
+
+		//------------------------------------------------------
+		//メインキャラ同士の本体相殺チェック
+
+		//攻撃・攻撃
+		bool offset_aa = OverlapAryRect_Center (pvARect1, pvARect2, center);
+
+		//攻撃・相殺判定
+		bool offset_ao = F;
+		bool offset_oa = F;
+		
+		if ( ! m_pExeChara1p->IsNotOffset () )
+		{
+			offset_ao = OverlapAryRect_Center (pvARect1, pvORect2, center);
+		}
+		
+		if ( ! m_pExeChara2p->IsNotOffset () )
+		{
+			offset_oa = OverlapAryRect_Center (pvORect1, pvARect2, center);
+		}
+
+
+//		m_bOffsetChara = DcsOffset ( pCharaRect1p, pCharaRect2p, center );
+//		m_bOffsetChara = offset_aa || offset_ao || offset_oa;
+		bool bOffset = offset_aa || offset_ao || offset_oa;
+
+#endif // 0
+
+		return F;
+	}
+
+
+	//反映・適用
+	void Decision::Apply_Offset ()
+	{
+
+	}
+
 
 	//相殺枠判定(中心付)
 	bool Decision::DcsOffset (P_CharaRect pcr1, P_CharaRect pcr2, VEC2 & center)

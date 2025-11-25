@@ -85,6 +85,13 @@ namespace GAME
 		//	内部関数
 		//------------------------------------------------------
 
+		//枠チェック
+		bool RectCheck_Offset ();
+		bool RectCheck_Hit ();
+
+		//反映・適用
+		void Apply_Offset ();
+
 		//相殺枠判定(中心付)
 		bool DcsOffset (P_CharaRect pcr1, P_CharaRect pcr2, VEC2 & center);
 

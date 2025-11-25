@@ -82,6 +82,7 @@ namespace GAME
 		//---------------------------------------------
 
 		void SetpEfGnrt ( P_EfGnrt p );
+		P_EfGnrt GetpEfGnrt () const { return m_pEfGnrt; }
 
 		P_Sequence GetpEffect () const { return m_pEffect; }
 		bool Compare ( P_Sequence p ) { return ( p == m_pEffect); }
