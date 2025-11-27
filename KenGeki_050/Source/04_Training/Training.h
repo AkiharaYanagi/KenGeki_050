@@ -11,13 +11,8 @@
 #include "Game.h"
 #include "../90_GameMain/Scene.h"
 #include "../03_FtgMain/Fighting/Fighting.h"
-
-
-
 #include "../80_Common/Menu/PauseMenu.h"
-//#include "Training_Menu.h"
-#if 0
-#endif // 0
+#include "../80_Common/Menu/TrainingMenu.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -49,8 +44,8 @@ namespace GAME
 
 
 		//ポーズメニュ
-		P_PauseMenu		m_pauseMenu;
-//		P_Training_Menu		m_pauseMenu;
+		//P_PauseMenu		m_pauseMenu;
+		P_TrainingMenu		m_trainingMenu;
 
 #if 0
 #endif // 0

@@ -16,7 +16,7 @@ namespace GAME
 {
 	Test::Test ()
 	{
-		m_bg = make_shared < GrpGraphic > ();
+		m_bg = make_shared < GameGraphic > ();
 		m_bg->AddTexture_FromArchive ( _T ( "bg_test_960_540.png" ) );
 		AddpTask ( m_bg );
 		GRPLST_INSERT ( m_bg );

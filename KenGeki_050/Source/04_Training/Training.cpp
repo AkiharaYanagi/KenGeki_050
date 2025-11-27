@@ -63,8 +63,8 @@ namespace GAME
 
 
 		//ポーズメニュ
-		m_pauseMenu = std::make_shared < PauseMenu > ();
-		AddpTask ( m_pauseMenu );
+		m_trainingMenu = std::make_shared < TrainingMenu > ();
+		AddpTask ( m_trainingMenu );
 
 #if 0
 #endif // 0
@@ -152,7 +152,7 @@ namespace GAME
 
 
 		//Menu用にthisを保存
-		m_pauseMenu->SetwpParentScene ( shared_from_this () );
+		m_trainingMenu->SetwpParentScene ( shared_from_this () );
 
 #if 0
 		//BGM
@@ -190,7 +190,7 @@ namespace GAME
 #endif // 0
 
 		//メニュポーズ中
-		if ( m_pauseMenu->MenuCheck () )
+		if ( m_trainingMenu->MenuCheck () )
 		{
 			return;
 		}

@@ -1,6 +1,6 @@
 ﻿//=================================================================================================
 //
-//	PauseMenu_Const
+//	PauseMenuItem
 //
 //=================================================================================================
 #pragma once
@@ -8,7 +8,8 @@
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "PauseMenu_Const.h"
+#include "Game.h"
+#include "PauseMenuItem.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -16,20 +17,24 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	//--------------------------------------
-	//メニュ 描画Z位置(後:1.f ～ 0.0f:前)
-//	constexpr float Z_MENU = 0.02f;		//メニュ
+	//=========================================================
+	//剣撃対抗 (オン/オフ)
+	class PMI_Taikou : public PauseMenuItem
+	{
+		P_MenuString	m_grpStr;
+	public:
+		PMI_Taikou ();
+		PMI_Taikou ( const PMI_Taikou & rhs ) = delete;
+		~PMI_Taikou ();
 
-	//@info 大きい方が奥
-	const float Z_MENU_BG		= Z_MENU - 0.001f;
-	const float Z_MENU_STR		= Z_MENU - 0.002f;
-	const float Z_MENU_YN_BG	= Z_MENU - 0.003f;
-	const float Z_MENU_YN_STR	= Z_MENU - 0.004f;
-	const float Z_MENU_KI_BG	= Z_MENU - 0.005f;
-	const float Z_MENU_KI_STR	= Z_MENU - 0.006f;
-	//@info 小さい方が手前
+		void Do ();
+		void Decide ();
+		void Off ();
+		void On ();
+	};
+	using P_PMI_Taikou = std::shared_ptr < PMI_Taikou >;
 
-	//--------------------------------------
+	//=========================================================
 
 }	//namespace GAME
 
