@@ -478,10 +478,10 @@
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Name.cpp">
       <Filter>02_CharaSele\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Source\80_Common\Menu\TrainingMenuItem.cpp">
+    <ClCompile Include="Source\80_Common\Menu\TrainingMenu.cpp">
       <Filter>80_Common\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="Source\80_Common\Menu\TrainingMenu.cpp">
+    <ClCompile Include="Source\80_Common\Menu\TrainingMenuItem.cpp">
       <Filter>80_Common\Menu</Filter>
     </ClCompile>
   </ItemGroup>

@@ -22,7 +22,6 @@ namespace GAME
 	//リザルト用データ
 	class Prm_Result
 	{
-
 		//リザルト用
 		PLAYER_ID		m_winner { PLAYER_ID_1 };		//勝者
 		int32		m_n_life_1p { 0 };		//残ライフ
@@ -36,7 +35,6 @@ namespace GAME
 		int32		m_n_max_chain_2p { 0 };		//
 		int32		m_n_max_damege_1p { 0 };		//最大連撃力
 		int32		m_n_max_damege_2p { 0 };		//
-
 
 	public:
 		Prm_Result ();
@@ -84,6 +82,9 @@ namespace GAME
 		void UpdateIfMax_Chain ( PLAYER_ID id, int n );
 
 		void ResetBattleParam ();
+
+		Prp_INT32		m_prp_CpuLevel { 1 };	//CPUレベル
+		Prp_bool		m_prp_Taikou { F };		//剣撃対抗
 	};
 
 

@@ -23,7 +23,7 @@ namespace GAME
 		static const std::vector < double > weights;
 
 		//重み付き確率
-		std::discrete_distribution <>	m_dist;
+		std::discrete_distribution <>	m_dist_lvr;		//レバー
 
 		//ランダムデバイス
 		std::random_device	m_rnd_dev;
@@ -37,7 +37,12 @@ namespace GAME
 		static const std::vector < double > weights_key;
 
 		//重み付き確率
-		std::discrete_distribution <>	m_dist_key;
+		std::discrete_distribution <>	m_dist_btn;		//ボタン
+
+
+		//Level		休符間隔で行動量を調整
+		int32		m_level { 4 };	//1~8
+		int32		m_count_interval { 0 };
 
 
 	public:
@@ -47,6 +52,11 @@ namespace GAME
 
 		void Load ();
 		void Update ( bool dirRight );
+
+		void SetLevel ( int32 level ) { m_level = level; }
+
+	private:
+		int32 Interval ();
 	};
 
 	using P_NewCPUInput = std::shared_ptr < NewCPUInput >;

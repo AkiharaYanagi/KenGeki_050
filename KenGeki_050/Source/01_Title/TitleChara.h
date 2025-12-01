@@ -27,15 +27,30 @@ namespace GAME
 		P_Grp		m_chara_1p;
 		P_Grp		m_chara_2p;
 
-		bool		m_active1 { T };
-		bool		m_active2 { T };
+//		bool		m_active1 { T };
+//		bool		m_active2 { T };
 		float		m_x1 { 0 };
 		float		m_x2 { 0 };
 
-		float		m_vx { 0 };
+		float		m_vx1 { 0 };
+		float		m_vx2 { 0 };
 
 		//タイマ
-		P_Timer		m_tmr;
+		P_Timer		m_tmr1;
+		P_Timer		m_tmr2;
+
+		//位置補正
+		inline static const 
+		std::unordered_map < CHARA_NAME, float > m_posAdjustMap =
+		{
+			{ CHARA_OUKA		, -55.f },
+			{ CHARA_SAE			, 0.f },
+			{ CHARA_RETSUDOU	, -95.f },
+			{ CHARA_FERARIA		, -65.f },
+		};
+
+		float		m_revX1 { 0 };
+		float		m_revX2 { 0 };
 
 	public:
 		TitleChara ();
@@ -47,9 +62,12 @@ namespace GAME
 		void Init ();
 		void Move ();
 
-		void ResetChara ();
+		void RandomStartChara ();
 
 	private:
+		void SetChara ( CHARA_NAME name1, CHARA_COLOR clr1, CHARA_NAME name2, CHARA_COLOR clr2 );
+		CHARA_NAME GetRandomCharaName () const;
+
 #pragma region CONST
 		static const float TX_W;
 		static const float START_X_1P;

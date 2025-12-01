@@ -9,8 +9,9 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
-#include "../../90_GameMain/Scene.h"
+#include "PauseMenuItem.h"
 #include "TrainingMenuItem.h"
+#include "YesNo_Menu.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -19,38 +20,59 @@
 namespace GAME
 {
 
-	class TrainingMenu	: public Menu
+	class TrainingMenu : public Menu
 	{
-		P_MenuItem_Taikou		m_item_Taikou;		//剣撃対抗
-		P_MenuItem_CPU_LEVEL	m_item_CpuLevel;	//CPUレベル
-		P_MenuItem_Return		m_item_Return;		//戻る
+		//-----------------
+		//稼働フラグ
+		bool			m_bMenu { F };		//全体
 
-		//P_MenuString		m_testStr;		//テキスト
+		//見出文字
+		P_MenuString	m_grpStr_pause;
 
-		P_Grp		m_cursor;	//カーソル
+		//メニュ内容
+		P_PMI_To_Title		m_mi_title;
+		P_PMI_ResumeGame	m_mi_resume;
+		P_PMI_Taikou		m_mi_taikou;
+
+		//カーソル
+		P_Grp		m_cursor;
+		float		m_cursor_scaling_vy { 0.05f };
+		float		m_cursor_scaling_y { 1.f };
+
+
+		//YNメニュ
+		P_YesNo_Menu	m_yesnoMenu;
 
 	public:
 		TrainingMenu ();
 		TrainingMenu ( const TrainingMenu & rhs ) = delete;
 		~TrainingMenu ();
 
-		void Load () override;
-		void Move () override;
-
-		void SetActive(bool b) override;
-
-		void SetwpParentScene ( WP_Scene wp );
+		void Load ();
+		void Do ();
+		void Move ();
 
 		//メインMove()中でチェックしてtrueのとき他を処理しないでreturnする
-		bool MenuInput ();
+		bool MenuCheck ();
+		void Input ();
 
-		void Off ();
+		//稼働
 		void On ();
+		void Off ();
 
+		//表示
+		void UnDisp ();
+
+//		void SetwpParent ( WP_FtgMain p );
+		void SetwpParentScene ( WP_Scene wp );
+
+		void OpenYNMenu () { m_yesnoMenu->On (); }
 
 	private:
-		void SetCursorPos ();
+		static const float CURSOR_X;
+		static const float CURSOR_Y;
 	};
+
 
 	using P_TrainingMenu = std::shared_ptr < TrainingMenu >;
 

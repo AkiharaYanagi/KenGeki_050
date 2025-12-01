@@ -65,7 +65,7 @@ namespace GAME
 		 80,	//BTN_2		(大)				3
 		 50,	//BTN_3		(特大)			4
 		 10,	//BTN_4		(必殺)			5
-		 50,	//BTN_5		(ダッシュ)		6
+		 50,	//BTN_5		(投げ)			6
 
 		20,		//BTN_3 + LVR_6 (剣撃走破)	7
 		10,		//BTN_4 + LVR_6 (波動必殺)	8
@@ -108,18 +108,34 @@ namespace GAME
 	{
 		(void)dirRight;
 
+		//一時保存
 		GameKey gameKey;
 
-#if 0
+		//----------------------------------------------------
+		//レベルによるインターバル調整
+		if ( m_count_interval < Interval () )
+		{
+			++ m_count_interval;
+			//カウント中は何もしない
 
-				//test
+			IncrementInput ( gameKey );
+			return;
+		}
+		else
+		{
+			m_count_interval = 0;
+		}
+		//----------------------------------------------------
+
+#if 0
+		//test
 		std::mt19937 m_gen;
 		std::discrete_distribution<> m_dist;
 		std::random_device m_rnd_dev;
 
 		m_gen = std::mt19937 ( m_rnd_dev () );		//メルセンヌ・ツイスタ
 #endif // 0
-		m_dist = std::discrete_distribution <> ( weights.begin(), weights.end() );
+		m_dist_lvr = std::discrete_distribution <> ( weights.begin(), weights.end() );
 
 		int result = 0;
 
@@ -168,7 +184,7 @@ namespace GAME
 #endif // 0
 
 
-		result = m_dist ( m_gen );
+		result = m_dist_lvr ( m_gen );
 		//result = s3d::Random < int > ( 0, 8 );
 
 		//今回の入力をゲームキーに直して保存
@@ -248,10 +264,10 @@ namespace GAME
 #endif // 0
 
 
-		m_dist_key = std::discrete_distribution <> ( weights_key.begin(), weights_key.end() );
+		m_dist_btn = std::discrete_distribution <> ( weights_key.begin(), weights_key.end() );
 
 		int result_key = 0;
-		result_key = m_dist_key ( m_gen );
+		result_key = m_dist_btn ( m_gen );
 
 		switch ( result_key )
 		{
@@ -298,6 +314,24 @@ namespace GAME
 
 
 		IncrementInput ( gameKey );
+	}
+
+
+	int32 NewCPUInput::Interval ()
+	{
+		//休符間隔を取得
+		switch ( m_level )
+		{
+		case 1: return 60;
+		case 2: return 45;
+		case 3: return 30;
+		case 4: return 16;
+		case 5: return 8;
+		case 6: return 4;
+		case 7: return 2;
+		case 8: return 0;
+		}
+		return 16;
 	}
 
 

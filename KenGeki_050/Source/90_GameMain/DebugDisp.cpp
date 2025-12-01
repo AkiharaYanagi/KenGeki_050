@@ -37,8 +37,8 @@ namespace GAME
 	//====================================================
 	//タイトル画面で全キャラ読込
 
-	const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
-//	const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
+//	const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
+	const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
 	//====================================================
 
 

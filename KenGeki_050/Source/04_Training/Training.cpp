@@ -186,14 +186,15 @@ namespace GAME
 #endif // 0
 
 
-#if 0
-#endif // 0
+		m_trainingMenu->MenuInput ();
 
 		//メニュポーズ中
-		if ( m_trainingMenu->MenuCheck () )
+		if ( m_trainingMenu->GetStopMain () )
 		{
 			return;
 		}
+
+
 
 		//トレーニングリセット
 		bool p1Reset = CFG_PUSH_KEY ( P1_BTN7 );

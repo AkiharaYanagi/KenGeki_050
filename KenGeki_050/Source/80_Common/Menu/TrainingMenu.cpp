@@ -8,7 +8,6 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "TrainingMenu.h"
-#include "PauseMenu_Const.h"
 #include "../../90_GameMain/SeConst.h"
 
 
@@ -17,64 +16,31 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	const float TrainingMenu::CURSOR_X = 100;
-	const float TrainingMenu::CURSOR_Y = 330;
-
-
 	TrainingMenu::TrainingMenu ()
 	{
-		//--------------------------------------------
-		//基本背景
-		Menu::SetBG_use ( T );
-		Menu::SetBG_Size ( WINDOW_WIDTH, WINDOW_HEIGHT );
-		Menu::SetBG_Pos ( 0.f, 0.f );
-		Menu::SetBG_Color ( _CLR ( 0xd0000000 ) );
+		SetBG_Color ( 0xa0000000 );
+		SetBG_Size ( VEC2 ( 1000, 800 ) );
+		SetBG_Pos ( VEC2 ( 1280 / 2 - 1000 / 2, 960 / 2 - 800 / 2 ) );
 
-		//--------------------------------------------
-		//見出文字
-		m_grpStr_pause = std::make_shared < MenuString > ();
-		m_grpStr_pause->SetStr ( U"- PAUSE -" );
-		m_grpStr_pause->SetPos ( 500, 120 );
-		m_grpStr_pause->SetZ ( Z_MENU_STR );
-		AddpTask ( m_grpStr_pause );
-		GRPLST_INSERT ( m_grpStr_pause );
+		m_item_Taikou = std::make_shared < MenuItem_Taikou >();
+		AddpTask(m_item_Taikou);
 
-		//--------------------------------------------
-		//カーソル
-		m_cursor = std::make_shared < GameGraphic > ();
-		m_cursor->AddTexture_FromArchive ( U"cursor.png" );
-		m_cursor->SetPos ( CURSOR_X, CURSOR_Y );
-		m_cursor->SetZ ( Z_MENU_STR );
-		m_cursor->SetScalingCenter ( 0, 12.5f );
-		AddpTask ( m_cursor );
-		GRPLST_INSERT ( m_cursor );
+		m_item_CpuLevel = std::make_shared < MenuItem_CPU_LEVEL >();
+		AddpTask(m_item_CpuLevel);
 
-		//--------------------------------------------
-		//メニュー項目
+		m_item_Return = std::make_shared < MenuItem_Return >();
+		AddpTask(m_item_Return);
 
-		//タイトル
-		m_mi_title = std::make_shared < PMI_To_Title > ();
-		AddpTask ( m_mi_title );
-		//ゲームに戻る
-		m_mi_resume = std::make_shared < PMI_ResumeGame > ();
-		AddpTask ( m_mi_resume );
-		//ゲームに戻る
-		m_mi_taikou = std::make_shared < PMI_Taikou > ();
-		AddpTask ( m_mi_taikou );
+		m_cursor = std::make_shared < GameGraphic >();
+		m_cursor->AddTexture_FromArchive(U"cursor.png");
+		m_cursor->SetZ(Z_MENU);
+		m_cursor->SetPos(VEC2(300, 400));
+		AddpTask(m_cursor);
+		GRPLST_INSERT(m_cursor);
 
 
-		//--------------------------------------------
-		//Y/Nメニュ
-		m_yesnoMenu = std::make_shared < YesNo_Menu > ();
-		AddpTask ( m_yesnoMenu );
-
-
-		//--------------------------------------------
-		//初期状態はOff
-		Off ();
-
-		//test
-//		On ();
+		//初期状態は非Active
+		SetActive( F );
 	}
 
 	TrainingMenu::~TrainingMenu ()
@@ -83,69 +49,95 @@ namespace GAME
 
 	void TrainingMenu::Load ()
 	{
-		//--------------------------------------------
-		//メニュー項目
-		Menu::SetpMenuItem ( m_mi_title );
-		Menu::SetpMenuItem ( m_mi_resume );
+		SetpMenuItem ( m_item_Taikou );
+		SetpMenuItem ( m_item_CpuLevel );
+		SetpMenuItem ( m_item_Return );
 
-		Menu::Load ();
-	}
+		Top();
+		SetCursorPos();
 
-	void TrainingMenu::Do ()
-	{
+		TASK_VEC::Load ();
+
+//		AllOn ();
+		AllOff ();
 	}
 
 	void TrainingMenu::Move ()
 	{
-		//Y/Nメニュ稼働時は何もしない
-		if ( m_yesnoMenu->GetActive () ) { Menu::Move (); return; }
-
-		//非アクティブ時は何もしない
-		if ( ! GetActive () )
-		{
-			Menu::Move (); return;
-		}
-		if ( ! m_bMenu )
-		{
-			Menu::Move (); return; 
-		}
-
-		//@info 解除を同一ボタンにすると同[F]で解除されてしまう
-		//-> MenuCheck()内部で分岐する
+		//Move()は常に実行
 		
-		Input ();
+		//active時
+		if ( GetActive () )
+		{
+			//位置選択
+			if ( CFG_PUSH_KEY ( P1_UP ) )
+			{
+				Prev();
+				SetCursorPos();
+			}
+			if ( CFG_PUSH_KEY ( P1_DOWN ) )
+			{
+				Next();
+				SetCursorPos();
+			}
+
+			//決定
+			if ( CFG_PUSH_KEY ( P1_BTN0 ) )
+			{
+				//選択したItemをActiveにする
+				GetpMenuItem()->SetActive(T);
+
+				//自身は非Activeにする
+				SetActive(F);
+			}
+
+		}
+		else
+		{
+			//ItemのDo()のみ実行
+			Do ();
+		}
 
 
-		//Do()は選択されたメニュ項目について常に行う
-		Menu::Do ();
+		TASK_VEC::Move ();
+	}
 
+	void TrainingMenu::SetActive ( bool b )
+	{
+		Menu::SetActive ( b );
 
-		//カーソル回転
-		m_cursor_scaling_y += m_cursor_scaling_vy;
-		if ( m_cursor_scaling_y >=  1.f ) { m_cursor_scaling_vy = - 0.1f; }
-		if ( m_cursor_scaling_y <= -1.f ) { m_cursor_scaling_vy =   0.1f; }
-		m_cursor->SetScaling ( 1.f, m_cursor_scaling_y );
-
-		//カーソル位置
-		m_cursor->SetPos ( CURSOR_X, CURSOR_Y + 100.f * Menu::GetIdItem () );
-
-
-		Menu::Move ();
+		//カーソルも表示/非表示
+		m_cursor->SetValid ( b );
 	}
 
 
-	bool TrainingMenu::MenuCheck ()
+	void TrainingMenu::SetCursorPos ()
+	{
+		P_MenuItem pItem = GetpMenuItem();	
+		P_TrainingMenuItem p = std::dynamic_pointer_cast<TrainingMenuItem>(pItem);
+		m_cursor->SetPos( p->GetPosCursor() );
+	}
+
+
+	void TrainingMenu::SetwpParentScene ( WP_Scene wp )
+	{
+		(void)wp;
+	}
+
+	bool TrainingMenu::MenuInput ()
 	{
 		//メニュポーズ中
-		if ( m_bMenu )
+		if ( GetActive () )
 		{
 			//メニュポーズ解除
-			bool bEsc = ( WND_UTL::AscKey ( VK_ESCAPE ) );
-			bool bMenuBtn = ( CFG_PUSH_KEY ( P1_BTN6 ) || CFG_PUSH_KEY ( P2_BTN6 ) );
-			if ( bEsc || bMenuBtn )
+			bool bEsc = WND_UTL::AscKey ( VK_ESCAPE );
+			bool bMenuBtn = CFG_PUSH_KEY_12 ( PLY_BTN6 );
+			bool bCancelBtn = CFG_PUSH_KEY_12 ( PLY_BTN1 );
+			if ( bEsc || bMenuBtn || bCancelBtn )
 			{
 				AUD_PLAY_ONESHOT_SE(SE_select_Cancel);
 				Off ();
+				SetStopMain ( F );
 				return F;
 			}
 			else
@@ -162,106 +154,32 @@ namespace GAME
 		{
 			AUD_PLAY_ONESHOT_SE (SE_select_move);
 			On ();
+			SetStopMain ( T );
 		}
 
 		return F;
 	}
 
-	void TrainingMenu::Input ()
-	{
-		//=============================================================
-		// 操作
-		//=============================================================
-		//選択
-		if ( CFG_PUSH_KEY ( P1_DOWN ) || CFG_PUSH_KEY ( P2_DOWN ) )
-		{
-			AUD_PLAY_ONESHOT_SE ( SE_select_move );
-			Menu::Next ();
-		}
-		if ( CFG_PUSH_KEY ( P1_UP ) || CFG_PUSH_KEY ( P2_UP ) )
-		{
-			AUD_PLAY_ONESHOT_SE (SE_select_move);
-			Menu::Prev ();
-		}
-
-		//決定
-		if ( CFG_PUSH_KEY ( P1_BTN0 ) || CFG_PUSH_KEY ( P2_BTN0 ) )
-		{
-			Menu::Decide ();
-		}
-		//=============================================================
-	}
-
-
-	//稼働
 	void TrainingMenu::Off ()
 	{
-		m_grpStr_pause->SetValid ( F );
+		m_item_Taikou->Off ();
+		m_item_CpuLevel->Off ();
+		m_item_Return->Off ();
 		m_cursor->SetValid ( F );
-
-		m_mi_title->Off ();
-		m_mi_resume->Off ();
-		m_mi_taikou->Off ();
-		m_yesnoMenu->Off ();
-
-		m_bMenu = F;
 		SetActive ( F );
-
 		Menu::Off ();
 	}
 
 	void TrainingMenu::On ()
 	{
-		m_grpStr_pause->SetValid ( T );
+		m_item_Taikou->On ();
+		m_item_CpuLevel->On ();
+		m_item_Return->On ();
 		m_cursor->SetValid ( T );
-
-		m_mi_title->On ();
-		m_mi_resume->On ();
-		m_mi_taikou->On ();
-
-		//yes_noは別で起動する
-//		m_yesnoMenu->On ();
-
-		m_bMenu = T;
 		SetActive ( T );
-
 		Menu::On ();
 	}
 
-
-	//表示
-	void TrainingMenu::UnDisp ()
-	{
-		m_grpStr_pause->SetValid ( F );
-		m_cursor->SetValid ( F );
-
-		m_mi_title->Off ();
-		m_mi_resume->Off ();
-		m_mi_taikou->Off ();
-		m_yesnoMenu->Off ();
-
-		//全体稼働フラグは残す
-		//m_bMenu = F;
-
-		SetActive ( F );
-	}
-
-#if 0
-	void PauseMenu::SetwpParent ( WP_FtgMain p )
-	{
-		m_mi_title->SetwpParent ( shared_from_this () );
-		m_mi_resume->SetwpParent ( shared_from_this () );
-
-		m_yesnoMenu->SetwpParent ( p );
-	}
-#endif // 0
-
-	void TrainingMenu::SetwpParentScene ( WP_Scene wp )
-	{
-		m_mi_title->SetwpParent ( shared_from_this () );
-		m_mi_resume->SetwpParent ( shared_from_this () );
-		m_yesnoMenu->SetwpParentScene ( wp );
-	}
 
 }	//namespace GAME
 
