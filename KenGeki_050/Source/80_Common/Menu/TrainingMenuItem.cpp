@@ -53,11 +53,6 @@ namespace GAME
 
 	MenuItem_Taikou::MenuItem_Taikou ()
 	{
-		m_str->SetPos( VEC2(300, 150) );
-		m_str->SetStr(U"トレーニング メニュー");
-		AddpTask(m_str);
-		GRPLST_INSERT ( m_str );
-
 
 		m_SelectBG = std::make_shared < PrmRect >();
 		m_SelectBG->SetZ ( Z_MENU - 0.001f + 0.0001f );
@@ -179,7 +174,7 @@ namespace GAME
 
 	void MenuItem_Taikou::SetActive(bool b)
 	{
-		MenuItem::SetActive(b);
+		TrainingMenuItem::SetActive(b);
 		m_SelectBG->SetValid(b);
 		m_Cursor->SetValid(b);
 	}
@@ -190,7 +185,7 @@ namespace GAME
 		m_StrOn->SetValid ( F );
 		m_StrOff->SetValid ( F );
 		m_Select->SetValid ( F );
-		MenuItem::Off();
+		TrainingMenuItem::Off();
 	}
 
 	void MenuItem_Taikou::On()
@@ -199,7 +194,7 @@ namespace GAME
 		m_StrOn->SetValid ( T );
 		m_StrOff->SetValid ( T );
 		m_Select->SetValid ( T );
-		MenuItem::On();
+		TrainingMenuItem::On();
 	}
 
 
@@ -269,17 +264,17 @@ namespace GAME
 	void MenuItem_CPU_LEVEL::Init ()
 	{
 		SetActive ( F );
-		MenuItem::Init ();
+		TrainingMenuItem::Init ();
 	}
 
 	void MenuItem_CPU_LEVEL::Load ()
 	{
-		MenuItem::Load ();
+		TrainingMenuItem::Load ();
 	}
 
 	void MenuItem_CPU_LEVEL::Move ()
 	{
-		MenuItem::Move ();
+		TrainingMenuItem::Move ();
 	}
 
 	void MenuItem_CPU_LEVEL::Do ()
@@ -329,7 +324,7 @@ namespace GAME
 
 	void MenuItem_CPU_LEVEL::SetActive(bool b)
 	{
-		MenuItem::SetActive(b);
+		TrainingMenuItem::SetActive(b);
 		m_SelectBG->SetValid(b);
 		m_Cursor->SetValid(b);
 	}
@@ -352,7 +347,7 @@ namespace GAME
 			p->SetValid ( F );
 		}
 		m_Select->SetValid ( F );
-		MenuItem::Off();
+		TrainingMenuItem::Off();
 	}
 
 	void MenuItem_CPU_LEVEL::On()
@@ -363,7 +358,7 @@ namespace GAME
 			p->SetValid ( T );
 		}
 		m_Select->SetValid ( T );
-		MenuItem::On();
+		TrainingMenuItem::On();
 	}
 
 	//======================================================
@@ -374,7 +369,7 @@ namespace GAME
 		m_StrReturn->SetSize ( G_Font::FONT_SIZE::SIZE_30 );
 		m_StrReturn->SetZ ( Z_MENU - 0.001f );
 		m_StrReturn->SetPos( VEC2( 10 + bx0, 2 + by3) );
-		m_StrReturn->SetStr(U"戻る");
+		m_StrReturn->SetStr(U"ゲームに戻る");
 		AddpTask(m_StrReturn);
 		GRPLST_INSERT(m_StrReturn);
 
@@ -388,12 +383,12 @@ namespace GAME
 
 	void MenuItem_Return::Load ()
 	{
-		MenuItem::Load ();
+		TrainingMenuItem::Load ();
 	}
 
 	void MenuItem_Return::Move ()
 	{
-		MenuItem::Move ();
+		TrainingMenuItem::Move ();
 	}
 
 	void MenuItem_Return::Do ()
@@ -404,60 +399,60 @@ namespace GAME
 	void MenuItem_Return::Off()
 	{
 		m_StrReturn->SetValid ( F );
-		MenuItem::Off();
+		TrainingMenuItem::Off();
 	}
 
 	void MenuItem_Return::On()
 	{
 		m_StrReturn->SetValid ( T );
-		MenuItem::On();
+		TrainingMenuItem::On();
 	}
 
 	//======================================================
 
-	MenuItem_Title::MenuItem_Title ()
+	MenuItem_ToTitle::MenuItem_ToTitle ()
 	{
-		m_StrReturn = std::make_shared < GrpStr > ();
-		m_StrReturn->SetSize ( G_Font::FONT_SIZE::SIZE_30 );
-		m_StrReturn->SetZ ( Z_MENU - 0.001f );
-		m_StrReturn->SetPos( VEC2( 10 + bx0, 2 + by2) );
-		m_StrReturn->SetStr(U"タイトルに戻る");
-		AddpTask(m_StrReturn);
-		GRPLST_INSERT(m_StrReturn);
+		m_StrToTitle = std::make_shared < GrpStr > ();
+		m_StrToTitle->SetSize ( G_Font::FONT_SIZE::SIZE_30 );
+		m_StrToTitle->SetZ ( Z_MENU - 0.001f );
+		m_StrToTitle->SetPos( VEC2( 10 + bx0, 2 + by2) );
+		m_StrToTitle->SetStr(U"タイトルに戻る");
+		AddpTask(m_StrToTitle);
+		GRPLST_INSERT(m_StrToTitle);
 
 		SetPosCursor(VEC2(bx0 - 100, by2 + by_csr));
 	}
 
-	MenuItem_Title::~MenuItem_Title ()
+	MenuItem_ToTitle::~MenuItem_ToTitle ()
 	{
 	}
 
 
-	void MenuItem_Title::Load ()
+	void MenuItem_ToTitle::Load ()
 	{
 		MenuItem::Load ();
 	}
 
-	void MenuItem_Title::Move ()
+	void MenuItem_ToTitle::Move ()
 	{
 		MenuItem::Move ();
 	}
 
-	void MenuItem_Title::Do ()
+	void MenuItem_ToTitle::Do ()
 	{
 	}
 
 
-	void MenuItem_Title::Off()
+	void MenuItem_ToTitle::Off()
 	{
-		m_StrReturn->SetValid ( F );
-		MenuItem::Off();
+		m_StrToTitle->SetValid ( F );
+		TrainingMenuItem::Off();
 	}
 
-	void MenuItem_Title::On()
+	void MenuItem_ToTitle::On()
 	{
-		m_StrReturn->SetValid ( T );
-		MenuItem::On();
+		m_StrToTitle->SetValid ( T );
+		TrainingMenuItem::On();
 	}
 
 

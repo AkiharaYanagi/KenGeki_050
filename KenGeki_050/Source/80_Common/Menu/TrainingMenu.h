@@ -23,9 +23,8 @@ namespace GAME
 	{
 		P_MenuItem_Taikou		m_item_Taikou;		//剣撃対抗
 		P_MenuItem_CPU_LEVEL	m_item_CpuLevel;	//CPUレベル
+		P_MenuItem_ToTitle		m_item_ToTitle;		//タイトル
 		P_MenuItem_Return		m_item_Return;		//戻る
-
-		//P_MenuString		m_testStr;		//テキスト
 
 		P_Grp		m_cursor;	//カーソル
 

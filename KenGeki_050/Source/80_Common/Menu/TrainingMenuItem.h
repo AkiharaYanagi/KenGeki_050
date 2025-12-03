@@ -125,13 +125,13 @@ namespace GAME
 	//======================================================
 
 	//======================================================
-	class MenuItem_Title	: public TrainingMenuItem
+	class MenuItem_ToTitle	: public TrainingMenuItem
 	{
-		P_GrpStr	m_StrReturn;	//"戻る"
+		P_GrpStr	m_StrToTitle;	//"タイトルに戻る"
 	public:
-		MenuItem_Title ();
-		MenuItem_Title ( const MenuItem_Title & rhs ) = delete;
-		~MenuItem_Title ();
+		MenuItem_ToTitle ();
+		MenuItem_ToTitle ( const MenuItem_ToTitle & rhs ) = delete;
+		~MenuItem_ToTitle ();
 
 		void Load ();
 		void Move ();
@@ -143,7 +143,7 @@ namespace GAME
 		
 	};
 
-	using P_MenuItem_Title = std::shared_ptr < MenuItem_Title >;
+	using P_MenuItem_ToTitle = std::shared_ptr < MenuItem_ToTitle >;
 
 
 	//======================================================

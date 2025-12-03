@@ -22,11 +22,19 @@ namespace GAME
 		SetBG_Size ( VEC2 ( 1000, 800 ) );
 		SetBG_Pos ( VEC2 ( 1280 / 2 - 1000 / 2, 960 / 2 - 800 / 2 ) );
 
+		m_str->SetPos( VEC2(300, 150) );
+		m_str->SetStr(U"トレーニング メニュー");
+		AddpTask(m_str);
+		GRPLST_INSERT ( m_str );
+
 		m_item_Taikou = std::make_shared < MenuItem_Taikou >();
 		AddpTask(m_item_Taikou);
 
 		m_item_CpuLevel = std::make_shared < MenuItem_CPU_LEVEL >();
 		AddpTask(m_item_CpuLevel);
+
+		m_item_ToTitle = std::make_shared < MenuItem_ToTitle >();
+		AddpTask(m_item_ToTitle);
 
 		m_item_Return = std::make_shared < MenuItem_Return >();
 		AddpTask(m_item_Return);
@@ -51,6 +59,7 @@ namespace GAME
 	{
 		SetpMenuItem ( m_item_Taikou );
 		SetpMenuItem ( m_item_CpuLevel );
+		SetpMenuItem ( m_item_ToTitle );
 		SetpMenuItem ( m_item_Return );
 
 		Top();
@@ -64,6 +73,9 @@ namespace GAME
 
 	void TrainingMenu::Move ()
 	{
+		//メイン停止以外は何もしない
+		if ( ! GetStopMain () ) { return; }
+
 		//Move()は常に実行
 		
 		//active時
@@ -162,8 +174,10 @@ namespace GAME
 
 	void TrainingMenu::Off ()
 	{
+		m_str->SetValid ( F );
 		m_item_Taikou->Off ();
 		m_item_CpuLevel->Off ();
+		m_item_ToTitle->Off ();
 		m_item_Return->Off ();
 		m_cursor->SetValid ( F );
 		SetActive ( F );
@@ -172,8 +186,10 @@ namespace GAME
 
 	void TrainingMenu::On ()
 	{
+		m_str->SetValid ( T );
 		m_item_Taikou->On ();
 		m_item_CpuLevel->On ();
+		m_item_ToTitle->On ();
 		m_item_Return->On ();
 		m_cursor->SetValid ( T );
 		SetActive ( T );
