@@ -141,6 +141,8 @@ namespace GAME
 		P_ExeChara pOther = m_pOther.lock ();	//相手
 		P_Frame pScp = pSelf->GetpScript ();
 
+		//@info 向き注意！　スクリプト時点でマイナスは後ろ向き、
+		//	現在方向を最後に反映する
 
 		// スクリプトで指定した値は10倍の値なので1/10にする
 		// 実効値 (float) = (float)1/10
