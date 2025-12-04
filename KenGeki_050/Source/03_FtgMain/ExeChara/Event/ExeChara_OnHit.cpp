@@ -200,38 +200,36 @@ namespace GAME
 #endif // 0
 
 		//----------------------------------------------
-		//最後に相手と逆向き修正
-		float ox = pOther->GetPos ().x;
+		//最後に相手と離れる向きに計算
+		//◆ 自分・攻撃 -> 相手・くらい
+
+		//位置
 		float mx = pSelf ->GetPos ().x;
+		float ox = pOther->GetPos ().x;
 
-		//同位置のときは向きは持続
-		if ( mx != ox )
+		//自身が左位置のとき、自分が離れるのは左(負)方向
+		bool bPosLeft = mx < ox;
+
+		//少ないが、同位置のときは向きは自分の向きの逆
+		if ( mx == ox )
 		{
-			bool bPosLeft = mx < ox;	//自身が左位置のとき
-			float dir = bPosLeft ? -1.f : 1.f;	//自分の向きによらず左方向
+			bPosLeft = ! pSelf->GetBtlPrm().GetDirRight();
+		}
 
-			//絶対値に符号(向き)を乗算
-			float abs = std::abs ( recoil_i );
-			float recoil_dir = dir * abs;
+		//絶対値に符号(向き)を乗算
+		float abs = std::abs ( recoil_i );
+		recoil_i = bPosLeft ?  -1.f * abs : abs;
 
 #if 0
-			if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
-			{
-				DBGOUT_WND_F ( DBGOUT_5, U"p1:recoil_i {} = {} * {}"_fmt ( recoil_dir, dir, abs ) );
-			}
-			if ( m_btlPrm.GetPlayerID () == PLAYER_ID_2 )
-			{
-				DBGOUT_WND_F ( DBGOUT_6, U"p2:recoil_i {} = {} * {}"_fmt ( recoil_dir, dir, abs ) );
-			}
-#endif // 0
-
-			//保存
-			recoil_i = recoil_dir;
-		}
-		else
+		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
 		{
-		//同位置のときは向きは持続
+			DBGOUT_WND_F ( DBGOUT_5, U"p1:recoil_i {} = {} * {}"_fmt ( recoil_dir, dir, abs ) );
 		}
+		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_2 )
+		{
+			DBGOUT_WND_F ( DBGOUT_6, U"p2:recoil_i {} = {} * {}"_fmt ( recoil_dir, dir, abs ) );
+		}
+#endif // 0
 
 		//----------------------------------------------
 		//パラメータに反映

@@ -388,6 +388,8 @@ namespace GAME
 
 		//---------------
 		//相手からの反動(ノックバック)
+		//◆ 自分・攻撃 -> 相手・くらい
+		//自身が左位置のとき、自分が離れるのは左(負)方向
 //		m_vel_recoil += dir * m_acc_recoil;
 		m_vel_recoil += m_acc_recoil;		//向きはヒット時に相対位置で決める
 		m_posChara.x += m_vel_recoil;

@@ -82,19 +82,19 @@ namespace GAME
 		if ( GetActive () )
 		{
 			//位置選択
-			if ( CFG_PUSH_KEY ( P1_UP ) )
+			if ( CFG_PUSH_KEY_12 ( PLY_UP ) )
 			{
 				Prev();
 				SetCursorPos();
 			}
-			if ( CFG_PUSH_KEY ( P1_DOWN ) )
+			if ( CFG_PUSH_KEY_12 ( PLY_DOWN ) )
 			{
 				Next();
 				SetCursorPos();
 			}
 
 			//決定
-			if ( CFG_PUSH_KEY ( P1_BTN0 ) )
+			if ( CFG_PUSH_KEY_12 ( PLY_BTN0 ) )
 			{
 				//選択したItemをActiveにする
 				GetpMenuItem()->SetActive(T);
@@ -103,6 +103,12 @@ namespace GAME
 				SetActive(F);
 			}
 
+			//キャンセル
+			if ( CFG_PUSH_KEY_12 ( PLY_BTN1 ) )
+			{
+				this->SetActive(F);
+				SetStopMain ( F );
+			}
 		}
 		else
 		{

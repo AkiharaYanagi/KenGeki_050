@@ -139,17 +139,17 @@ namespace GAME
 	void MenuItem_Taikou::Do() 
 	{
 		//入力
-		if ( CFG_PUSH_KEY ( P1_LEFT ) )
+		if ( CFG_PUSH_KEY_12 ( PLY_LEFT ) )
 		{
 			m_Cursor->SetPos( VEC2(bx_on, by0) );
 		}
-		if ( CFG_PUSH_KEY ( P1_RIGHT ) )
+		if ( CFG_PUSH_KEY_12 ( PLY_RIGHT ) )
 		{
 			m_Cursor->SetPos( VEC2(bx_of, by0) );
 		}
 
 		//決定
-		if ( CFG_PUSH_KEY ( P1_BTN0 ) )
+		if ( CFG_PUSH_KEY_12 ( PLY_BTN0 ) )
 		{
 			if ( m_Cursor->GetPos ().x == bx_on )
 			{
@@ -165,7 +165,7 @@ namespace GAME
 		}
 
 		//キャンセル
-		if ( CFG_PUSH_KEY ( P1_BTN1 ) )
+		if ( CFG_PUSH_KEY_12 ( PLY_BTN1 ) )
 		{
 			this->SetActive(F);
 			mwp_Parent.lock()->SetActive ( T );

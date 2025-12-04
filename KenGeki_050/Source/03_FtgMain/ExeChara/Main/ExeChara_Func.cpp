@@ -26,30 +26,6 @@ namespace GAME
 	//バトルパラメータ入力処理
 	void ExeChara::BtlPrm_Move_Input ()
 	{
-		P_ExeChara pOther =  m_pOther.lock();
-
-		//----------------------------------------------------------
-		//バトルパラメータ入力
-		m_btlPrm.Move_Input ();
-
-		//向き(右向きが真、左向きが偽)
-		//　移動量も右が正、左が負
-		bool bDirRight = m_btlPrm.GetDirRight ();
-
-		//----------------------------------------------------------
-		// 向き
-		
-		//相手と離れる方向(裏当て対応)
-		float myX = m_btlPrm.GetPos().x;
-		float otherX = pOther->m_btlPrm.GetPos().x;
-		bool bDistanceRight = myX < otherX;
-		//自分が左、相手が右のとき、離れるのは右方向
-
-		//少ないが同位置のとき、自分の向きで決定
-		if ( myX == otherX ) { bDistanceRight = ! bDirRight; }
-		//----------------------------------------------------------
-
-
 		//==========================================
 		//◆ 自分・攻撃 -> 相手・くらい
 		//ヒット発生(攻撃成立側)
@@ -57,6 +33,30 @@ namespace GAME
 		//自分ノックバック処理
 		
 		//★★★ 剣撃対抗 (打撃時にいずれかの入力で距離離し)
+
+		P_ExeChara pOther =  m_pOther.lock();
+
+		//----------------------------------------------------------
+		//バトルパラメータ入力
+		m_btlPrm.Move_Input ();
+
+		//----------------------------------------------------------
+		// 向き
+
+		//向き(右向きが真、左向きが偽)
+		//　移動量も右が正、左が負
+		bool bDirRight = m_btlPrm.GetDirRight ();
+		
+		//相手と離れる方向(裏当て対応)
+		float myX = m_btlPrm.GetPos().x;
+		float otherX = pOther->m_btlPrm.GetPos().x;
+		bool bPosLeft = myX < otherX;
+		//自身が左位置のとき、自分が離れるのは左(負)方向
+
+		//少ないが同位置のとき、自分の向きで決定
+		if ( myX == otherX ) { bPosLeft = ! bDirRight; }
+		//----------------------------------------------------------
+
 
 		//相手（くらい側のフラグチェック）
 		bool bTimerTaikou = pOther->m_btlPrm.GetTmr_Taikou()->IsActive ();
@@ -138,13 +138,13 @@ namespace GAME
 
 					//accRecoil += -10;
 					//移動量を向きに合わせる
-					accRecoil += ( bDistanceRight ) ? 10 : -10;
+					accRecoil += ( bPosLeft ) ? -1 : 1;
 
 					accRecoil *= 10;
 
 					//accRecoil += -10;
 					//移動量を向きに合わせる
-					accRecoil += ( bDistanceRight ) ? 10 : -10;
+					accRecoil += ( bPosLeft ) ? -10 : 10;
 
 
 					//成立フラグ
@@ -168,6 +168,12 @@ namespace GAME
 			DBGOUT_WND_F ( DBGOUT_0, U"剣撃対抗 = {}"_fmt( bt ? 1 : 0 ) );
 			DBGOUT_WND_F ( DBGOUT_1, U"計算前：accRecoil = {:.3f}"_fmt( ar0 ) );
 			DBGOUT_WND_F ( DBGOUT_2, U"計算後：accRecoil = {:.3f}"_fmt( ar1 ) );
+		}
+		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_2 )
+		{
+			DBGOUT_WND_F ( DBGOUT_3, U"剣撃対抗 = {}"_fmt( bt ? 1 : 0 ) );
+			DBGOUT_WND_F ( DBGOUT_4, U"計算前：accRecoil = {:.3f}"_fmt( ar0 ) );
+			DBGOUT_WND_F ( DBGOUT_5, U"計算後：accRecoil = {:.3f}"_fmt( ar1 ) );
 		}
 #if 0
 #endif // 0
