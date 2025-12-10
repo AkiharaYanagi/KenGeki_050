@@ -58,6 +58,8 @@ namespace GAME
 	{
 		m_timer = std::make_shared < Timer > ();
 		m_timer->SetTargetTime ( 180 );
+
+		m_name.assign ( U"FTG_DM_Greeting" );
 	}
 
 	void FTG_DM_Greeting::Start ()
@@ -89,8 +91,9 @@ namespace GAME
 		m_grpGetReady = MakeGrpValue ( U"Demo_GetReady.png" );
 		m_grpGetReady->SetEnd ( COUNT );
 
-
 		m_timer = std::make_shared < Timer > ();
+
+		m_name.assign ( U"FTG_DM_GetReady" );
 	}
 
 	void FTG_DM_GetReady::Start ()
@@ -191,6 +194,8 @@ namespace GAME
 		m_grpFight21->SetAcc ( VEC2 ( 0.f, 0.f ) );
 		m_grpFight21->SetSecondVel ( VEC2 ( 0.f, 0.f ) );
 		m_pos21 = y0 + h20;
+
+		m_name.assign ( U"FTG_DM_Main" );
 	}
 
 
@@ -335,6 +340,8 @@ namespace GAME
 		m_wallBreakEf = std::make_shared < WallBreak > ();
 		AddpTask ( m_wallBreakEf );
 		m_timer = std::make_shared < Timer > ( 60 );
+
+		m_name.assign ( U"FTG_DM_WallBreak" );
 	}
 
 	void FTG_DM_WallBreak::Start ()
@@ -378,12 +385,6 @@ namespace GAME
 	//敗北ダウン
 	FTG_DM_Down::FTG_DM_Down ()
 	{
-#if 0
-		m_grpDown = MakeGrpValue ( U"Demo_Down.png" );
-		m_grpDown->SetPos ( VEC2 ( ( WINDOW_WIDTH - 617 ) * 0.5f, 400.f ) );
-		m_grpDown->SetEnd ( 120 );
-#endif // 0
-
 		m_grp_Ketsu = std::make_shared < GrpDemo > ();
 		m_grp_Ketsu->AddTexture_FromArchive ( U"decision_ketsu.png" );
 		m_grp_Ketsu->SetPos ( VEC2 ( 200, 150 ) );
@@ -446,6 +447,8 @@ namespace GAME
 
 
 		m_timer = std::make_shared < Timer > ( 120 );
+
+		m_name.assign ( U"FTG_DM_Down" );
 	}
 
 	void FTG_DM_Down::Start ()
@@ -519,6 +522,8 @@ namespace GAME
 
 		m_timer = std::make_shared < Timer > ( 240 );
 		m_timer->Start ();
+
+		m_name.assign ( U"FTG_DM_TimeUpWait" );
 	}
 
 	void FTG_DM_TimeUpWait::Start ()
@@ -529,8 +534,13 @@ namespace GAME
 
 	void FTG_DM_TimeUpWait::Do ()
 	{
+		//待機状態かつタイムアップ表示終了
 		bool bWait = GetpMutualChara ()->IsWait ();
 		bool bDispOff = ! m_grpTimeUp->GetValid ();
+
+		//時間計測カウント
+		m_timer->Move ();
+
 
 		//両者待機状態かつ表示終了時
 		//または時間で強制
@@ -550,6 +560,8 @@ namespace GAME
 	{
 		m_timer = std::make_shared < Timer > ( 120 );
 		AddpTask ( m_timer );
+
+		m_name.assign ( U"FTG_DM_TimeUp" );
 	}
 
 	void FTG_DM_TimeUp::Start ()
@@ -599,6 +611,8 @@ namespace GAME
 		m_fade->SetTime ( 8 );
 		AddpTask ( m_fade );
 		GRPLST_INSERT ( m_fade );
+
+		m_name.assign ( U"FTG_DM_Winner" );
 	}
 
 	void FTG_DM_Winner::Start ()

@@ -90,8 +90,9 @@ namespace GAME
 			return pp; 
 		}
 
-#if 0
-#endif // 0
+		//パラメータ再設定
+		virtual void ParamReset () {}
+
 
 		//遷移
 //		bool GetTransit () const { return m_bTransit; }

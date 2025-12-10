@@ -44,13 +44,23 @@ namespace GAME
 		bool cpu1 { F };	//CPU状態
 		bool cpu2 { F };	//CPU状態
 
+		//ステート名
+		P_GrpStr	m_strState;		//実体はFightingで持つ
+		bool	bDispStrState { F };
+		bool	pre_bDispStrState { F };
+
 	public:
 		MutualChara_Utility ();
 		MutualChara_Utility ( const MutualChara_Utility & rhs ) = delete;
 		~MutualChara_Utility ();
 
 		void ParamInit ( P_Param p );
+
 		void SetpChara ( P_ExeChara p1, P_ExeChara p2 );
+		void SetpStrState ( P_GrpStr strState );
+
+		void Load ();
+
 
 		void SwitchRect ();			//枠表示切替
 		void OnDispRect ();
@@ -71,6 +81,7 @@ namespace GAME
 		void SetCPU_1P ( bool bCPU );	//T:CPU, F:PLAYER
 		void SetCPU_2P ( bool bCPU );	//T:CPU, F:PLAYER
 		void SwitchCPU ();			//2PをCPU操作切替
+
 	};
 
 

@@ -511,6 +511,8 @@ namespace GAME
 		m_pCharaInput = m_pNewCPUInput;
 		//表示切換
 		m_dispChara->SetControl_CPU ();
+		//値保存
+		m_playerMode = MODE_CPU;
 	}
 
 	void ExeChara::ControlPlayer ()
@@ -519,6 +521,8 @@ namespace GAME
 		m_pCharaInput = m_pPlayerInput;
 		//表示切換
 		m_dispChara->SetControl_PLAYER ();
+		//値保存
+		m_playerMode = MODE_PLAYER;
 	}
 
 	//攻撃中かどうか

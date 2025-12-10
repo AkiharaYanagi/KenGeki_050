@@ -133,12 +133,12 @@ namespace GAME
 		if ( ! GetActive () ) { Menu::Move (); return; }
 
 		//選択
-		if ( CFG_PUSH_KEY ( P1_RIGHT ) || CFG_PUSH_KEY ( P2_RIGHT ) )
+		if ( CFG_PUSH_KEY_12 ( PLY_RIGHT ) )
 		{
 			AUD_PLAY_ONESHOT_SE(SE_select_move);
 			Menu::Next ();
 		}
-		if ( CFG_PUSH_KEY ( P1_LEFT ) || CFG_PUSH_KEY ( P2_LEFT ) )
+		if ( CFG_PUSH_KEY_12 ( PLY_LEFT ) )
 		{
 			AUD_PLAY_ONESHOT_SE(SE_select_move);
 			Menu::Prev ();

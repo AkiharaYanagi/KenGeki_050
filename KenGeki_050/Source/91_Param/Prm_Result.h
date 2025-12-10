@@ -10,6 +10,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
+#include "Prm_Const.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -83,8 +84,8 @@ namespace GAME
 
 		void ResetBattleParam ();
 
-		Prp_INT32		m_prp_CpuLevel { 1 };	//CPUレベル
-		Prp_bool		m_prp_Taikou { F };		//剣撃対抗
+		Prp_INT32		m_prp_CpuLevel { 4 };	//CPUレベル
+		Property < TaikouState >	m_prp_Taikou { TaikouState::Normal };	//CPU剣撃対抗状態
 	};
 
 

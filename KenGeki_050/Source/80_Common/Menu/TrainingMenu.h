@@ -38,6 +38,7 @@ namespace GAME
 
 		void SetActive(bool b) override;
 
+		void SetpParam ( P_Param p );
 		void SetwpParentScene ( WP_Scene wp );
 
 		//メインMove()中でチェックしてtrueのとき他を処理しないでreturnする

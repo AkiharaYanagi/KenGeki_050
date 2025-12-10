@@ -63,11 +63,13 @@ namespace GAME
 
 
 		//ポーズメニュ
+#if 0
+		m_pauseMenu = std::make_shared < PauseMenu > ();
+		AddpTask ( m_pauseMenu );
+#endif // 0
 		m_trainingMenu = std::make_shared < TrainingMenu > ();
 		AddpTask ( m_trainingMenu );
 
-#if 0
-#endif // 0
 
 
 #if 0
@@ -108,11 +110,19 @@ namespace GAME
 	{
 	}
 
+
 	void Training::ParamInit ()
 	{
 		m_fighting->ParamInit ( GetpParam () );
-
+		m_trainingMenu->SetpParam ( GetpParam () );
 	}
+
+
+	void Training::ParamReset ()
+	{
+		m_fighting->ParamReset ();
+	}
+
 
 	void Training::Load ()
 	{
@@ -152,7 +162,11 @@ namespace GAME
 
 
 		//Menu用にthisを保存
+#if 0
+		m_pauseMenu->SetwpParentScene ( shared_from_this () );
+#endif // 0
 		m_trainingMenu->SetwpParentScene ( shared_from_this () );
+
 
 #if 0
 		//BGM
@@ -186,14 +200,20 @@ namespace GAME
 #endif // 0
 
 
-		m_trainingMenu->MenuInput ();
-
 		//メニュポーズ中
-		if ( m_trainingMenu->GetStopMain () )
+#if 0
+		if ( m_pauseMenu->MenuCheck () )
 		{
 			return;
 		}
-
+#endif // 0
+		m_trainingMenu->MenuInput ();
+		if ( m_trainingMenu->GetStopMain () )
+		{
+			//メニュ動作のみ
+			m_trainingMenu->Move ();
+			return;
+		}
 
 
 		//トレーニングリセット

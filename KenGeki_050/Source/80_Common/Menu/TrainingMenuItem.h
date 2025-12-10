@@ -9,6 +9,10 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
+#include "../../90_GameMain/Scene.h"
+#include "YesNo_Menu.h"
+#include "../../91_Param/Prm_Const.h"
+
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
@@ -18,12 +22,16 @@ namespace GAME
 	//======================================================
 	class TrainingMenuItem : public MenuItem
 	{
-		VEC2	m_posCursor { 0, 0 };	//親カーソル位置
+	protected:
+		P_Param		m_pParam;		//共有パラメータ
+		VEC2		m_posCursor { 0, 0 };	//親カーソル位置
 
 	public:
 		TrainingMenuItem (){}
 		TrainingMenuItem ( const TrainingMenuItem & rhs ) = delete;
 		~TrainingMenuItem(){}
+
+		void SetpParam ( P_Param p ) { m_pParam = p; }
 
 		VEC2 GetPosCursor() const { return m_posCursor; }
 		void SetPosCursor(VEC2 v) { m_posCursor = v; }
@@ -39,11 +47,17 @@ namespace GAME
 		P_PrmRect	m_Cursor;		//選択カーソル
 
 		P_GrpStr	m_StrTaikou;	//剣撃対抗
-		P_GrpStr	m_StrOn;	//ON
-		P_GrpStr	m_StrOff;	//OFF
+		P_GrpStr	m_StrNone;		//None
+		P_GrpStr	m_StrNormal;	//Normal
+		P_GrpStr	m_StrRandom;	//Random
+		P_GrpStr	m_StrForced;	//ForcedOn
 
-		bool		m_state{ F };	//対象の状態
+//		bool		m_state{ F };	//対象の状態
 		P_PrmRect	m_Select;		//選択表示
+
+		WP_Scene	mwp_Scene;
+
+		TaikouState m_taikouState { TaikouState::Normal };
 
 	public:
 		MenuItem_Taikou ();
@@ -60,7 +74,15 @@ namespace GAME
 		void On () override;
 		void Off () override;
 
-		bool GetState() const { return m_state; }
+		//bool GetState() const { return m_state; }
+
+		void SetwpParentScene ( WP_Scene wp );
+
+	private:
+		P_GrpStr MakeStr ( LPCUSTR str, VEC2 pos );
+		void NextState ();
+		void PrevState ();
+		VEC2 GetPosFromState ( TaikouState state );
 	};
 
 	using P_MenuItem_Taikou = std::shared_ptr < MenuItem_Taikou >;
@@ -80,6 +102,8 @@ namespace GAME
 		INT32		m_level { 0 };	//CPUレベル
 		P_PrmRect	m_Select;		//選択表示
 
+		WP_Scene	mwp_Scene;
+
 	public:
 		MenuItem_CPU_LEVEL ();
 		MenuItem_CPU_LEVEL ( const MenuItem_CPU_LEVEL & rhs ) = delete;
@@ -94,11 +118,42 @@ namespace GAME
 		void On () override;
 		void Off () override;
 
+		void SetwpParentScene ( WP_Scene wp );
+
 	private:
 		void SetLevel(INT32 level);
 	};
 
 	using P_MenuItem_CPU_LEVEL = std::shared_ptr < MenuItem_CPU_LEVEL >;
+
+	//======================================================
+	class MenuItem_ToTitle	: public TrainingMenuItem
+	{
+		P_GrpStr		m_StrToTitle;	//"タイトルに戻る"
+		P_YesNo_Menu	m_YesNoMenu;	//確認メニュ
+
+	public:
+		MenuItem_ToTitle ();
+		MenuItem_ToTitle ( const MenuItem_ToTitle & rhs ) = delete;
+		~MenuItem_ToTitle ();
+
+		void Load ();
+		void Move ();
+		void On () override;
+		void Off () override;
+
+		void Do() override;
+		void Decide () override;
+
+		void SetwpParentScene ( WP_Scene wp ) { m_YesNoMenu->SetwpParentScene ( wp ); }
+	private:
+		
+	};
+
+	using P_MenuItem_ToTitle = std::shared_ptr < MenuItem_ToTitle >;
+
+
+	//======================================================
 
 	//======================================================
 	class MenuItem_Return	: public TrainingMenuItem
@@ -115,35 +170,12 @@ namespace GAME
 		void Off () override;
 
 		void Do() override;
+		void Decide () override;
 	private:
 		
 	};
 
 	using P_MenuItem_Return = std::shared_ptr < MenuItem_Return >;
-
-
-	//======================================================
-
-	//======================================================
-	class MenuItem_ToTitle	: public TrainingMenuItem
-	{
-		P_GrpStr	m_StrToTitle;	//"タイトルに戻る"
-	public:
-		MenuItem_ToTitle ();
-		MenuItem_ToTitle ( const MenuItem_ToTitle & rhs ) = delete;
-		~MenuItem_ToTitle ();
-
-		void Load ();
-		void Move ();
-		void On () override;
-		void Off () override;
-
-		void Do() override;
-	private:
-		
-	};
-
-	using P_MenuItem_ToTitle = std::shared_ptr < MenuItem_ToTitle >;
 
 
 	//======================================================

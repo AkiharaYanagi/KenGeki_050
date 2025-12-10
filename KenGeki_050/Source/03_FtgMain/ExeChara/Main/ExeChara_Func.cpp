@@ -83,8 +83,73 @@ namespace GAME
 		//受付時間内の場合
 		if ( bTimerTaikou )
 		{
-			//入力が合った場合
-			if ( pOther->m_pCharaInput->PushSomething () )
+			//---------------------------------------------
+#if 0
+			//条件
+			bool bAchieved = F;	//成立
+
+			if ( pOther->IsCPU () )
+			{
+				//CPU時、パラメータによる
+				TaikouState tkStt = m_pParam->GetPrmResult().m_prp_Taikou.Get();
+				switch ( tkStt )
+				{
+				//無効
+				case GAME::TaikouState::None: bAchieved = F; break;
+
+				case GAME::TaikouState::Normal:
+					//相手の入力が合った場合
+					bAchieved = pOther->m_pCharaInput->PushSomething ();
+				break;
+
+				case GAME::TaikouState::Random:
+					bAchieved = s3d::Random ( 0, 1 ) == 0;
+					//自身の受付時間を解除
+					pOther->m_btlPrm.GetTmr_Taikou()->Clear ();
+				break;
+
+				//強制
+				case GAME::TaikouState::ForcedOn: bAchieved = T; break;
+				}
+			}
+			else
+			{
+				//プレイヤー
+				//相手の入力が合った場合
+				bAchieved = pOther->m_pCharaInput->PushSomething ();
+			}
+#endif // 0
+
+			//条件
+			bool bAchieved = F;	//成立
+
+			//CPU時、プレイヤ時、パラメータによる
+			TaikouState tkStt = m_pParam->GetPrmResult().m_prp_Taikou.Get();
+			switch ( tkStt )
+			{
+			//無効
+			case GAME::TaikouState::None: bAchieved = F; break;
+
+			case GAME::TaikouState::Normal:
+				//相手の入力が合った場合
+				bAchieved = pOther->m_pCharaInput->PushSomething ();
+			break;
+
+			case GAME::TaikouState::Random:
+				bAchieved = s3d::Random ( 0, 1 ) == 0;
+				//自身の受付時間を解除
+				pOther->m_btlPrm.GetTmr_Taikou()->Clear ();
+			break;
+
+			//強制
+			case GAME::TaikouState::ForcedOn: bAchieved = T; break;
+			}
+
+			//---------------------------------------------
+
+
+			//条件成立時、剣撃対抗処理
+			if ( bAchieved )
 			{
 #if 0
 
@@ -141,6 +206,7 @@ namespace GAME
 					accRecoil += ( bPosLeft ) ? -1 : 1;
 
 					accRecoil *= 10;
+					//accRecoil *= 5;
 
 					//accRecoil += -10;
 					//移動量を向きに合わせる

@@ -1421,5 +1421,8 @@
     <ClInclude Include="Source\80_Common\Menu\TrainingMenu.h">
       <Filter>80_Common\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="Source\91_Param\Prm_Const.h">
+      <Filter>91_Param</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

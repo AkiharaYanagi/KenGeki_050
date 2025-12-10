@@ -59,7 +59,8 @@ namespace GAME
 	//重み定数：ボタン
 	const std::vector < double > NewCPUInput::weights_key =
 	{
-		2000,	//N							0
+//		2000,	//N							0
+		100,	//N							0
 		120,	//BTN_0		(小)				1
 		100,	//BTN_1		(中)				2
 		 80,	//BTN_2		(大)				3
@@ -113,6 +114,14 @@ namespace GAME
 
 		//----------------------------------------------------
 		//レベルによるインターバル調整
+
+		if ( m_level == 0 )
+		{
+			//レベル１(値は0)は何もしない
+			IncrementInput ( gameKey );
+			return;
+		}
+
 		if ( m_count_interval < Interval () )
 		{
 			++ m_count_interval;

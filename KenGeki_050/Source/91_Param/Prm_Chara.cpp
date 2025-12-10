@@ -251,7 +251,11 @@ namespace GAME
 		m_Retsu.SetFileName ( CHARA_SCP_RETSU, CHARA_IMG1_RETSU, CHARA_IMG2_RETSU, CHARA_GNS_RETSU );
 		m_Gaba.SetFileName	( CHARA_SCP_GABA , CHARA_IMG1_GABA , CHARA_IMG2_GABA , CHARA_GNS_GABA  );
 		m_Fera.SetFileName	( CHARA_SCP_FERA , CHARA_IMG1_FERA , CHARA_IMG2_FERA , CHARA_GNS_FERA  );
+#if 0
+
 		m_Tsuki.SetFileName ( CHARA_SCP_TUKI , CHARA_IMG1_TUKI , CHARA_IMG2_TUKI , CHARA_GNS_TUKI  );
+
+#endif // 0
 	}
 
 	Prm_Chara_all::Prm_Chara_all ( const Prm_Chara_all & rhs )
@@ -261,7 +265,11 @@ namespace GAME
 		m_Retsu = rhs.m_Retsu;
 		m_Gaba = rhs.m_Gaba;
 		m_Fera = rhs.m_Fera;
+#if 0
+
 		m_Tsuki = rhs.m_Tsuki;
+
+#endif // 0
 	}
 
 	Prm_Chara_all::~Prm_Chara_all ()
@@ -281,6 +289,9 @@ namespace GAME
 		if ( m_asyncLoad_Gaba.isValid () ) { m_asyncLoad_Gaba.wait (); }
 		if ( m_asyncLoad_Fera.isValid () ) { m_asyncLoad_Fera.wait (); }
 
+#if 0
+#endif // 0
+
 	}
 
 
@@ -294,7 +305,9 @@ namespace GAME
 		m_asyncLoad_Retu = s3d::Async ( _Load_Retu, this );
 		m_asyncLoad_Gaba = s3d::Async ( _Load_Gaba, this );
 		m_asyncLoad_Fera = s3d::Async ( _Load_Fera, this );
-	}
+#if 0
+#endif // 0
+}
 
 	//すべて読込(同期処理)
 	void Prm_Chara_all::LoadAll_Sync ()
@@ -320,6 +333,8 @@ namespace GAME
 		PRINT_F_S ( U"Start Prm_Chara_all::_Load_m_Fera" );
 		m_Fera.Load ();
 		PRINT_F_S ( U"End Prm_Chara_all::_Load_m_Fera" );
+#if 0
+#endif // 0
 
 		PRINT_F_S ( U"End Prm_Chara_all::_LoadAll_Sync" );
 	}
@@ -330,11 +345,11 @@ namespace GAME
 	{
 		PRINT_F_S ( U"Start Prm_Chara_all::_LoadAll" );
 		pThis->m_Ouka.Load ();
-		pThis->m_Fera.Load ();
 		pThis->m_Sae.Load ();
 		pThis->m_Retsu.Load ();
 		pThis->m_Gaba.Load ();
-		PRINT_F_S ( U"End Prm_Chara_all::_LoadAll" );
+		pThis->m_Fera.Load ();
+	PRINT_F_S ( U"End Prm_Chara_all::_LoadAll" );
 	}
 
 	void Prm_Chara_all::_Load_Ouka ( Prm_Chara_all * pThis )
@@ -405,11 +420,14 @@ namespace GAME
 			PRINT_F_S ( U"GetpChara ( CHARA_FERARIA, CLR_{} )"_fmt((int32)clr) );
 			if ( m_asyncLoad_Fera.isValid () ) { m_asyncLoad_Fera.wait (); }
 			return m_Fera.GetpChara ( clr );
+#if 0
+
 
 		case CHARA_TSUKIHIBOSHI:
 			PRINT_F_S ( U"GetpChara ( CHARA_TSUKIHIBOSHI, CLR_{} )"_fmt((int32)clr) );
 			if ( m_asyncLoad_Tuki.isValid () ) { m_asyncLoad_Tuki.wait (); }
 			return m_Tsuki.GetpChara ( clr );
+#endif // 0
 
 		}
 

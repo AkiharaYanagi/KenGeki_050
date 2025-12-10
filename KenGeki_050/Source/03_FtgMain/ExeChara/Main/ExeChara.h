@@ -146,6 +146,7 @@ namespace GAME
 		//基本タスク関数　＆　初期化関連
 	public:
 		void ParamInit ( P_Param pParam );
+		void ParamReset ();
 		void Load ();
 		void Init ();
 
@@ -256,6 +257,8 @@ namespace GAME
 		bool Is1P () const { return m_btlPrm.Is1P(); }
 		bool Is2P () const { return m_btlPrm.Is2P(); }
 		CHARA_NAME GetCharaName () const { return m_name; }
+
+		bool IsCPU () const { return MODE_CPU == m_playerMode; }
 
 		P_Sequence GetpAction () const { return m_pAction; }
 		P_Frame GetpScript () const { return m_pScript; }

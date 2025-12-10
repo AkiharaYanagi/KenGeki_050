@@ -23,7 +23,7 @@ namespace GAME
 		SetBG_Pos ( VEC2 ( 1280 / 2 - 1000 / 2, 960 / 2 - 800 / 2 ) );
 
 		m_str->SetPos( VEC2(300, 150) );
-		m_str->SetStr(U"トレーニング メニュー");
+		m_str->SetStr(U"ポーズ メニュー");
 		AddpTask(m_str);
 		GRPLST_INSERT ( m_str );
 
@@ -55,12 +55,21 @@ namespace GAME
 	{
 	}
 
+	void TrainingMenu::SetpParam ( P_Param p )
+	{
+		m_item_Taikou->SetpParam ( p );
+		m_item_CpuLevel->SetpParam ( p );
+		m_item_ToTitle->SetpParam ( p );
+		m_item_Return->SetpParam ( p );
+	}
+
 	void TrainingMenu::Load ()
 	{
 		SetpMenuItem ( m_item_Taikou );
 		SetpMenuItem ( m_item_CpuLevel );
 		SetpMenuItem ( m_item_ToTitle );
 		SetpMenuItem ( m_item_Return );
+
 
 		Top();
 		SetCursorPos();
@@ -84,11 +93,13 @@ namespace GAME
 			//位置選択
 			if ( CFG_PUSH_KEY_12 ( PLY_UP ) )
 			{
+				AUD_PLAY_ONESHOT_SE (SE_select_move);
 				Prev();
 				SetCursorPos();
 			}
 			if ( CFG_PUSH_KEY_12 ( PLY_DOWN ) )
 			{
+				AUD_PLAY_ONESHOT_SE (SE_select_move);
 				Next();
 				SetCursorPos();
 			}
@@ -96,8 +107,13 @@ namespace GAME
 			//決定
 			if ( CFG_PUSH_KEY_12 ( PLY_BTN0 ) )
 			{
+				AUD_PLAY_ONESHOT_SE (SE_select_Cancel);
+
 				//選択したItemをActiveにする
 				GetpMenuItem()->SetActive(T);
+
+				//最初の１回のみDecide()を実行
+				GetpMenuItem ()->Decide ();
 
 				//自身は非Activeにする
 				SetActive(F);
@@ -106,6 +122,7 @@ namespace GAME
 			//キャンセル
 			if ( CFG_PUSH_KEY_12 ( PLY_BTN1 ) )
 			{
+				AUD_PLAY_ONESHOT_SE (SE_select_Cancel);
 				this->SetActive(F);
 				SetStopMain ( F );
 			}
@@ -139,7 +156,9 @@ namespace GAME
 
 	void TrainingMenu::SetwpParentScene ( WP_Scene wp )
 	{
-		(void)wp;
+		m_item_Taikou->SetwpParentScene ( wp );
+		m_item_CpuLevel->SetwpParentScene ( wp );
+		m_item_ToTitle->SetwpParentScene ( wp );
 	}
 
 	bool TrainingMenu::MenuInput ()
@@ -157,11 +176,6 @@ namespace GAME
 				Off ();
 				SetStopMain ( F );
 				return F;
-			}
-			else
-			{
-				Move ();
-				return T;
 			}
 		}
 

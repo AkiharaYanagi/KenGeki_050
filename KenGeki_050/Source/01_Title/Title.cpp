@@ -32,8 +32,9 @@ namespace GAME
 		//2025/05/04 2Pカラー ver0.27
 		//2025/11/09 大幅更新 ver0.50
 		//2025/11/24 修正 ver0.51
+		//2025/12/04 修正 ver0.52
 #endif // 0
-	const char32_t Title::Ver[] = U"ver 0.51";
+	const char32_t Title::Ver[] = U"ver 0.52";
 
 
 	//--------------------------------------------------------
@@ -257,9 +258,9 @@ namespace GAME
 			}
 
 			//パラメータに反映
-			GameSettingFile stg = GetpParam()->GetGameSetting ();
+			GameSettingFile& stg = GetpParam()->GetGameSetting ();
 			stg.SetDemo ( m_demo->IsDemo () );
-			GetpParam ()->GetGameSetting ().Save ();
+			SaveParam ();
 		}
 
 		//----------------------------------

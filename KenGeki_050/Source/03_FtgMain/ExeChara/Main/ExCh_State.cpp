@@ -283,11 +283,13 @@ namespace GAME
 	}
 
 	//------------------------------------------------
-	//タイムアップ
+	//タイムアップ(敗北)
 	void CHST_TimeUp::Start ()
 	{
 		P_ExeChara pExe = GetwpExeChara ().lock ();		//一時参照
 		pExe->ClearInput ();
+		//アクション指定移行
+		pExe->SetAction ( U"時間切れ敗北" );
 	}
 
 	void CHST_TimeUp::PreScriptMove ()

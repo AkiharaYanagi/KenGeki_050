@@ -208,11 +208,11 @@ namespace GAME
 	void TitleChara::SetChara ( CHARA_NAME name1, CHARA_COLOR clr1, CHARA_NAME name2, CHARA_COLOR clr2 )
 	{
 		//@info const は[]でのアクセス不可なのでat()で取得
-		if ( m_posAdjustMap.contains ( name1 ) )
+		if ( ! m_posAdjustMap.contains ( name1 ) )
 		{
 			name1 = GetRandomCharaName ();
 		}
-		if ( m_posAdjustMap.contains ( name2 ) )
+		if ( ! m_posAdjustMap.contains ( name2 ) )
 		{
 			name2 = GetRandomCharaName ();
 		}

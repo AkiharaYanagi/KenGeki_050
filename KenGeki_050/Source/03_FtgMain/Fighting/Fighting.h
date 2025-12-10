@@ -50,12 +50,6 @@ namespace GAME
 		//画面共通グラフィック処理
 		P_FtgGrp		m_pFtgGrp ;
 
-		//=====================================================
-		//ステート名
-		P_GrpStr		m_strState;
-		bool			m_bDispStrState { F };
-		bool			m_pre_bDispStrState { F };
-
 		//-------------------------------------------------
 		//戦闘時間
 		P_BattleTime	m_btlTime;
@@ -64,9 +58,17 @@ namespace GAME
 		//ラウンド
 		P_Round			m_round;
 
+		//=====================================================
+		//ステート名
+		P_GrpStr		m_strState;
+#if 0
+		bool			m_bDispStrState { F };
+		bool			m_pre_bDispStrState { F };
+
 		//システム表示
 		bool			m_bDispSys { F };
 		bool			m_pre_bDispSys { F };
+#endif // 0
 
 		//-------------------------------------------------
 		//BGM名
@@ -86,6 +88,7 @@ namespace GAME
 		void Move ();
 
 		void ParamInit ( P_Param pParam );
+		void ParamReset ();
 
 		//デモ リスタート
 		void DemoRestart ();
@@ -151,12 +154,16 @@ namespace GAME
 
 #endif // 0
 
+#if 0
+
 		//システム表示 切替
 		void SwitchDisp ();
 		void OnDisp ();
 		void OffDisp ();
 
 		void SwitchDispStrState ();
+
+#endif // 0
 
 
 		//タイマ切替

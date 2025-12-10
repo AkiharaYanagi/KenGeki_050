@@ -97,6 +97,9 @@ namespace GAME
 		//トレーニングモード初期化
 		void TrainingInit ();
 
+		//-------------------------------
+		//デバッグ表示
+		void SetpStrState ( P_GrpStr strState );
 
 	private:
 		//------------------------------------------------------

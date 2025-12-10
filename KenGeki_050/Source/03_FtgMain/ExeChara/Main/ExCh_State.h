@@ -176,6 +176,7 @@ namespace GAME
 	class CHST_EndWait : public ExeChara_State
 	{
 	public:
+		s3d::String GetName () const { return U"EndWait"; }
 		void Start ();
 		void PreScriptMove ();
 		//■ void RectMove ();
@@ -189,6 +190,7 @@ namespace GAME
 	class CHST_Down : public ExeChara_State
 	{
 	public:
+		s3d::String GetName () const { return U"Down"; }
 		void Start ();
 		void PreScriptMove ();
 		//■ void RectMove () {}
@@ -203,6 +205,7 @@ namespace GAME
 	class CHST_DownWait : public ExeChara_State
 	{
 	public:
+		s3d::String GetName () const { return U"DownWait"; }
 		void PreScriptMove () {}
 		//■ void ScriptRectMove () {}
 		void PostScriptMove () {}
@@ -214,6 +217,7 @@ namespace GAME
 	class CHST_WinWait : public ExeChara_State
 	{
 	public:
+		s3d::String GetName () const { return U"WinWait"; }
 		void PreScriptMove () {}
 		//■ void RectMove () {}
 		void PostScriptMove () {}
@@ -226,6 +230,7 @@ namespace GAME
 	class CHST_Win : public ExeChara_State
 	{
 	public:
+		s3d::String GetName () const { return U"Win"; }
 		void Start ();
 		void PreScriptMove ();
 		//■ void RectMove () {}
@@ -238,6 +243,7 @@ namespace GAME
 	class CHST_WinEnd : public ExeChara_State
 	{
 	public:
+		s3d::String GetName () const { return U"WinEnd"; }
 		void PreScriptMove () {}
 		//■ void RectMove () {}
 		void PostScriptMove () {}
@@ -249,6 +255,7 @@ namespace GAME
 	class CHST_TimeUp : public ExeChara_State
 	{
 	public:
+		s3d::String GetName () const { return U"TimeUp"; }
 		void Start ();
 		void PreScriptMove ();
 		//■ void RectMove () {}

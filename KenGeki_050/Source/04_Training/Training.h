@@ -11,7 +11,7 @@
 #include "Game.h"
 #include "../90_GameMain/Scene.h"
 #include "../03_FtgMain/Fighting/Fighting.h"
-#include "../80_Common/Menu/PauseMenu.h"
+//#include "../80_Common/Menu/PauseMenu.h"
 #include "../80_Common/Menu/TrainingMenu.h"
 
 
@@ -61,9 +61,11 @@ namespace GAME
 		~Training ();
 
 		void ParamInit ();
+		void ParamReset () override;		//パラメータ再設定
 		void Load ();
 		void Init ();
 		void Move ();
+
 
 		P_GameScene Transit ();
 	};

@@ -43,8 +43,6 @@ namespace GAME
 		m_mutualChara = std::make_shared < MutualChara > ();
 		AddpTask ( m_mutualChara );
 
-		m_mutualChara->SetpChara ( m_exeChara1, m_exeChara2 );
-
 		//=====================================================
 		//デモ
 		m_demoActor = std::make_shared < FtgDemoActor > ();
@@ -63,15 +61,6 @@ namespace GAME
 		//画面共通グラフィック処理
 		m_pFtgGrp = std::make_shared < FtgGrp > ();
 		AddpTask ( m_pFtgGrp );
-
-		//=====================================================
-		//ステート名
-		m_strState = std::make_shared < GrpStr > ();
-		m_strState->SetStr ( U"State" );
-		m_strState->SetZ ( Z_SYS );
-		m_strState->SetColorF ( s3d::ColorF { 0.0f, 0.0f, 0.5f, 1.f } );
-		AddpTask ( m_strState );
-		GRPLST_INSERT ( m_strState );
 
 		//=====================================================
 		//タイム
@@ -103,6 +92,16 @@ namespace GAME
 		AddpTask ( m_bgmName );
 		GRPLST_INSERT ( m_bgmName );
 
+		//=====================================================
+		//ステート名
+		m_strState = std::make_shared < GrpStr > ();
+		m_strState->SetStr ( U"State" );
+		m_strState->SetZ ( Z_SYS );
+		m_strState->SetColorF ( s3d::ColorF { 0.0f, 0.0f, 0.5f, 1.f } );
+		AddpTask ( m_strState );
+		GRPLST_INSERT ( m_strState );
+		//m_strState->SetValid ( F );		//初期値は非表示
+		m_strState->SetValid ( T );
 
 
 		//@todo
@@ -126,6 +125,12 @@ namespace GAME
 		m_bg->ParamInit ( pParam );
 	}
 
+	void Fighting::ParamReset ()
+	{
+		m_exeChara1->ParamReset ();
+		m_exeChara2->ParamReset ();
+	}
+
 	void Fighting::Load ()
 	{
 		m_demoActor->SetwpFighting ( shared_from_this () );
@@ -136,11 +141,11 @@ namespace GAME
 
 		m_bgmName->SetIndexTexture ( m_pParam->GetGameSetting().GetBGM_ID () );
 
+		//デバッグ表示
+		m_mutualChara->SetpChara ( m_exeChara1, m_exeChara2 );
+		m_mutualChara->SetpStrState ( m_strState );
 		m_strState->SetSize ( G_Font::SIZE_40 );
 		m_strState->SetPos ( VEC2 ( 640 - 110, 145 ) );
-
-		//初期値は非表示
-		m_strState->SetValid ( F );
 
 		TASK_LST::Load ();
 	}
@@ -471,8 +476,10 @@ namespace GAME
 		//----------------------------------------------------
 		//ステート名
 		m_strState->SetStr ( m_demoActor->GetName () );
-
 	}
+
+
+#if 0
 
 	void Fighting::SwitchDisp ()
 	{
@@ -480,7 +487,8 @@ namespace GAME
 //		static bool pre_bDisp = F;	//前回押しているか
 //		static bool is_bDisp = F;	//今回押しているか
 
-		//		is_bDisp0 = ( WND_UTL::AscKey ( '4' ) );
+//		is_bDisp0 = ( WND_UTL::AscKey ( '4' ) );
+
 		//Asyncの判定２回目以降
 		bool is_bDisp = G_FTG()->GetSysDisp ();
 
@@ -545,6 +553,8 @@ namespace GAME
 
 		m_pre_bDispStrState = is_bDisp;
 	}
+
+#endif // 0
 
 
 }	//namespace GAME

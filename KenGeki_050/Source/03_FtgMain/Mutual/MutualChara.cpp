@@ -69,6 +69,7 @@ namespace GAME
 
 	void MutualChara::Load ()
 	{
+		m_utl.Load ();
 		TASK_VEC::Load ();
 	}
 
@@ -374,6 +375,12 @@ namespace GAME
 	}
 
 	//----------------------------------------------------
+
+	void MutualChara::SetpStrState ( P_GrpStr strState )
+	{
+		m_utl.SetpStrState ( strState );
+	}
+
 
 }	//namespace GAME
 

@@ -43,6 +43,16 @@ namespace GAME
 	}
 
 
+	//シーンパラメータ関連再設定
+	void ExeChara::ParamReset ()
+	{
+		INT32 level = m_pParam->GetPrmResult().m_prp_CpuLevel.Get();
+
+		//CPU
+		m_pNewCPUInput->SetLevel ( level );
+	}
+
+
 	//------------------------
 	//読込
 	void ExeChara::Load ()

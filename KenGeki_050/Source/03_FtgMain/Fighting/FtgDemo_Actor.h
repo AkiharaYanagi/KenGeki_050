@@ -86,7 +86,7 @@ namespace GAME
 		void Draw_To_CharaSele ();	//引分によりキャラセレへ移行
 		bool IsDrawEnd () const { return m_bDraw; }
 
-		s3d::String GetName () const { return mp_FtgDemo->GetName (); }
+		const s3d::String& GetName () const { return mp_FtgDemo->GetName (); }
 
 	private:
 		P_MutualChara GetpMutualChara () const { return mp_Param->GetpMutualChara (); }

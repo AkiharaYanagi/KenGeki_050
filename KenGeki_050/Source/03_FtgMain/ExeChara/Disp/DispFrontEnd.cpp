@@ -543,9 +543,6 @@ namespace GAME
 		m_grp_CH_InputCOMPLayer->SetIndexTexture ( INPUT_CPU );
 	}
 
-#if 0
-#endif // 0
-
 
 	//------------------------
 	//更新

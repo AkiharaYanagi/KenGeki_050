@@ -61,6 +61,8 @@ namespace GAME
 	{
 	protected:
 		P_PRM_FTG_DEMO		m_prmFtgDemo;
+		s3d::String			m_name { U"FtgDemoState" };
+
 	public:
 		FtgDemoState () {}
 		FtgDemoState ( const FtgDemoState & rhs ) = delete;
@@ -74,7 +76,7 @@ namespace GAME
 		WP_FtgDemoActor GetwpFtgDemoActor () const { return m_prmFtgDemo->GetwpFtgDemoActor (); }
 		P_FtgGrp GetpFtgGrp () const { return m_prmFtgDemo->GetpFtgGrp (); }
 
-		virtual s3d::String GetName () const { return s3d::String { U"FtgDemoState"}; }
+		virtual const s3d::String& GetName () const { return s3d::String { U"FtgDemoState"}; }
 
 	protected:
 		P_GrpDemo MakeGrpValue ( s3d::String txName );	//内部オブジェクト作成用
@@ -99,7 +101,6 @@ namespace GAME
 		~FTG_DM_Greeting () {}
 		void Start ();
 		void Do ();
-		s3d::String GetName () const { return s3d::String { U"FTG_DM_Greeting"}; }
 	};
 	using P_FTG_DM_Greeting = std::shared_ptr < FTG_DM_Greeting >;
 
@@ -119,7 +120,6 @@ namespace GAME
 		void Start ();
 		void Do ();
 		void Final ();
-		s3d::String GetName () const { return s3d::String { U"FTG_DM_GetReady"}; }
 	};
 	using P_FTG_DM_GetReady = std::shared_ptr < FTG_DM_GetReady >;
 
@@ -136,12 +136,13 @@ namespace GAME
 		float			m_pos21 { 200 };
 		bool			m_start20 { F };
 		P_GrpDemo		m_grpLight;
+
 	public:
 		FTG_DM_Main ();
 		void Start ();
 		void Do ();
 		void Final ();
-		s3d::String GetName () const { return s3d::String { U"FTG_DM_Main"}; }
+		const s3d::String & GetName () const { return m_name; }
 	};
 	using P_FTG_DM_Main = std::shared_ptr < FTG_DM_Main >;
 
@@ -156,10 +157,9 @@ namespace GAME
 		P_Timer		m_timer;
 
 	public:
-		FTG_DM_ScpStop () {}
+		FTG_DM_ScpStop () { m_name.assign ( U"FTG_DM_ScpStop" ); }
 		void Start ();
 		void Do ();
-		s3d::String GetName () const { return s3d::String { U"FTG_DM_ScpStop"}; }
 	};
 	using P_FTG_DM_ScpStop = std::shared_ptr < FTG_DM_ScpStop >;
 
@@ -177,7 +177,6 @@ namespace GAME
 		FTG_DM_WallBreak ();
 		void Start ();
 		void Do ();
-		s3d::String GetName () const { return s3d::String { U"FTG_DM_WallBreak"}; }
 	};
 	using P_FTG_DM_WallBreak = std::shared_ptr < FTG_DM_WallBreak >;
 
@@ -185,8 +184,6 @@ namespace GAME
 	//ダウン
 	class FTG_DM_Down : public FtgDemoState
 	{
-//		P_GrpDemo	m_grpDown;
-
 		P_GrpDemo	m_grp_Ketsu;
 		P_GrpDemo	m_grp_chaku;
 		P_GrpDemo	m_grpLight0;
@@ -201,7 +198,6 @@ namespace GAME
 
 		void Start ();
 		void Do ();
-		s3d::String GetName () const { return s3d::String { U"FTG_DM_Down"}; }
 	};
 	using P_FTG_DM_Down = std::shared_ptr < FTG_DM_Down >;
 
@@ -219,7 +215,6 @@ namespace GAME
 
 		void Start ();
 		void Do ();
-		s3d::String GetName () const { return s3d::String { U"FTG_DM_TimeUpWait"}; }
 	};
 	using P_FTG_DM_TimeUpWait = std::shared_ptr < FTG_DM_TimeUpWait >;
 
@@ -235,7 +230,6 @@ namespace GAME
 
 		void Start ();
 		void Do ();
-		s3d::String GetName () const { return s3d::String { U"FTG_DM_TimeUp"}; }
 	};
 	using P_FTG_DM_TimeUp = std::shared_ptr < FTG_DM_TimeUp >;
 
@@ -258,7 +252,7 @@ namespace GAME
 
 		void Start ();
 		void Do ();
-		s3d::String GetName () const { return s3d::String { U"FTG_DM_Winner"}; }
+		const s3d::String & GetName () const { return s3d::String { U"FTG_DM_Winner"}; }
 	};
 	using P_FTG_DM_Winner = std::shared_ptr < FTG_DM_Winner >;
 

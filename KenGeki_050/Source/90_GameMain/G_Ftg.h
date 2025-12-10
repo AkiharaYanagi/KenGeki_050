@@ -90,6 +90,8 @@ namespace GAME
 		float GetEdgeLeft () const { return m_edge_L; }
 		float GetEdgeRight () const { return m_edge_R; }
 
+#if 0
+#endif // 0
 		//システム表示
 		GET_SET ( bool, GetSysDisp, SetSysDisp, m_sysDisp )
 

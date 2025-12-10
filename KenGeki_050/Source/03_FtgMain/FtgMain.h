@@ -11,7 +11,8 @@
 #include "Game.h"
 #include "../90_GameMain/Scene.h"
 #include "Fighting/Fighting.h"
-#include "../80_Common/Menu/PauseMenu.h"
+//#include "../80_Common/Menu/PauseMenu.h"
+#include "../80_Common/Menu/TrainingMenu.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -25,7 +26,8 @@ namespace GAME
 		P_FTG			m_fighting;
 
 		//ポーズメニュ
-		P_PauseMenu		m_pauseMenu;
+		//P_PauseMenu		m_pauseMenu;
+		P_TrainingMenu		m_trainingMenu;
 
 #if 0
 		//ロード中
@@ -41,6 +43,7 @@ namespace GAME
 		~FtgMain ();
 
 		void ParamInit ();
+		void ParamReset () override;		//パラメータ再設定
 		void Load ();
 		void Move ();
 

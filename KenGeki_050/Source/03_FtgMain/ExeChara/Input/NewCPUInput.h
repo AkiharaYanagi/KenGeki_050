@@ -41,7 +41,7 @@ namespace GAME
 
 
 		//Level		休符間隔で行動量を調整
-		int32		m_level { 4 };	//1~8
+		int32		m_level { 7 };	//1~8(0-7)
 		int32		m_count_interval { 0 };
 
 

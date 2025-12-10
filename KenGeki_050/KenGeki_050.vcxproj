@@ -513,6 +513,7 @@
     <ClInclude Include="Source\91_Param\GameSettingFile.h" />
     <ClInclude Include="Source\91_Param\Param.h" />
     <ClInclude Include="Source\91_Param\Prm_Chara.h" />
+    <ClInclude Include="Source\91_Param\Prm_Const.h" />
     <ClInclude Include="Source\91_Param\Prm_Result.h" />
     <ClInclude Include="Source\stdafx.h" />
   </ItemGroup>

@@ -113,15 +113,11 @@ namespace GAME
 		//PLAYER / CPU
 		void SetControl_PLAYER ()
 		{
-#if 0
 			m_frontEnd->SetPlayer ();
-#endif // 0
 		}
 		void SetControl_CPU ()
 		{
-#if 0
 			m_frontEnd->SetCPU ();
-#endif // 0
 		}
 
 

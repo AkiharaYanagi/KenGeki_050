@@ -46,7 +46,10 @@ namespace GAME
 	{
 		m_exeChara1 = p1;
 		m_exeChara2 = p2;
+	}
 
+	void MutualChara_Utility::Load ()
+	{
 		//------------------------------------------------
 		//デバッグ用枠表示初期切替
 		if ( g_bDEBUG_DISP )
@@ -162,6 +165,12 @@ namespace GAME
 
 	//------------------------------------------------------
 	//ゲージ類表示切替
+
+	void MutualChara_Utility::SetpStrState ( P_GrpStr strState )
+	{
+		m_strState = strState;
+	}
+
 	void MutualChara_Utility::SwitchFrontEnd ()
 	{
 		is_bFrontEnd = ( WND_UTL::AscKey ( '4' ) );
@@ -192,6 +201,7 @@ namespace GAME
 		bFrontEnd = T;
 		is_bFrontEnd = T;
 		G_FTG()->SetSysDisp ( is_bFrontEnd );
+		m_strState->SetValid ( T );
 	}
 
 	void MutualChara_Utility::OffDispFrontEnd ()
@@ -201,6 +211,7 @@ namespace GAME
 		bFrontEnd = F;
 		is_bFrontEnd = F;
 		G_FTG()->SetSysDisp ( is_bFrontEnd );
+		m_strState->SetValid ( F );
 	}
 
 
