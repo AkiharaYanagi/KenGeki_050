@@ -250,8 +250,9 @@ namespace GAME
 		bool SkipDecision () const { return T; }
 	};
 	using P_CHST_WinEnd = std::shared_ptr < CHST_WinEnd >;
-	//------------------------------------------------
 
+	//------------------------------------------------
+	//タイムアップ
 	class CHST_TimeUp : public ExeChara_State
 	{
 	public:
@@ -263,6 +264,34 @@ namespace GAME
 		bool SkipDecision () const { return T; }
 	};
 	using P_CHST_TimeUp = std::shared_ptr < CHST_TimeUp >;
+
+	//------------------------------------------------
+	//タイムアップ待機
+	class CHST_TimeUpWait : public ExeChara_State
+	{
+	public:
+		s3d::String GetName () const { return U"TimeUpWait"; }
+		void Start ();
+		void PreScriptMove ();
+		//■ void RectMove () {}
+		void PostScriptMove ();
+		bool SkipDecision () const { return T; }
+	};
+	using P_CHST_TimeUpWait = std::shared_ptr < CHST_TimeUpWait >;
+
+	//------------------------------------------------
+	//時間切れ敗北
+	class CHST_TimeUpLose : public ExeChara_State
+	{
+	public:
+		s3d::String GetName () const { return U"TimeUpLose"; }
+		void Start ();
+		void PreScriptMove ();
+		//■ void RectMove () {}
+		void PostScriptMove ();
+		bool SkipDecision () const { return T; }
+	};
+	using P_CHST_TimeUpLose = std::shared_ptr < CHST_TimeUpLose >;
 	//------------------------------------------------
 
 

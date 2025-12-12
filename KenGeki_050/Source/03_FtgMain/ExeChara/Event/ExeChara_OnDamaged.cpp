@@ -37,7 +37,9 @@ namespace GAME
 	}
 
 
+
 	//イベント：被ダメージ時
+	//◆ 相手・攻撃 → 自分・くらい
 	void ExeChara_OnDamaged::OnDamaged ()
 	{
 		P_ExeChara pSelf  = m_pSelf .lock ();		//自分
@@ -527,12 +529,14 @@ namespace GAME
 #endif // 0
 
 
+
+	//◆ 相手・Ef攻撃 → 自分・くらい
 	void ExeChara_OnDamaged::OnEfDamaged ()
 	{
 		P_ExeChara pSelf  = m_pSelf .lock ();		//自分
 		P_ExeChara pOther = m_pOther.lock ();		//相手
 
-		//相手スクリプト
+		//相手Efスクリプト
 		//P_Frame pScpOther = pOther->GetpScript ();
 		P_Frame pEfScpOther = pOther->GetpExEf ()->GetpScript ();
 
@@ -555,6 +559,8 @@ namespace GAME
 			pOther->SetNameChangeMine ( U"ノーリアクション" );
 		}
 
+#if 0
+
 		//-------------------------------------------------
 		//★★★ 剣撃対抗 (打撃時にいずれかの入力で距離離し)
 		if ( ! pOther->IsOverdrive () )	//攻撃した相手が超必殺でないとき
@@ -562,6 +568,8 @@ namespace GAME
 			//受付タイマをON
 			m_btlPrm.GetTmr_Taikou()->Start ( TAIKOU_TIME );
 		}
+
+#endif // 0
 
 		//-------------------------------------------------
 		//相手(攻撃側)のヒット数加算 ガード時を除く

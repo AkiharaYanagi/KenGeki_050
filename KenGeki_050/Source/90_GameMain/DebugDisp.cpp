@@ -45,8 +45,8 @@ namespace GAME
 	//====================================================
 	//カーソル位置のモニタの中心から開始
 
-	const bool g_bSTART_CURSOR_POS = T;
-//	const bool g_bSTART_CURSOR_POS = F;
+//	const bool g_bSTART_CURSOR_POS = T;
+	const bool g_bSTART_CURSOR_POS = F;
 	//====================================================
 
 

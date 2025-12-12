@@ -108,6 +108,7 @@ namespace GAME
 		void StartTime ();			//時間計測開始
 		void TimeSet ();			//時間計測初期化
 		void StartTimeUp ();		//タイムアップ
+		void StartTimeUpWait ();	//タイムアップ終了待機
 		void StartEndWait ();		//タイムアップ終了待機
 
 		void StopTimer ();			//タイマ停止

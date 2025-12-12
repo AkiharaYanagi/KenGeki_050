@@ -37,6 +37,8 @@ namespace GAME
 		m_Win = std::make_shared < CHST_Win > ();
 		m_WinEnd = std::make_shared < CHST_WinEnd > ();
 		m_TimeUp = std::make_shared < CHST_TimeUp > ();
+		m_TimeUpWait = std::make_shared < CHST_TimeUpWait > ();
+		m_TimeUpLose = std::make_shared < CHST_TimeUpLose > ();
 
 		//ステート監理
 		mvp_state.push_back ( m_Start );
@@ -56,6 +58,8 @@ namespace GAME
 		mvp_state.push_back ( m_Win );
 		mvp_state.push_back ( m_WinEnd );
 		mvp_state.push_back ( m_TimeUp );
+		mvp_state.push_back ( m_TimeUpWait );
+		mvp_state.push_back ( m_TimeUpLose );
 
 		//初期ステート
 		mp_state = m_Start;
@@ -107,6 +111,12 @@ namespace GAME
 		mp_state->Start ();
 	}
 
+	void ExeChara_Actor::StartTimeUpWait ()
+	{
+		mp_state = m_TimeUpWait;
+		mp_state->Start ();
+	}
+
 	void ExeChara_Actor::StartEndWait ()
 	{
 		mp_state = m_EndWait;
@@ -122,6 +132,12 @@ namespace GAME
 	void ExeChara_Actor::StartWinner ()
 	{
 		mp_state = m_Win;
+		mp_state->Start ();
+	}
+
+	void ExeChara_Actor::StartTimeUpLose ()
+	{
+		mp_state = m_TimeUpLose;
 		mp_state->Start ();
 	}
 

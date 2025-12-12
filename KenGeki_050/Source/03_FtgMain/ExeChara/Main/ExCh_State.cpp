@@ -283,26 +283,6 @@ namespace GAME
 	}
 
 	//------------------------------------------------
-	//タイムアップ(敗北)
-	void CHST_TimeUp::Start ()
-	{
-		P_ExeChara pExe = GetwpExeChara ().lock ();		//一時参照
-		pExe->ClearInput ();
-		//アクション指定移行
-		pExe->SetAction ( U"時間切れ敗北" );
-	}
-
-	void CHST_TimeUp::PreScriptMove ()
-	{
-		PreScriptMove_NoInput ();
-	}
-
-	void CHST_TimeUp::PostScriptMove ()
-	{
-		PostScriptMove_NoLifeCheck ();
-	}
-
-	//------------------------------------------------
 	//終了待機
 	void CHST_EndWait::Start ()
 	{
@@ -364,6 +344,63 @@ namespace GAME
 	}
 
 	void CHST_Win::PostScriptMove ()
+	{
+		PostScriptMove_NoLifeCheck ();
+	}
+
+	//------------------------------------------------
+	//タイムアップ
+	void CHST_TimeUp::Start ()
+	{
+		P_ExeChara pExe = GetwpExeChara ().lock ();		//一時参照
+		pExe->ClearInput ();
+	}
+
+	void CHST_TimeUp::PreScriptMove ()
+	{
+		PreScriptMove_NoInput ();
+	}
+
+	void CHST_TimeUp::PostScriptMove ()
+	{
+		PostScriptMove_NoLifeCheck ();
+	}
+
+	//------------------------------------------------
+	//タイムアップ待機
+	void CHST_TimeUpWait::Start ()
+	{
+		P_ExeChara pExe = GetwpExeChara ().lock ();		//一時参照
+		pExe->ClearInput ();
+	}
+
+	void CHST_TimeUpWait::PreScriptMove ()
+	{
+		PreScriptMove_NoInput ();
+	}
+
+	void CHST_TimeUpWait::PostScriptMove ()
+	{
+		PostScriptMove_NoLifeCheck ();
+	}
+
+	//------------------------------------------------
+	//時間切れ敗北
+	void CHST_TimeUpLose::Start ()
+	{
+		P_ExeChara pExe = GetwpExeChara ().lock ();		//一時参照
+		pExe->ClearInput ();
+
+		//アクション指定移行
+		pExe->SetAction ( U"時間切れ敗北" );
+	}
+
+	void CHST_TimeUpLose::PreScriptMove ()
+	{
+		PreScriptMove_NoInput ();
+	}
+
+	void CHST_TimeUpLose::PostScriptMove ()
 	{
 		PostScriptMove_NoLifeCheck ();
 	}

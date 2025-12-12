@@ -76,7 +76,7 @@ namespace GAME
 		WP_FtgDemoActor GetwpFtgDemoActor () const { return m_prmFtgDemo->GetwpFtgDemoActor (); }
 		P_FtgGrp GetpFtgGrp () const { return m_prmFtgDemo->GetpFtgGrp (); }
 
-		virtual const s3d::String& GetName () const { return s3d::String { U"FtgDemoState"}; }
+		virtual const s3d::String& GetName () const { return m_name; }
 
 	protected:
 		P_GrpDemo MakeGrpValue ( s3d::String txName );	//内部オブジェクト作成用
@@ -142,7 +142,6 @@ namespace GAME
 		void Start ();
 		void Do ();
 		void Final ();
-		const s3d::String & GetName () const { return m_name; }
 	};
 	using P_FTG_DM_Main = std::shared_ptr < FTG_DM_Main >;
 
@@ -252,7 +251,6 @@ namespace GAME
 
 		void Start ();
 		void Do ();
-		const s3d::String & GetName () const { return s3d::String { U"FTG_DM_Winner"}; }
 	};
 	using P_FTG_DM_Winner = std::shared_ptr < FTG_DM_Winner >;
 

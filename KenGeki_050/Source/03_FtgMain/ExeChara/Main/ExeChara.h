@@ -318,10 +318,16 @@ namespace GAME
 		void StartGreeting () { m_pActor->StartGreeting (); }
 		void StartGetReady () { m_pActor->StartGetReady (); }
 		void StartFighting () { m_pActor->StartFighting (); }
+
 		void StartTimeUp   () { m_pActor->StartTimeUp (); }
 		bool IsState_TimeUp () { return m_pActor->IsTimeUp (); }
+		void StartTimeUpWait  () { m_pActor->StartTimeUpWait (); }
+		bool IsState_TimeUpWait () { return m_pActor->IsTimeUpWait (); }
+		void StartTimeUpLose   () { m_pActor->StartTimeUpLose (); }
+
 		void StartEndWait  () { m_pActor->StartEndWait (); }
 		bool IsState_EndWait () { return m_pActor->IsEndWait (); }
+
 		void StartDown		() { m_pActor->StartDown (); }
 		bool IsDown_Calm () { return IsNameAction ( U"敗北ダウン" ); }
 		void StartWinner	() { m_pActor->StartWinner (); }

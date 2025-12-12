@@ -116,8 +116,8 @@ namespace GAME
 		//-------------------------------------------------
 
 		//分岐後 ヒット時処理
-#if 0
 		//特定アクション
+#if 0
 		if ( pSelf->IsNameAction ( U"特大攻撃" ) )
 		{
 			m_pFtgGrp->StartVibration ( 10 );
@@ -297,7 +297,10 @@ namespace GAME
 #endif // 0
 
 
+	//==========================================
+	//◆ 自分・Ef攻撃 -> 相手・くらい
 	//エフェクトヒット発生(攻撃成立側)
+	//==========================================
 	void ExeChara_OnHit::OnEfHit ()
 	{
 #if 0
@@ -325,10 +328,12 @@ namespace GAME
 		P_ExeChara pSelf = m_pSelf.lock ();		//自分
 		P_ExeChara pOther = m_pOther.lock ();	//相手
 
+		//Efスクリプト
 //		P_Frame pScp = pSelf->GetpScript ();
 		P_Frame pFrm = pSelf->GetpExEf()->GetpScript ();
 
 
+#if 0
 		//-----------------------------------------------------
 		//ゲージ増減 (超必殺以外)
 		if ( ! pSelf->IsActCtg ( AC_OVERDRIVE ) )
@@ -348,6 +353,7 @@ namespace GAME
 				m_btlPrm.AddBalance ( 100 );
 			}
 		}
+#endif // 0
 
 		//-----------------------------------------------------
 		//条件分岐 (相手→自分でないとスクリプトが変わってしまう)

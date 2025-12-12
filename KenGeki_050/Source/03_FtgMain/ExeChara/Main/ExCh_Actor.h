@@ -37,6 +37,8 @@ namespace GAME
 		P_CHST_Win			m_Win;
 		P_CHST_WinEnd		m_WinEnd;
 		P_CHST_TimeUp		m_TimeUp;
+		P_CHST_TimeUpWait	m_TimeUpWait;
+		P_CHST_TimeUpLose	m_TimeUpLose;
 
 		//ステート監理
 		VP_ExeChara_State	mvp_state;
@@ -64,11 +66,13 @@ namespace GAME
 		void StartGreeting ();
 		void StartGetReady ();
 		void StartFighting ();
-		void StartTimeUp ();
 		void StartEndWait ();
 		void StartDown ();
+		void StartTimeUp ();
 
 		void StartWinner ();
+		void StartTimeUpWait ();
+		void StartTimeUpLose ();
 
 		//メイン中一時遷移	
 		void ShiftFightingMain ();
@@ -80,6 +84,7 @@ namespace GAME
 
 		//状態確認
 		bool IsTimeUp () const { return mp_state == m_TimeUp; }
+		bool IsTimeUpWait () const { return mp_state == m_TimeUpWait; }
 		bool IsEndWait () const { return mp_state == m_EndWait; }
 
 		//==========================================================

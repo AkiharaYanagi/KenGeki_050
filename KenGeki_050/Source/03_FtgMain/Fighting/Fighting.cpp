@@ -252,6 +252,13 @@ namespace GAME
 	}
 
 	//タイムアップ終了待機
+	void Fighting::StartTimeUpWait ()
+	{
+		m_exeChara1->StartTimeUpWait ();
+		m_exeChara2->StartTimeUpWait ();
+	}
+
+	//タイムアップ終了待機
 	void Fighting::StartEndWait ()
 	{
 		m_exeChara1->StartEndWait ();
@@ -418,31 +425,6 @@ namespace GAME
 
 #if 0
 		//----------------------------------------------------
-		//暗転
-		bool bBlackOut = m_pFtgGrp->IsActive_BlackOut ();
-//		UINT blackOut = m_mutualChara->GetBlackOut ();
-		if ( bBlackOut )
-		{
-			//m_bg->SetBlackOut ( blackOut );
-			//m_mutualChara->SetBlackOut ( 0 );
-			m_bg->OnBlackOut ();
-		}
-		else
-		{
-			m_bg->OffBlackOut ();
-		}
-
-
-		//----------------------------------------------------
-		//白転
-		UINT whiteOut = m_mutualChara->CheckWhiteOut () ? 60 : 0;
-		if ( 0 != whiteOut )
-		{
-			m_bg->SetWhiteOut ( whiteOut );
-			m_mutualChara->SetWhiteOut ( F );
-		}
-
-		//----------------------------------------------------
 		//スロー
 		if ( m_pFtgGrp->IsSlowStart () )
 		{
@@ -456,10 +438,6 @@ namespace GAME
 			m_mutualChara->RevertSlow ();
 		}
 #endif // 0
-
-		//----------------------------------------------------
-		//表示切替
-//		SwitchDisp ();
 
 		//----------------------------------------------------
 		//背景通常処理

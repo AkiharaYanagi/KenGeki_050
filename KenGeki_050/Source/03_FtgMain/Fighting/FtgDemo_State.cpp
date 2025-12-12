@@ -263,6 +263,8 @@ namespace GAME
 		if ( GetpFtgGrp()->IsLast_ScpStop () )
 		{
 			GetpFtgGrp()->ClearTmr_ScpStop ();
+
+			//通常状態に戻す
 			pMutual->ShiftFightingMain ();
 		}
 
@@ -520,7 +522,7 @@ namespace GAME
 		m_grpTimeUp->SetValid ( F );
 		m_grpTimeUp->SetEnd ( 120 );
 
-		m_timer = std::make_shared < Timer > ( 240 );
+		m_timer = std::make_shared < Timer > ( 180 );
 		m_timer->Start ();
 
 		m_name.assign ( U"FTG_DM_TimeUpWait" );
@@ -529,7 +531,7 @@ namespace GAME
 	void FTG_DM_TimeUpWait::Start ()
 	{
 		m_grpTimeUp->Start ();
-		GetwpFighting().lock()->StartEndWait ();
+		GetwpFighting().lock()->StartTimeUpWait ();
 	}
 
 	void FTG_DM_TimeUpWait::Do ()
@@ -548,6 +550,15 @@ namespace GAME
 		{
 			//タイムアップ
 			GetwpFtgDemoActor ().lock ()->Change_Main_To_TimeUp ();
+		}
+
+		//一時停止のとき、最終時に通常状態でななく、終了待機に戻す
+		if ( GetpFtgGrp()->IsLast_ScpStop () )
+		{
+			GetpFtgGrp()->ClearTmr_ScpStop ();
+
+			//終了待機に戻す
+			GetwpFighting().lock()->StartTimeUpWait ();
 		}
 
 		//キャラ共通一連動作

@@ -364,12 +364,12 @@ namespace GAME
 		if ( PLAYER_ID_1 == winner )
 		{
 			m_exeChara1->StartWinner ();
-			m_exeChara2->StartTimeUp ();
+			m_exeChara2->StartTimeUpLose ();
 		}
 		else if ( PLAYER_ID_2 == winner )
 		{
 			m_exeChara2->StartWinner ();
-			m_exeChara1->StartTimeUp ();
+			m_exeChara1->StartTimeUpLose ();
 		}
 
 	}

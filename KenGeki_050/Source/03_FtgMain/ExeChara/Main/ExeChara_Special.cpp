@@ -248,6 +248,35 @@ namespace GAME
 		//ギャバ
 		if ( m_name == CHARA_GYAVADARUGA )
 		{
+			if ( IsNameAction ( U"立ち" ) )
+			{
+				//投げ状態のロックを回避
+				bool b0 = m_pOther.lock()->IsNameAction ( U"ギャバ_投げやられ持続" );
+				bool b1 = m_pOther.lock()->IsNameAction ( U"ギャバ_昇竜投げやられ落下" );
+				bool b2 = m_pOther.lock()->IsNameAction ( U"半回転投げやられ持続" );
+				bool b3 = m_pOther.lock()->IsNameAction ( U"ギャバ_超必Bやられ持続" );
+				bool bAll =  b0 || b1 || b2 || b3 ;
+
+				if ( bAll )
+				{
+					m_pOther.lock()->SetAction ( U"ダウン" );
+				}
+			}
+
+			if ( IsNameAction ( U"大攻撃2" ) )
+			{
+				if ( GetpScript()->Index.Is ( 0 ) )
+				{
+					m_pOther.lock()->TopByZ ();
+					//位置調整用
+					float bDir = m_btlPrm.GetDirRight () ? 1.f : -1.f;
+					VEC2 my_pos = GetPos ();
+					VEC2 pos_rev = { my_pos.x + ( bDir * 250 ), my_pos.y + 0 };
+
+					m_pOther.lock()->SetPos ( pos_rev );	//位置同期
+				}
+			}
+
 			if ( IsNameAction ( U"投げ成立0" ) )
 			{
 				if ( m_pScript->Index.Is ( 0 ) )
@@ -278,19 +307,15 @@ namespace GAME
 
 			if ( IsNameAction ( U"昇竜投げ着地" ) )
 			{
-//				m_pOther.lock()->SetPos ( pos_rev );	//位置同期
-// 
-				//タイムアップ時にConduct_InDemoになるため直接指定
-				if ( m_pScript->Index.Is ( 1 ) )
+				//終了待機またはタイムアップ待機のとき
+				bool b_endwait = IsState_EndWait ();
+				bool b_timeup = IsState_TimeUpWait ();
+				if ( b_endwait || b_timeup )
 				{
-					//ライフ０かつタイムアップ時のとき
-					if ( m_pOther.lock()->IsZeroLife() )
+					//タイムアップ時にConduct_InDemoになるため直接指定
+					if ( m_pScript->Index.Is ( 1 ) )
 					{
-						if ( IsState_EndWait () )
-						{
-							m_pOther.lock()->SetAction ( U"ギャバ_昇竜投げやられ着地" );
-						}
-						//タイムアップ時以外の決着時は何もしないで続行
+						m_pOther.lock()->SetAction ( U"ギャバ_昇竜投げやられ着地" );
 					}
 				}
 			}
@@ -305,6 +330,18 @@ namespace GAME
 
 					//位置指定
 					m_pOther.lock()->SetPos ( VEC2 ( my_pos.x + ( bDir * 250 ), GROUND_Y ) );
+				}
+
+				//終了待機またはタイムアップ待機のとき
+				bool b_endwait = IsState_EndWait ();
+				bool b_timeup = IsState_TimeUpWait ();
+				if ( b_endwait || b_timeup )
+				{
+					//タイムアップ時にConduct_InDemoになるため直接指定
+					if ( m_pScript->Index.Is ( 26 ) )
+					{
+						m_pOther.lock()->SetAction ( U"ギャバ_半回転投げやられ締め" );
+					}
 				}
 			}
 
@@ -438,6 +475,15 @@ namespace GAME
 						m_pOther.lock()->SetAction ( U"ダウン" );
 					}
 				}
+
+				//終了待機またはタイムアップ待機のとき
+				bool b_endwait = IsState_EndWait ();
+				bool b_timeup = IsState_TimeUpWait ();
+				if ( b_endwait || b_timeup )
+				{
+					//タイムアップ時にConduct_InDemoになるため直接指定
+					m_pOther.lock()->SetAction ( U"ギャバ_超必Bやられダウン持続" );
+				}
 			}
 
 			//----------------------------------------------------------
@@ -487,11 +533,39 @@ namespace GAME
 
 		}
 
+
+		//-----------------------------------------------------
+		//全キャラ
+
+
+		//喰らい側から相打ち時のロック回避
+		if ( IsNameAction ( U"ギャバ_半回転投げやられ" ) )
+		{
+			//ギャバダルガが成立ではないとき（相打ちなど）
+			if ( ! m_pOther.lock()->IsNameAction ( U"半回転投げ成立" ) )
+			{
+				SetAction ( U"ダウン" );
+			}
+		}
+#if 0
+
+
 		//-----------------------------------------------------
 		if ( IsNameAction ( U"特大攻撃" ) )
 		{
 			if ( m_pScript->Index.Is ( 0 ) )
 			{
+			}
+		}
+#endif // 0
+
+		//-----------------------------------------------------
+		if ( IsNameAction ( U"勝利" ) )
+		{
+			if ( m_pScript->Index.Is ( 0 ) )
+			{
+				//表示前後 (自分を手前に)
+				TopByZ ();
 			}
 		}
 

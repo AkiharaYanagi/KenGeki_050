@@ -371,26 +371,8 @@ namespace GAME
 			m_pExeChara2p->OnDamaged ();		//くらい状態・ダメージ処理
 			m_pExeChara1p->OnDamaged_After ();	//相手ダメージ後
 
-
 			m_efHit->On ();		//ヒットエフェクト
 			m_efHit->Start_Rnd ( hit_center_2p, 16, 50 );		//ヒットエフェクト
-
-#if 0
-			if ( m_pExeChara1p->GetpAction()->IsName ( U"竜巻弱1" ) )
-			{
-				m_efHit->On ();		//ヒットエフェクト
-				m_efHit->Start_Rnd ( hit_center_2p, 16, 50 );		//ヒットエフェクト
-			}
-			m_efHit_line0->On ();		//ヒットエフェクト
-			m_efHit_line0->Start_Rnd ( hit_center_2p, 16, 50 );		//ヒットエフェクト
-
-			m_efHit_line1->On ();		//
-			m_efHit_line1->Start_Rnd ( hit_center_2p, 16, 50 );		//ヒットエフェクト
-
-			m_efHit_smoke->On ();		//ヒットエフェクト
-			m_efHit_smoke->Start_Rnd ( hit_center_2p, 16, 50 );		//ヒットエフェクト
-
-#endif // 0
 		}
 
 		if ( hit1P )
@@ -401,24 +383,6 @@ namespace GAME
 
 			m_efHit->On ();		//ヒットエフェクト
 			m_efHit->Start_Rnd ( hit_center_1p, 16, 50 );		//ヒットエフェクト
-
-#if 0
-			if ( m_pExeChara2p->GetpAction()->IsName ( U"竜巻弱1" ) )
-			{
-				m_efHit->On ();		//ヒットエフェクト
-				m_efHit->Start_Rnd ( hit_center_1p, 16, 50 );		//ヒットエフェクト
-			}
-			m_efHit_line0->On ();		//ヒットエフェクト
-			m_efHit_line0->Start_Rnd ( hit_center_1p, 16, 50 );		//ヒットエフェクト
-
-			m_efHit_line1->On ();		//
-			m_efHit_line1->Start_Rnd ( hit_center_1p, 16, 50 );		//ヒットエフェクト
-
-			m_efHit_smoke->On ();		//ヒットエフェクト
-			m_efHit_smoke->Start_Rnd ( hit_center_1p, 16, 50 );		//ヒットエフェクト
-
-#endif // 0
-
 		}
 		DBGOUT_WND_F ( DBGOUT_8, U"center({},{})"_fmt( hit_center_2p.x, hit_center_2p.y ) );
 
@@ -604,19 +568,26 @@ namespace GAME
 		{
 			P_CharaRect pcref1 = pexef1->GetpCharaRect ();
 
-			//Chara
+			//相手Chara
 			if (DcsOffset (pcref1, pCharaRect, centeref))
 			{
+				//打合時のエフェクト発生
+				m_efClang->On ( centeref );
+
 				//Efに相殺状態を設定
 				pexef1->SetOffset (true);
 			}
-			//Ef
+
+			//相手のEf
 			for (P_ExEf pexef2 : (*plpExEf2))
 			{
 				P_CharaRect pcref2 = pexef2->GetpCharaRect ();
 
 				if (DcsOffset (pcref1, pcref2, centeref))
 				{
+					//打合時のエフェクト発生
+					m_efClang->On ( centeref );
+
 					//相殺時 各Efに記録
 					pexef1->SetOffset (true);
 				}
