@@ -79,8 +79,8 @@ namespace GAME
 		virtual const s3d::String& GetName () const { return m_name; }
 
 	protected:
-		P_GrpDemo MakeGrpValue ( s3d::String txName );	//内部オブジェクト作成用
-		P_GrpDemo MakeGrpDemo ( s3d::String txName );	//内部オブジェクト作成用
+		P_GrpDemo MakeGrpValue ( const s3d::String & txName );	//内部オブジェクト作成用
+		P_GrpDemo MakeGrpDemo ( const s3d::String & txName );	//内部オブジェクト作成用
 	};
 	using P_FtgDemo = std::shared_ptr < FtgDemoState >;
 
@@ -127,7 +127,6 @@ namespace GAME
 	//メイン
 	class FTG_DM_Main : public FtgDemoState
 	{
-//		P_GrpDemo		m_grpAttack;
 		P_GrpDemo		m_grpFight0;
 		P_GrpDemo		m_grpFight1;
 		P_GrpDemo		m_grpFight20;
@@ -189,6 +188,7 @@ namespace GAME
 		P_GrpDemo	m_grpLight1;
 
 		P_Timer		m_timer;	//タイマ
+		P_Timer		m_subtimer;	//サブタイマ
 
 	public:
 		FTG_DM_Down ();
@@ -197,6 +197,9 @@ namespace GAME
 
 		void Start ();
 		void Do ();
+	private:
+		P_GrpDemo MakeDemo_Down ( const s3d::String & txName, VEC2 pos );
+		P_GrpDemo MakeDemo_Light ( const s3d::String & txName, VEC2 pos );
 	};
 	using P_FTG_DM_Down = std::shared_ptr < FTG_DM_Down >;
 

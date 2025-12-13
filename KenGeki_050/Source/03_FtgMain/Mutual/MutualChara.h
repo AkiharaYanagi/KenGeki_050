@@ -81,6 +81,7 @@ namespace GAME
 		void StartEndWait ();		//終了待機
 		bool IsDown_Calm ();		//敗北ダウン安定状態
 		void StartWinner ();		//勝者表示
+		void StartTimeUpWinner ();		//タイムアップ時勝者表示
 
 		//----------------
 		//演出

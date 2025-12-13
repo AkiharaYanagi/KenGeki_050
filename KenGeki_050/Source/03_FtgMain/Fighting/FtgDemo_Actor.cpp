@@ -121,6 +121,7 @@ namespace GAME
 
 	void FtgDemoActor::Change_TimeUp_To_Winner ()
 	{
+		GetpMutualChara ()->StartTimeUpWinner ();
 		m_Winner->Start ();
 		mp_FtgDemo = m_Winner;
 	}

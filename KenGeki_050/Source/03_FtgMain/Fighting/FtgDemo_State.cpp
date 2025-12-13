@@ -22,8 +22,9 @@ namespace GAME
 {
 	//=====================================================
 	//デモ表示　グラフィック基準のオブジェクト生成
-	P_GrpDemo FtgDemoState::MakeGrpValue ( s3d::String txName )
+	P_GrpDemo FtgDemoState::MakeGrpValue ( const s3d::String & txName )
 	{
+#if 0
 		P_GrpDemo pGrp = std::make_shared < GrpDemo > ();
 		pGrp->AddTexture_FromArchive ( txName );
 		pGrp->SetPos ( VEC2 ( 128, 400 ) );
@@ -35,11 +36,18 @@ namespace GAME
 		pGrp->SetValid ( F );
 		AddpTask ( pGrp );
 		GRPLST_INSERT ( pGrp );
+#endif // 0
+		P_GrpDemo pGrp = MakeGrpDemo ( txName );
+		pGrp->SetPos ( VEC2 ( 128, 400 ) );
+		//@info		GrpDemoのScalingCenterはテクスチャの中心になる
+//		pGrp->SetScalingCenter ( VEC2 ( 512, 128 ) );
+		pGrp->SetStartScaling ( VEC2 ( 1.3f, 1.3f ) );
+		pGrp->SetSecondVel ( VEC2 ( -0.001f, -0.001f ) );
 		return pGrp;
 	}
 
 	//共通　GrpDemo作成
-	P_GrpDemo FtgDemoState::MakeGrpDemo ( s3d::String txName )
+	P_GrpDemo FtgDemoState::MakeGrpDemo ( const s3d::String & txName )
 	{
 		P_GrpDemo pGrp = std::make_shared < GrpDemo > ();
 		pGrp->AddTexture_FromArchive ( txName );
@@ -279,7 +287,7 @@ namespace GAME
 		//終了判定
 		P_FTG pFtg = GetwpFighting().lock();
 
-		// 格闘終了判定
+		// ライフ０による終了判定
 		if ( pFtg->FinishCheck_ZeroLife () )
 		{
 			//トレーニングモードは終了しない
@@ -387,6 +395,7 @@ namespace GAME
 	//敗北ダウン
 	FTG_DM_Down::FTG_DM_Down ()
 	{
+#if 0
 		m_grp_Ketsu = std::make_shared < GrpDemo > ();
 		m_grp_Ketsu->AddTexture_FromArchive ( U"decision_ketsu.png" );
 		m_grp_Ketsu->SetPos ( VEC2 ( 200, 150 ) );
@@ -410,6 +419,11 @@ namespace GAME
 		m_grp_chaku->SetEnd ( 120 );
 		AddpTask ( m_grp_chaku );
 		GRPLST_INSERT ( m_grp_chaku );
+#endif // 0
+		m_grp_Ketsu = MakeDemo_Down ( U"decision_ketsu.png", VEC2 ( 200, 150 ));
+		m_grp_chaku = MakeDemo_Down ( U"decision_chaku.png", VEC2 ( 800, 600 ) );
+
+#if 0
 
 		m_grpLight0 = std::make_shared < GrpDemo > ();
 		m_grpLight0->AddTexture_FromArchive ( U"decision_light0.png" );
@@ -447,10 +461,41 @@ namespace GAME
 		AddpTask ( m_grpLight1 );
 		GRPLST_INSERT ( m_grpLight1 );
 
+#endif // 0
+		m_grpLight0 = MakeDemo_Light ( U"decision_light0.png", VEC2 ( 0, 480 ) );
+		m_grpLight1 = MakeDemo_Light ( U"decision_light1.png", VEC2 ( 0, 500 ) );
+
 
 		m_timer = std::make_shared < Timer > ( 120 );
+		m_subtimer = std::make_shared < Timer > ( 180 );
 
 		m_name.assign ( U"FTG_DM_Down" );
+	}
+
+	P_GrpDemo FTG_DM_Down::MakeDemo_Down ( const s3d::String & txName, VEC2 pos )
+	{
+		P_GrpDemo p = MakeGrpDemo ( txName );
+		p->SetPos ( pos );
+		p->SetEnd ( 120 );
+		p->SetStartScaling ( VEC2 ( 7.f, 7.f ) );
+		p->SetTargetScaling ( VEC2 ( 1.5f, 1.5f ) );
+		p->SetSecondVel ( VEC2 ( -0.0001f, -0.0001f ) );
+		return p;
+	}
+
+	P_GrpDemo FTG_DM_Down::MakeDemo_Light ( const s3d::String & txName, VEC2 pos )
+	{
+		P_GrpDemo p = MakeGrpDemo ( txName );
+		p->SetShader ( T );
+		p->SetPos ( pos );
+		p->SetStartScaling ( VEC2 ( 2.f, 1.f ) );
+		p->SetVel ( VEC2 ( 0.f, 0.f ) );
+		p->SetAcc ( VEC2 ( 0.1f, 0.f ) );
+		p->SetTargetScaling ( VEC2 ( 10.f, 0.01f ) );
+		p->SetSecondVel ( VEC2 ( 0.f, 0.f ) );
+		p->SetEnd ( 80 );
+		p->SetFadeOut ( 80 );
+		return p;
 	}
 
 	void FTG_DM_Down::Start ()
@@ -473,12 +518,31 @@ namespace GAME
 		//SP_VOICE
 		AUD_PLAY_ONESHOT_VC(VC_93_CONSOME_FINISH);
 #endif // 0
+
+		m_subtimer->Start ();
 	}
 
 	void FTG_DM_Down::Do ()
 	{
 		//タイマ
 		m_timer->Move ();
+		m_subtimer->Move ();
+
+		//サブタイマ終了時
+		if ( m_subtimer->IsLast () )
+		{
+			//表示消し
+			m_grp_Ketsu->SetValid ( F );
+			m_grp_chaku->SetValid ( F );
+			m_grpLight0->SetValid ( F );
+			m_grpLight1->SetValid ( F );
+
+			m_subtimer->Clear ();
+
+			//ダウンから勝者表示へ
+			GetwpFtgDemoActor ().lock ()->Change_Down_To_Winner ();
+		}
+
 
 		//タイマ稼働時
 		if ( m_timer->IsActive () )
@@ -487,7 +551,6 @@ namespace GAME
 			if ( m_timer->IsLast () )
 			{
 				//表示消し
-				//m_grpDown->SetValid ( F );
 				m_grp_Ketsu->SetValid ( F );
 				m_grp_chaku->SetValid ( F );
 				m_grpLight0->SetValid ( F );
@@ -548,8 +611,18 @@ namespace GAME
 		//または時間で強制
 		if ( ( bWait && bDispOff ) || ( m_timer->IsLast () ) )
 		{
-			//タイムアップ
-			GetwpFtgDemoActor ().lock ()->Change_Main_To_TimeUp ();
+			//タイムアップかつどちらかのライフが０の場合
+			// ライフ０による終了判定
+			if ( GetwpFighting().lock()->FinishCheck_ZeroLife () )
+			{
+				//ダウンへ移行
+				GetwpFtgDemoActor ().lock ()->Change_Main_To_Down ();
+			}
+			else
+			{
+				//タイムアップ
+				GetwpFtgDemoActor ().lock ()->Change_Main_To_TimeUp ();
+			}
 		}
 
 		//一時停止のとき、最終時に通常状態でななく、終了待機に戻す

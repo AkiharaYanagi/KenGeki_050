@@ -623,6 +623,13 @@ namespace GAME
 			//キャラの枠と判定する
 			if (OverlapAryRect_Center (pvARect1, pvHRect2, centeref))
 			{
+				//ヒット時
+				m_efHit->On ();		//ヒットエフェクト
+				m_efHit->Start_Rnd ( centeref, 16, 50 );		//ヒットエフェクト
+				//SE
+				AUD_PLAY_ONESHOT_SE ( SE_Btl_Hit_L );
+
+
 				//攻撃値を設定
 				refPower = pexef1->GetpScript()->Get_FP_B().Power.Get();
 

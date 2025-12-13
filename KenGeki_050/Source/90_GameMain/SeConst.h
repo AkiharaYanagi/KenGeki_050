@@ -52,6 +52,8 @@ namespace GAME
 	constexpr char32_t SE_select_Lock []	= U"SE_04_選択_不可.wav";
 	constexpr char32_t SE_Sys_Enter []		= U"SE_05_キーン.wav";
 
+	constexpr char32_t SE_Btl_Hit_L[]		= U"SE_06_HIt_L.wav";
+
 	constexpr char32_t SE_Btl_Light []		= U"SE_14_キラーン.wav";
 	constexpr char32_t SE_Btl_Clang[]		= U"SE_15_打ち合い.wav";
 	constexpr char32_t SE_Btl_Bomb[]		= U"SE_17_ドカーン.wav";

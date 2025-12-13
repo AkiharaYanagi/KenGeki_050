@@ -464,6 +464,9 @@ namespace GAME
 	void ExeChara::OnEfDamaged ()
 	{
 		m_OnDamaged.OnEfDamaged ();
+
+		//自身側
+		m_btlPrm.DecisionWhiteDamage ();
 	}
 
 #if 0

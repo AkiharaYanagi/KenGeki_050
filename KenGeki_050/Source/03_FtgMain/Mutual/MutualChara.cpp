@@ -364,6 +364,25 @@ namespace GAME
 		if ( PLAYER_ID_1 == winner )
 		{
 			m_exeChara1->StartWinner ();
+			m_exeChara2->StartEndWait ();
+		}
+		else if ( PLAYER_ID_2 == winner )
+		{
+			m_exeChara2->StartWinner ();
+			m_exeChara1->StartEndWait ();
+		}
+
+	}
+
+	//タイムアップ勝者表示
+	void MutualChara::StartTimeUpWinner ()
+	{
+		PLAYER_ID winner = m_pParam->GetPrmResult().GetWinner ();
+
+		//勝者表示に変更
+		if ( PLAYER_ID_1 == winner )
+		{
+			m_exeChara1->StartWinner ();
 			m_exeChara2->StartTimeUpLose ();
 		}
 		else if ( PLAYER_ID_2 == winner )
