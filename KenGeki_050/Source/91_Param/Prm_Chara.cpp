@@ -420,14 +420,12 @@ namespace GAME
 			PRINT_F_S ( U"GetpChara ( CHARA_FERARIA, CLR_{} )"_fmt((int32)clr) );
 			if ( m_asyncLoad_Fera.isValid () ) { m_asyncLoad_Fera.wait (); }
 			return m_Fera.GetpChara ( clr );
-#if 0
 
 
 		case CHARA_TSUKIHIBOSHI:
 			PRINT_F_S ( U"GetpChara ( CHARA_TSUKIHIBOSHI, CLR_{} )"_fmt((int32)clr) );
 			if ( m_asyncLoad_Tuki.isValid () ) { m_asyncLoad_Tuki.wait (); }
 			return m_Tsuki.GetpChara ( clr );
-#endif // 0
 
 		}
 

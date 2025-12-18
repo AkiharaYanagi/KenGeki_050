@@ -34,6 +34,7 @@ namespace GAME
 		BGM_SAE,
 		BGM_RETSU,
 		BGM_FERA,
+		BGM_TSUKI,
 	};
 }
 

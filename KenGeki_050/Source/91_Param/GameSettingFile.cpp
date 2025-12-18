@@ -86,6 +86,11 @@ namespace GAME
 			//終了
 			ifstrm.close();
 
+
+			//test
+			m_bgm_id = BGM_ID_TSUKI;
+
+
 		}
 		catch (...)
 		{

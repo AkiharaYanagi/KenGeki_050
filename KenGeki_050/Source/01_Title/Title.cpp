@@ -208,9 +208,9 @@ namespace GAME
 			AUD_STOP_ALL_BGM ();
 			if ( ! s3d::AudioAsset::IsReady ( BGM_Title ) )
 			{
-				s3d::AudioAsset::Wait ( BGM_Title );
+				AUDIO()->Wait ( BGM_Title );
 			}
-			AUD_PLAY_LOOP_BGM ( BGM_Title );
+			AUD_PLAY_LOOP_FST ( BGM_Title );
 		}
 
 
@@ -234,7 +234,7 @@ namespace GAME
 			}
 
 			s3d::AudioAsset::Wait ( vc_name );
-			AUD_PLAY_ONESHOT_VC ( vc_name );
+			AUD_PLAY_ONESHOT_FST ( vc_name );
 		}
 
 		//----------------------------------------------------------
