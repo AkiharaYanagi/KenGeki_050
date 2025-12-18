@@ -49,6 +49,7 @@ namespace GAME
 		//背景	
 		m_bg = MakepGrp ( U"Title\\Title_BG.png", Z_BG );
 
+		//四角
 		m_rect = MakepGrp ( U"Title\\Title_Rect.png", Z_BG - 0.01f );
 		m_rect->SetPos ( VEC2 ( 1280 / 2 - 500 / 2, 100 ) );
 		m_rect->SetRotationCenter ( VEC2 ( 250, 250 ) );
@@ -165,10 +166,10 @@ namespace GAME
 
 	void Title::Move ()
 	{
-#if 0
 		//BGM読込状況
 		s3d::ClearPrint ();
 		G_Audio::Inst()->CheckAudio ();
+#if 0
 #endif // 0
 
 		//start
