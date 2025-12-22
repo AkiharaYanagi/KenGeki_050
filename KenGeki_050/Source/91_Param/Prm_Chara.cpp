@@ -251,10 +251,10 @@ namespace GAME
 		m_Retsu.SetFileName ( CHARA_SCP_RETSU, CHARA_IMG1_RETSU, CHARA_IMG2_RETSU, CHARA_GNS_RETSU );
 		m_Gaba.SetFileName	( CHARA_SCP_GABA , CHARA_IMG1_GABA , CHARA_IMG2_GABA , CHARA_GNS_GABA  );
 		m_Fera.SetFileName	( CHARA_SCP_FERA , CHARA_IMG1_FERA , CHARA_IMG2_FERA , CHARA_GNS_FERA  );
-#if 0
 
 		m_Tsuki.SetFileName ( CHARA_SCP_TUKI , CHARA_IMG1_TUKI , CHARA_IMG2_TUKI , CHARA_GNS_TUKI  );
 
+#if 0
 #endif // 0
 	}
 
@@ -265,10 +265,10 @@ namespace GAME
 		m_Retsu = rhs.m_Retsu;
 		m_Gaba = rhs.m_Gaba;
 		m_Fera = rhs.m_Fera;
-#if 0
 
 		m_Tsuki = rhs.m_Tsuki;
 
+#if 0
 #endif // 0
 	}
 
@@ -288,6 +288,7 @@ namespace GAME
 		if ( m_asyncLoad_Retu.isValid () ) { m_asyncLoad_Retu.wait (); }
 		if ( m_asyncLoad_Gaba.isValid () ) { m_asyncLoad_Gaba.wait (); }
 		if ( m_asyncLoad_Fera.isValid () ) { m_asyncLoad_Fera.wait (); }
+		if ( m_asyncLoad_Fera.isValid () ) { m_asyncLoad_Tuki.wait (); }
 
 #if 0
 #endif // 0
