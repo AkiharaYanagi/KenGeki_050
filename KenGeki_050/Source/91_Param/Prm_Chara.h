@@ -81,10 +81,10 @@ namespace GAME
 		s3d::AsyncTask < void >	m_asyncLoad_Retu;
 		s3d::AsyncTask < void >	m_asyncLoad_Gaba;
 		s3d::AsyncTask < void >	m_asyncLoad_Fera;
-#if 0
 
 		s3d::AsyncTask < void >	m_asyncLoad_Tuki;
 
+#if 0
 #endif // 0
 
 		//終了ミューテックス
@@ -101,9 +101,9 @@ namespace GAME
 		Prm_Chara		m_Gaba;
 		Prm_Chara		m_Fera;
 
-#if 0
 
 		Prm_Chara		m_Tsuki;
+#if 0
 
 #endif // 0
 
