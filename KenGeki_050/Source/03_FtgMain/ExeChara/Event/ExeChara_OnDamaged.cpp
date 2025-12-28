@@ -247,7 +247,16 @@ namespace GAME
 			stopTime += warp;
 		}
 
+		//-------------------------------------------------
+		//追加ノックバック
+		{
+			float recoil_e = pScp->Get_FP_B().Recoil_E.Get();
+			float x = m_btlPrm.GetPos().x;
+			float y = recoil_e + m_btlPrm.GetPos().y;
+			m_btlPrm.SetPos ( VEC2 ( x, y ) );
+		}
 
+		//-------------------------------------------------
 		//ガード時
 		if ( bGuard )
 		{

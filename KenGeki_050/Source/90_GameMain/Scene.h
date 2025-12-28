@@ -13,7 +13,7 @@
 #include "Game.h"
 #include "GameConst.h"
 #include "../91_Param/Param.h"
-#include "G_Ftg.h"
+//#include "G_Ftg.h"
 
 
 //-------------------------------------------------------------------------------------------------

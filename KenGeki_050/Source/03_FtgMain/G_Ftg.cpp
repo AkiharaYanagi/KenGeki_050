@@ -8,7 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "G_Ftg.h"
-#include "../03_FtgMain/FtgConst.h"
+#include "FtgConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -227,7 +227,21 @@ namespace GAME
 		float cx = window_half - averagex;		//中央
 
 		//--------------------------------------------------------------------
+		//Y方向
+		float fgy = (float)GROUND_Y;
+		float posMutualBase_y = 0;
+		//両者飛んでいる場合のみ
+		if ( pos1p.y < fgy && pos2p.y < fgy )
+		{
+		}
+			//キャラ位置の平均
+			float average_y = (pos1p.y + pos2p.y) * 0.5f;	//中心
+			//基準の位置
+			if ( average_y < fgy ) { posMutualBase_y = fgy - average_y; }
 
+
+		//--------------------------------------------------------------------
+		//X方向
 		//通常時
 
 		//左寄
@@ -252,7 +266,7 @@ namespace GAME
 #endif // 0
 
 		//計算した画面表示補正位置を保存
-		m_posMutualBase = VEC2 ( posMutualBase_x, 0 );
+		m_posMutualBase = VEC2 ( posMutualBase_x, posMutualBase_y );
 	}
 
 

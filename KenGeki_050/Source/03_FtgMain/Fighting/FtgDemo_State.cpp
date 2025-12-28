@@ -10,7 +10,7 @@
 #include "FtgDemo_State.h"
 #include "FtgDemo_Actor.h"
 #include "Fighting.h"
-#include "../../90_GameMain/G_Ftg.h"
+#include "../G_Ftg.h"
 #include "../../90_GameMain/SoundConst.h"
 #include "../../90_GameMain/VoiceConst.h"
 

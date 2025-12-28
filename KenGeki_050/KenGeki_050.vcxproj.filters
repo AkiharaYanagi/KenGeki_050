@@ -283,9 +283,6 @@
     <ClCompile Include="Source\03_FtgMain\FtgMain.cpp">
       <Filter>03_FtgMain</Filter>
     </ClCompile>
-    <ClCompile Include="Source\90_GameMain\G_Ftg.cpp">
-      <Filter>90_GameMain</Filter>
-    </ClCompile>
     <ClCompile Include="Source\03_FtgMain\ExeChara\BtlParam.cpp">
       <Filter>03_FtgMain\Fighting\ExeChara</Filter>
     </ClCompile>
@@ -483,6 +480,9 @@
     </ClCompile>
     <ClCompile Include="Source\80_Common\Menu\TrainingMenuItem.cpp">
       <Filter>80_Common\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\G_Ftg.cpp">
+      <Filter>03_FtgMain</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -1241,9 +1241,6 @@
     <ClInclude Include="Source\03_FtgMain\FtgMain.h">
       <Filter>03_FtgMain</Filter>
     </ClInclude>
-    <ClInclude Include="Source\90_GameMain\G_Ftg.h">
-      <Filter>90_GameMain</Filter>
-    </ClInclude>
     <ClInclude Include="Source\03_FtgMain\ExeChara\BtlParam.h">
       <Filter>03_FtgMain\Fighting\ExeChara</Filter>
     </ClInclude>
@@ -1423,6 +1420,9 @@
     </ClInclude>
     <ClInclude Include="Source\91_Param\Prm_Const.h">
       <Filter>91_Param</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\G_Ftg.h">
+      <Filter>03_FtgMain</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

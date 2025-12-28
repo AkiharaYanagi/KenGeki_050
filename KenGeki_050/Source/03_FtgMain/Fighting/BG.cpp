@@ -9,7 +9,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "BG.h"
 #include "../FtgConst.h"	
-#include "../../90_GameMain/G_Ftg.h"	
+#include "../G_Ftg.h"	
 
 
 //-------------------------------------------------------------------------------------------------
@@ -322,42 +322,43 @@ namespace GAME
 	{
 		//-------------------------------------------------------
 		//背景位置補正
+		float y = G_BASE_POS ().y;
 		int nx = (int) G_BASE_POS ().x;
 //		int disp_bg_x = nx % GAME_WIDTH;
 		int disp_bg_x = nx;
 		int POINT = (1280 - 2048) / 2;	//切り替えポイント
 
 
-//		DBGOUT_WND_F( U"G_BASE_POS = {}"_fmt( disp_bg_x ) );
+		DBGOUT_WND_F( DBGOUT_9, U"G_BASE_POS.y = {}"_fmt( y ) );
 
 		//Left
 		if ( disp_bg_x < POINT )
 		{
-			m_bg_L->SetPos ( (float)(disp_bg_x + 4096), BG_POS_Y );
+			m_bg_L->SetPos ( (float)(disp_bg_x + 4096), y );
 		}
 		else
 		{
-			m_bg_L->SetPos ( (float)(disp_bg_x - 2048), BG_POS_Y );
+			m_bg_L->SetPos ( (float)(disp_bg_x - 2048), y );
 		}
 
 		//Center
 		if ( disp_bg_x < POINT - 2048 )
 		{
-			m_bg_C->SetPos ( (float)(disp_bg_x + 4096 + 2048), BG_POS_Y );
+			m_bg_C->SetPos ( (float)(disp_bg_x + 4096 + 2048), y );
 		}
 		else
 		{
-			m_bg_C->SetPos ( (float)disp_bg_x, BG_POS_Y );
+			m_bg_C->SetPos ( (float)disp_bg_x, y );
 		}
 
 		//Right
 		if ( disp_bg_x < POINT - 4096 )
 		{
-			m_bg_R->SetPos ( (float)(disp_bg_x + 4096 + 4096 ), BG_POS_Y );
+			m_bg_R->SetPos ( (float)(disp_bg_x + 4096 + 4096 ), y );
 		}
 		else
 		{
-			m_bg_R->SetPos ( (float)(disp_bg_x + 2048), BG_POS_Y );
+			m_bg_R->SetPos ( (float)(disp_bg_x + 2048), y );
 		}
 
 

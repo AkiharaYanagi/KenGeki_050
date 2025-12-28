@@ -8,7 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "DispMainImage.h"
-#include "../../../90_GameMain/G_Ftg.h"
+#include "../../G_Ftg.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -62,10 +62,12 @@ namespace GAME
 		//位置
 		VEC2 posScript = pScript->Pos.Get();
 		float bx = G_BASE_POS ().x;	//基準位置
+		float by = G_BASE_POS ().y;	//基準位置
 		float vib = btlprm.GetVib ();	//振動量
 		float x = bx + ptChara.x + fDir * posScript.x + vib;	//反転位置補正
 //		float x = bx + ptChara.x + posScript.x;	//->ScalingCenterの指定により位置補正は無し
-		float y =  0 + ptChara.y + posScript.y;
+		float y = by + ptChara.y + posScript.y;
+//		float y =  0 + ptChara.y + posScript.y;
 		VEC2 vecImg = VEC2 ( x, y );
 
 		//IDチェックはスクリプト作成時、ロード時に行う
@@ -101,8 +103,10 @@ namespace GAME
 
 		//---------------------------------------------------------
 		//影
-		VEC2 vecImgShadow = VEC2 ( bx, 0 ) + ptChara + VEC2 ( -160 + fDir * 12, 0 );
-		vecImgShadow.y = -0.f + (float)PLAYER_BASE_Y;	//y方向のみ指定
+		//VEC2 vecImgShadow = VEC2 ( bx, 0 ) + ptChara + VEC2 ( -160 + fDir * 12, 0 );
+		VEC2 vecImgShadow = VEC2 ( bx, by ) + ptChara + VEC2 ( -160 + fDir * 12, 0 );
+		//vecImgShadow.y = -0.f + (float)PLAYER_BASE_Y;	//y方向のみ指定
+		vecImgShadow.y = by + (float)PLAYER_BASE_Y;	//y方向のみ指定
 		m_grpShadow->SetPos ( vecImgShadow );
 
 	}
