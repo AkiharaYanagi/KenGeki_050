@@ -8,7 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "MutualChara_Utility.h"
-#include "../../90_GameMain/G_Ftg.h"
+#include "../G_Ftg.h"
 #include "../../90_GameMain/DebugDisp.h"
 
 

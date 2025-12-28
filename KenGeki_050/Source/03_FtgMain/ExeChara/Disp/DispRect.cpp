@@ -8,7 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "DispRect.h"
-#include "../../../90_GameMain/G_Ftg.h"
+#include "../../G_Ftg.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -116,13 +116,15 @@ namespace GAME
 	void DispRect::SetGrpRect ( AP_PrmRect& apGrpRect, PV_RECT pvRect )
 	{
 		float bx = G_BASE_POS().x;	//基準位置
+		float by = G_BASE_POS().y;	//基準位置
 
 		UINT i = 0;
 		for ( P_PrmRect p : apGrpRect )
 		{
 			RECT r = pvRect->at ( i );
 			int32 x = (int32)bx + r.left;
-			int32 y = r.top;
+			//int32 y = r.top;
+			int32 y = (int32)by + r.top;
 			int32 w = r.right - r.left;
 			int32 h = r.bottom - r.top;
 			p->SetRect ( x, y, w, h );

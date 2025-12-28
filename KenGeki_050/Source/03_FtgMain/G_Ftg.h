@@ -10,7 +10,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
-#include "GameConst.h"
+#include "../90_GameMain/GameConst.h"
 //#include "FtgConst.h"
 
 //-------------------------------------------------------------------------------------------------
@@ -30,6 +30,7 @@ namespace GAME
 		~G_Ftg ();		//デストラクタはunique_ptrのためpublic
 		static void Create() { if ( ! m_inst ) { m_inst = _P_G_Ftg ( new G_Ftg () ); } }
 		static _P_G_Ftg & inst () { return m_inst; }	//インスタンス取得
+		static void Destroy () { m_inst.reset (); }	//インスタンス破棄
 	//---------------------------------------------------------------------
 
 	private:

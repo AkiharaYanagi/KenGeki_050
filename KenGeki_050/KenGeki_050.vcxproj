@@ -190,6 +190,7 @@
     <ClCompile Include="Source\03_FtgMain\Fighting\Round.cpp" />
     <ClCompile Include="Source\03_FtgMain\Fighting\WallBreak.cpp" />
     <ClCompile Include="Source\03_FtgMain\FtgMain.cpp" />
+    <ClCompile Include="Source\03_FtgMain\G_Ftg.cpp" />
     <ClCompile Include="Source\03_FtgMain\Mutual\Collision.cpp" />
     <ClCompile Include="Source\03_FtgMain\Mutual\Decision.cpp" />
     <ClCompile Include="Source\03_FtgMain\Mutual\MutualChara.cpp" />
@@ -207,7 +208,6 @@
     <ClCompile Include="Source\80_Common\Menu\YesNo_Menu.cpp" />
     <ClCompile Include="Source\80_Common\SelectArrow.cpp" />
     <ClCompile Include="Source\90_GameMain\DebugDisp.cpp" />
-    <ClCompile Include="Source\90_GameMain\G_Ftg.cpp" />
     <ClCompile Include="Source\90_GameMain\Main.cpp" />
     <ClCompile Include="Source\90_GameMain\Scene.cpp" />
     <ClCompile Include="Source\90_GameMain\SoundConst.cpp" />
@@ -486,6 +486,7 @@
     <ClInclude Include="Source\03_FtgMain\Fighting\WallBreak.h" />
     <ClInclude Include="Source\03_FtgMain\FtgConst.h" />
     <ClInclude Include="Source\03_FtgMain\FtgMain.h" />
+    <ClInclude Include="Source\03_FtgMain\G_Ftg.h" />
     <ClInclude Include="Source\03_FtgMain\Mutual\Collision.h" />
     <ClInclude Include="Source\03_FtgMain\Mutual\Decision.h" />
     <ClInclude Include="Source\03_FtgMain\Mutual\MutualChara.h" />
@@ -505,7 +506,6 @@
     <ClInclude Include="Source\90_GameMain\DebugDisp.h" />
     <ClInclude Include="Source\90_GameMain\GameConst.h" />
     <ClInclude Include="Source\90_GameMain\GameMain.h" />
-    <ClInclude Include="Source\90_GameMain\G_Ftg.h" />
     <ClInclude Include="Source\90_GameMain\Scene.h" />
     <ClInclude Include="Source\90_GameMain\SeConst.h" />
     <ClInclude Include="Source\90_GameMain\SoundConst.h" />

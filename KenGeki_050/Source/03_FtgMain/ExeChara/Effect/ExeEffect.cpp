@@ -159,7 +159,15 @@ namespace GAME
 				{
 					//ループ回数カウント
 					++ m_loop_count;
-					m_frame = 0;	//ループ
+
+					if ( m_loop_count == loop )
+					{
+						m_end = true;	//終了
+					}
+					else
+					{
+						m_frame = 0;	//ループ
+					}
 				}
 				else
 				{
