@@ -94,6 +94,10 @@ namespace GAME
 		//---------------------------------------
 		void StartAllBlack () { m_bg_All_Black->SetValid ( T ); }
 		void EndAllBlack () { m_bg_All_Black->SetValid ( F ); }
+
+		//---------------------------------------
+		void StartAerial () { m_grpBG_scroll->SetValid ( T ); }
+		void EndAerial () { m_grpBG_scroll->SetValid ( F ); }
 	};
 
 	using P_FtgGrp = std::shared_ptr < FtgGrp >;

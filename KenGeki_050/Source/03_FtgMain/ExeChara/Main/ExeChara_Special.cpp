@@ -545,6 +545,21 @@ namespace GAME
 
 
 		//-----------------------------------------------------
+		//月日星
+		if ( m_name == CHARA_TSUKIHIBOSHI )
+		{
+			if ( IsNameAction ( U"エリアルジャンプ" ) )
+			{
+				m_pFtgGrp->StartAllBlack ();
+			}
+			if ( IsNameAction ( U"着地" ) )
+			{
+				m_pFtgGrp->EndAerial ();
+			}
+		}
+
+
+		//-----------------------------------------------------
 		//全キャラ
 
 
