@@ -45,6 +45,8 @@ namespace GAME
 		//test 動画
 		std::unique_ptr < s3d::VideoTexture > mp_vtx;
 
+		//特殊背景
+		P_Grp	m_grpBG_scroll;	//スクロール背景
 
 
 	public:

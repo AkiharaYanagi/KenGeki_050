@@ -50,6 +50,15 @@ namespace GAME
 		AddpTask ( m_bg_All_Black );
 		GRPLST_INSERT ( m_bg_All_Black );
 		m_bg_All_Black->SetValid ( F );
+
+		//------------------------------------------------
+		//スクロール背景
+		m_grpBG_scroll = std::make_shared < GameGraphic > ();
+		m_grpBG_scroll->AddTexture_FromArchive ( U"BG_scroll\\BG_hara_evening_scroll.png" );
+		m_grpBG_scroll->SetZ ( Z_BG - 0.01f );
+		AddpTask ( m_grpBG_scroll );
+		GRPLST_INSERT ( m_grpBG_scroll );
+		m_grpBG_scroll->SetValid ( F );
 	}
 
 	FtgGrp::~FtgGrp ()
