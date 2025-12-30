@@ -595,8 +595,11 @@ namespace GAME
 
 		//勝敗決着時に強制敗北ダウン
 		void Lose () { StartDown (); };
-	};
 
+		//背景変更
+		void StartAerial () { m_pFtgGrp->StartAerial (); };
+
+	};
 
 }	//namespace GAME
 

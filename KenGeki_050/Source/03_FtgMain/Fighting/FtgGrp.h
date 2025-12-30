@@ -47,6 +47,7 @@ namespace GAME
 
 		//特殊背景
 		P_Grp	m_grpBG_scroll;	//スクロール背景
+		P_Grp	m_grpBG_scroll_bg;	//スクロール背景
 
 
 	public:

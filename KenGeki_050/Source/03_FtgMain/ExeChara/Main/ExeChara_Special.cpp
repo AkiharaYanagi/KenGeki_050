@@ -550,7 +550,7 @@ namespace GAME
 		{
 			if ( IsNameAction ( U"エリアルジャンプ" ) )
 			{
-				m_pFtgGrp->StartAllBlack ();
+				m_pFtgGrp->StartAerial ();
 			}
 			if ( IsNameAction ( U"着地" ) )
 			{
