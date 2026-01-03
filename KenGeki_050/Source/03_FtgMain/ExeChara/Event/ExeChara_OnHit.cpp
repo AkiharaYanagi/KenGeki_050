@@ -151,6 +151,7 @@ namespace GAME
 		//@info 向き注意！　スクリプト時点でマイナスは後ろ向き、
 		//	現在方向を最後に反映する
 
+		//@todo 相手のノックバック量も参照
 		// スクリプトで指定した値は10倍の値なので1/10にする
 		// 実効値 (float) = (float)1/10
 
@@ -164,7 +165,6 @@ namespace GAME
 		//画面端距離補正
 		float d_side = 1.f;
 
-		//@todo 相手のノックバック量も参照
 		float self_x = pSelf->GetPos ().x;
 		float other_x = pOther->GetPos ().x;
 		float padding = 300;

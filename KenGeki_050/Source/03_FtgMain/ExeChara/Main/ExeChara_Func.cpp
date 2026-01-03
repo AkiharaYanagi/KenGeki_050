@@ -69,6 +69,7 @@ namespace GAME
 		//バトルパラメータに保存し、CalcPos()で位置を計算し、０にリセットされる
 		//剣撃対抗タイマ５フレ間、ヒットストップの間はたまたま保持されている
 		float accRecoil = m_btlPrm.GetAccRecoil ();
+		float accRecoil_other = pOther->m_btlPrm.GetAccRecoil ();
 
 
 
@@ -196,6 +197,27 @@ namespace GAME
 				}
 				else
 				{
+					//-----------------------------------------------------
+					//個別
+					//-----------------------------------------------------
+					//ギャバ
+					if ( m_name == CHARA_GYAVADARUGA )
+					{
+						if ( IsNameAction ( U"竜巻弱1" ) )
+						{
+							//accRecoil = -10;
+						}
+					}
+
+					//-----------------------------------------------------
+					//事前に固定数
+					if ( accRecoil == 0 )
+					{
+						accRecoil = -10;
+					}
+
+					//-----------------------------------------------------
+					
 					//アクセル値に必要量があれば消費して遷移する
 					pOther->m_btlPrm.AddAccel ( -1 * COST );
 
@@ -220,11 +242,37 @@ namespace GAME
 
 					//自身の受付時間を解除
 					pOther->m_btlPrm.GetTmr_Taikou()->Clear ();
+
+
+					//---------------------
+					// 自分攻撃、相手剣撃対抗
+					//自分が画面端の場合、相手に余剰分を返す
+
+					//画面端
+					float wall_L = (float)FIELD_EDGE + G_FTG()->GetWallLeft ();
+					float wall_R = G_FTG()->GetWallRight () - (float)FIELD_EDGE;
+
+					//位置
+					float pos_x = m_btlPrm.GetPos ().x;
+					float ax = pos_x + accRecoil;
+
+					//左壁
+					if ( ax < wall_L )
+					{
+						accRecoil_other = wall_L - ax;
+					}
+					//右壁
+					if ( wall_R < ax )
+					{
+						accRecoil_other = - ( ax - wall_R );
+					}
+
 				}
 
 
 				//値を再保存
 				m_btlPrm.SetAccRecoil ( accRecoil );
+				pOther->m_btlPrm.SetAccRecoil ( accRecoil_other );
 			}
 		}
 
