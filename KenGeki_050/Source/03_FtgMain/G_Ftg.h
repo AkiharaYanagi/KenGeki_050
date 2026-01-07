@@ -61,6 +61,9 @@ namespace GAME
 		//システム表示
 		bool	m_sysDisp { T };
 
+		//ｙ方向スクロール
+		bool	m_bScrollY { F };
+
 	public:
 		//初期化
 		void Init ();
@@ -96,6 +99,8 @@ namespace GAME
 		//システム表示
 		GET_SET ( bool, GetSysDisp, SetSysDisp, m_sysDisp )
 
+		//ｙ方向スクロール
+		GET_SET ( bool, GetScrollY, SetScrollY, m_bScrollY )
 
 	private:
 		//カメラの画面端における補正位置

@@ -249,11 +249,12 @@ namespace GAME
 
 		//-------------------------------------------------
 		//追加ノックバック
+		if ( pSelf->IsNameAction ( U"空中やられ" ) )
 		{
-			//float recoil_e = 1.f * pScp->Get_FP_B().Recoil_E.Get();
+			float recoil_e = 1.f * pScp->Get_FP_B().Recoil_E.Get();
 			float x = m_btlPrm.GetPos().x;
-			//float y = recoil_e + m_btlPrm.GetPos().y;
-			float y = m_btlPrm.GetPos().y;
+			float y = recoil_e + m_btlPrm.GetPos().y;
+			//float y = m_btlPrm.GetPos().y;
 			m_btlPrm.SetPos ( VEC2 ( x, y ) );
 		}
 

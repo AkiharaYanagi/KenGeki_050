@@ -266,8 +266,14 @@ namespace GAME
 #endif // 0
 
 		//計算した画面表示補正位置を保存
-//		m_posMutualBase = VEC2 ( posMutualBase_x, posMutualBase_y );
-		m_posMutualBase = VEC2 ( posMutualBase_x, 0 );
+		if ( m_bScrollY )
+		{
+			m_posMutualBase = VEC2 ( posMutualBase_x, posMutualBase_y );
+		}
+		else
+		{
+			m_posMutualBase = VEC2 ( posMutualBase_x, 0 );
+		}
 	}
 
 

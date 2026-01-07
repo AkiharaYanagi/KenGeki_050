@@ -548,13 +548,20 @@ namespace GAME
 		//月日星
 		if ( m_name == CHARA_TSUKIHIBOSHI )
 		{
+			//背景上部延長
 			if ( IsNameAction ( U"エリアルジャンプ" ) )
 			{
 				m_pFtgGrp->StartAerial ();
+				G_FTG ()->SetScrollY ( T );
 			}
-			if ( IsNameAction ( U"着地" ) )
+
+			bool b0 = IsNameAction ( U"着地" );
+			bool b1 = IsNameAction ( U"立ち" );
+			//if ( b0 || b1 )
+			if ( b1 )
 			{
 				m_pFtgGrp->EndAerial ();
+				G_FTG ()->SetScrollY ( F );
 			}
 		}
 

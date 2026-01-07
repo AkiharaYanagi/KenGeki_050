@@ -56,19 +56,13 @@ namespace GAME
 		//スクロール背景
 		m_grpBG_scroll = std::make_shared < GameGraphic > ();
 		m_grpBG_scroll->AddTexture_FromArchive ( U"BG_scroll\\BG_hara_evening_scroll.png" );
-		m_grpBG_scroll->SetPos ( 0, - 600 );
+		m_grpBG_scroll->SetPos ( 0, - 1200 );
+		m_grpBG_scroll->SetScaling ( 1.f, 2.f );
 		m_grpBG_scroll->SetZ ( Z_BG - 0.01f );
 		AddpTask ( m_grpBG_scroll );
 		GRPLST_INSERT ( m_grpBG_scroll );
 		m_grpBG_scroll->SetValid ( F );
 
-		m_grpBG_scroll_bg = std::make_shared < GameGraphic > ();
-		m_grpBG_scroll_bg->AddTexture_FromArchive ( U"BG_scroll\\BG_hara_evening_scroll.png" );
-		m_grpBG_scroll_bg->SetPos ( 0, - 300 );
-		m_grpBG_scroll_bg->SetZ ( Z_BG + 0.01f );
-		AddpTask ( m_grpBG_scroll_bg );
-		GRPLST_INSERT ( m_grpBG_scroll_bg );
-		m_grpBG_scroll_bg->SetValid ( F );
 	}
 
 	FtgGrp::~FtgGrp ()
@@ -173,13 +167,23 @@ namespace GAME
 
 
 		//---------------------------------------------------
-		m_grpBG_scroll->SetPos ( 0, G_BASE_POS().y - 600 );
-
+		//特殊背景
+		m_grpBG_scroll->SetPos ( 0, G_BASE_POS().y - 1200 );
 
 
 		TASK_VEC::Move ();
 	}
 
+	void FtgGrp::StartAerial ()
+	{
+		m_grpBG_scroll->SetValid ( T );
+		//m_grpBG_scroll->SetFadeIn ( 5 );
+	}
+	void FtgGrp::EndAerial ()
+	{
+		m_grpBG_scroll->SetValid ( F );
+		//m_grpBG_scroll->SetFadeOut ( 5 );
+	}
 
 }	//namespace GAME
 

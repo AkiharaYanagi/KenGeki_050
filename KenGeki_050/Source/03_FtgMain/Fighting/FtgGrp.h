@@ -47,7 +47,6 @@ namespace GAME
 
 		//特殊背景
 		P_Grp	m_grpBG_scroll;	//スクロール背景
-		P_Grp	m_grpBG_scroll_bg;	//スクロール背景
 
 
 	public:
@@ -97,8 +96,8 @@ namespace GAME
 		void EndAllBlack () { m_bg_All_Black->SetValid ( F ); }
 
 		//---------------------------------------
-		void StartAerial () { m_grpBG_scroll->SetValid ( T ); }
-		void EndAerial () { m_grpBG_scroll->SetValid ( F ); }
+		void StartAerial ();
+		void EndAerial ();
 	};
 
 	using P_FtgGrp = std::shared_ptr < FtgGrp >;
