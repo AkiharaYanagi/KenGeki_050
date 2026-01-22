@@ -468,6 +468,7 @@ namespace GAME
 
 		m_timer = std::make_shared < Timer > ( 120 );
 		m_subtimer = std::make_shared < Timer > ( 180 );
+//		m_subtimer = std::make_shared < Timer > ( 181 );
 
 		m_name.assign ( U"FTG_DM_Down" );
 	}
@@ -524,11 +525,20 @@ namespace GAME
 
 	void FTG_DM_Down::Do ()
 	{
-		//タイマ
+		//タイマ稼働
 		m_timer->Move ();
 		m_subtimer->Move ();
 
-		//サブタイマ終了時
+		//--------------------------------------------------------------------
+		//◆◆　両方成立して、２回勝利フラグが＋＋されている特定の技（時間）があった
+		//	紗絵：逆雷、万雷弱派生
+		//	桜花：モズ
+		// ダメージ後、60F + 通常ウェイト120 == サブタイマ180F
+		// でif文が両方TでチェックされてChange_Down_To_Winner ()が２回実行されていた
+		//--------------------------------------------------------------------
+
+		//サブタイマ終了時のみ
+
 		if ( m_subtimer->IsLast () )
 		{
 			//表示消し
@@ -543,32 +553,37 @@ namespace GAME
 			GetwpFtgDemoActor ().lock ()->Change_Down_To_Winner ();
 		}
 
-
-		//タイマ稼働時
-		if ( m_timer->IsActive () )
+		//かならずどちらか１回チェック
+		else
 		{
-			//タイマ終了時
-			if ( m_timer->IsLast () )
-			{
-				//表示消し
-				m_grp_Ketsu->SetValid ( F );
-				m_grp_chaku->SetValid ( F );
-				m_grpLight0->SetValid ( F );
-				m_grpLight1->SetValid ( F );
 
-				m_timer->Clear ();
-
-				//ダウンから勝者表示へ
-				GetwpFtgDemoActor ().lock ()->Change_Down_To_Winner ();
-			}
-		}
-		else //非稼働時
-		{
-			//キャラステートが敗北ダウン持続に入ったらタイマスタート
-			if ( GetpMutualChara ()->IsDown_Calm () )
+			//タイマ稼働時
+			if ( m_timer->IsActive () )
 			{
-				m_timer->Start ();
+				//タイマ終了時
+				if ( m_timer->IsLast () )
+				{
+					//表示消し
+					m_grp_Ketsu->SetValid ( F );
+					m_grp_chaku->SetValid ( F );
+					m_grpLight0->SetValid ( F );
+					m_grpLight1->SetValid ( F );
+
+					m_timer->Clear ();
+
+					//ダウンから勝者表示へ
+					GetwpFtgDemoActor ().lock ()->Change_Down_To_Winner ();
+				}
 			}
+			else //非稼働時
+			{
+				//キャラステートが敗北ダウン持続に入ったらタイマスタート
+				if ( GetpMutualChara ()->IsDown_Calm () )
+				{
+					m_timer->Start ();
+				}
+			}
+
 		}
 
 		//キャラ共通一連動作

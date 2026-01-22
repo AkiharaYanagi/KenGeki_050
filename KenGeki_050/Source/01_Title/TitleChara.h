@@ -45,8 +45,9 @@ namespace GAME
 		{
 			{ CHARA_OUKA		, -55.f },
 			{ CHARA_SAE			, 0.f },
-			{ CHARA_RETSUDOU	, -95.f },
-			{ CHARA_FERARIA		, -65.f },
+			{ CHARA_RETSUDOU	, -130.f },
+			{ CHARA_GYAVADARUGA	, -200.f },
+			{ CHARA_FERARIA		, -80.f },
 		};
 
 		float		m_revX1 { 0 };

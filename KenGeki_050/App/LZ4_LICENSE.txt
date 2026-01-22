@@ -1,0 +1,49 @@
+﻿LZ4 - Extremely Fast Compression algorithm
+Copyright (c) 2011-2021, Yann Collet
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice,
+   this list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
+
+LZ4 - 超高速圧縮アルゴリズム
+Copyright (c) 2011-2021, Yann Collet
+All rights reserved.
+
+ソースコードおよびバイナリ形式での再配布および使用は、変更の有無にかかわらず、
+以下の条件を満たす場合に許可されます。
+
+1. ソースコードを再配布する場合、上記の著作権表示、本条件一覧、
+   および以下の免責条項を必ず含めなければなりません。
+
+2. バイナリ形式で再配布する場合、上記の著作権表示、本条件一覧、
+   および以下の免責条項を、配布物に付属する文書またはその他の資料に
+   必ず含めなければなりません。
+
+本ソフトウェアは、著作権者およびコントリビューターによって「現状のまま」
+提供されるものであり、明示的または黙示的な保証（商品性や特定目的への
+適合性の保証を含むがそれに限定されない）は一切否認されます。
+いかなる場合においても、著作権者またはコントリビューターは、本ソフトウェアの
+使用によって生じたいかなる直接的、間接的、偶発的、特別、懲罰的、または
+結果的損害（代替品やサービスの調達、使用不能、データ損失、利益損失、
+業務中断などを含むがそれに限定されない）についても責任を負わないものとします。
+たとえそのような損害の可能性について知らされていた場合でも同様です。

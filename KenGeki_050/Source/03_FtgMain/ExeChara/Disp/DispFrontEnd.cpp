@@ -343,6 +343,8 @@ namespace GAME
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Gyava_2p.png" );
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Fera_1p.png" );
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Fera_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Tsuki_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Tsuki_2p.png" );
 			m_face->SetScaling ( -1, 1 );
 
 			m_name->SetPos ( POS_NAME_1P );
@@ -351,6 +353,7 @@ namespace GAME
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Retsu.png" );
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Gyava.png" );
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Fera.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Tsuki.png" );
 
 			//-----------------------------------------------------------------
 
@@ -373,6 +376,8 @@ namespace GAME
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Gyava_2p.png" );
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Fera_1p.png" );
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Fera_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Tsuki_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Tsuki_2p.png" );
 
 			m_name->SetPos ( POS_NAME_2P );
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Ouka.png" );
@@ -380,6 +385,7 @@ namespace GAME
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Retsu.png" );
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Gyava.png" );
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Fera.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Tsuki.png" );
 
 			//-----------------------------------------------------------------
 			m_grp_Cst_Player1P2P->SetPos ( POS_PL_CP_2P );
@@ -482,24 +488,24 @@ namespace GAME
 		{
 			switch( name )
 			{
-			case CHARA_NAME::CHARA_OUKA:		fc = 0; nm = 0; break;
-			case CHARA_NAME::CHARA_SAE:			fc = 2; nm = 1; break;
-			case CHARA_NAME::CHARA_RETSUDOU:	fc = 4; nm = 2; break;
-			case CHARA_NAME::CHARA_GYAVADARUGA:	fc = 6; nm = 3; break;
-			case CHARA_NAME::CHARA_FERARIA:		fc = 8; nm = 4; break;
-			case CHARA_NAME::CHARA_TSUKIHIBOSHI:fc = 8; nm = 4; break;
+			case CHARA_NAME::CHARA_OUKA:		fc =  0; nm = 0; break;
+			case CHARA_NAME::CHARA_SAE:			fc =  2; nm = 1; break;
+			case CHARA_NAME::CHARA_RETSUDOU:	fc =  4; nm = 2; break;
+			case CHARA_NAME::CHARA_GYAVADARUGA:	fc =  6; nm = 3; break;
+			case CHARA_NAME::CHARA_FERARIA:		fc =  8; nm = 4; break;
+			case CHARA_NAME::CHARA_TSUKIHIBOSHI:fc = 10; nm = 5; break;
 			}
 		}
 		else if ( CHARA_COLOR::CH_CLR_2 == clr )
 		{
 			switch( name )
 			{
-			case CHARA_NAME::CHARA_OUKA:		fc = 1; nm = 0; break;
-			case CHARA_NAME::CHARA_SAE:			fc = 3; nm = 1; break;
-			case CHARA_NAME::CHARA_RETSUDOU:	fc = 5; nm = 2; break;
-			case CHARA_NAME::CHARA_GYAVADARUGA:	fc = 7; nm = 3; break;
-			case CHARA_NAME::CHARA_FERARIA:		fc = 9; nm = 4; break;
-			case CHARA_NAME::CHARA_TSUKIHIBOSHI:fc = 9; nm = 4; break;
+			case CHARA_NAME::CHARA_OUKA:		fc =  1; nm = 0; break;
+			case CHARA_NAME::CHARA_SAE:			fc =  3; nm = 1; break;
+			case CHARA_NAME::CHARA_RETSUDOU:	fc =  5; nm = 2; break;
+			case CHARA_NAME::CHARA_GYAVADARUGA:	fc =  7; nm = 3; break;
+			case CHARA_NAME::CHARA_FERARIA:		fc =  9; nm = 4; break;
+			case CHARA_NAME::CHARA_TSUKIHIBOSHI:fc = 11; nm = 5; break;
 			}
 		}
 

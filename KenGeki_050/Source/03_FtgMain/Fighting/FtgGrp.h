@@ -48,7 +48,6 @@ namespace GAME
 		//特殊背景
 		P_Grp	m_grpBG_scroll;	//スクロール背景
 
-
 	public:
 		FtgGrp ();
 		FtgGrp ( const FtgGrp & rhs ) = delete;
@@ -97,6 +96,7 @@ namespace GAME
 
 		//---------------------------------------
 		void StartAerial ();
+		bool IsAerial () const { return m_grpBG_scroll->GetValid (); }
 		void EndAerial ();
 	};
 

@@ -235,9 +235,10 @@ namespace GAME
 			CHARA_OUKA,
 			CHARA_SAE,
 			CHARA_RETSUDOU,
+			CHARA_GYAVADARUGA,
 			CHARA_FERARIA,
 		};
-		return name [ s3d::Random(0,3) ];
+		return name [ s3d::Random ( 0, 4 ) ];
 	}
 
 

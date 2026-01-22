@@ -555,10 +555,12 @@ namespace GAME
 				G_FTG ()->SetScrollY ( T );
 			}
 
+			bool bA = m_pFtgGrp->IsAerial ();
 			bool b0 = IsNameAction ( U"着地" );
 			bool b1 = IsNameAction ( U"立ち" );
-			//if ( b0 || b1 )
-			if ( b1 )
+			if ( bA && (b0 || b1) )
+			//if ( b1 )
+			//if ( b0 )
 			{
 				m_pFtgGrp->EndAerial ();
 				G_FTG ()->SetScrollY ( F );
