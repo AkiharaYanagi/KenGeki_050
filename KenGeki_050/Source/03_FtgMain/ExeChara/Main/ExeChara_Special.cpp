@@ -565,7 +565,26 @@ namespace GAME
 				m_pFtgGrp->EndAerial ();
 				G_FTG ()->SetScrollY ( F );
 			}
+
+
+			//位置調整
+			if ( IsNameAction ( U"竜巻成立" ) )
+			{
+				if ( m_pScript->Index.Is ( 0 ) )
+				{
+					TopByZ ();
+
+					//位置調整用
+					bool bDir = m_btlPrm.GetDirRight ();
+					float dir = bDir ? 1.f : -1.f;
+					VEC2 my_pos = GetPos ();
+					VEC2 pos_rev = { my_pos.x + ( dir * 10 ), my_pos.y + 0 };
+					m_pOther.lock()->SetPos ( pos_rev );	//位置同期
+					m_pOther.lock()->SetDirRight ( ! bDir );	//向き同期
+				}
+			}
 		}
+
 
 
 		//-----------------------------------------------------

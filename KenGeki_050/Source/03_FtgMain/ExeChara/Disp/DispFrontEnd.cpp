@@ -326,10 +326,21 @@ namespace GAME
 
 #endif // 0
 
-
 		//プレイヤー別初期化位置
 		if ( PLAYER_ID_1 == playerID )
 		{
+
+#if 0
+
+
+			//test
+			m_face->SetValid ( F );
+			m_name->SetValid ( F );
+
+
+#endif // 0
+
+
 
 			//-----------------------------------------------------------------
 			m_face->SetPos ( POS_FACE_1P );

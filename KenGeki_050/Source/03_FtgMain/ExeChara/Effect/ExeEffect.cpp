@@ -82,14 +82,26 @@ namespace GAME
 
 	void ExeEffect::Disp ()
 	{
-		//表示更新
-		m_dispEffect->Update ( m_pScript, m_ptEffect, m_dirRight );
+		//全体表示
+		if ( m_full_display )
+		{
+			m_dispEffect->Update_FullDisplay ( m_pScript, m_dirRight );
+		}
+		else
+		{
+			//表示更新
+			m_dispEffect->Update ( m_pScript, m_ptEffect, m_dirRight );
+		}
 
 		//枠表示
+#if 0
+
 		if ( m_bDispRect )
 		{
 			m_dispEffect->Update ( m_pScript, m_ptEffect, m_dirRight );
 		}
+
+#endif // 0
 	}
 
 
@@ -106,8 +118,12 @@ namespace GAME
 		m_pScript = m_pEffect->GetpScript ( m_frame );
 
 		//エフェクト終了条件
+
+		//全体表示のときは画面外終了しない
+		bool bFull = m_full_display;
 		//画面外のとき終了
-		if ( m_ptEffect.x < 0 - 100 || GAME_WIDTH + 100 < m_ptEffect.x )
+		bool bOut = m_ptEffect.x < 0 - 100 || GAME_WIDTH + 100 < m_ptEffect.x ;
+		if ( ! bFull && bOut )
 		{
 			m_end = true;
 		}

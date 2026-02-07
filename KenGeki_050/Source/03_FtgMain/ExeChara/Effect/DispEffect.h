@@ -42,6 +42,9 @@ namespace GAME
 		//更新
 		void Update ( P_Frame pScript, VEC2 ptEf, bool dirRight );
 
+		//画面全体描画
+		void Update_FullDisplay ( P_Frame pScript, bool dirRight );
+
 		//表示枠設定
 		void SetpCharaRect ( P_CharaRect pCharaRect );
 

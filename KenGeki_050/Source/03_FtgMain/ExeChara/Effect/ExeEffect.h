@@ -64,6 +64,7 @@ namespace GAME
 
 		bool		m_immortal{F};		//相殺やヒットで終了しない
 
+		bool		m_full_display{F};	//画面全体描画(固定位置)
 
 	public:
 		ExeEffect ( P_Sequence pEffect, P_Chara pChara, P_EfGnrt pEfGnrt, VEC2 ptChara, bool dirRight );
@@ -123,6 +124,7 @@ namespace GAME
 		bool GetHit () const { return m_hit; }
 
 #endif // 0
+		GET_SET ( VEC2, GetPt, SetPt, m_ptEffect )	//位置
 		GET_SET ( bool, GetOffset, SetOffset, m_offset )	//相殺
 		GET_SET ( bool, GetHit, SetHit, m_hit )				//ヒット
 		GET_SET ( bool, GetImmortal, SetImmortal, m_immortal )		//不滅
@@ -132,6 +134,9 @@ namespace GAME
 		//Rect
 		void OnDispRect() { m_bDispRect = true; m_dispEffect->OnRect(); }
 		void OffDispRect() { m_bDispRect = false; m_dispEffect->OffRect(); }
+
+
+		void SetFullDisplay ( bool b ) { m_full_display = b; }
 
 	private :
 		//xだけ向きを反映する
@@ -147,7 +152,6 @@ namespace GAME
 		void Generate_Special ();
 		void PreMove_Special ();
 		void PostMove_Special ();
-
 
 	//====================================================
 	//フェラリア4M

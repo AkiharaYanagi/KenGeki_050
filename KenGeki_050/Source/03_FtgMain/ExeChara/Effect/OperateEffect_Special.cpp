@@ -52,6 +52,28 @@ namespace GAME
 		if ( pEffect->Name.Is ( U"Ef_ニャムヒー" ) ) { pExeEffect->SetShader ( F ); }
 
 
+		//全部オフ
+		pExeEffect->SetShader ( F );
+#if 0
+#endif // 0
+
+		//画面全体
+		float x0 = G_FTG()->GetCharaCenterX () - (float)GAME_WIDTH_HALF;
+		if ( pEffect->Name.Is ( U"地割れキャラ前" ) )
+		{
+			pExeEffect->SetFullDisplay ( T );
+		}
+		if ( pEffect->Name.Is ( U"地割れキャラ後ろ" ) )
+		{
+			pExeEffect->SetFullDisplay ( T );
+		}
+
+		if ( pEffect->Name.Is ( U"画面全体" ) )
+		{
+			pExeEffect->SetFullDisplay ( T );
+		}
+
+
 		//相殺やヒットで消えない
 //		if ( pEffect->Name.Is ( U"空中竜巻_鞘" ) ) { pExeEffect->SetImmortal ( T ); }
 		//@todo 攻撃判定が残るのをどうするか
