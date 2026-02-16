@@ -123,29 +123,10 @@ namespace GAME
 
 
 		//-----------------------------------------------------
-		if ( IsNameAction ( U"剣撃走破" ) )
-		{
-			//エフェクト発生
-			if ( m_pScript->Index.Is ( 5 ) )
-			{
-				VEC2 pos = m_btlPrm.GetPos ();
-				pos.y += -250;
-				m_efSouha->On ( pos );
-			}
-		}
-
-		if ( IsNameAction ( U"剣撃走破2" ) )
-		{
-			//エフェクト発生
-			if ( m_pScript->Index.Is ( 5 ) )
-			{
-				VEC2 pos = m_btlPrm.GetPos ();
-				pos.y += -250;
-				m_efSouha->On ( pos );
-			}
-		}
-
-		if ( IsNameAction ( U"剣撃走破3" ) )
+//		bool bSouha = IsNameAction ( U"剣撃走破" );
+		bool bSouha = IsNameAction ( U"剣撃走破_地上_発生" );
+		bool bSouha_air = IsNameAction ( U"剣撃走破_空中_発生" );
+		if ( bSouha || bSouha_air )
 		{
 			//エフェクト発生
 			if ( m_pScript->Index.Is ( 5 ) )

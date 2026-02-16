@@ -543,6 +543,7 @@ namespace GAME
 	{
 		VEC2 pos = GetPos ();
 
+#if 0
 
 		if ( GetPlayerID () == PLAYER_ID_1 )
 		{
@@ -552,6 +553,8 @@ namespace GAME
 		{
 			DBGOUT_WND_F ( DBGOUT_1, U"2p_pos = {},{}"_fmt( pos.x, pos.y ) );
 		}
+
+#endif // 0
 
 
 

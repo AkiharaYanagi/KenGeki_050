@@ -219,9 +219,12 @@ namespace GAME
 				m_angle1 -= 2 * m_theta;	//２周めはtheta2つ分戻ってからスタート
 			}
 
+#if 0
 
 			DBGOUT_WND_F ( DBGOUT_0, U"theta0 = {}"_fmt( m_angle0 ) );
 			DBGOUT_WND_F ( DBGOUT_1, U"theta1 = {}"_fmt( m_angle1 ) );
+
+#endif // 0
 		}
 		else if ( PLAYER_ID_2 == m_id )
 		{

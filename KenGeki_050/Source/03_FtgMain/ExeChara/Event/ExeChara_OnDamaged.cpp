@@ -110,6 +110,20 @@ namespace GAME
 		//int pre_dmg = damage;
 
 		//-------------------------------------------------
+		//バックジャンプ補正(後ろ移動があれば)
+		{
+			VEC2 vel = btlPrmOhter.GetVel ();
+			VEC2 acc = btlPrmOhter.GetAcc ();
+			bool dir = btlPrmOhter.GetDirRight ();	//攻撃側の向き
+			bool br = dir && vel.x < 0; 
+			bool bl = ! dir && vel.x > 0; 
+			if ( br || bl )
+			{
+				damage = ( int ) ( damage * 0.5f );
+			}
+		}
+		
+		//-------------------------------------------------
 		//ヒット数補正
 		UINT chain = btlPrmOhter.GetChainHitNum ();
 		if ( chain == 1 ) { chain = 0; }		//1hit目は補正なし
@@ -196,12 +210,16 @@ namespace GAME
 		btlPrmOhter.AddChainDamage ( confirmed_damage );
 
 		int32 chnDmg = btlPrmOhter.GetChainDamage ();
+#if 0
+
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_2 )	//相手
 		{
 			DBGOUT_WND_F ( DBGOUT_0, U"ダメージ = {}"_fmt( damage ) );
 			DBGOUT_WND_F ( DBGOUT_1, U"連続ヒットダメージ = {}"_fmt( chnDmg ) );
 			DBGOUT_WND_F ( DBGOUT_2, U"rev_od = {}"_fmt( rev_od ) );
 		}
+
+#endif // 0
 
 		//リザルト用に保存 (相手の値)
 		if ( pSelf->Is1P () )

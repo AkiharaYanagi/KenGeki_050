@@ -313,34 +313,44 @@ namespace GAME
 		m_pAction = m_pChara->GetBehavior().GetpSqc ( m_actionID );
 		m_pScript = m_pAction->GetpScript ( m_frame );
 
+#if 0
+
 		if ( Is1P () )
 		{
 	//		UINT frame = GetpScript()->GetFrame ();
 			DBGOUT_WND_F ( DBGOUT_1, U"TransitAction: m_frame = {}"_fmt( m_frame ) );
 		}
 
+#endif // 0
+
 
 		//------------------------------------------------
 		//	特殊アクション指定
 		SpecialAction ();
 
+#if 0
 		if ( Is1P () )
 		{
 	//		UINT frame = GetpScript()->GetFrame ();
 			DBGOUT_WND_F ( DBGOUT_2, U"TransitAction: m_frame = {}"_fmt( m_frame ) );
 		}
 
+#endif // 0
+
 		//------------------------------------------------
 		//スクリプトからのパラメータ反映
 		SetParamFromScript ();
 
 
+#if 0
 
 		if ( Is1P () )
 		{
 	//		UINT frame = GetpScript()->GetFrame ();
 			DBGOUT_WND_F ( DBGOUT_3, U"TransitAction: m_frame = {}"_fmt( m_frame ) );
 		}
+
+#endif // 0
 
 	}
 
@@ -356,6 +366,15 @@ namespace GAME
 		//------------------------------------------------
 		//アクションとスクリプトをバトルパラメータに渡す
 		m_btlPrm.Update ( m_pAction, m_pScript );
+
+
+		if ( Is1P () )
+		{
+			VEC2 vel = m_btlPrm.GetVel ();
+			VEC2 acc = m_btlPrm.GetAcc ();
+			DBGOUT_WND_F ( DBGOUT_0, U"1p_vel = {},{}"_fmt( vel.x, vel.y ) );
+			DBGOUT_WND_F ( DBGOUT_1, U"1p_acc = {},{}"_fmt( acc.x, acc.y ) );
+		}
 
 		//------------------------------------------------
 		//直接ダメージ処理

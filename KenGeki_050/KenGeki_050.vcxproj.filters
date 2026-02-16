@@ -334,9 +334,6 @@
     <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispFrontEnd.cpp">
       <Filter>03_FtgMain\Fighting\ExeChara\Disp</Filter>
     </ClCompile>
-    <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispFrontEnd_all.cpp">
-      <Filter>03_FtgMain\Fighting\ExeChara\Disp</Filter>
-    </ClCompile>
     <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispGauge.cpp">
       <Filter>03_FtgMain\Fighting\ExeChara\Disp</Filter>
     </ClCompile>
@@ -1272,9 +1269,6 @@
       <Filter>03_FtgMain\Fighting\ExeChara\Disp</Filter>
     </ClInclude>
     <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispFrontEnd.h">
-      <Filter>03_FtgMain\Fighting\ExeChara\Disp</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispFrontEnd_all.h">
       <Filter>03_FtgMain\Fighting\ExeChara\Disp</Filter>
     </ClInclude>
     <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispGauge.h">

@@ -18,9 +18,9 @@
 namespace GAME
 {
 //	const int BattleTime::START_TIME = 5940 - 1;	//99秒
-	const int BattleTime::START_TIME = 3600;	//60秒
+//	const int BattleTime::START_TIME = 3600;	//60秒
 //	const int BattleTime::START_TIME = 1800;	//30秒
-//	const int BattleTime::START_TIME = 359;		//テスト用5秒
+	const int BattleTime::START_TIME = 359;		//テスト用5秒
 //	const int BattleTime::START_TIME = 179;		//テスト用3秒
 
 	BattleTime::BattleTime ()

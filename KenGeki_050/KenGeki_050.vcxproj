@@ -148,7 +148,6 @@
     <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispAccel.cpp" />
     <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispChara.cpp" />
     <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispFrontEnd.cpp" />
-    <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispFrontEnd_all.cpp" />
     <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispGauge.cpp" />
     <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispGauge_all.cpp" />
     <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispInput.cpp" />
@@ -454,7 +453,6 @@
     <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispChara.h" />
     <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispChara_Const.h" />
     <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispFrontEnd.h" />
-    <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispFrontEnd_all.h" />
     <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispGauge.h" />
     <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispGauge_all.h" />
     <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispInput.h" />
