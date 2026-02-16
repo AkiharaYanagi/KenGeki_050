@@ -63,6 +63,11 @@ namespace GAME
 		GRPLST_INSERT ( m_grpBG_scroll );
 		m_grpBG_scroll->SetValid ( F );
 
+
+		//------------------------------------------------
+		//エフェクト：必殺技文字
+		m_efString = std::make_shared < EfString > ();
+		AddpTask ( m_efString );
 	}
 
 	FtgGrp::~FtgGrp ()
@@ -169,6 +174,18 @@ namespace GAME
 		//---------------------------------------------------
 		//特殊背景
 		m_grpBG_scroll->SetPos ( 0, G_BASE_POS().y - 1300 );
+
+
+		//---------------------------------------------------
+		//文字テスト
+#if 0
+
+		if ( WND_UTL::AscKey ( 'P' ) )
+		{
+			m_efString->Start ();
+		}
+
+#endif // 0
 
 
 		TASK_VEC::Move ();

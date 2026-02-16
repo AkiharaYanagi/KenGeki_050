@@ -38,12 +38,18 @@ namespace GAME
 			//ヒットストップ終了時に解除
 			m_btlPrm.SetFirstSE_HS ( F );
 		}
+
+		//もしくは、自分のスクリプトが変わった場合も解除
+		if ( m_btlPrm.GetFirstSE_Scp () != m_frame )
+		{
+			m_btlPrm.SetFirstSE_HS ( F );
+		}
+
 		//----------------------------------------------------------------
 
 
 		//----------------------------------------------------------------
 		//空欄は何もしない
-//		if ( m_pScript->m_prmStaging.SE_Name.compare ( U"" ) == 0 ) { return; }
 		if ( m_pScript->SE_Blank () ) { return; }
 		//----------------------------------------------------------------
 
@@ -142,6 +148,23 @@ namespace GAME
 	{
 		//名前から再生	
 		AUD_PLAY_ONESHOT_SE ( se_name );
+
+#if 0
+		//月日星
+		if ( m_name == CHARA_TSUKIHIBOSHI )
+		{
+			//超必殺　演出
+			if ( IsNameAction ( U"超必殺技A3" ) )
+			{
+				//強制解除
+				m_btlPrm.SetFirstSE_HS ( F );
+				return;
+			}
+		}
+#endif // 0
+
+		//再生スクリプト位置
+		m_btlPrm.SetFirstSE_Scp ( m_frame );
 
 		//再生フラグをOn (CharaStateでOff)
 		m_btlPrm.SetFirstSE ( T );

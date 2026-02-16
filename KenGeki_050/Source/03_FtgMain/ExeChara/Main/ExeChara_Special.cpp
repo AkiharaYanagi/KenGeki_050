@@ -583,6 +583,15 @@ namespace GAME
 					m_pOther.lock()->SetDirRight ( ! bDir );	//向き同期
 				}
 			}
+
+			//超必殺　演出
+			if ( IsNameAction ( U"超必殺技A1" ) )
+			{
+				if ( m_pScript->Index.Is ( 0 ) )
+				{
+					m_pFtgGrp->EfString_Start ();
+				}
+			}
 		}
 
 

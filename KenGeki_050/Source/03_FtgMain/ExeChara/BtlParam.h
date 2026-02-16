@@ -78,6 +78,7 @@ namespace GAME
 		bool	m_FirstEf { F };		//初回Efフラグ
 		bool	m_FirstSE { F };		//初回SEフラグ (一時停止 : state)
 		bool	m_FirstSE_HS { F };		//初回SEフラグ (ヒットストップ)
+		uint32	m_FirstSE_Scp { SE_SCP_NONE };		//初回SEスクリプトID(SE_SCP_NONE)
 		bool	m_FirstVC { F };		//初回VCフラグ
 		bool	m_ForcedChange { F };	//強制変更
 		bool	m_clang { F };			//打合発生フラグ
@@ -197,6 +198,7 @@ namespace GAME
 		GET_SET ( bool, GetFirstEf, SetFirstEf, m_FirstEf )		//エフェクト発生初回
 		GET_SET ( bool, GetFirstSE, SetFirstSE, m_FirstSE )		//SE発生初回
 		GET_SET ( bool, GetFirstSE_HS, SetFirstSE_HS, m_FirstSE_HS )	//SE発生初回(ヒットストップ)
+		GET_SET ( uint32, GetFirstSE_Scp, SetFirstSE_Scp, m_FirstSE_Scp )	//初回SEスクリプトID
 		GET_SET ( bool, GetFirstVC, SetFirstVC, m_FirstVC )		//VC発生初回
 		GET_SET ( bool, GetWait, SetWait, m_wait )				//待機(入力を停止)
 		GET_SET ( bool, GetStop, SetStop, m_stop )				//停止(入力、スクリプト処理を停止)

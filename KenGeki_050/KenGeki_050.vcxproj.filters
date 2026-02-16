@@ -484,6 +484,9 @@
     <ClCompile Include="Source\03_FtgMain\G_Ftg.cpp">
       <Filter>03_FtgMain</Filter>
     </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Ef\EfString.cpp">
+      <Filter>03_FtgMain\Ef</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -1423,6 +1426,9 @@
     </ClInclude>
     <ClInclude Include="Source\03_FtgMain\G_Ftg.h">
       <Filter>03_FtgMain</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Ef\EfString.h">
+      <Filter>03_FtgMain\Ef</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -53,7 +53,7 @@ namespace GAME
 
 
 		//全部オフ
-		pExeEffect->SetShader ( F );
+		//pExeEffect->SetShader ( F );
 #if 0
 #endif // 0
 

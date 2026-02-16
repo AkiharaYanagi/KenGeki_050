@@ -423,15 +423,44 @@ namespace GAME
 			//0でないとき
 			if ( scpStop > 0 )
 			{
-				//全体グラフィックに値を指定する
-				m_pFtgGrp->StartScpStop ( scpStop );
+				//特殊処理
+				bool b = F;
+				if ( m_name == CHARA_TSUKIHIBOSHI )
+				{
+					if ( IsNameAction ( U"超必殺技A1" ) )
+					{
+						b = T;
+					}
+				}
 
-				//相手にも時間を指定する
-				m_pOther.lock ()->m_btlPrm.SetScpStop ( scpStop );
+				if ( b )
+				{
+					//相手のみ
+					
+					//全体グラフィックに値を指定する
+					//m_pFtgGrp->StartScpStop ( scpStop );
 
-				//互いに時間停止ステートにシフト
-				ShiftScpStop ();
-				m_pOther.lock ()->ShiftScpStop ();
+					//相手にも時間を指定する
+					m_pOther.lock ()->m_btlPrm.SetScpStop ( scpStop );
+
+					//互いに時間停止ステートにシフト
+					//ShiftScpStop ();
+					m_pOther.lock ()->ShiftScpStop ();
+				}
+				else
+				{
+					//通常処理
+					
+					//全体グラフィックに値を指定する
+					m_pFtgGrp->StartScpStop ( scpStop );
+
+					//相手にも時間を指定する
+					m_pOther.lock ()->m_btlPrm.SetScpStop ( scpStop );
+
+					//互いに時間停止ステートにシフト
+					ShiftScpStop ();
+					m_pOther.lock ()->ShiftScpStop ();
+				}
 			}
 		}
 

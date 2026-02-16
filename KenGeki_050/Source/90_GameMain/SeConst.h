@@ -57,6 +57,7 @@ namespace GAME
 	constexpr char32_t SE_Btl_Light []		= U"SE_14_キラーン.wav";
 	constexpr char32_t SE_Btl_Clang[]		= U"SE_15_打ち合い.wav";
 	constexpr char32_t SE_Btl_Bomb[]		= U"SE_17_ドカーン.wav";
+	constexpr char32_t SE_Btl_Kattu[]		= U"SE_46_カッ.wav";
 
 }
 

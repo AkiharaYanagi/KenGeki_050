@@ -143,6 +143,7 @@
     <ClCompile Include="Source\03_FtgMain\Ef\EfHitLine.cpp" />
     <ClCompile Include="Source\03_FtgMain\Ef\EfKouAtsu.cpp" />
     <ClCompile Include="Source\03_FtgMain\Ef\EfSouha.cpp" />
+    <ClCompile Include="Source\03_FtgMain\Ef\EfString.cpp" />
     <ClCompile Include="Source\03_FtgMain\ExeChara\BtlParam.cpp" />
     <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispAccel.cpp" />
     <ClCompile Include="Source\03_FtgMain\ExeChara\Disp\DispChara.cpp" />
@@ -447,6 +448,7 @@
     <ClInclude Include="Source\03_FtgMain\Ef\EfHitLine.h" />
     <ClInclude Include="Source\03_FtgMain\Ef\EfKouAtsu.h" />
     <ClInclude Include="Source\03_FtgMain\Ef\EfSouha.h" />
+    <ClInclude Include="Source\03_FtgMain\Ef\EfString.h" />
     <ClInclude Include="Source\03_FtgMain\ExeChara\BtlParam.h" />
     <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispAccel.h" />
     <ClInclude Include="Source\03_FtgMain\ExeChara\Disp\DispChara.h" />

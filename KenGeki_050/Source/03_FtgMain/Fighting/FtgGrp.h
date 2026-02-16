@@ -10,6 +10,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
+#include "../Ef/EfString.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -26,15 +27,14 @@ namespace GAME
 		Timer	m_tmrSlow;			//スロウ
 		Timer	m_tmrVibration;		//振動
 
-//		P_Timer			m_tmrBlackOut;		//暗転
-		P_PrmRect		m_bg_black;			//暗転用
-		P_PrmRect		m_bg_White;			//白転用
-		bool	m_WhiteOut { F };	//白転
+//		P_Timer		m_tmrBlackOut;		//暗転
+		P_PrmRect	m_bg_black;			//暗転用
+		P_PrmRect	m_bg_White;			//白転用
+		bool		m_WhiteOut { F };	//白転
 		P_FadeRect	m_fade_white;
 
 
-		P_PrmRect		m_bg_All_Black;		//全部黒
-
+		P_PrmRect	m_bg_All_Black;		//全部黒
 
 
 		bool	m_wallbreak { F };	//壁割
@@ -47,6 +47,8 @@ namespace GAME
 
 		//特殊背景
 		P_Grp	m_grpBG_scroll;	//スクロール背景
+
+		P_EfString	m_efString;		//エフェクト：必殺技文字
 
 	public:
 		FtgGrp ();
@@ -98,6 +100,10 @@ namespace GAME
 		void StartAerial ();
 		bool IsAerial () const { return m_grpBG_scroll->GetValid (); }
 		void EndAerial ();
+
+		//---------------------------------------
+
+		void EfString_Start () { m_efString->Start (); }
 	};
 
 	using P_FtgGrp = std::shared_ptr < FtgGrp >;

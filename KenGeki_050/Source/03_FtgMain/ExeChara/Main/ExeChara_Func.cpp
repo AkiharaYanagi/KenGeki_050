@@ -210,28 +210,32 @@ namespace GAME
 					}
 
 					//-----------------------------------------------------
-					//事前に固定数
-					if ( accRecoil == 0 )
-					{
-						accRecoil = -10;
-					}
-
-					//-----------------------------------------------------
 					
 					//アクセル値に必要量があれば消費して遷移する
 					pOther->m_btlPrm.AddAccel ( -1 * COST );
 
+
+					//-----------------------------------------------------
+
 					//成立時
+					
+					//0のとき初期値を設定する
+					if ( accRecoil == 0 )
+					{
+						accRecoil = ( bPosLeft ) ? -10.f : 10.f;
+					}
+					else
+					{
+						//->両者の位置から方向を決める
+						accRecoil = std::abs ( accRecoil ) * ( bPosLeft ) ? -1.f : 1.f;
+					}
 
-					//accRecoil += -10;
-					//移動量を向きに合わせる
-					accRecoil += ( bPosLeft ) ? -1 : 1;
-
+					//値を大きくする
 					accRecoil *= 10;
 					//accRecoil *= 5;
 
-					//accRecoil += -10;
 					//移動量を向きに合わせる
+					//accRecoil += -10;
 					accRecoil += ( bPosLeft ) ? -10 : 10;
 
 
