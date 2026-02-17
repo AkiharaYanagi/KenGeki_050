@@ -64,6 +64,8 @@ namespace GAME
 		bool		m_bLoading { F };
 		bool		m_bStart { F };
 
+		//Jp/En切替
+		uint32		m_lang { 0 };
 
 	public:
 		Title ();

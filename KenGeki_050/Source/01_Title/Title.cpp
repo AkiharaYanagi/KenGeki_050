@@ -67,6 +67,7 @@ namespace GAME
 
 		//ロゴ
 		m_logo = MakepGrp ( U"Title\\Title_Logo.png", Z_EFF );
+		m_logo->AddTexture_FromArchive ( U"Title\\Title_Logo_En.png" );
 		m_logo->SetPos ( VEC2 ( LOGO_X, LOGO_Y ) );
 
 		//メニュー
@@ -87,8 +88,8 @@ namespace GAME
 
 		//Inst
 		m_inst = MakepGrp ( U"Title\\Title_Inst.png", Z_MENU - 0.001f );
+		m_inst->AddTexture_FromArchive ( U"Title\\Title_Inst_En.png" );
 		m_inst->SetPos ( VEC2 ( 0, 0 ) );
-		//m_inst->SetValid ( F );
 
 		//フェードイン
 		m_fade_in = std::make_shared < FadeRect > ();
@@ -273,6 +274,18 @@ namespace GAME
 			Input ();
 		}
 
+		//----------------------------------
+		//言語切替
+		if ( WND_UTL::AscKey ( 'L' ) )
+		{
+			m_lang = ( m_lang + 1 ) % 2;
+			//0:日本語, 1:英語
+			m_logo->SetIndexTexture ( m_lang );
+			m_inst->SetIndexTexture ( m_lang );
+		}
+
+
+		//----------------------------------
 		TASK_VEC::Move ();
 	}
 

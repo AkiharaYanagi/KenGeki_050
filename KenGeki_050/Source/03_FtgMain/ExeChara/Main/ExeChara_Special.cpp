@@ -99,7 +99,7 @@ namespace GAME
 
 #endif // 0
 			m_btlPrm.AddBalance ( 10 );	//剣撃ゲージプラス
-			m_btlPrm.AddMana ( 30 );	//超必殺プラス
+			m_btlPrm.AddMana ( 10 );	//超必殺プラス
 		}
 
 		//-----------------------------------------------------
@@ -135,6 +135,9 @@ namespace GAME
 				pos.y += -250;
 				m_efSouha->On ( pos );
 			}
+
+			//剣撃技は超必殺ゲージを直接増加
+			m_btlPrm.AddMana ( 2000 );	//剣撃ゲージプラス
 		}
 
 		if ( IsNameAction ( U"剣撃走破成立" ) )
@@ -156,6 +159,9 @@ namespace GAME
 				float rev = m_btlPrm.GetReviseOverDrive ();
 				m_btlPrm.SetReviseOverDrive ( rev * 0.5f );
 			}
+
+			//超必殺技は剣撃ゲージを直接増加
+			m_btlPrm.AddBalance ( 4000 );	//剣撃ゲージプラス
 		}
 
 		//-----------------------------------------------------

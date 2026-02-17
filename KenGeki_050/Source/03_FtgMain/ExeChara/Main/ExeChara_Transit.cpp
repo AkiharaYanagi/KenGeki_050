@@ -132,14 +132,20 @@ namespace GAME
 		if ( m_btlPrm.GetTmr_OfstCncl()->IsActive () )
 		{
 			//位置が基準より上だったら
-			bool bAir = ( (float)PLAYER_BASE_Y > m_btlPrm.GetPos().y );
+			bool bY = ( m_btlPrm.GetPos ().y < ( float ) PLAYER_BASE_Y );
+			bool bAir = IsAir () && bY;	//アクションもしくは位置
 
-			//空中は現在不可
-			if ( ! IsAir () && ! bAir )
+			//空中判定
+			if ( bAir )
 			{
+				//空中は空中技のみ可能
 
+
+			}
+			//地上
+			else
+			{
 				//コマンドが完成したIDを優先順に保存したリスト
-
 				m_pCharaInput->MakeTransitIDList ( *m_pChara, m_vOfstCncl, m_btlPrm.GetDirRight () );
 				const V_UINT32 & vCompID_Offset = m_pCharaInput->GetvCompID ();
 
