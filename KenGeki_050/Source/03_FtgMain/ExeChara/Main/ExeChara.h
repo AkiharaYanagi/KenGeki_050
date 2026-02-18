@@ -539,8 +539,11 @@ namespace GAME
 		//通常技かどうか
 		bool IsNormalAttack () const;
 
-		//空中かどうか
-		bool IsAir () const { return m_pAction->Posture.Is ( AP_JUMP ); }
+		//空中の状態かどうか
+		bool IsJump () const { return m_pAction->Posture.Is ( AP_JUMP ); }
+
+		//位置が基準以上かどうか
+		bool IsFloat () const { return ( m_btlPrm.GetPos ().y < (float)PLAYER_BASE_Y ); }
 
 		//投げかどうか(アクション単位なので必殺技などは別カテゴリ)
 		bool IsThrow () const { return m_pAction->Category.Is ( AC_THROW ); }

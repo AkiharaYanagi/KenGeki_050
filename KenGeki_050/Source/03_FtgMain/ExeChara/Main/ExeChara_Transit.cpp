@@ -132,8 +132,7 @@ namespace GAME
 		if ( m_btlPrm.GetTmr_OfstCncl()->IsActive () )
 		{
 			//位置が基準より上だったら
-			bool bY = ( m_btlPrm.GetPos ().y < ( float ) PLAYER_BASE_Y );
-			bool bAir = IsAir () && bY;	//アクションもしくは位置
+			bool bAir = IsJump () && IsFloat ();	//アクションもしくは位置
 
 			//空中判定
 			if ( bAir )

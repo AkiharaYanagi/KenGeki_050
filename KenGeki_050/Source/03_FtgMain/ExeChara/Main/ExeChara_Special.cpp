@@ -128,6 +128,12 @@ namespace GAME
 		bool bSouha_air = IsNameAction ( U"剣撃走破_空中_発生" );
 		if ( bSouha || bSouha_air )
 		{
+			if ( m_pScript->Index.Is ( 1 ) )
+			{
+				//剣撃技は超必殺ゲージを直接増加
+				m_btlPrm.AddMana ( 2000 );
+			}
+
 			//エフェクト発生
 			if ( m_pScript->Index.Is ( 5 ) )
 			{
@@ -136,9 +142,9 @@ namespace GAME
 				m_efSouha->On ( pos );
 			}
 
-			//剣撃技は超必殺ゲージを直接増加
-			m_btlPrm.AddMana ( 2000 );	//剣撃ゲージプラス
 		}
+
+#if 0
 
 		if ( IsNameAction ( U"剣撃走破成立" ) )
 		{
@@ -148,10 +154,18 @@ namespace GAME
 				SetAction ( U"剣撃走破ヒット" );
 			}
 		}
+#endif // 0
+
 		//-----------------------------------------------------
 		//超必殺全般
 		if ( IsOverdrive () )
 		{
+			if ( m_pScript->Index.Is ( 1 ) )
+			{
+				//超必殺技は剣撃ゲージを直接増加
+				m_btlPrm.AddBalance ( 4000 );	//剣撃ゲージプラス
+			}
+
 			//最終スクリプト
 			if ( m_pAction->IsEndScript ( m_frame ) )
 			{
@@ -159,9 +173,6 @@ namespace GAME
 				float rev = m_btlPrm.GetReviseOverDrive ();
 				m_btlPrm.SetReviseOverDrive ( rev * 0.5f );
 			}
-
-			//超必殺技は剣撃ゲージを直接増加
-			m_btlPrm.AddBalance ( 4000 );	//剣撃ゲージプラス
 		}
 
 		//-----------------------------------------------------

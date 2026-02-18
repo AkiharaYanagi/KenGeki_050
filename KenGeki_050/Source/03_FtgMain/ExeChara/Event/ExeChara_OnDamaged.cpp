@@ -90,7 +90,17 @@ namespace GAME
 
 		//-------------------------------------------------
 		//★★★ 剣撃対抗 (打撃時にいずれかの入力で距離離し)
-		if ( ! pOther->IsOverdrive () )	//攻撃した相手が超必殺でないとき
+		//-----------------------------------------------------
+		//特定技のとき不成立
+		//超必殺技、剣撃走破
+		bool bOD = pOther->IsOverdrive ();
+		bool bSouha = pOther->IsNameAction ( U"剣撃走破_地上_発生" );
+		bool bSouhaAir = pOther->IsNameAction ( U"剣撃走破_空中_発生" );
+		bool bSouhaDash = pOther->IsNameAction ( U"剣撃走破_地上_ダッシュ" );
+		bool bSouhaAirDash = pOther->IsNameAction ( U"剣撃走破_空中_ダッシュ" );
+
+		bool bRefuseTaikou = bOD || bSouha || bSouhaAir || bSouhaDash || bSouhaAirDash ;
+		if ( ! bRefuseTaikou )
 		{
 			//受付タイマをON
 			m_btlPrm.GetTmr_Taikou()->Start ( TAIKOU_TIME );
@@ -110,7 +120,7 @@ namespace GAME
 		//int pre_dmg = damage;
 
 		//-------------------------------------------------
-		//バックジャンプ補正(後ろ移動があれば)
+		//バックジャンプ攻撃基礎補正(後ろ移動があれば)
 		{
 			VEC2 vel = btlPrmOhter.GetVel ();
 			VEC2 acc = btlPrmOhter.GetAcc ();
@@ -343,7 +353,7 @@ namespace GAME
 
 		//----------------------------------------------
 		//空中は不可
-		bool bAir = pSelf->IsAir ();
+		bool bAir = pSelf->IsJump ();
 		if ( bAir ) { return F; }
 
 		//ダメージ状態は不可
@@ -462,7 +472,7 @@ namespace GAME
 		}
 
 		//空中攻撃は中段
-		bool bUpper = pOther->IsAir ();
+		bool bUpper = pOther->IsJump ();
 
 		if ( bUpper )
 		{
