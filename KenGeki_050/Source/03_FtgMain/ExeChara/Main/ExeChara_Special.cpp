@@ -163,7 +163,7 @@ namespace GAME
 			if ( m_pScript->Index.Is ( 1 ) )
 			{
 				//超必殺技は剣撃ゲージを直接増加
-				m_btlPrm.AddBalance ( 4000 );	//剣撃ゲージプラス
+				m_btlPrm.AddBalance ( 2000 );	//剣撃ゲージプラス
 			}
 
 			//最終スクリプト
