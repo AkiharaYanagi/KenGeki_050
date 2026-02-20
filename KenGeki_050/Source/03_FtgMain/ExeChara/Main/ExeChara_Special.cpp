@@ -160,12 +160,6 @@ namespace GAME
 		//超必殺全般
 		if ( IsOverdrive () )
 		{
-			if ( m_pScript->Index.Is ( 1 ) )
-			{
-				//超必殺技は剣撃ゲージを直接増加
-				m_btlPrm.AddBalance ( 2000 );	//剣撃ゲージプラス
-			}
-
 			//最終スクリプト
 			if ( m_pAction->IsEndScript ( m_frame ) )
 			{

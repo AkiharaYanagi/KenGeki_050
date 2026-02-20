@@ -60,6 +60,15 @@ inline double mapRange
 		m_hissatsu_ring->SetRotationCenter(VEC2(79*0.5f, 72*0.5f));
 
 		m_omega = D3DX_PI_TWICE / 90.f;
+
+
+		//剣撃ゲージ分割線
+		m_kengeki_split = std::make_shared < GameGraphic > ();
+		m_kengeki_split->AddTexture_FromArchive ( U"Battle\\gauge_split.png" );
+		m_kengeki_split->SetZ ( Z_SHADOW - 0.02f );
+		GRPLST_INSERT ( m_kengeki_split );
+		AddpTask ( m_kengeki_split );
+
 	}
 
 	//グラフィック確保
@@ -104,13 +113,16 @@ inline double mapRange
 
 			m_hissatsu_mark->SetPos ( POS_HISSATSU_1P );
 			m_hissatsu_ring->SetPos ( POS_HISSATSU_1P );
+
+			m_kengeki_split->SetPos ( POS_KENGEKI_SPLIT_1P );
+			m_kengeki_split->SetScaling ( -1.f, 1.f );	//2pが正方向なので水平反転
 		}
 		else if ( PLAYER_ID_2 == playerID )
 		{
 			m_gauge_all_bg->SetPos ( POS_FRAME_ALL_2P );
-
 			m_hissatsu_mark->SetPos ( POS_HISSATSU_2P );
 			m_hissatsu_ring->SetPos ( POS_HISSATSU_2P );
+			m_kengeki_split->SetPos ( POS_KENGEKI_SPLIT_2P );
 		}
 		//-----------------------------------------------------------------
 
@@ -442,6 +454,10 @@ inline double mapRange
 	//必殺マーク
 	const VEC2 DispGauge_all::POS_HISSATSU_1P ( 0 -79 + 218, 115 );
 	const VEC2 DispGauge_all::POS_HISSATSU_2P ( 1280 - 218, 115 );
+
+	//剣撃分割線
+	const VEC2 DispGauge_all::POS_KENGEKI_SPLIT_1P ( WND_CNT - 141, 86 );
+	const VEC2 DispGauge_all::POS_KENGEKI_SPLIT_2P ( WND_CNT + 141, 86 );
 
 
 #pragma endregion

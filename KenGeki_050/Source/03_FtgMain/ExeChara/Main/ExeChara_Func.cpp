@@ -138,6 +138,8 @@ namespace GAME
 
 #endif // 0
 
+#if 0
+
 		//アクセルゲージに変更
 
 		//@info アクセルゲージ消費で移項可能かチェック
@@ -155,8 +157,27 @@ namespace GAME
 		//アクセル値に必要量があれば消費して遷移する
 		pOther->m_btlPrm.AddAccel ( -1 * COST );
 
+#endif // 0
+
+		//剣撃ゲージに変更
+		//剣撃ゲージ消費で移項可能かチェック
+		//現在値と比較
+		const int COST = 1000;
+		int balance = pOther->m_btlPrm.GetBalance ();
+
+		//足りないとき何もしない
+		if ( balance < COST )
+		{
+			return;
+		}
+
+		//アクセル値に必要量があれば消費して遷移する
+		pOther->m_btlPrm.AddBalance ( -1 * COST );
+
+
 		//超必殺技ゲージにプラス
 		pOther->m_btlPrm.AddMana ( 1000 );
+
 
 		//-----------------------------------------------------
 		//成立時

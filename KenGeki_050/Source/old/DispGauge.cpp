@@ -1,6 +1,6 @@
 ﻿//=================================================================================================
 //
-//	DispGaugeテスト
+// DispGauge ソースファイル
 //
 //=================================================================================================
 
@@ -8,6 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "DispGauge.h"
+#include "../../G_Ftg.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -16,382 +17,448 @@
 namespace GAME
 {
 
+#pragma region CONST
+
+//	constexpr int32 CX_GAUGE_W = 500;		//表示幅
+//	constexpr int32 CX_GAUGE_MAX = 10000;	//最大量
+
+//	const float DispGauge::UNIT_LGS = 1.f * CX_GAUGE_W / CX_GAUGE_MAX;//1単位あたりの表示長さ
+	const float DispGauge::LIFE_Y_REV = -20;
+//	const float DispGauge::LIFE_Y_REV = -0;
+//	const float DispGauge::LIFE_H_REV = +50;
+	const float DispGauge::LIFE_H_REV = +0;
+
+
+	const float DispGauge::Z_GAUGE_FRAME	= 0.06f;
+	const float DispGauge::Z_GAUGE_DECREASE	= 0.04f;
+	const float DispGauge::Z_GAUGE_WHITE	= 0.02f;
+	const float DispGauge::Z_GAUGE_VALUE	= 0.01f;
+
+#pragma endregion
+
+
 
 	DispGauge::DispGauge ()
 	{
-		//総合ゲージ背景
-		m_gauge_all_bg = std::make_shared < GameGraphic > ();
-		m_gauge_all_bg->AddTexture_FromArchive ( U"Battle\\gauge_all.png" );
-		m_gauge_all_bg->SetZ ( Z_SHADOW );
-		GRPLST_INSERT ( m_gauge_all_bg );
-		AddpTask ( m_gauge_all_bg );
+#if 0
+		//枠
+		m_Frame = make_shared < PrmRect > ();
+		m_Frame->SetZ ( Z_SYS );
+		AddpTask ( m_Frame );
+		GRPLST_INSERT_MAIN ( m_Frame );
 
-		//ライフ
- 		m_life_value = std::make_shared < GameGraphic > ();
-//		m_life_value->AddTexture_FromArchive ( U"Battle\\life_value.png" );
-		m_life_value->SetZ ( Z_SHADOW - 0.01f );
-		m_life_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
-		GRPLST_INSERT ( m_life_value );
-		AddpTask ( m_life_value );
+		//白ダメージ
+		m_white = make_shared < PrmRect > ();
+		m_white->SetZ ( Z_SYS );
+		AddpTask ( m_white );
+		GRPLST_INSERT_MAIN ( m_white );
 
-		//剣撃ゲージ
-		m_stamina_value = std::make_shared < GameGraphic > ();
-		//m_stamina_value->AddTexture_FromArchive ( U"Battle\\stumina_value.png" );
-		m_stamina_value->SetZ ( Z_SHADOW - 0.01f );
-		m_stamina_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
-		GRPLST_INSERT ( m_stamina_value );
-		AddpTask ( m_stamina_value );
+		//減少分
+		m_Decrease = make_shared < PrmRect > ();
+		m_Decrease->SetZ ( Z_SYS );
+		AddpTask ( m_Decrease );
+		GRPLST_INSERT_MAIN ( m_Decrease );
 
-		//必殺
- 		m_hissatsu_value = std::make_shared < GameGraphic > ();
-//		m_hissatsu_value->AddTexture_FromArchive ( U"Battle\\life_value.png" );
-		m_hissatsu_value->SetZ ( Z_SHADOW - 0.01f );
-		m_hissatsu_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
-		GRPLST_INSERT ( m_hissatsu_value );
-		AddpTask ( m_hissatsu_value );
+		//現在値
+		m_Value = make_shared < PrmRect > ();
+		m_Value->SetZ ( Z_SYS );
+		AddpTask ( m_Value );
+		GRPLST_INSERT_MAIN ( m_Value );
 
-		//アクセル
- 		m_accel_value = std::make_shared < GameGraphic > ();
-//		m_accel_value->AddTexture_FromArchive ( U"Battle\\life_value.png" );
-		m_accel_value->SetZ ( Z_SHADOW - 0.01f );
-		m_accel_value->SetbPlgnMask ( T );		//ポリゴンマスク使用
-		GRPLST_INSERT ( m_accel_value );
-		AddpTask ( m_accel_value );
+		m_white->SetColorN ( 0, 0xffffffff );
+		m_white->SetColorN ( 1, 0xffc0c0c0 );
+		m_white->SetColorN ( 2, 0xffffffff );
+		m_white->SetColorN ( 3, 0xffe0e0e0 );
+		m_white->SetValid ( F );
+
+#endif // 0
+
+		//画像
+
+		//枠
+		m_grp_Frame = std::make_shared < GameGraphic > ();
+		AddpTask ( m_grp_Frame );
+		GRPLST_INSERT ( m_grp_Frame );
+
+		//減少分(赤)
+		m_grp_Decrease = std::make_shared < GameGraphic > ();
+		AddpTask ( m_grp_Decrease );
+		GRPLST_INSERT ( m_grp_Decrease );
+
+		//回復分(白)
+		m_grp_White = std::make_shared < GameGraphic > ();
+		AddpTask ( m_grp_White );
+		GRPLST_INSERT ( m_grp_White );
+
+		//値
+		m_grp_Value = std::make_shared < GameGraphic > ();
+		AddpTask ( m_grp_Value );
+		GRPLST_INSERT ( m_grp_Value );
 	}
 
 	DispGauge::~DispGauge ()
 	{
 	}
 
-	//プレイヤ側で初期化
-	void DispGauge::LoadPlayer ( PLAYER_ID playerID )
+
+	void DispGauge::SetPosition ( float x, float y, float w, float h )
 	{
-		m_playerID = playerID;
+		m_base_x = x;
+		m_base_y = y;
+		m_base_w = w;
+		m_base_h = h;
+	}
+
+	void DispGauge::SetZ ( float z )
+	{
+		m_grp_Frame->		SetZ ( z + Z_GAUGE_FRAME );
+		m_grp_Decrease->	SetZ ( z + Z_GAUGE_DECREASE );
+		m_grp_White->		SetZ ( z + Z_GAUGE_WHITE );
+		m_grp_Value->		SetZ ( z + Z_GAUGE_VALUE );
+
+		//Z値の更新のため描画リストの更新
+		GRPLST_REMOVE ( m_grp_Frame );
+		GRPLST_REMOVE ( m_grp_Decrease );
+		GRPLST_REMOVE ( m_grp_White );
+		GRPLST_REMOVE ( m_grp_Value );
+
+		GRPLST_INSERT ( m_grp_Frame );
+		GRPLST_INSERT ( m_grp_Decrease );
+		GRPLST_INSERT ( m_grp_White );
+		GRPLST_INSERT ( m_grp_Value );
+	}
+
+	void DispGauge::SetTextureName_Frame ( s3d::String textureName )
+	{
+		m_grp_Frame->AddTexture_FromArchive ( textureName );
+	}
+
+	void DispGauge::SetTextureName_Value ( s3d::String textureName )
+	{
+		m_grp_Value->AddTexture_FromArchive ( textureName );
+	}
+
+	void DispGauge::SetTextureName_Decrease ( s3d::String textureName )
+	{
+		m_grp_Decrease->AddTexture_FromArchive ( textureName );
+	}
+
+	void DispGauge::SetTextureName_White ( s3d::String textureName )
+	{
+		m_grp_White->AddTexture_FromArchive ( textureName );
+	}
+
+#if 0
+
+	void DispGauge::SetColor_Frame ( _CLR c )
+	{
+//		m_Frame->SetAllColor ( c );
+	}
+
+	void DispGauge::SetColor_Decrease ( _CLR c )
+	{
+//		m_Decrease->SetAllColor ( c );
+		m_grp_Decrease->SetColor ( c );
+	}
+
+	void DispGauge::SetColor_Value ( _CLR c0, _CLR c1, _CLR c2, _CLR c3 )
+	{
+#if 0
+		m_Value->SetColorN ( 0, c0 );
+		m_Value->SetColorN ( 1, c1 );
+		m_Value->SetColorN ( 2, c2 );
+		m_Value->SetColorN ( 3, c3 );
+#endif // 0
+
+//		m_grp_Value->SetColor ( 0xffff0000 );
+	}
+
+#endif // 0
+
+	void DispGauge::LoadPlayer ( PLAYER_ID id )
+	{
+		m_playerID = id;
+		Init ();
+	}
+
+	void DispGauge::Init ()
+	{
+		//値
+		m_value = m_start;
+		m_dcr = (float)m_base_max;
 
 
-		//プレイヤー別初期化位置
-		if (PLAYER_ID_1 == playerID)
+		//位置
+		//　テクスチャは位置計算の基点が中心方向なので、２ｐ側のテクスチャを正とし１ｐ側は反転させる
+		// [1P] ========= 99 ========= [2P]
+		//		x	 w	　↑	↑	 w	  x
+
+		const float Y = m_base_y + LIFE_Y_REV;
+
+		if ( PLAYER_ID_1 == m_playerID )
 		{
-			m_gauge_all_bg->SetPos(POS_FRAME_ALL_1P);
-			m_gauge_all_bg->SetScaling ( -1.f, 1.f );
+			const float X = m_base_x + m_base_w;
 
+			m_grp_Frame->SetPos ( X + m_padding, Y - m_padding );
+			m_grp_Value->SetPos ( X, Y );
+			m_grp_Decrease->SetPos ( X, Y );
+			m_grp_White->SetPos ( X, Y );
 
-			//2pが正方向なので水平反転
-			//画像からイメージを作成し、それを反転してからテクスチャを作成する
-
-			//-----------------------------------------------------------------
-			//ライフ
-			m_life_value->SetPos ( POS_LIFE_VALUE_1P );
-			//Size ( 320, 20 ) //上辺310
-			//const VEC2 DispFrontEnd_all::POS_LIFE_VALUE_1P ( WND_CNT - 151, 62 );
-#if 0
-			double x0 = 640 - 151 - 10 - 310;	//169
-			double x1 = 640 - 151 - 10;			//479
-			double x2 = 640 - 151;				//489
-			double x3 = 640 - 151 - 310;		//179
-#endif // 0
-			s3d::Array < s3d::Vec2 > aryVec_life{ {169, 62}, {479, 62}, {489, 82}, {179, 82} };
-			m_life_mask = std::make_shared < s3d::Polygon > ( aryVec_life );
-			m_life_value->SetPosInMask ( VEC2 (169, 62) );
-			m_life_value->SetpPolygon ( m_life_mask );
-			m_life_value->AddTexture_FromArchive_mrr ( U"Battle\\life_value.png" );
-
-			//-----------------------------------------------------------------
-			//剣撃ゲージ
-			//Size ( 309, 16 ) //上辺299
-			//const VEC2 DispFrontEnd_all::POS_STAMINA_VALUE_1P ( WND_CNT - 141, 86 );
-#if 0
-			double x0 = 640 - 141 - 10 - 299;	//179
-			double x1 = 640 - 141 - 10;			//489
-			double x2 = 640 - 141;				//499
-			double x3 = 640 - 141 - 299;		//189
-#endif // 0
-			s3d::Array < s3d::Vec2 > aryVec_stamina{ {179, 86}, {489 , 86}, {499, 102}, {189, 102} };
-			m_stamina_mask = std::make_shared < s3d::Polygon > ( aryVec_stamina );
-			m_stamina_value->SetPosInMask ( VEC2 (189, 86) );
-			m_stamina_value->SetpPolygon ( m_stamina_mask );
-			m_stamina_value->AddTexture_FromArchive_mrr ( U"Battle\\stumina_value.png" );
-
-
-			//-----------------------------------------------------------------
-			//超必殺技ゲージ
-			//Size ( 202, 32 )
-			//const VEC2 DispFrontEnd_all::POS_HISSATSU_VALUE_1P ( WND_CNT - 243, 105 );
-#if 0
-			double x0 = 640 - 243 - 10 - 192;	//195
-			double x1 = 640 - 243 - 10;			//387
-			double x2 = 640 - 243;				//397
-			double x3 = 640 - 243 - 192;		//205
-#endif // 0
-			s3d::Array < s3d::Vec2 > aryVec_hissatsu{ {195, 105}, {387, 105}, {397, 137}, {205, 137} };
-			m_hissatsu_mask = std::make_shared < s3d::Polygon > ( aryVec_hissatsu );
-			m_hissatsu_value->SetPosInMask ( VEC2 (195, 105) );
-			m_hissatsu_value->SetpPolygon ( m_hissatsu_mask );
-			m_hissatsu_value->AddTexture_FromArchive_mrr ( U"Battle\\hissatsu_value.png" );
-
-			//-----------------------------------------------------------------
-			//アクセルゲージ
-			//Size ( 80, 139 )
-			//const VEC2 DispGauge::POS_ACCEL_VALUE_1P ( 0 - 3, 27 ); //86-80
-			double r = 220;
-			double x0 = 0;
-			double y0 = 27 + 139;
-			double x1 = x0 - r;
-			double y1 = y0 - r;
-			double x2 = x0 - r;
-			double y2 = y0;
-			s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x2, y2}, {x1, y1} };
-			m_accel_mask = std::make_shared < s3d::Polygon > ( aryVec_accel );
-			m_accel_value->SetPosInMask ( POS_ACCEL_VALUE_1P );
-			m_accel_value->SetpPolygon ( m_accel_mask );
-			m_accel_value->AddTexture_FromArchive_mrr ( U"Battle\\accel_value.png" );
-//			m_accel_value->SetPos ( POS_ACCEL_VALUE_1P );
+			//反転
+			m_grp_Frame->SetScaling ( VEC2 ( -1.f, 1.f ) );
+			m_grp_Value->SetScaling ( VEC2 ( -1.f, 1.f ) );
+			m_grp_Decrease->SetScaling ( VEC2 ( -1.f, 1.f ) );
+			m_grp_White->SetScaling ( VEC2 ( -1.f, 1.f ) );
 		}
-		else if (PLAYER_ID_2 == playerID)
+		else if ( PLAYER_ID_2 == m_playerID )
 		{
-			m_gauge_all_bg->SetPos(POS_FRAME_ALL_2P);
+			float X = GAME_WINDOW_WIDTH - m_base_x - m_base_w;
 
-
-			//-----------------------------------------------------------------
-			//ライフ
-			m_life_value->SetPos ( POS_LIFE_VALUE_2P );
-			//Size ( 320, 20 ) //上辺310
-			//const VEC2 DispFrontEnd_all::POS_LIFE_VALUE_2P ( WND_CNT + 151, 62 );
-			s3d::Array < s3d::Vec2 > aryPlgn_life{ {801, 62}, {801 + 310, 62}, {791 + 310, 82}, {791, 82} };
-			m_life_mask = std::make_shared < s3d::Polygon > ( aryPlgn_life );
-			m_life_value->SetPosInMask ( VEC2 (791, 62) );
-			m_life_value->SetpPolygon ( m_life_mask );
-			m_life_value->AddTexture_FromArchive ( U"Battle\\life_value.png" );
-
-			//-----------------------------------------------------------------
-			//剣撃ゲージ
-			//Size ( 309, 16 )
-			//const VEC2 DispFrontEnd_all::POS_STAMINA_VALUE_2P ( WND_CNT + 141, 86 );
-			s3d::Array < s3d::Vec2 > aryVec_stamina{ {791, 86}, {791 + 299 , 86}, {781 + 299, 102}, {781, 102} };
-			m_stamina_mask = std::make_shared < s3d::Polygon > ( aryVec_stamina );
-			m_stamina_value->SetPosInMask ( VEC2 (781, 86) );
-			m_stamina_value->SetpPolygon ( m_stamina_mask );
-			m_stamina_value->AddTexture_FromArchive ( U"Battle\\stumina_value.png" );
-
-			//-----------------------------------------------------------------
-			//超必殺技ゲージ
-			//Size ( 202, 32 )
-			//const VEC2 DispFrontEnd_all::POS_HISSATSU_VALUE_2P ( WND_CNT + 243, 105 );
-			s3d::Array < s3d::Vec2 > aryVec_hissatsu{ {883+10, 105}, {883+202+10, 105}, {883+202-10, 137}, {883-10, 137} };
-			m_hissatsu_mask = std::make_shared < s3d::Polygon > ( aryVec_hissatsu );
-			m_hissatsu_value->SetPosInMask ( VEC2 (883, 105) );
-			m_hissatsu_value->SetpPolygon ( m_hissatsu_mask );
-			m_hissatsu_value->AddTexture_FromArchive ( U"Battle\\hissatsu_value.png" );
-
-
-			//-----------------------------------------------------------------
-			//アクセルゲージ
-			//Size ( 80, 139 )
-			//const VEC2 DispGauge::POS_ACCEL_VALUE_2P ( 1280 - 75 - 11, 27 );	//(1194,27)
-			double r = 220;
-			double x0 = 1194 - 80;
-			double y0 = 27 + 139;
-			double x1 = x0 + r;
-			double y1 = y0 - r;
-			double x2 = x0 + r;
-			double y2 = y0;
-			s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x1, y1}, {x2, y2} };
-			m_accel_mask = std::make_shared < s3d::Polygon > ( aryVec_accel );
-			m_accel_value->SetPosInMask ( POS_ACCEL_VALUE_2P );
-			m_accel_value->SetpPolygon ( m_accel_mask );
-			m_accel_value->AddTexture_FromArchive ( U"Battle\\accel_value.png" );
-
+			m_grp_Frame->SetPos ( X - m_padding, Y - m_padding );
+			m_grp_Value->SetPos ( X, Y );
+			m_grp_Decrease->SetPos ( X, Y );
+			m_grp_White->SetPos ( X, Y );
 		}
 	}
 
-	void DispGauge::Move()
+
+	//値の更新
+	//◆毎フレーム 実行
+	void DispGauge::Update ( int32 value )
 	{
-		//----------------
-		//	更新
-		//----------------
+//		float x = m_base_x;
+//		float y = m_base_y;
+//		float w = m_base_w;
+//		float h = m_base_h;
+//		LONG P = (LONG)m_padding;
 
-		//体力ゲージ
-		int32 LIFE_MAX = 10000;
-		m_life = m_life + m_dir_life * 50;
-		if (m_life < 0) { m_dir_life = 1; }
-		if (LIFE_MAX < m_life) { m_dir_life  = - 1;}
+		const float Y = m_base_y + LIFE_Y_REV;
+		const LONG H = (LONG)( m_base_h + LIFE_H_REV );
 
 
-		//（ 最大幅 * 値 / 最大値 ）
-		float width_life = 310.f * m_life /(float)LIFE_MAX;
-
-		if ( PLAYER_ID_1 == m_playerID )
+		//毎フレーム ダメージ表示を減少させる
+		if ( m_grp_Decrease->GetValid () )
 		{
-			double x0 = 640 - 151 - 10 - width_life;
-			double x1 = 640 - 151 - 10;
-			double x2 = 640 - 151;
-			double x3 = 640 - 151 - width_life;
-
-			s3d::Array < s3d::Vec2 > aryVec_life{ {x0, 62}, {x1, 62}, {x2, 82}, {x3, 82} };
-			m_life_mask = std::make_shared < s3d::Polygon > ( aryVec_life );
-			m_life_value->SetpPolygon ( m_life_mask );
+			UpdateDecrease ();
 		}
-		else if ( PLAYER_ID_2 == m_playerID )
+		 
+		m_value = value;
+		UNIT_LGS = m_base_w / m_base_max;
+		float ln = UNIT_LGS * m_value;	//表示長さ
+		float ln_d = UNIT_LGS * m_dcr;	//ダメージ表示長さ
+
+
+		//0以外は表示、０のときは非表示
+#if	0
+		//RECTが０のときに全体表示になってしまうので、透明で代用
+		m_grp_Value->SetColor ( m_value == 0 ? 0x00ffffff : 0xffffffff );
+		if ( value == 0 )
 		{
-			double x1 = 801 + width_life;
-			double x2 = 791 + width_life;
-			s3d::Array < s3d::Vec2 > aryVec{ {801, 62}, {x1, 62}, {x2, 82}, {791, 82} };
-			m_life_mask = std::make_shared < s3d::Polygon > ( aryVec );
-			m_life_value->SetpPolygon ( m_life_mask );
+			ln = 1;
 		}
-
-
-		//剣撃ゲージ
-		int32 BALANCE_MAX = 10000;
-		m_stamina = m_stamina + m_dir_stamina * 50;
-		if (m_stamina < 0) { m_dir_stamina = 1; }
-		if (BALANCE_MAX < m_stamina) { m_dir_stamina  = - 1;}
-
-		//（ 最大幅 * 値 / 最大値 ）
-		float width_stamina = 299.f * m_stamina /(float)BALANCE_MAX;
-
-		if ( PLAYER_ID_1 == m_playerID )
-		{
-			double x0 = 640 - 141 - 10 - width_stamina;
-			double x1 = 640 - 141 - 10;
-			double x2 = 640 - 141;
-			double x3 = 640 - 141 - width_stamina;
-			//剣撃ゲージ
-			s3d::Array < s3d::Vec2 > aryVec_stamina{ {x0, 86}, {x1, 86}, {x2, 102}, {x3, 102} };
-			m_stamina_mask = std::make_shared < s3d::Polygon > ( aryVec_stamina );
-			m_stamina_value->SetpPolygon ( m_stamina_mask );
-		}
-		else if ( PLAYER_ID_2 == m_playerID )
-		{
-			double x1 = 791 + width_stamina;
-			double x2 = 781 + width_stamina;
-			s3d::Array < s3d::Vec2 > aryVec_stamina{ {791, 86}, {x1, 86}, {x2, 102}, {781, 102} };
-			m_stamina_mask = std::make_shared < s3d::Polygon > ( aryVec_stamina );
-			m_stamina_value->SetpPolygon ( m_stamina_mask );
-		}
-
-
-		//超必殺技ゲージ
-		int32 MANA_MAX = 10000;
-		m_hissatsu = m_hissatsu + m_dir_hissatsu * 50;
-		if (m_hissatsu < 0) { m_dir_hissatsu = 1; }
-		if (MANA_MAX < m_stamina) { m_dir_hissatsu  = - 1;}
-
-
-		//（ 最大幅 * 値 / 最大値 ）
-		float width_hissatsu = (202.f - 10) * m_hissatsu /(float)MANA_MAX;
-
-		if ( PLAYER_ID_1 == m_playerID )
-		{
-			double x0 = 640 - 243 - width_hissatsu - 20;		//195
-			double x1 = 640 - 243 - 10;						//387
-			double x2 = 640 - 243 + 10;							//397
-			double x3 = 640 - 243 - width_hissatsu;		//205
-			s3d::Array < s3d::Vec2 > aryVec_hissatsu{ {x0, 105}, {x1, 105}, {x2, 137}, {x3, 137} };
-			m_hissatsu_mask = std::make_shared < s3d::Polygon > ( aryVec_hissatsu );
-			m_hissatsu_value->SetpPolygon ( m_hissatsu_mask );
-		}
-		else if ( PLAYER_ID_2 == m_playerID )
-		{
-			double x0 = 640 + 243 + 10;		//893
-			double x1 = 640 + 243 + width_hissatsu + 20;
-			double x2 = 640 + 243 + width_hissatsu;
-			double x3 = 640 + 243 - 10;		//873
-			s3d::Array < s3d::Vec2 > aryVec_hissatsu{ {x0, 105}, {x1, 105}, {x2, 137}, {x3, 137} };
-			m_hissatsu_mask = std::make_shared < s3d::Polygon > ( aryVec_hissatsu );
-			m_hissatsu_value->SetpPolygon ( m_hissatsu_mask );
-		}
-
-		//-----------------------------------------------------------------
-		//アクセルゲージ
-		if ( PLAYER_ID_1 == m_playerID )
-		{
-			double r = 220;
-			double x0 = 0 + 75 + 12 + 80;
-			double y0 = 27 + 139;
-			double x2 = x0 - r;
-			double y2 = y0;
-		
-			m_accel += m_dir_accel * 100;
-			if (m_accel < 0) { m_dir_accel = 1; }
-			if ( 10000 < m_accel ) { m_dir_accel = -1; }
-
-			double theta = mapRange ( m_accel, 0, 10000, 0, D3DX_PI_BY4 );
-			double x = r * std::cos ( theta );
-			double y = r * std::sin ( theta );
-
-			s3d::Array < s3d::Vec2 > aryVec_accel{ {x2, y2}, {x0 - x, y0 - y}, {x0, y0} };
-			m_accel_mask = std::make_shared < s3d::Polygon > ( aryVec_accel );
-			m_accel_value->SetpPolygon ( m_accel_mask );
-		}
-		else if ( PLAYER_ID_2 == m_playerID )
-		{
-			double r = 220;
-			double x0 = 1194 - 80;
-			double y0 = 27 + 139;
-//			double x1 = x0 + r;
-//			double y1 = y0 - r;
-			double x2 = x0 + r;
-			double y2 = y0;
-		
-			m_accel += m_dir_accel * 100;
-			if (m_accel < 0) { m_dir_accel = 1; }
-			if ( 10000 < m_accel ) { m_dir_accel = -1; }
-
-			double theta = mapRange ( m_accel, 0, 10000, 0, D3DX_PI_BY4 );
-			double x = r * std::cos ( theta );
-			double y = r * std::sin ( theta );
-
-			s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x0 + x, y0 - y}, {x2, y2} };
-//			s3d::Array < s3d::Vec2 > aryVec_accel{ {x0, y0}, {x1, y1}, {x2, y2} };
-			m_accel_mask = std::make_shared < s3d::Polygon > ( aryVec_accel );
-			m_accel_value->SetpPolygon ( m_accel_mask );
+#endif	//0
 
 #if 0
+		//Validも切り換えでチェックしてOnになるので、他で代用する
+		m_grp_Value->SetValid ( value > 0 );
 #endif // 0
+
+#if 0
+		if ( value < 100 )
+		{
+			ln = 1;
+		}
+#endif // 0
+		m_grp_Value->SetColor ( value < 100 ? 0x00ffffff : 0xffffffff );
+
+
+		//表示
+		//@info テクスチャレクトを変更するとき、テクスチャサイズは変更しない
+		if ( PLAYER_ID_1 == m_playerID )
+		{
+			//1p側基準位置
+			const float X = m_base_x + m_base_w;
+
+			m_grp_Value->SetPos ( X, Y );
+
+			//表示枠で減少分を設定
+			m_grp_Value->SetRectF ( s3d::RectF { 0, 0, (LONG)ln, H } );
+//			m_grp_Value->SetRectF ( s3d::RectF { P, 0, (LONG)(ln + P), H } );
+//			m_grp_Value->SetRectF ( s3d::RectF { P, 0, (LONG)(ln), H } );
+
+			m_grp_Decrease->SetPos ( X, Y );
+			m_grp_Decrease->SetRectF ( s3d::RectF { 0, 0, (LONG)ln_d, H } );
+//			m_grp_Decrease->SetRectF ( s3d::RectF { P, 0, (LONG)(ln_d + P), H } );
+		}
+		else if ( PLAYER_ID_2 == m_playerID )
+		{
+			//2p側基準位置
+			float X = GAME_WINDOW_WIDTH - m_base_x - m_base_w;
+
+			m_grp_Value->SetPos ( X, Y );
+			m_grp_Value->SetRectF ( s3d::RectF { 0, 0, (LONG)ln, H } );
+//			m_grp_Value->SetRectF ( s3d::RectF { P, 0, (LONG)(ln + P), H } );
+//			m_grp_Value->SetRectF ( s3d::RectF { P, 0, (LONG)(ln), H } );
+
+			m_grp_Decrease->SetPos ( X, Y );
+			m_grp_Decrease->SetRectF ( s3d::RectF { 0, 0, (LONG)ln_d, H } );
+//			m_grp_Decrease->SetRectF ( s3d::RectF { P, 0, (LONG)(ln_d + P), H } );
 		}
 
+	}
 
-		TASK_VEC::Move ();
+	void DispGauge::UpdateWhite ( int white )
+	{
+		float ln = UNIT_LGS * m_value;	//表示長さ
+		float wht = UNIT_LGS * white;	//表示長さ
+
+//		float x = m_base_x;
+//		float y = m_base_y + LIFE_Y_REV;
+//		float w = m_base_w;
+//		float h = m_base_h + LIFE_H_REV;
+//		LONG P = (LONG)m_padding;
+
+		const float Y = m_base_y + LIFE_Y_REV;
+//		const float W = 512;
+		const LONG H = (LONG)( m_base_h + LIFE_H_REV );
+
+		//メイン値のサイズを取得
+//		float vx = m_grp_Value->GetPos().x;
+//		LONG vl = (LONG)m_grp_Value->GetpObject(0)->GetRectF ().w;
+//		LONG vr = (LONG)m_grp_Value->GetpObject(0)->GetRectF ().x;
+//		float vw = (float)( vr - vl );
+
+		//０のときは非表示
+		m_grp_White->SetValid ( white != 0 );
+
+
+		if ( PLAYER_ID_1 == m_playerID )
+		{
+			//1p側基準位置
+			const float X = m_base_x + m_base_w;
+
+//			m_grp_White->SetPos ( x + P + w, y );
+//			m_grp_White->SetRectF ( s3d::RectF { P, 0, (LONG)(ln + P + wht), (LONG)h } );
+			m_grp_White->SetPos ( X, Y );
+			m_grp_White->SetRectF ( s3d::RectF { 0, 0, (LONG)(ln + wht), H } );
+		}
+		else if ( PLAYER_ID_2 == m_playerID )
+		{
+			//2p側基準位置
+//			float p2_bx = P + GAME_WINDOW_WIDTH - x - W;	//W = テクスチャサイズ
+			float X = GAME_WINDOW_WIDTH - m_base_x - m_base_w;
+
+//			m_grp_White->SetPos ( p2_bx, y );
+//			m_grp_White->SetRectF ( s3d::RectF { P, 0, (LONG)(ln + P + wht), (LONG)h } );
+			m_grp_White->SetPos ( X, Y );
+			m_grp_White->SetRectF ( s3d::RectF { 0, 0, (LONG)(ln + wht), H } );
+		}
 	}
 
 
-	enum
+	//最大値変更
+	void DispGauge::ChangeMax ( float percent )
 	{
-		WND_CNT = 640,
-	};
+		//初期位置
+//		float x = m_base_x;
+//		float y = m_base_y;
+		float w = m_base_w * percent * 0.01f;
+		float h = m_base_h;
+		const LONG H = (LONG)( h + LIFE_H_REV );
+		const LONG W = (LONG)w;
+
+		if ( PLAYER_ID_1 == m_playerID )
+		{
+			m_grp_Frame->SetRectF ( s3d::RectF { 0, 0, W, H } );
+		}
+		else if ( PLAYER_ID_2 == m_playerID )
+		{
+			m_grp_Frame->SetRectF ( s3d::RectF { 0, 0, W, H } );
+		}
+	}
 
 
-#pragma region CONST
-	//定数
-	//2pが正方向, 1p側は(右端が基準点)
+	void DispGauge::On ()
+	{
+		m_grp_Value->SetValid ( T ); 
+		m_grp_Frame->SetValid ( T ); 
+		m_grp_Decrease->SetValid ( T ); 
+		m_grp_White->SetValid ( T ); 
+	}
 
-	//全体枠
-	//Size ( 516, 172 )
-	const VEC2 DispGauge::POS_FRAME_ALL_1P ( 0 + 516, 10 );
-	const VEC2 DispGauge::POS_FRAME_ALL_2P ( 1280 - 516 - 0, 10 );
+	void DispGauge::Off ()
+	{
+		m_grp_Value->SetValid ( F ); 
+		m_grp_Frame->SetValid ( F ); 
+		m_grp_Decrease->SetValid ( F ); 
+		m_grp_White->SetValid ( F ); 
+	}
 
-	//体力ゲージ
-	//Size ( 320, 20 )
-	const VEC2 DispGauge::POS_LIFE_VALUE_1P ( WND_CNT - 151, 62 );
-	const VEC2 DispGauge::POS_LIFE_VALUE_2P ( WND_CNT + 151, 62 );
+#if 0
+	void DispGauge::GrpOff ()
+	{
+		m_grp_Frame->SetValid ( F ); 
+		m_grp_Value->SetValid ( F ); 
+		m_grp_Decrease->SetValid ( F ); 
+		m_grp_White->SetValid ( F ); 
+	}
 
-	//剣撃ゲージ
-	//Size ( 309, 16 )
-	const VEC2 DispGauge::POS_STAMINA_VALUE_1P ( WND_CNT - 141, 86 );
-	const VEC2 DispGauge::POS_STAMINA_VALUE_2P ( WND_CNT + 141, 86 );
+	void DispGauge::GrpOn ()
+	{
+		m_grp_Frame->SetValid ( T ); 
+		m_grp_Value->SetValid ( T ); 
+		m_grp_Decrease->SetValid ( T ); 
+		m_grp_White->SetValid ( T ); 
+	}
+#endif // 0
 
-	//超必殺技ゲージ
-	//Size ( 202, 32 )
-	const VEC2 DispGauge::POS_HISSATSU_VALUE_1P ( WND_CNT - 243, 105 );
-	const VEC2 DispGauge::POS_HISSATSU_VALUE_2P ( WND_CNT + 243, 105 );
+	void DispGauge::UpdateDecrease ()
+	{
+		//@info
+		//加速度をつけることで少ないダメージは長く、大きいダメージは相対的に短くする
 
-	//アクセルゲージ
-	//Size ( 90, 139 )
-	const VEC2 DispGauge::POS_ACCEL_VALUE_1P ( 0 - 3, 27 );
-	const VEC2 DispGauge::POS_ACCEL_VALUE_2P ( 1280 - 75 - 12, 27 );
+		//メイン値と減少値が異なるとき開始
+		bool bDisp = m_value < m_dcr;
+		if ( m_wait == 0 && bDisp )
+		{
+			m_wait = 1;
+		}
 
-#pragma endregion
+		if ( 0 < m_wait )
+		{
+			//ウェイト終了
+			if ( m_wait ++ > 30 )
+			{
+				m_wait = 0;
+				bStart = T;
+			}
+		}
+
+		if ( bStart )
+		{
+			if ( m_value < m_dcr )
+			{
+				m_vel += m_acc;
+				m_dcr -= (int)m_vel;
+			}
+
+			//追いついたら終了
+			if ( m_dcr < m_value )
+			{
+				m_dcr = 1.f * m_value;
+				m_vel = 1.f;
+				bStart = F;
+			}
+		}
+
+		if ( PLAYER_ID_1 == m_playerID )
+		{
+//			DBGOUT_WND_F ( 6, _T ( "bDisp = %d, wait = %02d, bStart = %d" ), bDisp ? 1: 0, m_wait, bStart ? 1: 0 );
+		}
+
+		//０のときは非表示
+		m_grp_Decrease->SetValid ( m_dcr <= 0 );
+	}
 
 
 }	//namespace GAME

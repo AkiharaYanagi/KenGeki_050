@@ -38,12 +38,15 @@ namespace GAME
 			//ヒットストップ終了時に解除
 			m_btlPrm.SetFirstSE_HS ( F );
 		}
+#if 0
 
 		//もしくは、自分のスクリプトが変わった場合も解除
 		if ( m_btlPrm.GetFirstSE_Scp () != m_frame )
 		{
 			m_btlPrm.SetFirstSE_HS ( F );
 		}
+
+#endif // 0
 
 		//----------------------------------------------------------------
 

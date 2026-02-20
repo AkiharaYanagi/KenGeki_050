@@ -106,6 +106,14 @@ namespace GAME
 		//名前
 		m_name = MakepGrp ( Z_SHADOW - 0.01f );
 
+
+		//-----------------------------------------
+		//剣撃対抗
+		m_taikou = std::make_shared < EfKouAtsu > ();
+		AddpTask ( m_taikou );
+		GRPLST_INSERT ( m_taikou );
+
+
 		//-----------------------------------------------------
 		//プレイヤー表示
 		//-----------------------------------------------------
@@ -183,6 +191,9 @@ namespace GAME
 
 
 		//------------------------------------------------------
+#if 0
+
+
 		//アクション名
 		m_strAction = std::make_shared < GrpStr > ();
 		m_strAction->SetStr ( U"Action" );
@@ -200,53 +211,26 @@ namespace GAME
 		m_strState->SetColorF ( s3d::ColorF { 0.0f, 0.0f, 0.5f, 1.f } );
 		AddpTask ( m_strState );
 		GRPLST_INSERT ( m_strState );
-
-
-#if 0
-
-		//名前背景
-		m_name_bg = std::make_shared < GameGraphic > ();
-		m_name_bg->AddTexture_FromArchive ( U"Battle\\Name_BG.png" );
-		m_name_bg->SetZ ( Z_SHADOW );
-		m_name_bg->SetScalingCenter ( VEC2 ( NAME_BG_W / 2, 18 ) );
-		GRPLST_INSERT ( m_name_bg );
-		AddpTask ( m_name_bg );
-
-		//顔
-		m_face = std::make_shared < GameGraphic > ();
-		m_face->AddTexture_FromArchive ( U"Battle\\Face_Ouka.png" );
-		m_face->AddTexture_FromArchive ( U"Battle\\Face_Sae.png" );
-		m_face->AddTexture_FromArchive ( U"Battle\\Face_Retsudou.png" );
-		m_face->AddTexture_FromArchive ( U"Battle\\Face_Gabadaruga.png" );
-		m_face->SetIndexTexture ( 0 );
-		m_face->SetZ ( Z_SHADOW + 0.01f );
-		AddpTask ( m_face );
-		GRPLST_INSERT ( m_face );
-
-		//超必殺
-		m_ChouHissatsu = std::make_shared < GameGraphic > ();
-		m_ChouHissatsu->AddTexture_FromArchive ( U"Battle\\ChouHissatsu.png" );
-		m_ChouHissatsu->SetZ ( Z_SYS );
-		AddpTask ( m_ChouHissatsu );
-		GRPLST_INSERT ( m_ChouHissatsu );
-
-		//名前
-		m_name = std::make_shared < GameGraphic > ();
-		m_name->AddTexture_FromArchive ( U"Battle\\Name_HIYODORI_OUKA.png" );
-		m_name->AddTexture_FromArchive ( U"Battle\\Name_TOMOE_SAE.png" );
-		m_name->AddTexture_FromArchive ( U"Battle\\Name_REKKA_RETSUDOU.png" );
-		m_name->AddTexture_FromArchive ( U"Battle\\Name_GABADARUGA.png" );
-		m_name->SetZ ( Z_SYS - 0.01f );
-		AddpTask ( m_name );
-		GRPLST_INSERT ( m_name );
-
 #endif // 0
 
-		//-----------------------------------------
-		//剣撃抗圧
-		m_taikou = std::make_shared < EfKouAtsu > ();
-		AddpTask ( m_taikou );
-		GRPLST_INSERT ( m_taikou );
+
+		s3d::ColorF clr_str { 0.8f, 0.8f, 2.f, 1.f };
+		//アクション名
+		m_strAction = MakepGrpStr ( U"Action", G_Font::SIZE_40, clr_str );
+
+		//ステート名
+		m_strState = MakepGrpStr ( U"State", G_Font::SIZE_40, clr_str );
+
+
+		//ライフ、剣撃ゲージ、超必殺技、アクセル数値
+		s3d::ColorF clr_gauge { 0.0f, 0.8f, 0.0f, 1.f };
+		m_strLife = MakepGrpStr ( U"Lf", G_Font::SIZE_20, clr_gauge );
+		m_strKenGeki = MakepGrpStr ( U"Kg", G_Font::SIZE_20, clr_gauge );
+		m_strHissatsu = MakepGrpStr ( U"CH", G_Font::SIZE_20, clr_gauge );
+		m_strAccel = MakepGrpStr ( U"AC", G_Font::SIZE_20, clr_gauge );
+
+
+
 	}
 
 	//グラフィック生成用
@@ -276,6 +260,19 @@ namespace GAME
 
 
 
+		return p;
+	}
+
+	//文字列生成用
+	P_GrpStr DispFrontEnd::MakepGrpStr ( s3d::String str, G_Font::FONT_SIZE size, s3d::ColorF clr )
+	{
+		P_GrpStr p = std::make_shared < GrpStr > ();
+		p->SetStr ( str );
+		p->SetZ ( Z_SYS );
+		p->SetSize ( size );
+		p->SetColorF ( clr );
+		AddpTask ( p );
+		GRPLST_INSERT ( p );
 		return p;
 	}
 
@@ -467,11 +464,25 @@ namespace GAME
 		{
 			m_strAction->SetPos ( VEC2 ( 140, 120 ) );
 			m_strState->SetPos ( VEC2 ( 140, 160 ) );
+
+			float x = -130;
+			float y = 60;
+			m_strLife->SetPos ( VEC2 ( 640 + x, y + 0 ) );
+			m_strKenGeki->SetPos ( VEC2 ( 640 + x, y + 20 ) );
+			m_strHissatsu->SetPos ( VEC2 ( 640 + x, y + 40 ) );
+			m_strAccel->SetPos ( VEC2 ( 90, y + 65 ) );
 		}
 		else if ( PLAYER_ID_2 == playerID )
 		{
 			m_strAction->SetPos ( VEC2 ( 640 + 200, 120 ) );
 			m_strState->SetPos ( VEC2 ( 640 + 200, 160 ) );
+
+			float x = 90;
+			float y = 60;
+			m_strLife->SetPos ( VEC2 ( 640 + x, y + 0 ) );
+			m_strKenGeki->SetPos ( VEC2 ( 640 + x, y + 20 ) );
+			m_strHissatsu->SetPos ( VEC2 ( 640 + x, y + 40 ) );
+			m_strAccel->SetPos ( VEC2 ( 1280 - 135, y + 65 ) );
 		}
 
 	}
@@ -587,6 +598,11 @@ namespace GAME
 
 
 #endif // 0
+		m_strLife->SetStr ( U"{}"_fmt ( btlPrm.GetLife () ) );
+		m_strKenGeki->SetStr ( U"{}"_fmt ( btlPrm.GetBalance () ) );
+		m_strHissatsu->SetStr ( U"{}"_fmt ( btlPrm.GetMana () ) );
+		m_strAccel->SetStr ( U"{}"_fmt ( btlPrm.GetAccel () ) );
+
 
 		//対抗
 		if ( btlPrm.GetTaikou () )
@@ -834,12 +850,20 @@ namespace GAME
 	{
 		m_strAction->SetValid ( T );
 		m_strState->SetValid ( T );
+		m_strLife->SetValid ( T );
+		m_strKenGeki->SetValid ( T );
+		m_strHissatsu->SetValid ( T );
+		m_strAccel->SetValid ( T );
 	}
 
 	void DispFrontEnd::Off_Debug ()
 	{
 		m_strAction->SetValid ( F );
 		m_strState->SetValid ( F );
+		m_strLife->SetValid ( F );
+		m_strKenGeki->SetValid ( F );
+		m_strHissatsu->SetValid ( F );
+		m_strAccel->SetValid ( F );
 	}
 
 

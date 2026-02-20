@@ -132,20 +132,39 @@ namespace GAME
 		if ( m_btlPrm.GetTmr_OfstCncl()->IsActive () )
 		{
 			//位置が基準より上だったら
-			bool bAir = IsJump () && IsFloat ();	//アクションもしくは位置
+			bool bAir = IsJump () || IsFloat ();	//アクションもしくは位置
+			bool bDir = m_btlPrm.GetDirRight ();	//向き
 
 			//空中判定
 			if ( bAir )
 			{
 				//空中は空中技のみ可能
 
+				//コマンドが完成したIDを優先順に保存したリスト
+				m_pCharaInput->MakeTransitIDList ( *m_pChara, m_vOfstCncl_Air, bDir );
+				const V_UINT32 & vCompID_Offset = m_pCharaInput->GetvCompID ();
 
+				for ( UINT id : vCompID_Offset )
+				{
+					//遷移先チェック
+					P_Sequence pAct = m_pChara->GetBehavior().GetpSqc ( id );
+
+					//特殊アクション 除外 指定　：　不可能なら次をチェック
+					if ( ! TranditAction_Exclusion ( pAct ) )
+					{
+						continue;
+					}
+
+					//可能なら遷移先に指定して終了
+					transitID = id;
+					break;
+				}
 			}
 			//地上
 			else
 			{
 				//コマンドが完成したIDを優先順に保存したリスト
-				m_pCharaInput->MakeTransitIDList ( *m_pChara, m_vOfstCncl, m_btlPrm.GetDirRight () );
+				m_pCharaInput->MakeTransitIDList ( *m_pChara, m_vOfstCncl, bDir );
 				const V_UINT32 & vCompID_Offset = m_pCharaInput->GetvCompID ();
 
 				for ( UINT id : vCompID_Offset )
@@ -165,6 +184,7 @@ namespace GAME
 				}
 
 			}
+
 		}
 
 

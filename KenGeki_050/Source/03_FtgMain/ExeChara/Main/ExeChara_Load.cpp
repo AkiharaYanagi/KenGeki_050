@@ -314,22 +314,25 @@ namespace GAME
 		//空中
 		m_vOfstCncl_Air.clear ();
 		UINT32 i_air = 0;
-		for ( P_Brc pBrc : vpBrc )
+		for ( P_Rut pRut : vpRoute )
 		{
-			//条件：空中行動可能アクションのみ
-			//現在は不可
-#if 0
-			//条件：コマンド入力のみ
-			if ( BRC_CMD == pBrc->GetCondition () )
+			bool b0 = pRut->Name.Is ( U"空中通常技" );
+			bool b1 = pRut->Name.Is ( U"空中必殺技" );
+			bool b2 = pRut->Name.Is ( U"空中超必殺技" );
+			if ( b0 || b1 || b2 )
 			{
-				//リストに追加
-				m_vOfstCncl_Air.push_back ( i_air );
+				const V_UINT32 vBrc = pRut->GetcaIDBranch ();
+				//手動でリストに追加
+				for ( UINT32 iBrc : vBrc )
+				{
+					m_vOfstCncl_Air.push_back ( iBrc );
+
+					s3d::String name = vpBrc [ iBrc ]->Name.Get ();
+					//TRACE_F_S ( name );
+				}
+
+				++ i_air;
 			}
-
-#endif // 0
-
-
-			++ i_air;
 		}
 	}
 

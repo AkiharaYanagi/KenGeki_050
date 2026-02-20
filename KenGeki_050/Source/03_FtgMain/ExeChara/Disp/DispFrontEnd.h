@@ -10,7 +10,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
 #include "../../../91_Param/Param.h"
-#include "DispGauge.h"
+//#include "DispGauge.h"
 #include "DispAccel.h"
 #include "../BtlParam.h"
 #include "../../Ef/EfKouAtsu.h"
@@ -40,7 +40,7 @@ namespace GAME
 		P_Grp		m_face;		//顔
 		P_Grp		m_name;		//名前
 
-		//剣撃抗圧
+		//剣撃対抗
 		P_EfKouAtsu	m_taikou;
 
 		//-----------------------------------------------------
@@ -75,7 +75,12 @@ namespace GAME
 		//アクション名
 		P_GrpStr	m_strAction;	
 		//ステート名
-		P_GrpStr	m_strState;	
+		P_GrpStr	m_strState;
+		//ライフ、剣撃ゲージ、超必殺技、アクセル数値
+		P_GrpStr	m_strLife;
+		P_GrpStr	m_strKenGeki;
+		P_GrpStr	m_strHissatsu;
+		P_GrpStr	m_strAccel;
 
 	public:
 		DispFrontEnd ();
@@ -137,6 +142,7 @@ namespace GAME
 	private:
 		P_Grp MakepGrp ( float z );
 		P_Grp MakepGrpPlyr ( s3d::String str );
+		P_GrpStr MakepGrpStr ( s3d::String str, G_Font::FONT_SIZE size, s3d::ColorF clr );
 
 		static const VEC2 POS_FACE_1P;	//顔
 		static const VEC2 POS_FACE_2P;

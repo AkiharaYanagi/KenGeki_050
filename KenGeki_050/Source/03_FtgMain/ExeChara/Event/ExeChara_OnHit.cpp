@@ -58,19 +58,28 @@ namespace GAME
 		if ( ! pSelf->IsActCtg ( AC_OVERDRIVE ) )
 		{
 			//攻撃値を超必殺技ゲージに加算
-			int p = pScp->Get_FP_B().Power.Get();
+			int pw = pScp->Get_FP_B().Power.Get();
 
+			//基本値0.1倍
 			//アクセルゲージ補正 ( -1.000倍 ~ +2.000倍 )
 			//( -500 ~ +1000 )
-			double dp = p * 0.002f * m_btlPrm.GetAccel();
+			double dp = pw * 0.1f * 0.002f * m_btlPrm.GetAccel();
 
+			//超必殺技ゲージ
 			m_btlPrm.AddMana ( (int)dp );
 
-			//バランス固定回復
+
+			//相手に剣撃ゲージ固定回復
+			pOther->GetrBtlPrm ().AddBalance ( 50 );
+#if 0
 			if ( m_btlPrm.GetRecoveringStamina() )
 			{
-				m_btlPrm.AddBalance ( 100 );
+				m_btlPrm.AddBalance ( 50 );
 			}
+#endif // 0
+
+			//アクセルゲージに追加
+			m_btlPrm.AddAccel ( 200 );
 		}
 
 

@@ -81,8 +81,9 @@ namespace GAME
 		m_pFtgGrp->StartVibration ( 10 );
 
 		//ゲージ増加
-		m_btlPrm.AddBalance ( 200 );
-		m_btlPrm.AddMana ( 50 );
+		m_btlPrm.AddAccel ( 100 );
+		m_btlPrm.AddBalance ( 500 );
+		m_btlPrm.AddMana ( 500 );
 
 
 		//@todo 相殺２撃目にアサート（名前指定？）
