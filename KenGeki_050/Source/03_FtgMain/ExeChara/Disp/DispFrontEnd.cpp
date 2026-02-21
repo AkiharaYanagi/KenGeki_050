@@ -808,41 +808,13 @@ namespace GAME
 
 	void DispFrontEnd::On ()
 	{
-#if 0
-		m_gaugeLife->On ();
-		m_gaugeBalance->On ();
-		m_gaugeMana->On ();
-		m_gaugeAccel->On ();
-
-		m_name_bg->SetValid ( T );
-		m_name->SetValid ( T );
-		m_face->SetValid ( T );
-		m_ChouHissatsu->SetValid ( T );
-#endif // 0
-
-		m_strAction->SetValid ( T );
-		m_strState->SetValid ( T );
-
+		On_Debug ();
 		On_DispPlayerInput ();
 	}
 
 	void DispFrontEnd::Off ()
 	{
-#if 0
-		m_gaugeLife->Off ();
-		m_gaugeBalance->Off ();
-		m_gaugeMana->Off ();
-		m_gaugeAccel->Off ();
-
-		m_name_bg->SetValid ( F );
-		m_name->SetValid ( F );
-		m_face->SetValid ( F );
-		m_ChouHissatsu->SetValid ( F );
-#endif // 0
-
-		m_strAction->SetValid ( F );
-		m_strState->SetValid ( F );
-
+		Off_Debug ();
 		Off_DispPlayerInput ();
 	}
 
