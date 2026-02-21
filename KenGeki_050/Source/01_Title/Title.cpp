@@ -37,7 +37,7 @@ namespace GAME
 //		ver 0.12	2024/11/	　 バグ修正
 //		ver 0.10	2024/11/03(日) デジゲー博2024 公開
 #endif // 0
-	const char32_t Title::Ver[] = U"ver 0.55";
+	const char32_t Title::Ver[] = U"ver 0.56";
 
 
 	//--------------------------------------------------------
