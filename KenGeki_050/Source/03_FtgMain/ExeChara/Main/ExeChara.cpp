@@ -446,10 +446,10 @@ namespace GAME
 				bool b = F;
 				if ( m_name == CHARA_TSUKIHIBOSHI )
 				{
-					if ( IsNameAction ( U"超必殺技A1" ) )
-					{
-						b = T;
-					}
+					bool bA1 = IsNameAction ( U"超必殺技A1" );
+					bool baA1 = IsNameAction ( U"空中超必殺技A発動" );
+					bool bB1 = IsNameAction ( U"超必殺技B1" );
+					b = bA1 || baA1|| bB1;
 				}
 
 				if ( b )

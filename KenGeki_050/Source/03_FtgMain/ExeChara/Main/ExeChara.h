@@ -309,6 +309,8 @@ namespace GAME
 		//ヒットストップ
 		bool IsHitStop () { return m_btlPrm.IsHitStop (); }
 
+		//最後のスクリプトかどうか
+		bool IsEndScript () const { return m_pAction->IsEndScript ( m_frame ); }
 
 		//----------------------
 		//	外部からの状態変更
@@ -591,6 +593,10 @@ namespace GAME
 		//相手変更指定の一時保存
 		void SetNameChangeOther ( s3d::String name ) { m_nameChangeOther = name; }
 
+		//------------------------------------------------
+		//投げなど強制位置指定
+		void SetSpPos ( float mx, float my, float ox, float oy );
+		
 		//------------------------------------------------
 
 		//テスト用 敗北

@@ -553,6 +553,27 @@ namespace GAME
 #endif // 0
 	}
 
+	//キーカラー取得(背景スクロール用)
+	_CLR BG::GetKeyColor () const
+	{
+		_CLR ret ( 0xffffffff );
+
+		switch ( m_stage_name )
+		{
+		case STAGE_ASAHINO_HARA:	ret = _CLR ( 0xff87d8e7 ); break;
+		case STAGE_YUUHINO_HARA:	ret = _CLR ( 0xffff7568 ); break;
+		case STAGE_YORUNO_HARA :	ret = _CLR ( 0xff461257 ); break;
+		case STAGE_SCHOOL_MORNING:	ret = _CLR ( 0xffd0d3f4 ); break;
+		case STAGE_SCHOOL_NOON:		ret = _CLR ( 0xff90d3f4 ); break;
+		case STAGE_SCHOOL_NIGHT:	ret = _CLR ( 0xff232f83 ); break;
+		case STAGE_TAISHOU_MORNING:	ret = _CLR ( 0xffe5d4bf ); break;
+		case STAGE_TAISHOU_NOON:	ret = _CLR ( 0xff68b7f8 ); break;
+		case STAGE_TAISHOU_NINGT:	ret = _CLR ( 0xff071924 ); break;
+		}
+
+		return ret;
+	}
+
 
 }	//namespace GAME
 

@@ -47,8 +47,10 @@ namespace GAME
 
 		//特殊背景
 		P_Grp	m_grpBG_scroll;	//スクロール背景
+		//int32_t	m_scl_bg_time { 0 };	//スクロール背景の時間管理
 
 		P_EfString	m_efString;		//エフェクト：必殺技文字
+		P_Grp		m_ef_mandara;	//エフェクト：マンダラ
 
 	public:
 		FtgGrp ();
@@ -97,13 +99,18 @@ namespace GAME
 		void EndAllBlack () { m_bg_All_Black->SetValid ( F ); }
 
 		//---------------------------------------
+		void SetScrollBGColor ( _CLR clr ) { m_grpBG_scroll->SetColor ( clr ); }
 		void StartAerial ();
 		bool IsAerial () const { return m_grpBG_scroll->GetValid (); }
 		void EndAerial ();
 
 		//---------------------------------------
-
 		void EfString_Start () { m_efString->Start (); }
+
+		//---------------------------------------
+		void EfMandara_On () { m_ef_mandara->SetValid ( T ); }
+		void EfMandara_Off () { m_ef_mandara->SetValid ( F ); }
+
 	};
 
 	using P_FtgGrp = std::shared_ptr < FtgGrp >;

@@ -657,6 +657,7 @@ namespace GAME
 		if ( m_pSequence->Name.Is ( U"立ち")		) { return T; }
 		if ( m_pSequence->Name.Is ( U"前歩き")		) { return T; }
 		if ( m_pSequence->Name.Is ( U"後歩き")		) { return T; }
+//		if ( m_pSequence->Name.Is ( U"空中ダッシュ後落下")		) {	return T; }
 		if ( m_pSequence->Name.Is ( U"着地")		) {	return T; }
 		if ( m_pSequence->Name.Is ( U"勝利")		) {	return T; }
 		if ( m_pSequence->Name.Is ( U"時間切れ敗北")		) {	return T; }
@@ -876,6 +877,8 @@ namespace GAME
 	//==========================================
 	void BtlParam::OnHit ()
 	{
+		P_ExeChara pExeCh = m_pExeChara.lock();
+
 		m_hitEst = T;		//攻撃成立フラグ
 
 		//ヒットストップ
@@ -885,6 +888,22 @@ namespace GAME
 		if ( m_pSequence->Name.Is ( U"波動" ) )
 		{
 			hitstop += 10;
+		}
+		//月日星
+		if ( pExeCh->GetCharaName() == CHARA_TSUKIHIBOSHI )
+		{
+			bool bA3 = pExeCh->IsNameAction ( U"超必殺技A3" );
+			bool baA3 = pExeCh->IsNameAction ( U"空中超必殺技A3" );
+			if ( bA3 || baA3 )
+			{
+				hitstop  = 2;
+			}
+			bool bA4 = pExeCh->IsNameAction ( U"超必殺技A4" );
+			bool baA4 = pExeCh->IsNameAction ( U"空中超必殺技A4" );
+			if ( bA4 || baA4 )
+			{
+				hitstop  += 10;
+			}
 		}
 
 		m_tmrHitstop->Start ( hitstop );		//ヒットストップの設定

@@ -55,7 +55,7 @@ namespace GAME
 		//------------------------------------------------
 		//スクロール背景
 		m_grpBG_scroll = std::make_shared < GameGraphic > ();
-		m_grpBG_scroll->AddTexture_FromArchive ( U"BG_scroll\\BG_hara_evening_scroll.png" );
+		m_grpBG_scroll->AddTexture_FromArchive ( U"BG_scroll\\BG_scroll.png" );
 		m_grpBG_scroll->SetPos ( 0, - 1300 );
 		m_grpBG_scroll->SetScaling ( 1.f, 2.f );
 		m_grpBG_scroll->SetZ ( Z_BG - 0.01f );
@@ -68,6 +68,22 @@ namespace GAME
 		//エフェクト：必殺技文字
 		m_efString = std::make_shared < EfString > ();
 		AddpTask ( m_efString );
+
+
+		//------------------------------------------------
+		//エフェクト：マンダラ
+		m_ef_mandara = std::make_shared < GameGraphic > ();
+		m_ef_mandara->AddTexture_FromArchive ( U"Chara\\Tsukihibosi\\zetsumandara_R.png" );
+		m_ef_mandara->SetPos ( 640, 0 );
+		m_ef_mandara->SetZ ( Z_CH + 0.01f );
+		m_ef_mandara->AddObject ();
+		P_Ob pob = m_ef_mandara->GetpObject ( 1 );
+		pob->SetIndexTexture ( 0 );
+		pob->SetPos ( 640, 0 );
+		pob->SetScaling ( -1.f, 1.f );
+		AddpTask ( m_ef_mandara );
+		GRPLST_INSERT ( m_ef_mandara );
+		m_ef_mandara->SetValid ( F );
 	}
 
 	FtgGrp::~FtgGrp ()
@@ -172,8 +188,19 @@ namespace GAME
 
 
 		//---------------------------------------------------
-		//特殊背景
-		m_grpBG_scroll->SetPos ( 0, G_BASE_POS().y - 1300 );
+		//スクロール背景
+		// G_BASE_POS()はゲーム位置
+		//画面表示位置に直す
+		if ( G_BASE_POS().y >= 1000 )
+		{
+			//固定位置
+			m_grpBG_scroll->SetPos ( 0, 0 );
+		}
+		else
+		{
+			m_grpBG_scroll->SetPos ( 0, G_BASE_POS().y - 1300 );
+		}
+		DBGOUT_WND_F ( DBGOUT_4, U"G_BASE_POS().y = {}"_fmt( G_BASE_POS().y ) );
 
 
 		//---------------------------------------------------
@@ -198,8 +225,8 @@ namespace GAME
 	}
 	void FtgGrp::EndAerial ()
 	{
-		m_grpBG_scroll->SetValid ( F );
-		//m_grpBG_scroll->SetFadeOut ( 5 );
+		//m_grpBG_scroll->SetValid ( F );
+		m_grpBG_scroll->SetFadeOut ( 15 );
 	}
 
 }	//namespace GAME

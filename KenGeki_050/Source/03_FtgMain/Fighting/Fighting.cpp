@@ -140,6 +140,7 @@ namespace GAME
 
 	void Fighting::Load ()
 	{
+		m_pFtgGrp->SetScrollBGColor ( m_bg->GetKeyColor () );
 		m_demoActor->SetwpFighting ( shared_from_this () );
 		m_demoActor->SetpFtgGrp ( m_pFtgGrp );
 //		m_mutualChara->SetpFtgGrp ( m_pFtgGrp );

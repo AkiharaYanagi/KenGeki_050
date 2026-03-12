@@ -50,6 +50,7 @@ namespace GAME
 		if ( pEffect->Name.Is ( U"OD_A_G" ) ) { pExeEffect->SetShader ( F ); }
 		if ( pEffect->Name.Is ( U"Ef_テル・プム" ) ) { pExeEffect->SetShader ( F ); }
 		if ( pEffect->Name.Is ( U"Ef_ニャムヒー" ) ) { pExeEffect->SetShader ( F ); }
+		if ( pEffect->Name.Is ( U"空中飛び道具" ) ) { pExeEffect->SetShader ( F ); }
 
 
 		//全部オフ
@@ -58,7 +59,7 @@ namespace GAME
 #endif // 0
 
 		//画面全体
-		float x0 = G_FTG()->GetCharaCenterX () - (float)GAME_WIDTH_HALF;
+		//float x0 = G_FTG()->GetCharaCenterX () - (float)GAME_WIDTH_HALF;
 		if ( pEffect->Name.Is ( U"地割れキャラ前" ) )
 		{
 			pExeEffect->SetFullDisplay ( T );

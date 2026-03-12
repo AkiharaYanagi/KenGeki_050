@@ -296,6 +296,7 @@ namespace GAME
 			//m_vg += m_g;
 			//m_vel.y = vel.y + m_vg;
 			m_acc.y = acc.y;
+			m_vel.y = vel.y;
 			m_ptEffect.y += m_vel.y;		//速度
 			//m_ptEffect.y += m_inertial.y;		//慣性
 

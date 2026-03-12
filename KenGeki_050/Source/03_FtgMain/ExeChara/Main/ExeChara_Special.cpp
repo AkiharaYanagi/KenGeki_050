@@ -106,7 +106,17 @@ namespace GAME
 		//空中ダッシュ, 低空ダッシュ
 		bool AirDash = IsNameAction ( U"空中ダッシュ" );
 		bool LowAirDash = IsNameAction ( U"低空ダッシュ" );
-		if ( AirDash || LowAirDash )
+		bool tsukihibosi_dash =
+			   IsNameAction ( U"空中ダッシュ1" )
+			|| IsNameAction ( U"空中ダッシュ2" )
+			|| IsNameAction ( U"空中ダッシュ3" )
+			|| IsNameAction ( U"空中ダッシュ4" )
+			|| IsNameAction ( U"空中ダッシュ6" )
+			|| IsNameAction ( U"空中ダッシュ7" )
+			|| IsNameAction ( U"空中ダッシュ8" )
+			|| IsNameAction ( U"空中ダッシュ9" );
+
+		if ( AirDash || LowAirDash || tsukihibosi_dash )
 		{
 			if ( m_frame == 0 )
 			{
@@ -115,11 +125,16 @@ namespace GAME
 			//回数リセットは "着地" 時
 		}
 
+
+#if 0
+
 		//@info DBGOUT_WND_F は　ExeChara中で用いると２P側で上書きされる
 		if ( IsPlayerID( PLAYER_ID_1 ) )
 		{
 //			DBGOUT_WND_F( DBGOUT_8, U"AirDash = {}"_fmt( m_btlPrm.GetNAirDash() ) );
 		}
+
+#endif // 0
 
 
 		//-----------------------------------------------------
@@ -143,18 +158,6 @@ namespace GAME
 			}
 
 		}
-
-#if 0
-
-		if ( IsNameAction ( U"剣撃走破成立" ) )
-		{
-			//同一アクション内3ヒットで終了
-			if ( 4 == m_btlPrm.GetHitNum () )
-			{
-				SetAction ( U"剣撃走破ヒット" );
-			}
-		}
-#endif // 0
 
 		//-----------------------------------------------------
 		//超必殺全般
@@ -215,25 +218,6 @@ namespace GAME
 		//烈堂
 		if ( m_name == CHARA_RETSUDOU )
 		{
-		}
-
-		//-----------------------------------------------------
-		//フェラリア
-		if ( m_name == CHARA_FERARIA )
-		{
-			if ( IsNameAction ( U"雷電蹴_0" ) )
-			{
-				UINT frame = m_pScript->Index.Get ();
-				if ( frame == 11 )
-				{
-					m_pFtgGrp->StartAllBlack ();
-				}
-				if ( m_pAction->IsEndScript ( frame ) )
-				{
-					m_pFtgGrp->EndAllBlack ();
-				}
-			}
-
 		}
 
 		//-----------------------------------------------------
@@ -553,6 +537,7 @@ namespace GAME
 			if ( bA && (b0 || b1) )
 			//if ( b1 )
 			//if ( b0 )
+			if ( m_pScript->Index.Is ( 0 ) )
 			{
 				m_pFtgGrp->EndAerial ();
 				G_FTG ()->SetScrollY ( F );
@@ -575,13 +560,80 @@ namespace GAME
 					m_pOther.lock()->SetDirRight ( ! bDir );	//向き同期
 				}
 			}
+			if ( IsNameAction ( U"空中必殺技成立" ) )
+			{
+				if ( m_pScript->Index.Is ( 0 ) )
+				{
+					TopByZ ();
+
+					//位置調整用
+					bool bDir = m_btlPrm.GetDirRight ();
+					float dir = bDir ? 1.f : -1.f;
+					VEC2 my_pos = GetPos ();
+					//my_pos.y = GROUND_Y;	//地上基準
+					//SetPos ( my_pos );	//位置同期
+					VEC2 pos_rev = { my_pos.x + ( dir * 100 ), my_pos.y + 0 };
+					m_pOther.lock()->SetPos ( pos_rev );	//位置同期
+					m_pOther.lock()->SetDirRight ( ! bDir );	//向き同期
+				}
+			}
 
 			//超必殺　演出
-			if ( IsNameAction ( U"超必殺技A1" ) )
+			bool bA1 = IsNameAction ( U"超必殺技A1" );
+			bool baA1 = IsNameAction ( U"空中超必殺技A発動" );
+			if ( bA1 || baA1 )
 			{
 				if ( m_pScript->Index.Is ( 0 ) )
 				{
 					m_pFtgGrp->EfString_Start ();
+				}
+			}
+			//ロック
+			bool bA2h = IsNameAction ( U"超必殺技A2ヒット" );
+			if ( bA2h )
+			{
+				if ( m_pScript->Index.Is ( 0 ) )
+				{
+					VEC2 my_pos = { GetPos().x, GROUND_Y };
+					bool bDir = m_btlPrm.GetDirRight ();
+					float dir_d = bDir ? 1.f : -1.f;
+					VEC2 pos_rev = { my_pos.x + ( dir_d * 250 ), GROUND_Y };
+
+					SetPos ( my_pos );
+					m_pOther.lock()->SetPos ( pos_rev );
+				}
+			}
+
+			bool baA2h = IsNameAction ( U"空中超必殺技A2_1ヒット" );
+			if ( baA2h )
+			{
+				if ( m_pScript->Index.Is ( 0 ) )
+				{
+					VEC2 my_pos = GetPos();
+					bool bDir = m_btlPrm.GetDirRight ();
+					float dir_d = bDir ? 1.f : -1.f;
+					VEC2 pos_rev = { my_pos.x + ( dir_d * 250 ), GetPos().y };
+					m_pOther.lock()->SetPos ( pos_rev );
+				}
+			}
+
+			if ( IsNameAction ( U"超必殺技B3" ) )
+			{
+				if ( m_pScript->Index.Is ( 48 ) )
+				{
+					m_pFtgGrp->StartAllBlack ();
+				}
+				else if ( IsEndScript() )
+				{
+					m_pFtgGrp->EndAllBlack ();
+					m_pFtgGrp->EfMandara_On ();
+				}
+			}
+			if ( IsNameAction ( U"超必殺技B4" ) )
+			{
+				if ( IsEndScript() )
+				{
+					m_pFtgGrp->EfMandara_Off ();
 				}
 			}
 		}
@@ -802,7 +854,11 @@ namespace GAME
 
 	}
 
-
+	void ExeChara::SetSpPos ( float mx, float my, float ox, float oy )
+	{
+		SetPos ( VEC2 ( mx, my ) );
+		m_pOther.lock()->SetPos ( VEC2 ( ox, oy ) );
+	}
 
 
 }	//namespace GAME

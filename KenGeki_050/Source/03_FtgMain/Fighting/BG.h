@@ -97,6 +97,11 @@ namespace GAME
 		void StartWallBreak_L ();
 		void StartWallBreak_R ();
 #endif // 0
+
+		//キーカラー取得(背景スクロール用)
+		_CLR GetKeyColor () const;
+
+
 	private:
 		static const float BG_SIZE_W;
 		static const float BG_SIZE_H;
