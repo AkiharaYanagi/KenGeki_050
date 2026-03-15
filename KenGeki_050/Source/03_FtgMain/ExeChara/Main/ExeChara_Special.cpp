@@ -527,22 +527,28 @@ namespace GAME
 			//背景上部延長
 			if ( IsNameAction ( U"エリアルジャンプ" ) )
 			{
-				m_pFtgGrp->StartAerial ();
-				G_FTG ()->SetScrollY ( T );
+				if ( m_pScript->Index.Is ( 0 ) )
+				{
+					m_pFtgGrp->StartAerial ();
+					G_FTG ()->SetScrollY ( T );
+				}
 			}
 
+			//スクロール背景停止
 			bool bA = m_pFtgGrp->IsAerial ();
 			bool b0 = IsNameAction ( U"着地" );
 			bool b1 = IsNameAction ( U"立ち" );
 			if ( bA && (b0 || b1) )
-			//if ( b1 )
-			//if ( b0 )
-			if ( m_pScript->Index.Is ( 0 ) )
 			{
-				m_pFtgGrp->EndAerial ();
-				G_FTG ()->SetScrollY ( F );
+				if ( m_pScript->Index.Is ( 0 ) )
+				{
+					if ( ! m_pFtgGrp->IsAerialFade () )
+					{
+						m_pFtgGrp->EndAerial ();
+						G_FTG ()->SetScrollY ( F );
+					}
+				}
 			}
-
 
 			//位置調整
 			if ( IsNameAction ( U"竜巻成立" ) )
@@ -617,25 +623,30 @@ namespace GAME
 				}
 			}
 
-			if ( IsNameAction ( U"超必殺技B3" ) )
+			//----------------------------------------------------
+			if ( IsNameActionFrame ( U"超必殺技B1", 0 ) )
 			{
-				if ( m_pScript->Index.Is ( 48 ) )
-				{
-					m_pFtgGrp->StartAllBlack ();
-				}
-				else if ( IsEndScript() )
-				{
-					m_pFtgGrp->EndAllBlack ();
-					m_pFtgGrp->EfMandara_On ();
-				}
+				m_pFtgGrp->EfString_Start ();
 			}
-			if ( IsNameAction ( U"超必殺技B4" ) )
+
+			if ( IsNameActionFrame ( U"超必殺技B3", 48 ) )
 			{
-				if ( IsEndScript() )
-				{
-					m_pFtgGrp->EfMandara_Off ();
-				}
+				m_pFtgGrp->StartAllBlack ();
 			}
+			if ( IsNameActionEnd ( U"超必殺技B3" ) )
+			{
+				m_pFtgGrp->EndAllBlack ();
+			}
+
+			if ( IsNameActionFrame ( U"超必殺技B4", 34 ) )
+			{
+				m_pFtgGrp->EfMandara_On ();
+			}
+			if ( IsNameActionEnd ( U"超必殺技B4" ) )
+			{
+				m_pFtgGrp->EfMandara_Off ();
+			}
+			//----------------------------------------------------
 		}
 
 
@@ -860,6 +871,20 @@ namespace GAME
 		m_pOther.lock()->SetPos ( VEC2 ( ox, oy ) );
 	}
 
+
+	//名前とフレーム
+	bool ExeChara::IsNameActionFrame ( s3d::String name, uint32 frame ) const
+	{
+		bool bName = IsNameAction ( name );
+		bool bFrame = m_pScript->Index.Is ( frame );
+		return bName && bFrame;
+	}
+	bool ExeChara::IsNameActionEnd ( s3d::String name ) const
+	{
+		bool bName = IsNameAction ( name );
+		bool bEnd = IsEndScript ();
+		return bName && bEnd;
+	}
 
 }	//namespace GAME
 

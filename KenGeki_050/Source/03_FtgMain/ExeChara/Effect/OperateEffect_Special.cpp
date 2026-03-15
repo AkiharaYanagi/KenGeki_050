@@ -51,6 +51,7 @@ namespace GAME
 		if ( pEffect->Name.Is ( U"Ef_テル・プム" ) ) { pExeEffect->SetShader ( F ); }
 		if ( pEffect->Name.Is ( U"Ef_ニャムヒー" ) ) { pExeEffect->SetShader ( F ); }
 		if ( pEffect->Name.Is ( U"空中飛び道具" ) ) { pExeEffect->SetShader ( F ); }
+		if ( pEffect->Name.Is ( U"Aura" ) ) { pExeEffect->SetShader ( F ); }
 
 
 		//全部オフ

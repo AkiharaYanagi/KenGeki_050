@@ -47,10 +47,11 @@ namespace GAME
 
 		//特殊背景
 		P_Grp	m_grpBG_scroll;	//スクロール背景
-		//int32_t	m_scl_bg_time { 0 };	//スクロール背景の時間管理
+		int32_t	m_scl_bg_time { 0 };	//スクロール背景の時間管理
 
 		P_EfString	m_efString;		//エフェクト：必殺技文字
 		P_Grp		m_ef_mandara;	//エフェクト：マンダラ
+		int32_t		m_mnd_bg_time { 0 };	//マンダラ背景の時間管理
 
 	public:
 		FtgGrp ();
@@ -102,6 +103,7 @@ namespace GAME
 		void SetScrollBGColor ( _CLR clr ) { m_grpBG_scroll->SetColor ( clr ); }
 		void StartAerial ();
 		bool IsAerial () const { return m_grpBG_scroll->GetValid (); }
+		bool IsAerialFade () const { return (0 < m_scl_bg_time); }
 		void EndAerial ();
 
 		//---------------------------------------
@@ -109,7 +111,11 @@ namespace GAME
 
 		//---------------------------------------
 		void EfMandara_On () { m_ef_mandara->SetValid ( T ); }
-		void EfMandara_Off () { m_ef_mandara->SetValid ( F ); }
+		void EfMandara_Off ()
+		{
+			//m_ef_mandara->SetValid ( F );
+			m_mnd_bg_time = 8;
+		}
 
 	};
 

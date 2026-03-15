@@ -567,8 +567,8 @@ namespace GAME
 		case STAGE_SCHOOL_NOON:		ret = _CLR ( 0xff90d3f4 ); break;
 		case STAGE_SCHOOL_NIGHT:	ret = _CLR ( 0xff232f83 ); break;
 		case STAGE_TAISHOU_MORNING:	ret = _CLR ( 0xffe5d4bf ); break;
-		case STAGE_TAISHOU_NOON:	ret = _CLR ( 0xff68b7f8 ); break;
-		case STAGE_TAISHOU_NINGT:	ret = _CLR ( 0xff071924 ); break;
+		case STAGE_TAISHOU_NOON:	ret = _CLR ( 0xffa8d7f8 ); break;
+		case STAGE_TAISHOU_NINGT:	ret = _CLR ( 0xff474964 ); break;
 		}
 
 		return ret;

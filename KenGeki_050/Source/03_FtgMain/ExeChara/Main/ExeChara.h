@@ -303,6 +303,10 @@ namespace GAME
 		//特殊アクション（名前指定）
 		bool IsNameAction ( s3d::String name ) const { return m_pAction->Name.Is ( name ); }
 
+		//名前とフレーム
+		bool IsNameActionFrame ( s3d::String name, uint32 frame ) const;
+		bool IsNameActionEnd ( s3d::String name ) const;
+
 		//アクションが存在するかどうか
 		bool ExistActionName ( s3d::String name ) const { return m_pChara->GetBehavior().ExistSqc ( name ); }
 

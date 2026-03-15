@@ -29,6 +29,7 @@ namespace GAME
 		m_ef_zero = std::make_shared < GameGraphic > ();
 		m_ef_zero->AddTexture_FromArchive ( U"Chara\\Tsukihibosi\\zero.png" );
 		m_ef_zero->SetPos ( VEC2 ( 1280 - 320, 0 ) );
+		m_ef_zero->SetZ ( Z_EFF );
 		m_ef_zero->SetScalingCenter ( VEC2 ( 320, 0 ) );
 		m_ef_zero->SetScaling ( VEC2 ( 2, 2 ) );
 		AddpTask ( m_ef_zero );
@@ -38,6 +39,7 @@ namespace GAME
 		m_ef_siki = std::make_shared < GameGraphic > ();
 		m_ef_siki->AddTexture_FromArchive ( U"Chara\\Tsukihibosi\\siki.png" );
 		m_ef_siki->SetPos ( VEC2 ( 1280 - 320, 960 - 320 ) );
+		m_ef_siki->SetZ ( Z_EFF );
 		m_ef_siki->SetScalingCenter ( VEC2 ( 320, 320 ) );
 		m_ef_siki->SetScaling ( VEC2 ( 2, 2 ) );
 		AddpTask ( m_ef_siki );
@@ -47,6 +49,7 @@ namespace GAME
 		m_ef_ninn = std::make_shared < GameGraphic > ();
 		m_ef_ninn->AddTexture_FromArchive ( U"Chara\\Tsukihibosi\\ninn.png" );
 		m_ef_ninn->SetPos ( VEC2 ( 0, 0 ) );
+		m_ef_ninn->SetZ ( Z_EFF );
 		m_ef_ninn->SetScalingCenter ( VEC2 ( 0, 0 ) );
 		m_ef_ninn->SetScaling ( VEC2 ( 2, 2 ) );
 		AddpTask ( m_ef_ninn );
@@ -56,6 +59,7 @@ namespace GAME
 		m_ef_jutu = std::make_shared < GameGraphic > ();
 		m_ef_jutu->AddTexture_FromArchive ( U"Chara\\Tsukihibosi\\jutu.png" );
 		m_ef_jutu->SetPos ( VEC2 ( 0, 960 - 320 ) );
+		m_ef_jutu->SetZ ( Z_EFF );
 		m_ef_jutu->SetScalingCenter ( VEC2 ( 0, 320 ) );
 		m_ef_jutu->SetScaling ( VEC2 ( 2, 2 ) );
 		AddpTask ( m_ef_jutu );

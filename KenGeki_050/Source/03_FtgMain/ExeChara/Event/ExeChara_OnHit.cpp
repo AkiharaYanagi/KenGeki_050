@@ -131,7 +131,6 @@ namespace GAME
 		{
 			m_pFtgGrp->StartVibration ( 10 );
 		}
-#endif // 0
 		if ( pSelf->GetCharaName () == CHARA_TSUKIHIBOSHI )
 		{
 			if ( pSelf->IsNameAction ( U"特大攻撃" ) )
@@ -139,6 +138,7 @@ namespace GAME
 				pSelf->StartAerial ();
 			}
 		}
+#endif // 0
 
 		//-------------------------------------------------
 		//ノックバック

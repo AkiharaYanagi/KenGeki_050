@@ -189,6 +189,26 @@ namespace GAME
 
 		//---------------------------------------------------
 		//スクロール背景
+
+		//フェードアウト 背景カラーを指定しているのでフェードは機能は手動
+		if ( m_scl_bg_time > 0 )
+		{
+			-- m_scl_bg_time;
+
+			//CoreではなくObのカラーを取得
+			_CLR clr = m_grpBG_scroll->GetpObject(0)->GetColor ();
+			if ( m_scl_bg_time == 0 )
+			{
+				clr.a = 1.0f;
+				m_grpBG_scroll->SetValid ( F );
+			}	
+			else
+			{
+				clr.a = (1.f / 8) * m_scl_bg_time;
+			}
+			m_grpBG_scroll->SetColor ( clr );
+		}
+
 		// G_BASE_POS()はゲーム位置
 		//画面表示位置に直す
 		if ( G_BASE_POS().y >= 1000 )
@@ -214,6 +234,27 @@ namespace GAME
 
 #endif // 0
 
+		//---------------------------------------------------
+		//曼荼羅
+		if ( m_mnd_bg_time > 0 )
+		{
+			-- m_mnd_bg_time;
+
+			//CoreではなくObのカラーを取得
+			_CLR clr = m_ef_mandara->GetpObject(0)->GetColor ();
+			if ( m_mnd_bg_time == 0 )
+			{
+				clr.a = 1.0f;
+				m_ef_mandara->SetValid ( F );
+			}	
+			else
+			{
+				clr.a = (1.f / 8) * m_mnd_bg_time;
+			}
+			m_ef_mandara->SetColor ( clr );
+		}
+
+
 
 		TASK_VEC::Move ();
 	}
@@ -226,7 +267,8 @@ namespace GAME
 	void FtgGrp::EndAerial ()
 	{
 		//m_grpBG_scroll->SetValid ( F );
-		m_grpBG_scroll->SetFadeOut ( 15 );
+		//m_grpBG_scroll->SetFadeOut ( 15 );
+		m_scl_bg_time = 8;		//フェードアウトスタート
 	}
 
 }	//namespace GAME
