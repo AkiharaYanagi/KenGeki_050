@@ -26,7 +26,7 @@ namespace GAME
 		PLAYER_ID	m_id { _PLAYER_NUM };	//プレイヤID
 
 		//保存用共通パラメータ
-		P_Param			m_pParam;
+		P_Param		m_pParam;
 
 		P_Grp		m_ch_stand_large;		//キャラ立ち絵(大)1p/2p
 		P_Grp		m_ch_stand_small;		//キャラ立ち絵(小)1p/2p
@@ -39,16 +39,7 @@ namespace GAME
 		float		m_vx { 0 };
 		float		m_start_x { 0 };
 
-#if 0
-
-		P_Grp		m_ch_name;		//キャラ名前
-		float		m_angle0 { 0 };
-		float		m_omega { 0 };
-		float		m_theta { 0 };	//名前表示必要角度
-		float		m_angle1 { 0 };
-
-#endif // 0
-		//キャラ名前
+		//キャラ名前表示（円形）
 		P_ChSl_Nm	m_name;
 
 	public:

@@ -15,6 +15,7 @@
 namespace GAME
 {
 
+	const int CharaSele_Stand::CH_NUM = 6;	//表示キャラ数
 
 	const std::array < CHARA_NAME, CHARA_NAME_COUNT > CharaSele_Stand::chara_name =
 	{
@@ -81,9 +82,7 @@ namespace GAME
 
 	void CharaSele_Stand::Next_Chara ()
 	{
-		const int N = 5;
-
-		if ( N <= m_selectedIndex + 1 )
+		if ( CH_NUM <= m_selectedIndex + 1 )
 		{
 			m_selectedIndex = 0;
 		}
@@ -100,11 +99,9 @@ namespace GAME
 
 	void CharaSele_Stand::Prev_Chara ()
 	{
-		const int N = 5;
-
 		if ( m_selectedIndex < 1 )
 		{
-			m_selectedIndex = N - 1;
+			m_selectedIndex = CH_NUM - 1;
 		}
 		else
 		{

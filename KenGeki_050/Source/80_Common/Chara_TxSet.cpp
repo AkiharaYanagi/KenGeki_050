@@ -42,8 +42,6 @@ namespace GAME
 		
 		//=============================================================================================
 		//キャラセレ全身
-//		(*m_gridTxFullBody)[CH_CLR_1][CHARA_TEST] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
-//		(*m_gridTxFullBody)[CH_CLR_2][CHARA_TEST] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxFullBody)[CH_CLR_1][CHARA_OUKA] = TxUtl::MakeTx_FromArchive ( U"FullBody\\Stand_Ouka.png" );
 		(*m_gridTxFullBody)[CH_CLR_2][CHARA_OUKA] = TxUtl::MakeTx_FromArchive ( U"FullBody\\Stand_Ouka_2p.png" );
 		(*m_gridTxFullBody)[CH_CLR_1][CHARA_SAE] = TxUtl::MakeTx_FromArchive ( U"FullBody\\Stand_Sae.png" );
@@ -64,14 +62,10 @@ namespace GAME
 		(*m_gridTxFullBody)[CH_CLR_2][CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxFullBody)[CH_CLR_1][CHARA_ENEMY_ZERO] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxFullBody)[CH_CLR_2][CHARA_ENEMY_ZERO] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
-//		(*m_gridTxFullBody)[CH_CLR_1][CHARA_RANDUM] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
-//		(*m_gridTxFullBody)[CH_CLR_2][CHARA_RANDUM] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 
 
 		//=============================================================================================
 		//立絵
-//		(*m_gridTxStand)[CH_CLR_1][CHARA_TEST] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
-//		(*m_gridTxStand)[CH_CLR_2][CHARA_TEST] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxStand)[CH_CLR_1][CHARA_OUKA] = TxUtl::MakeTx_FromArchive ( U"Stand\\o1.png" );
 		(*m_gridTxStand)[CH_CLR_2][CHARA_OUKA] = TxUtl::MakeTx_FromArchive ( U"Stand\\o2.png" );
 		(*m_gridTxStand)[CH_CLR_1][CHARA_SAE] = TxUtl::MakeTx_FromArchive ( U"Stand\\s1.png" );
@@ -82,8 +76,8 @@ namespace GAME
 		(*m_gridTxStand)[CH_CLR_2][CHARA_GYAVADARUGA] = TxUtl::MakeTx_FromArchive ( U"Stand\\g2.png" );
 		(*m_gridTxStand)[CH_CLR_1][CHARA_FERARIA] = TxUtl::MakeTx_FromArchive ( U"Stand\\f1.png" );
 		(*m_gridTxStand)[CH_CLR_2][CHARA_FERARIA] = TxUtl::MakeTx_FromArchive ( U"Stand\\f2.png" );
-		(*m_gridTxStand)[CH_CLR_1][CHARA_TSUKIHIBOSHI] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
-		(*m_gridTxStand)[CH_CLR_2][CHARA_TSUKIHIBOSHI] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxStand)[CH_CLR_1][CHARA_TSUKIHIBOSHI] = TxUtl::MakeTx_FromArchive ( U"Stand\\t1.png" );
+		(*m_gridTxStand)[CH_CLR_2][CHARA_TSUKIHIBOSHI] = TxUtl::MakeTx_FromArchive ( U"Stand\\t2.png" );
 		(*m_gridTxStand)[CH_CLR_1][CHARA_REINA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxStand)[CH_CLR_2][CHARA_REINA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxStand)[CH_CLR_1][CHARA_KISHI] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
@@ -92,8 +86,6 @@ namespace GAME
 		(*m_gridTxStand)[CH_CLR_2][CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxStand)[CH_CLR_1][CHARA_ENEMY_ZERO] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxStand)[CH_CLR_2][CHARA_ENEMY_ZERO] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
-//		(*m_gridTxStand)[CH_CLR_1][CHARA_RANDUM] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
-//		(*m_gridTxStand)[CH_CLR_2][CHARA_RANDUM] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 
 
 		//=============================================================================================
@@ -103,7 +95,7 @@ namespace GAME
 		(*m_aryTxName)[CHARA_RETSUDOU] = TxUtl::MakeTx_FromArchive		( U"CharaSele\\Name\\CharaSele_Name_RETSU.png" );
 		(*m_aryTxName)[CHARA_GYAVADARUGA] = TxUtl::MakeTx_FromArchive	( U"CharaSele\\Name\\CharaSele_Name_GYAVA.png" );
 		(*m_aryTxName)[CHARA_FERARIA] = TxUtl::MakeTx_FromArchive		( U"CharaSele\\Name\\CharaSele_Name_FERA.png" );
-		(*m_aryTxName)[CHARA_TSUKIHIBOSHI] = TxUtl::MakeTx_FromArchive	( U"dummy.png" );
+		(*m_aryTxName)[CHARA_TSUKIHIBOSHI] = TxUtl::MakeTx_FromArchive	( U"CharaSele\\Name\\CharaSele_Name_TSUKI.png" );
 		(*m_aryTxName)[CHARA_REINA] = TxUtl::MakeTx_FromArchive			( U"dummy.png" );
 		(*m_aryTxName)[CHARA_KISHI] = TxUtl::MakeTx_FromArchive			( U"dummy.png" );
 		(*m_aryTxName)[CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive		( U"dummy.png" );

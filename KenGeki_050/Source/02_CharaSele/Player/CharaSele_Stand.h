@@ -60,6 +60,7 @@ namespace GAME
 
 #pragma region CONST
 	private:
+		const static int CH_NUM;
 		const static std::array < CHARA_NAME, CHARA_NAME_COUNT > chara_name;
 
 

@@ -23,20 +23,6 @@ namespace GAME
 		m_ch_stand_small = MakepGrp ( Z_BG - 0.01f );
 
 		//キャラ名前
-#if 0
-
-		m_ch_name = MakepGrp ();
-		//m_C2	 ->SetZ ( Z_EFB - 0.01f * (int)Z_C2 );
-		m_ch_name->SetZ ( Z_EFB - 0.01f * 3 + 0.005f );	//Z値はGRPLST_INSERTより先
-		GRPLST_INSERT ( m_ch_name );
-
-	//	m_ch_name->SetColor ( 0xff0000ff );
-
-		m_ch_name->AddObject ();
-		P_Ob pob = m_ch_name->GetpObject(1);
-		pob->SetColor ( 0xffa0a0a0 );
-
-#endif // 0
 		m_name = std::make_shared < CharaSele_Name > ();
 		AddpTask ( m_name );
 
@@ -44,24 +30,6 @@ namespace GAME
 		m_base_y = 70;
 		m_vx = 20;
 		m_start_x = 140;
-
-#if 0
-
-		m_theta = 1.9f;
-		m_angle0 = 0;
-		m_angle1 = 0 - m_theta;
-
-		//test
-		m_test = std::make_shared < GameGraphic > ();
-		AddpTask ( m_test );
-		GRPLST_INSERT ( m_test );
-		m_test->SetColor ( _CLR(0xffff0080) );
-//		m_test->AddTexture_FromArchive ( U"Name\\CharaSele_Name_OUKA.png" );
-		m_test->AddTexture ();
-		m_test->AddObject ();
-		m_test->GetpObject(1)->SetColor ( _CLR(0xff00ff00) );
-
-#endif // 0
 	}
 
 	P_Grp CharaSele_CharaGrp::MakepGrp ( float z )
@@ -98,61 +66,14 @@ namespace GAME
 			m_ch_stand_large->SetPos ( m_base_x, m_base_y );
 			m_ch_stand_small->SetPos ( m_base_x, 200 );
 
-#if 0
-			m_ch_name->SetPos ( 0 - 0.5f - 715 / 2, 960 + 0.5f -36 - 715 / 2 );
-			m_ch_name->SetRotationCenter ( VEC2 { - 0.5f + 715 / 2, 0.5f + 715 / 2 } );
-			P_Ob pob = m_ch_name->GetpObject(1);
-			pob->SetPos ( 0 - 0.5f - 715 / 2, 960 + 0.5f -36 - 715 / 2 );
-			pob->SetRotationCenter ( VEC2 { 0.5f + 715 / 2, 0.5f + 715 / 2 } );
-			AngleInit ( CHARA_OUKA );
-#endif // 0
-
-
 			m_ch_stand_large->SetScaling ( -1.f, 1.f );
 			m_ch_stand_small->SetScaling ( -1.f, 1.f );
-
-
-#if 0
-
-			m_test->SetPos ( 200,200 );
-			P_Ob pob_test = m_test->GetpObject(1);
-			pob_test->SetPos ( 200, 300 );
-			m_test->SetRotationCenter ( VEC2 { - 0.5f + 715 / 2, 0.5f + 715 / 2 } );
-			P_Ob pob_test = m_test->GetpObject(1);
-			pob_test->SetPos ( 0 - 0.5f - 715 / 2, 960 + 0.5f -36 - 715 / 2 );
-			pob_test->SetRotationCenter ( VEC2 { 0.5f + 715 / 2, 0.5f + 715 / 2 } );
-
-#endif // 0
 		}
 		else if ( PLAYER_ID_2 == m_id )
 		{
 			m_base_x = 1280 - 700;
 			m_ch_stand_large->SetPos ( m_base_x, m_base_y );
 			m_ch_stand_small->SetPos ( m_base_x, 200 );
-#if 0
-
-			m_ch_name->SetPos ( 1280 + 0.5f - 715 / 2, 960 + 0.5f -36 - 715 / 2 );
-			m_ch_name->SetRotationCenter ( VEC2 { 0.5f + 715 / 2, 0.5f + 715 / 2 } );
-			P_Ob pob = m_ch_name->GetpObject(1);
-			pob->SetPos ( 1280 + 0.5f - 715 / 2, 960 + 0.5f -36 - 715 / 2 );
-			pob->SetRotationCenter ( VEC2 { 0.5f + 715 / 2, 0.5f + 715 / 2 } );
-
-			AngleInit ( CHARA_SAE );
-
-#endif // 0
-
-#if 0
-			m_test->SetPos ( 1000,200 );
-			P_Ob pob_test = m_test->GetpObject(1);
-			pob_test->SetPos ( 1000, 300 );
-
-			m_test->SetPos ( 1280 + 0.5f - 715 / 2, 960 + 0.5f -36 - 715 / 2 );
-			m_test->SetRotationCenter ( VEC2 { 0.5f + 715 / 2, 0.5f + 715 / 2 } );
-			P_Ob pob_test = m_test->GetpObject(1);
-			pob_test->SetPos ( 1280 + 0.5f - 715 / 2, 960 + 0.5f -36 - 715 / 2 );
-			pob_test->SetRotationCenter ( VEC2 { 0.5f + 715 / 2, 0.5f + 715 / 2 } );
-
-#endif // 0
 		}
 		TASK_VEC::Init ();
 
