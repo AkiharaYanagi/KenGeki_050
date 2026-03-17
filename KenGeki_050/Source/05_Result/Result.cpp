@@ -103,24 +103,17 @@ namespace GAME
 
 
 		//勝利メッセージ
-#if 0
-		m_win_msg = std::make_shared < GrpStr > ();
-		m_win_msg->SetPos ( MSG_X, MSG_Y );
-		m_win_msg->SetSize ( G_Font::SIZE_40 );
-		AddpTask ( m_win_msg );
-		GRPLST_INSERT ( m_win_msg );
-#endif // 0
 		m_win_msg = MakepStr ( MSG_X, MSG_Y );
 
 		//@info size40で22文字で枠内
 		m_msg.assign ( U"勝利メッセージのテスト。\n改行" );
-
 
 		m_ch_msg.emplace ( CHARA_OUKA,			U"鵯 桜花：\n花ひらいて雨風多し\n人、生きては別離たる");
 		m_ch_msg.emplace ( CHARA_SAE,			U"巴 紗絵：\nそれでおしまい？　\nもっと本気だしてよ♪");
 		m_ch_msg.emplace ( CHARA_RETSUDOU,		U"烈火 烈堂：\n本当に良い刀ってのは鞘に入ってるもんだぜ･･･");
 		m_ch_msg.emplace ( CHARA_GYAVADARUGA,	U"ギャバダルガ：\n牙が無ぇ奴に生きる資格はねぇ!!!!\n血の滾り！マグマより熱く!!");
 		m_ch_msg.emplace ( CHARA_FERARIA,		U"フェラリア：\nキミはフェラリアに勝てない　フェラリアは負けない\nあはは♪ざぁ～こざぁ～こ！　\n");
+		m_ch_msg.emplace ( CHARA_TSUKIHIBOSHI,	U"月日星：\n次の対象に移動する\n");
 
 
 		//終了タイマ
@@ -180,22 +173,21 @@ namespace GAME
 
 	void Result::ParamInit ()
 	{
+		//共通パラメータ取得
 		P_Param pParam = Scene::GetpParam ();
 		GameSettingFile & stg = pParam->GetGameSetting ();
 		Prm_Result & rPrmRslt = pParam->GetPrmResult ();
 
-		PLAYER_ID win_player_id = rPrmRslt.GetWinner ();
-		CHARA_NAME name = stg.GetCharaName ( win_player_id );
-		CHARA_COLOR clr = stg.GetCharaColor ( win_player_id );
-
-
 		//test
 		//name = CHARA_FERARIA;
 		//name = CHARA_GYAVADARUGA;
+		stg.SetCharaName ( PLAYER_ID_1, CHARA_TSUKIHIBOSHI );
 
-		//stg.SetCharaName ( win_player_id, name );
-//		rPrmRslt.SetWinner ( PLAYER_ID_2 );
 
+		//勝利キャラ取得
+		PLAYER_ID win_player_id = rPrmRslt.GetWinner ();
+		CHARA_NAME name = stg.GetCharaName ( win_player_id );
+		CHARA_COLOR clr = stg.GetCharaColor ( win_player_id );
 
 		//キャラ
 		m_chTxSet = pParam->GetpChara_TxSet ();
