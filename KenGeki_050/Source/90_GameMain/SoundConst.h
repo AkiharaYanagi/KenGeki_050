@@ -27,6 +27,7 @@ namespace GAME
 	constexpr char32_t BGM_RETSU []		= U"03_BGM_RETSU.wav";
 	constexpr char32_t BGM_ENEMY0 []	= U"04_BGM_ENEMY0.wav";
 	constexpr char32_t BGM_FERA []		= U"05_BGM_FERA.wav";
+	constexpr char32_t BGM_TSUKI []		= U"06_BGM_TSUKI.wav";
 	constexpr char32_t BGM_Title []		= U"10_BGM_Title.wav";
 	constexpr char32_t BGM_CharaSele []	= U"11_BGM_CharaSele.wav";
 	constexpr char32_t BGM_Result []	= U"12_BGM_Result.wav";
@@ -41,6 +42,7 @@ namespace GAME
 		BGM_ID_SAE,
 		BGM_ID_RETSU,
 		BGM_ID_FERA,
+		BGM_ID_TSUKI,
 	};
 
 

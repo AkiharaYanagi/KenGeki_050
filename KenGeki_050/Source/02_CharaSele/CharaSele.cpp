@@ -133,11 +133,12 @@ namespace GAME
 		//BGM
 		m_bgmName = MakepGrp ( U"1_1_transparent.png", Z_EFF );
 		m_bgmName->SetPos ( 640 - 303.f/2, 2 );
-		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Gaba.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_GYAVA.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Ouka.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Sae.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Retsudou.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_FERARIA.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_TSUKI.png" );
 
 
 		//保存用共通パラメータ

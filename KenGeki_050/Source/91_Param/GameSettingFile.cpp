@@ -195,7 +195,8 @@ namespace GAME
 		case BGM_ID_GABA:	m_bgm_id = BGM_ID_OUKA; break;
 		case BGM_ID_OUKA:	m_bgm_id = BGM_ID_RETSU; break;
 		case BGM_ID_RETSU:	m_bgm_id = BGM_ID_FERA; break;
-		case BGM_ID_FERA:	m_bgm_id = BGM_ID_NONE; break;
+		case BGM_ID_FERA:	m_bgm_id = BGM_ID_TSUKI; break;
+		case BGM_ID_TSUKI:	m_bgm_id = BGM_ID_NONE; break;
 		}
 	}
 
@@ -203,11 +204,12 @@ namespace GAME
 	{
 		switch ( m_bgm_id  )
 		{
-		case BGM_ID_NONE:	m_bgm_id = BGM_ID_FERA; break;
+		case BGM_ID_NONE:	m_bgm_id = BGM_ID_TSUKI; break;
 		case BGM_ID_GABA:	m_bgm_id = BGM_ID_NONE; break;
 		case BGM_ID_OUKA:	m_bgm_id = BGM_ID_GABA; break;
 		case BGM_ID_RETSU:	m_bgm_id = BGM_ID_OUKA; break;
 		case BGM_ID_FERA:	m_bgm_id = BGM_ID_RETSU; break;
+		case BGM_ID_TSUKI:	m_bgm_id = BGM_ID_FERA; break;
 		}
 	}
 

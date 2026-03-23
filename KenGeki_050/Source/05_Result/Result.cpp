@@ -181,7 +181,7 @@ namespace GAME
 		//test
 		//name = CHARA_FERARIA;
 		//name = CHARA_GYAVADARUGA;
-		stg.SetCharaName ( PLAYER_ID_1, CHARA_TSUKIHIBOSHI );
+		//stg.SetCharaName ( PLAYER_ID_1, CHARA_TSUKIHIBOSHI );
 
 
 		//勝利キャラ取得
