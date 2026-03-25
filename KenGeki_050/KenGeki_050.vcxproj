@@ -172,6 +172,7 @@
     <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_Func.cpp" />
     <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_Load.cpp" />
     <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_Rect.cpp" />
+    <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_RefuseTaikou.cpp" />
     <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_Sound.cpp" />
     <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_Special.cpp" />
     <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_Transit.cpp" />

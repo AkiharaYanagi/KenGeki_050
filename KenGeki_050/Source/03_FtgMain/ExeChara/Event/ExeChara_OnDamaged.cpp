@@ -89,8 +89,10 @@ namespace GAME
 		}
 
 		//-------------------------------------------------
-		//★★★ 剣撃対抗 (打撃時にいずれかの入力で距離離し)
-		//-----------------------------------------------------
+		//★★★ 剣撃対抗 入力(打撃時にいずれかの入力で距離離し)
+		//		->内部処理はExeChara_Func.cpp
+		//-------------------------------------------------
+#if	0
 		//特定技のとき不成立
 		//超必殺技、剣撃走破
 		bool bOD = pOther->IsOverdrive ();
@@ -100,6 +102,13 @@ namespace GAME
 		bool bSouhaAirDash = pOther->IsNameAction ( U"剣撃走破_空中_ダッシュ" );
 
 		bool bRefuseTaikou = bOD || bSouha || bSouhaAir || bSouhaDash || bSouhaAirDash ;
+
+#endif //
+
+		//剣撃対抗は特定技のとき不成立
+		//T:成立しない, F:成立する
+		bool bRefuseTaikou = pOther->IsRefused_Taikou ();
+
 		if ( ! bRefuseTaikou )
 		{
 			//受付タイマをON

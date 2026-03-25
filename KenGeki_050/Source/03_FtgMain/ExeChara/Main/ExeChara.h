@@ -578,6 +578,11 @@ namespace GAME
 	public:
 		void RevertSlow ();
 #endif // 0
+
+
+		//剣撃対抗不可アクションの判定
+		bool IsRefused_Taikou () const;
+
 		
 		//メインイメージを同一Z値で先頭にする
 		void TopByZ () { m_dispChara->TopByZ (); }

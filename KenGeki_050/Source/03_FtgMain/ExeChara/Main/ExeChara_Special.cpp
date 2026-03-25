@@ -18,7 +18,6 @@
 namespace GAME
 {
 #if 0
-
 	const UINT32 ExeChara::CLR_LOOP [ 8 ] =
 	{
 		0xff0000ff,
@@ -30,8 +29,7 @@ namespace GAME
 		0xff4040ff,
 		0xff2020ff,
 	};
-
-#endif // 0
+	#endif // 0
 
 	//================================================
 	//	特殊アクション指定処理
@@ -96,7 +94,6 @@ namespace GAME
 				m_btlPrm.AddBalance ( 10 );	//剣撃ゲージプラス
 				m_btlPrm.AddMana ( 30 );	//超必殺プラス
 			}
-
 #endif // 0
 			m_btlPrm.AddBalance ( 10 );	//剣撃ゲージプラス
 			m_btlPrm.AddMana ( 10 );	//超必殺プラス
@@ -177,7 +174,6 @@ namespace GAME
 		if ( IsNameAction ( U"超雷電蹴_発生" ) )
 		{
 #if 0
-
 			//カットイン
 			if ( m_pScript->GetFrame () == 0 )
 			{
@@ -187,7 +183,6 @@ namespace GAME
 			{
 				m_testCutIn->SetValid ( F );
 			}
-
 #endif // 0
 
 			if ( m_pScript->Index.Is ( 1 ) )

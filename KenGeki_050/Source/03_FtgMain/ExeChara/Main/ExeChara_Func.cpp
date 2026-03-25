@@ -32,7 +32,9 @@ namespace GAME
 		//==========================================
 		//自分ノックバック処理
 		
+		//==========================================
 		//★★★ 剣撃対抗 (打撃時にいずれかの入力で距離離し)
+		//==========================================
 
 		P_ExeChara pOther =  m_pOther.lock();
 
@@ -40,6 +42,63 @@ namespace GAME
 		//バトルパラメータ入力
 		m_btlPrm.Move_Input ();
 
+		//----------------------------------------------------------
+		//特定技は剣撃対抗が不可能になる
+		// ->IsRefused_Taikou()に移項
+#if 0
+
+		//全キャラ投げ
+		if ( IsNameAction ( U"投げ発生") ) { return; }
+		if ( IsNameAction ( U"投げ成立0") ) { return; }
+
+		//特定キャラ
+		if ( m_name == CHARA_OUKA )
+		{
+		}
+		if ( m_name == CHARA_SAE )
+		{
+			if ( IsNameAction ( U"投げ成立1") ) { return; }
+			if ( IsNameAction ( U"投げ成立2") ) { return; }
+			if ( IsNameAction ( U"投げ成立3") ) { return; }
+			if ( IsNameAction ( U"投げ成立4") ) { return; }
+			if ( IsNameAction ( U"万雷弱派生") ) { return; }
+			if ( IsNameAction ( U"万雷弱派生_成立") ) { return; }
+			if ( IsNameAction ( U"万雷弱派生_起き上がり") ) { return; }
+		}
+		if ( m_name == CHARA_RETSUDOU )
+		{
+		}
+		if ( m_name == CHARA_GYAVADARUGA )
+		{
+		}
+		if ( m_name == CHARA_FERARIA )
+		{
+		}
+		if ( m_name == CHARA_TSUKIHIBOSHI )
+		{
+			//月日星の特定技
+			if ( IsNameAction ( U"小攻撃") )
+			{
+				uint32 i = m_pScript->Index.Get();
+				if ( 3 <= i && i <= 8 )
+				{ return; }
+			}
+			if ( IsNameAction ( U"中攻撃") )
+			{
+				uint32 i = m_pScript->Index.Get();
+				if ( 3 <= i && i <= 8 )
+				{ return; }
+			}
+			if ( IsNameAction ( U"大攻撃") )
+			{
+				uint32 i = m_pScript->Index.Get();
+				if ( 3 <= i && i <= 8 )
+				{ return; }
+			}
+		}
+
+#endif // 0
+		
 		//----------------------------------------------------------
 		// 向き
 
