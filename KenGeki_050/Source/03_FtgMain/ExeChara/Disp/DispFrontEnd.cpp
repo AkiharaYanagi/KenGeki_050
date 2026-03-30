@@ -53,58 +53,17 @@ namespace GAME
 
 	DispFrontEnd::DispFrontEnd ()
 	{
-#if 0
-
-		//ゲージ類
-
-		//ライフゲージ
-		m_gaugeLife = std::make_shared < DispGauge > ();
-		m_gaugeLife->SetPosition ( LIFE_GAUGE_X, LIFE_GAUGE_Y, LIFE_GAUGE_W, LIFE_GAUGE_H );
-		m_gaugeLife->SetPadding ( LIFE_GAUGE_P );
-		m_gaugeLife->SetZ ( Z_SHADOW );
-		m_gaugeLife->SetTextureName_Frame ( U"Battle\\gauge_life_frame_2p.png" );
-		m_gaugeLife->SetTextureName_Value ( U"Battle\\gauge_life_value_2p.png" );
-		m_gaugeLife->SetTextureName_Decrease ( U"Battle\\gauge_life_decrease_2p.png" );
-		m_gaugeLife->SetTextureName_White ( U"Battle\\gauge_life_white_2p.png" );
-//	m_gaugeLife->SetColor_Decrease ( LIFE_GAUGE_DECREASE_CLR );
-		m_gaugeLife->OnWhite ();
-		AddpTask ( m_gaugeLife );
-
-		//バランスゲージ
-		m_gaugeBalance = std::make_shared < DispGauge > ();
-		m_gaugeBalance->SetPosition ( BALANCE_GAUGE_X, BALANCE_GAUGE_Y, BALANCE_GAUGE_W, BALANCE_GAUGE_H );
-		m_gaugeBalance->SetPadding ( BALANCE_GAUGE_P );
-		m_gaugeBalance->SetZ ( Z_SHADOW );
-		m_gaugeBalance->SetTextureName_Frame ( U"Battle\\gauge_balance_frame.png" );
-		m_gaugeBalance->SetTextureName_Value ( U"Battle\\gauge_balance_value.png" );
-		m_gaugeBalance->OffDecrease ();
-		m_gaugeBalance->OffWhite ();
-		AddpTask ( m_gaugeBalance );
-
-		//マナゲージ
-		m_gaugeMana = std::make_shared < DispGauge > ();
-		m_gaugeMana->SetPosition ( MANA_GAUGE_X, MANA_GAUGE_Y, MANA_GAUGE_W, MANA_GAUGE_H );
-		m_gaugeMana->SetPadding ( MANA_GAUGE_P );
-		m_gaugeMana->SetZ ( Z_SYS );
-		m_gaugeMana->SetTextureName_Frame ( U"Battle\\gauge_mana_frame.png" );
-		m_gaugeMana->SetTextureName_Value ( U"Battle\\gauge_mana_value.png" );
-		m_gaugeMana->SetPadding ( MANA_GAUGE_P );
-		m_gaugeMana->OffDecrease ();
-		m_gaugeMana->OffWhite ();
-		AddpTask ( m_gaugeMana );
-
-		//アクセルゲージ
-		m_gaugeAccel = std::make_shared < DispAccel > ();
-		AddpTask ( m_gaugeAccel );
-
-
-#endif // 0
-
+		//-----------------------------------------
 		//顔
 		m_face = MakepGrp ( Z_SHADOW - 0.01f );
 
 		//名前
 		m_name = MakepGrp ( Z_SHADOW - 0.01f );
+
+
+
+		m_face->SetValid ( F );
+		m_name->SetValid ( F );
 
 
 		//-----------------------------------------
@@ -191,29 +150,6 @@ namespace GAME
 
 
 		//------------------------------------------------------
-#if 0
-
-
-		//アクション名
-		m_strAction = std::make_shared < GrpStr > ();
-		m_strAction->SetStr ( U"Action" );
-		m_strAction->SetZ ( Z_SYS );
-		m_strAction->SetSize ( G_Font::SIZE_40 );
-		m_strAction->SetColorF ( s3d::ColorF { 0.8f, 0.8f, 1.f, 1.f } );
-		AddpTask ( m_strAction );
-		GRPLST_INSERT ( m_strAction );
-
-		//ステート名
-		m_strState = std::make_shared < GrpStr > ();
-		m_strState->SetStr ( U"State" );
-		m_strState->SetZ ( Z_SYS );
-		m_strState->SetSize ( G_Font::SIZE_40 );
-		m_strState->SetColorF ( s3d::ColorF { 0.0f, 0.0f, 0.5f, 1.f } );
-		AddpTask ( m_strState );
-		GRPLST_INSERT ( m_strState );
-#endif // 0
-
-
 		s3d::ColorF clr_str { 0.8f, 0.8f, 2.f, 1.f };
 		//アクション名
 		m_strAction = MakepGrpStr ( U"Action", G_Font::SIZE_40, clr_str );
@@ -228,9 +164,6 @@ namespace GAME
 		m_strKenGeki = MakepGrpStr ( U"Kg", G_Font::SIZE_20, clr_gauge );
 		m_strHissatsu = MakepGrpStr ( U"CH", G_Font::SIZE_20, clr_gauge );
 		m_strAccel = MakepGrpStr ( U"AC", G_Font::SIZE_20, clr_gauge );
-
-
-
 	}
 
 	//グラフィック生成用

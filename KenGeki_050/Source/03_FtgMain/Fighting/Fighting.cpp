@@ -97,6 +97,9 @@ namespace GAME
 		AddpTask ( m_bgmName );
 		GRPLST_INSERT ( m_bgmName );
 
+		m_bgmName->SetValid ( F );		//初期値は非表示
+
+
 		//=====================================================
 		//ステート名
 		m_strState = std::make_shared < GrpStr > ();

@@ -37,6 +37,10 @@ namespace GAME
 		//超必殺技
 		if ( IsOverdrive () ) { return T; }
 
+		//足払い
+		if ( IsNameAction ( U"足払い初撃" ) ) { return T; }
+		if ( IsNameAction ( U"足払い追撃" ) ) { return T; }
+
 		//剣撃走破
 		if ( IsNameAction ( U"剣撃走破_地上_発生" ) ) { return T; }
 		if ( IsNameAction ( U"剣撃走破_空中_発生" ) ) { return T; }
@@ -50,11 +54,20 @@ namespace GAME
 
 
 		//特定キャラ
-		if ( m_name == CHARA_OUKA )
+		switch ( m_name )
 		{
-		}
-		if ( m_name == CHARA_SAE )
-		{
+
+		case CHARA_OUKA:
+
+			//EX
+			if ( IsNameAction ( U"空中昇竜発生") ) { return T; }
+			if ( IsNameAction ( U"空中昇竜落下") ) { return T; }
+			if ( IsNameAction ( U"空中昇竜着地") ) { return T; }
+
+		break;
+
+		case CHARA_SAE:
+
 			if ( IsNameAction ( U"投げ成立1") ) { return T; }
 			if ( IsNameAction ( U"投げ成立2") ) { return T; }
 			if ( IsNameAction ( U"投げ成立3") ) { return T; }
@@ -62,19 +75,43 @@ namespace GAME
 			if ( IsNameAction ( U"万雷弱派生") ) { return T; }
 			if ( IsNameAction ( U"万雷弱派生_成立") ) { return T; }
 			if ( IsNameAction ( U"万雷弱派生_起き上がり") ) { return T; }
-		}
-		if ( m_name == CHARA_RETSUDOU )
-		{
-		}
-		if ( m_name == CHARA_GYAVADARUGA )
-		{
-		}
-		if ( m_name == CHARA_FERARIA )
-		{
-		}
-		if ( m_name == CHARA_TSUKIHIBOSHI )
-		{
-			//月日星の特定技
+
+		break;
+
+
+		case CHARA_RETSUDOU:
+			if ( IsNameAction ( U"投げ成立") ) { return T; }
+
+		break;
+
+		case CHARA_GYAVADARUGA:
+
+			if ( IsNameAction ( U"大攻撃") ) { return T; }
+			if ( IsNameAction ( U"大攻撃2") ) { return T; }
+			if ( IsNameAction ( U"竜巻EX0") ) { return T; }
+			if ( IsNameAction ( U"竜巻EX1") ) { return T; }
+			if ( IsNameAction ( U"竜巻EX2") ) { return T; }
+			if ( IsNameAction ( U"昇竜投げ") ) { return T; }
+			if ( IsNameAction ( U"昇竜投げ成立") ) { return T; }
+			if ( IsNameAction ( U"昇竜投げ落下") ) { return T; }
+			if ( IsNameAction ( U"昇竜投げ着地") ) { return T; }
+			if ( IsNameAction ( U"半回転投げ") ) { return T; }
+			if ( IsNameAction ( U"半回転投げ成立") ) { return T; }
+
+		break;
+
+		case CHARA_FERARIA:
+
+		break;
+
+		case CHARA_TSUKIHIBOSHI:
+			if ( IsNameAction ( U"竜巻") ) { return T; }
+			if ( IsNameAction ( U"竜巻成立") ) { return T; }
+			if ( IsNameAction ( U"竜巻2") ) { return T; }
+			if ( IsNameAction ( U"空中必殺技発動") ) { return T; }
+			if ( IsNameAction ( U"空中必殺技着地") ) { return T; }
+			if ( IsNameAction ( U"空中必殺技成立") ) { return T; }
+
 			if ( IsNameAction ( U"小攻撃") )
 			{
 				uint32 i = m_pScript->Index.Get();
@@ -93,6 +130,9 @@ namespace GAME
 				if ( 3 <= i && i <= 8 )
 				{ return T; }
 			}
+		break;
+
+		default: return F;
 		}
 		
 		//どれにも当てはまらないとき、剣撃対抗成立
