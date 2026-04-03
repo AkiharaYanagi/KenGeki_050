@@ -61,9 +61,10 @@ namespace GAME
 		m_name = MakepGrp ( Z_SHADOW - 0.01f );
 
 
-
+#if 0
 		m_face->SetValid ( F );
 		m_name->SetValid ( F );
+#endif // 0
 
 
 		//-----------------------------------------
@@ -134,7 +135,8 @@ namespace GAME
 		//ダメージ
 		m_strDmg = std::make_shared < GrpStr > ();
 		m_strDmg->SetSize ( G_Font::SIZE_30 );
-		m_strDmg->SetZ ( Z_SYS - 0.01f );
+		//m_strDmg->SetZ ( Z_SYS - 0.01f );
+		m_strDmg->SetZ ( Z_EFB + 0.01f );
 		m_strDmg->SetValid ( F );
 		AddpTask ( m_strDmg );
 		GRPLST_INSERT ( m_strDmg );
@@ -143,7 +145,8 @@ namespace GAME
 		//補正
 		m_strRevise = std::make_shared < GrpStr > ();
 		m_strRevise->SetSize ( G_Font::SIZE_30 );
-		m_strRevise->SetZ ( Z_SYS - 0.01f );
+		//m_strRevise->SetZ ( Z_SYS - 0.01f );
+		m_strRevise->SetZ ( Z_EFB + 0.01f );
 		m_strRevise->SetValid ( F );
 		AddpTask ( m_strRevise );
 		GRPLST_INSERT ( m_strRevise );

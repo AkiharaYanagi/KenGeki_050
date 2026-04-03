@@ -85,19 +85,21 @@ namespace GAME
 		//------------------------------------------------
 		//BGM名
 		m_bgmName = std::make_shared < GameGraphic > ();
-		m_bgmName->AddTexture_FromArchive ( U"1_1_transparent.png" );
-		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_GYAVA.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_NoBGM.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_GYAVA.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Ouka.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Sae.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Retsudou.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_FERARIA.png" );
-		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_TSUKI.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_TSUKI.png" );
 		m_bgmName->SetPos ( VEC2 ( BGM_X, BGM_Y ) );
 		m_bgmName->SetZ ( Z_BG - 0.01f );
 		AddpTask ( m_bgmName );
 		GRPLST_INSERT ( m_bgmName );
 
+#if 0
 		m_bgmName->SetValid ( F );		//初期値は非表示
+#endif // 0
 
 
 		//=====================================================

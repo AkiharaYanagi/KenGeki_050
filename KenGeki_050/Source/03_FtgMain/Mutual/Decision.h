@@ -93,10 +93,16 @@ namespace GAME
 		void Apply_Offset ();
 
 		//相殺枠判定(中心付)
-		bool DcsOffset (P_CharaRect pcr1, P_CharaRect pcr2, VEC2 & center);
+		bool Overlap_Offset (P_CharaRect pcr1, P_CharaRect pcr2, VEC2 & center);
+
+		//特殊　ダッシュとEF　相殺枠判定(中心付)
+		bool Overlap_OffsetDashEf (P_CharaRect pcr1, P_CharaRect pcr2, VEC2 & center);
 
 		//エフェクトの相殺枠判定
 		void DcsOffsetEf ( PLP_ExEf plpExEf1, PLP_ExEf plpExEf2, P_CharaRect pCharaRect );
+
+		//ダッシュとエフェクトの相殺枠判定
+		bool DcsOffsetDashEf ( PLP_ExEf plpExEf1, P_CharaRect pCharaRect );
 
 		//エフェクトのヒット枠判定
 		bool DcsHitEf (PLP_ExEf plpExEf1, PV_RECT pvHRect2, P_ExeChara pHitChara, int & refPower);

@@ -27,8 +27,8 @@ namespace GAME
 	class CharaSele_Player_State	: public TASK_VEC
 	{
 	protected:
-		WP_ChSl			mwp_Main;
-		WP_ChSl_Plr_Actor		mwp_Actor;
+		WP_ChSl				mwp_Main;
+		WP_ChSl_Plr_Actor	mwp_Actor;
 
 	public:
 		CharaSele_Player_State ();
@@ -61,7 +61,11 @@ namespace GAME
 	//稼働状態
 	class ChSl_Plr_Stt_Active : public CharaSele_Player_State
 	{
+		//稼働移行時の１フレーム待ち
+		int32_t	m_wait { 0 };
+
 	public:
+		void Move ();
 		void Input ();
 	};
 	using P_ChSl_Plr_Stt_Active = std::shared_ptr < ChSl_Plr_Stt_Active >;

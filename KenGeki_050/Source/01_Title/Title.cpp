@@ -18,8 +18,10 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	const char32_t Title::Ver[] = U"ver 0.62";
+	//const char32_t Title::Ver[] = U"ver 0.62";
+	const char32_t Title::Ver[] = U"ver beta 0.63";
 #if 0
+//	ver 0.62	2026/03/20(金) 月日星ボイス追加＋修正
 //	ver 0.61	2026/03/20(金) リザルト修正
 //	ver 0.60	2026/03/19(木) 「月日星」プレイアブル
 //	--------------------------------------------------------------
@@ -225,24 +227,39 @@ namespace GAME
 		m_tmr_title_call->Move ();
 		if ( m_tmr_title_call->IsLast () )
 		{
-#if 0
-			LPCUSTR vc_name = VC_04_FERARIA_TITLE_CALL;
-
-#endif // 0
-			int rnd = s3d::Random ( 0, 4 );
+			const int N = 6;
+			int rnd = s3d::Random ( 0, N );
 			LPCUSTR vc_name = U"";
+
 			switch ( rnd )
 			{
 			case 0: vc_name = VC_00_SAE_TITLE_CALL; break;
 			case 1: vc_name = VC_01_RETSUDOU_TITLE_CALL; break;
 			case 2: vc_name = VC_02_OUKA_TITLE_CALL; break;
-			case 3: vc_name = VC_04_FERARIA_TITLE_CALL; break;
-			case 4: vc_name = VC_90_CONSOME_TITLE_CALL; break;
+			case 3: vc_name = VC_03_GAVA_TITLE_CALL; break;
+			case 4: vc_name = VC_04_FERARIA_TITLE_CALL; break;
+			case 5: vc_name = VC_05_TSUKI_TITLE_CALL; break;
+			case 6: vc_name = VC_90_CONSOME_TITLE_CALL; break;
 			}
 
 			s3d::AudioAsset::Wait ( vc_name );
 			AUD_PLAY_ONESHOT_VC ( vc_name );
-		}
+
+			//BGM
+			P_Param pPrm = GetpParam();
+			switch ( rnd )
+			{
+			case 0: pPrm->Set_BGM_ID ( BGM_ID_SAE  ); break;
+			case 1: pPrm->Set_BGM_ID ( BGM_ID_RETSU); break;
+			case 2: pPrm->Set_BGM_ID ( BGM_ID_OUKA ); break;
+			case 3: pPrm->Set_BGM_ID ( BGM_ID_GABA ); break;
+			case 4: pPrm->Set_BGM_ID ( BGM_ID_FERA ); break;
+			case 5: pPrm->Set_BGM_ID ( BGM_ID_TSUKI); break;
+			case 6: pPrm->Set_BGM_ID ( BGM_ID_GABA ); break;
+			}
+			SaveParam ();
+
+	}
 
 		//----------------------------------------------------------
 		//F9でデモ切替 (プレイヤーボタン：リセットでも切換)
@@ -296,79 +313,15 @@ namespace GAME
 
 	void Title::Input ()
 	{
-
-
 		//----------------------------------------------------------
 		//選択
 		if ( CFG_PUSH_KEY_12 ( PLY_LEFT ) )
 		{
-#if 0
-
-			switch ( m_to )
-			{
-			case TITLE_TO::BATTLE_1Pvs2P:
-				m_to = TITLE_TO::BATTLE_1PvsCPU;
-				m_item->SetIndexTexture ( 1 );
-			break;
-			case TITLE_TO::BATTLE_1PvsCPU:
-				m_to = TITLE_TO::BATTLE_CPUvs2P;
-				m_item->SetIndexTexture ( 2 );
-			break;
-			case TITLE_TO::BATTLE_CPUvs2P:
-				m_to = TITLE_TO::BATTLE_CPUvsCPU;
-				m_item->SetIndexTexture ( 3 );
-			break;
-			case TITLE_TO::BATTLE_CPUvsCPU:
-				m_to = TITLE_TO::TRAINING;
-				m_item->SetIndexTexture ( 4 );
-			break;
-			case TITLE_TO::TRAINING:
-				m_to = TITLE_TO::BATTLE_1Pvs2P;
-				m_item->SetIndexTexture ( 0 );
-			break;
-			default: break;
-			}
-			m_item_x -= 50;
-			m_item->SetPos ( VEC2 ( m_item_x, 960 - 200 ) );
-
-#endif // 0
-
 			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 			m_menu->Left ();
 		}
 		if ( CFG_PUSH_KEY_12 ( PLY_RIGHT ) )
 		{
-#if 0
-
-			switch ( m_to )
-			{
-			case TITLE_TO::BATTLE_1Pvs2P:
-				m_to = TITLE_TO::BATTLE_1PvsCPU;
-				m_item->SetIndexTexture ( 1 );
-			break;
-			case TITLE_TO::BATTLE_1PvsCPU:
-				m_to = TITLE_TO::BATTLE_CPUvs2P;
-				m_item->SetIndexTexture ( 2 );
-			break;
-			case TITLE_TO::BATTLE_CPUvs2P:
-				m_to = TITLE_TO::BATTLE_CPUvsCPU;
-				m_item->SetIndexTexture ( 3 );
-			break;
-			case TITLE_TO::BATTLE_CPUvsCPU:
-				m_to = TITLE_TO::TRAINING;
-				m_item->SetIndexTexture ( 4 );
-			break;
-			case TITLE_TO::TRAINING:
-				m_to = TITLE_TO::BATTLE_1Pvs2P;
-				m_item->SetIndexTexture ( 0 );
-			break;
-			default: break;
-			}
-			m_item_x += 50;
-			m_item->SetPos ( VEC2 ( m_item_x, 960 - 200 ) );
-
-#endif // 0
-
 			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 			m_menu->Right ();
 		}

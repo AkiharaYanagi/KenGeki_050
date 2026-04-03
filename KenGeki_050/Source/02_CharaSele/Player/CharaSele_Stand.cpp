@@ -146,6 +146,14 @@ namespace GAME
 		Assign ();
 	}
 
+	//カラー直接更新
+	void CharaSele_Stand::Assign_Color ( CHARA_COLOR clr )
+	{
+		GameSettingFile & stg = m_pParam->GetGameSetting ();
+		stg.SetCharaColor ( m_id, clr );
+		Assign ();
+	}
+
 
 	//グラフィックをパラメータに基づいて直接更新
 	void CharaSele_Stand::Assign ( CHARA_NAME name, CHARA_COLOR clr )

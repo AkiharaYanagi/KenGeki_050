@@ -223,18 +223,40 @@ namespace GAME
 		DcsOffsetEf (plpExEf1, plpExEf2, pCharaRect2p);		//p1からp2へのチェック
 		DcsOffsetEf (plpExEf2, plpExEf1, pCharaRect1p);		//p2からp1へのチェック
 
+
+		//ダッシュとEfの相殺チェック
+		bool dash1p = m_pExeChara1p->IsDash ();
+		bool offset_Dash1pEf2p = F;
+		if ( dash1p )
+		{
+			offset_Dash1pEf2p = DcsOffsetDashEf ( plpExEf2, pCharaRect1p );	//p2からp1へのチェック
+		}
+		bool dash2p = m_pExeChara2p->IsDash ();
+		bool offset_Dash2pEf1p = F;
+		if ( dash2p )
+		{
+			offset_Dash2pEf1p = DcsOffsetDashEf ( plpExEf1, pCharaRect2p );	//p1からp2へのチェック
+		}
+
+
 		//------------------------------------------------------
 		//エフェクトのヒットチェック
 		bool efHit1p = false;
 		bool efHit2p = false;
 
 		//p1からp2へのチェック
-		int powerEf1p = 0;
-		efHit2p = DcsHitEf ( plpExEf1, pvHRect2, m_pExeChara2p, powerEf1p );
+		if ( ! offset_Dash2pEf1p )
+		{
+			int powerEf1p = 0;
+			efHit2p = DcsHitEf ( plpExEf1, pvHRect2, m_pExeChara2p, powerEf1p );
+		}
 		
 		//p2からp1へのチェック	
-		int powerEf2p = 0;
-		efHit1p = DcsHitEf ( plpExEf2, pvHRect1, m_pExeChara1p, powerEf2p );
+		if ( ! offset_Dash1pEf2p )
+		{
+			int powerEf2p = 0;
+			efHit1p = DcsHitEf ( plpExEf2, pvHRect1, m_pExeChara1p, powerEf2p );
+		}
 
 
 		//------------------------------------------------------
@@ -260,8 +282,10 @@ namespace GAME
 
 //		m_bOffsetChara = DcsOffset ( pCharaRect1p, pCharaRect2p, center );
 //		m_bOffsetChara = offset_aa || offset_ao || offset_oa;
-		bool bOffset = offset_aa || offset_ao || offset_oa;
 
+		//bool bOffset = offset_aa || offset_ao || offset_oa;
+
+		bool bOffset = offset_aa || offset_ao || offset_oa;
 
 
 		//------------------------------------------------------
@@ -475,6 +499,22 @@ namespace GAME
 		DcsOffsetEf (plpExEf1, plpExEf2, pCharaRect2p);		//p1からp2へのチェック
 		DcsOffsetEf (plpExEf2, plpExEf1, pCharaRect1p);		//p2からp1へのチェック
 
+
+		//ダッシュとEfの相殺チェック
+		bool dash1p = m_pExeChara1p->IsDash ();
+		bool offst_DashEf1p = F;
+		if ( dash1p )
+		{
+			offst_DashEf1p = DcsOffsetDashEf ( plpExEf2, pCharaRect1p );	//p2からp1へのチェック
+		}
+		bool dash2p = m_pExeChara2p->IsDash ();
+		bool offst_DashEf2p = F;
+		if ( dash2p )
+		{
+			offst_DashEf2p = DcsOffsetDashEf ( plpExEf1, pCharaRect2p );	//p1からp2へのチェック
+		}
+
+
 		//------------------------------------------------------
 		//エフェクトのヒットチェック
 		bool efHit1p = false;
@@ -536,7 +576,7 @@ namespace GAME
 
 
 	//相殺枠判定(中心付)
-	bool Decision::DcsOffset (P_CharaRect pcr1, P_CharaRect pcr2, VEC2 & center)
+	bool Decision::Overlap_Offset (P_CharaRect pcr1, P_CharaRect pcr2, VEC2 & center)
 	{
 		//攻撃枠を取得
 		PV_RECT pvARect1 = pcr1->GetpvARect ();
@@ -558,6 +598,25 @@ namespace GAME
 		return false;
 	}
 
+	//特殊　ダッシュとEF　相殺枠判定(中心付)
+	bool Decision::Overlap_OffsetDashEf (P_CharaRect pcr1, P_CharaRect pcr2, VEC2 & center)
+	{
+		//pcr1 = エフェクト, pcr2 = ダッシュのやられ枠
+
+		//枠を取得
+		PV_RECT pvARect1 = pcr1->GetpvARect ();
+		PV_RECT pvHRect2 = pcr2->GetpvHRect ();
+
+		//------------------------------------------------------
+		//打合：Ef攻撃判定とダッシュやられ判定
+		if ( OverlapAryRect_Center (pvARect1, pvHRect2, center) )
+		{
+			return true;
+		}
+
+		return false;
+	}
+
 	//エフェクトの相殺枠判定
 	void Decision::DcsOffsetEf ( PLP_ExEf plpExEf1, PLP_ExEf plpExEf2, P_CharaRect pCharaRect )
 	{
@@ -569,7 +628,7 @@ namespace GAME
 			P_CharaRect pcref1 = pexef1->GetpCharaRect ();
 
 			//相手Chara
-			if (DcsOffset (pcref1, pCharaRect, centeref))
+			if (Overlap_Offset (pcref1, pCharaRect, centeref))
 			{
 				//打合時のエフェクト発生
 				m_efClang->On ( centeref );
@@ -583,7 +642,7 @@ namespace GAME
 			{
 				P_CharaRect pcref2 = pexef2->GetpCharaRect ();
 
-				if (DcsOffset (pcref1, pcref2, centeref))
+				if (Overlap_Offset (pcref1, pcref2, centeref))
 				{
 					//打合時のエフェクト発生
 					m_efClang->On ( centeref );
@@ -594,6 +653,34 @@ namespace GAME
 			}
 		}
 
+	}
+
+	//ダッシュとエフェクトの相殺枠判定
+	bool Decision::DcsOffsetDashEf ( PLP_ExEf plpExEf1, P_CharaRect pCharaRect )
+	{
+		VEC2 centeref = VEC2 (0, 0);
+
+		//エフェクトリストの相殺チェック
+		for (P_ExEf pexef1 : (*plpExEf1))
+		{
+			P_CharaRect pcref1 = pexef1->GetpCharaRect ();
+
+			//相手Chara特殊（ダッシュ相殺）
+			if (Overlap_OffsetDashEf (pcref1, pCharaRect, centeref))
+			{
+				//打合時のエフェクト発生(centerはここで取るのでOn())
+				m_efClang->On ( centeref );
+
+				//SE
+				AUD_PLAY_ONESHOT_SE ( SE_Btl_Clang );
+
+				//Efに相殺状態を設定
+				//pexef1->SetOffset (true);
+				return T;
+			}
+		}
+
+		return F;
 	}
 
 

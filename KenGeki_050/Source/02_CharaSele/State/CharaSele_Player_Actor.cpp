@@ -38,35 +38,6 @@ namespace GAME
 		m_ch_stand = std::make_shared < CharaSele_Stand > ();
 		AddpTask ( m_ch_stand );
 
-#if 0
-
-		//グラフィック
-		m_chara_pick_Back = MakepGrp ( U"CharaSele\\Pick\\CharaPick_Back.png" );
-		m_C2 = MakepGrp ( U"CharaSele\\Pick\\C2.png" );
-		m_chara_pick_Frame2 = MakepGrp ( U"CharaSele\\Pick\\CharaPick_Frame2.png" );
-		m_chara_pick_Clr = MakepGrp ( U"CharaSele\\Pick\\CharaPick_Clr.png" );
-		m_C1 = MakepGrp ( U"CharaSele\\Pick\\C1.png" );
-		m_C0 = MakepGrp ( U"CharaSele\\Pick\\C0.png" );
-		m_chara_pick_Frame0 = MakepGrp ( U"CharaSele\\Pick\\CharaPick_Frame0.png" );
-
-		m_chara_pick_Back	->SetZ ( Z_EFB - 0.01f * (int)Z_BACK );
-		m_C2				->SetZ ( Z_EFB - 0.01f * (int)Z_C2 );
-		m_chara_pick_Frame2	->SetZ ( Z_EFB - 0.01f * (int)Z_F2 );
-		m_chara_pick_Clr	->SetZ ( Z_EFB - 0.01f * (int)Z_Clr );
-		m_C1				->SetZ ( Z_EFB - 0.01f * (int)Z_C1 );
-		m_C0				->SetZ ( Z_EFB - 0.01f * (int)Z_C0 );
-		m_chara_pick_Frame0	->SetZ ( Z_EFB - 0.01f * (int)Z_F0 );
-
-		GRPLST_INSERT ( m_chara_pick_Back );
-		GRPLST_INSERT ( m_C2 );
-		GRPLST_INSERT ( m_chara_pick_Frame2 );
-		GRPLST_INSERT ( m_chara_pick_Clr );
-		GRPLST_INSERT ( m_C1 );
-		GRPLST_INSERT ( m_C0 );
-		GRPLST_INSERT ( m_chara_pick_Frame0 );
-
-#endif // 0
-
 		//選択枠
 		m_pickFrame = std::make_shared < CharaSele_PickFrame > ();
 		AddpTask ( m_pickFrame );
@@ -144,19 +115,16 @@ namespace GAME
 
 	void CharaSele_Player_Actor::Move ()
 	{
-		//移行時、入力を連続で見てしまうため１フレーム待つ
-		if ( m_wait > 0 )
-		{
-			m_wait = 0;
-			TASK_VEC::Move ();
-			return;
-		}
+		//各種ステートのMove()
+		m_state->Move ();
 
 		//各種ステートのInput()
 		m_state->Input ();
-		
+
 		TASK_VEC::Move ();
 	}
+
+#if 0
 
 	void CharaSele_Player_Actor::Input_CharaPick ()
 	{
@@ -175,12 +143,25 @@ namespace GAME
 			m_ch_face->Assign ( name );
 			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
+
 		//左右でカラー変更
 		if ( CFG_PUSH_KEY_PL ( m_input_id, PLY_LEFT ) )
 		{
-			m_ch_stand->Prev_Color ();
-			CHARA_COLOR clr = m_pParam->GetGameSetting ().GetCharaColor ( m_id );
-			m_ch_color->Assign ( clr );
+			//相手が決定済みなら残りのカラー
+			if ( mwp_Other.lock ()->Is_Decided () )
+			{
+				PLAYER_ID other_id = m_id == PLAYER_ID_1 ? PLAYER_ID_2 : PLAYER_ID_1;
+				CHARA_COLOR other_clr = m_pParam->GetGameSetting ().GetCharaColor ( other_id );
+				CHARA_COLOR my_clr = other_clr == CH_CLR_1 ? CH_CLR_2 : CH_CLR_1;
+				m_ch_stand->Assign ();	//変えずに決定
+				m_ch_color->Assign ( my_clr );
+			}
+			else
+			{
+				m_ch_stand->Prev_Color ();
+				CHARA_COLOR clr = m_pParam->GetGameSetting ().GetCharaColor ( m_id );
+				m_ch_color->Assign ( clr );
+			}
 			AUD_PLAY_ONESHOT_SE ( SE_select_move );
 		}
 		if ( CFG_PUSH_KEY_PL ( m_input_id, PLY_RIGHT ) )
@@ -196,10 +177,15 @@ namespace GAME
 		{
 			m_pParam->GetGameSetting().Save ();	//ファイルに保存
 
+			m_decide_wait = T;
 			Change_CharaPick_to_Decide ();
 			AUD_PLAY_ONESHOT_SE ( SE_select_decide );
 		}
 	}
+
+#endif // 0
+
+
 
 	void CharaSele_Player_Actor::Input_Menu ()
 	{
@@ -214,6 +200,8 @@ namespace GAME
 		}
 	}
 
+
+	//待機
 	void CharaSele_Player_Actor::Set_Wait ()
 	{
 		m_state = mp_sttWait;
@@ -221,14 +209,13 @@ namespace GAME
 		m_ch_color->Wait ();
 	}
 
+	//稼働
 	void CharaSele_Player_Actor::Set_Active ()
 	{
 		m_state = mp_sttActive;
-		m_wait = 1;
 		m_pickFrame->Start ();
 		m_ch_color->Active ();
 	}
-
 
 	//決定
 	void CharaSele_Player_Actor::Change_CharaPick_to_Decide ()
@@ -238,18 +225,7 @@ namespace GAME
 		m_pickFrame->Decide ();
 		m_ch_color->Decide ();
 
-		//決定後、反対側を操作するかどうか
-#if 0
-//		PLAYER_ID other_id = ( PLAYER_ID_1 == m_id ) ? PLAYER_ID_2: PLAYER_ID_1;
-//		PLAYER_ID input_id = mwp_Main.lock()->GetInputPlayer( other_id );
-		//反対側が待機状態なら入力受付開始
-		if ( mwp_Main.lock()->IsWait ( other_id ) )
-		{
-			 mwp_Main.lock()->StartInput ( other_id );
-		}
-#endif // 0
-
-		//反対側入力ID
+		//決定後、反対側入力IDに移行
 		PLAYER_ID input_id = mwp_Other.lock()->GetInputPlayer();
 		if ( input_id == m_id )
 		{
@@ -265,7 +241,6 @@ namespace GAME
 	void CharaSele_Player_Actor::Change_CharaPick_to_Menu ()
 	{
 		m_state = mp_sttMenu;
-
 		m_pickFrame->Decide ();
 	}
 
@@ -279,7 +254,113 @@ namespace GAME
 	}
 
 
+	void CharaSele_Player_Actor::Set_another_color ()
+	{
+		//自分の選択キャラと同じなら
+		if ( SameChara () )
+		{
+			//相手のカラーと異なる色を選択
+			CHARA_COLOR another_clr = Another_Color ();
+			m_ch_stand->Assign_Color ( another_clr );
+			m_ch_color->Assign ( another_clr );
+		}
+	}
 
+
+	//----------------------------------------------------------------
+	void CharaSele_Player_Actor::PrevChara ()
+	{
+		//キャラ選択・前
+		m_ch_stand->Prev_Chara ();
+		AssignChara ();
+	}
+
+	void CharaSele_Player_Actor::NextChara ()
+	{
+		//キャラ選択・次
+		m_ch_stand->Next_Chara ();
+		AssignChara ();
+	}
+
+	void CharaSele_Player_Actor::AssignChara ()
+	{
+		//パラメータに保存されたキャラを取得して顔グラに反映
+		CHARA_NAME name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
+		m_ch_face->Assign ( name );
+		AUD_PLAY_ONESHOT_SE ( SE_select_move );
+	}
+
+
+	//----------------------------------------------------------------
+	//カラー選択・前
+	void CharaSele_Player_Actor::PrevColor ()
+	{
+		//相手が決定済みなら残りのカラー
+		if ( mwp_Other.lock ()->Is_Decided () )
+		{
+			m_ch_stand->Assign_Color ( Another_Color () );	//更新
+		}
+		else
+		{
+			m_ch_stand->Prev_Color ();	//通常選択
+		}
+		AssignColor ();
+	}
+
+	//カラー選択・次
+	void CharaSele_Player_Actor::NextColor ()
+	{
+		//相手が決定済みなら残りのカラー
+		if ( mwp_Other.lock ()->Is_Decided () )
+		{
+			m_ch_stand->Assign_Color ( Another_Color () );	//更新
+		}
+		else
+		{
+			m_ch_stand->Next_Color ();	//通常選択
+		}
+		AssignColor ();
+	}
+
+	void CharaSele_Player_Actor::AssignColor ()
+	{
+		//パラメータに保存されたカラーを取得してカラー表示に反映
+		CHARA_COLOR clr = m_pParam->GetGameSetting ().GetCharaColor ( m_id );
+		m_ch_color->Assign ( clr );
+		AUD_PLAY_ONESHOT_SE ( SE_select_move );
+	}
+
+	CHARA_COLOR CharaSele_Player_Actor::Another_Color () const
+	{
+		PLAYER_ID other_id = m_id == PLAYER_ID_1 ? PLAYER_ID_2 : PLAYER_ID_1;
+		CHARA_COLOR other_clr = m_pParam->GetGameSetting ().GetCharaColor ( other_id );
+		return other_clr == CH_CLR_1 ? CH_CLR_2 : CH_CLR_1;
+	}
+
+	//----------------------------------------------------------------
+	void CharaSele_Player_Actor::Decide ()
+	{
+		m_pParam->GetGameSetting().Save ();	//ファイルに保存
+
+		//決定した瞬間、同キャラだったら色を変える
+		mwp_Other.lock ()->Set_another_color ();
+
+		//状態を移行
+		Change_CharaPick_to_Decide ();
+		AUD_PLAY_ONESHOT_SE ( SE_select_decide );
+	}
+
+	bool CharaSele_Player_Actor::SameChara () const
+	{
+		//自分のIDから相手のIDを取得
+		PLAYER_ID other_id = m_id == PLAYER_ID_1 ? PLAYER_ID_2 : PLAYER_ID_1;
+
+		//相手のキャラを取得
+		CHARA_NAME other_name = m_pParam->GetGameSetting ().GetCharaName ( other_id );
+		CHARA_NAME my_name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
+
+		return ( my_name == other_name );
+	}
 
 
 }	//namespace GAME

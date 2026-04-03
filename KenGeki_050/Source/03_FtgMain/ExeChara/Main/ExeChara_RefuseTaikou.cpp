@@ -101,7 +101,8 @@ namespace GAME
 		break;
 
 		case CHARA_FERARIA:
-
+			if ( IsNameAction ( U"カキャ・ムルチャ上昇") ) { return T; }
+			if ( IsNameAction ( U"カキャ・ムルチャEX上昇") ) { return T; }
 		break;
 
 		case CHARA_TSUKIHIBOSHI:

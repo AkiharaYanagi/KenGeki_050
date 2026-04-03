@@ -52,6 +52,9 @@ namespace GAME
 		void Next_Color ();
 		void Prev_Color ();
 
+		void Assign_Color ( CHARA_COLOR clr );
+
+
 		//グラフィックを直接指定
 		void Assign ( CHARA_NAME name, CHARA_COLOR clr );
 

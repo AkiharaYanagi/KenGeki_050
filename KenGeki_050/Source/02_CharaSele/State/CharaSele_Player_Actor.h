@@ -60,8 +60,9 @@ namespace GAME
 		P_ChSl_Fc				m_ch_face;		//キャラ顔
 		P_CharaSele_Color		m_ch_color;		//カラー
 
-		//待機移行時の１フレーム待ち
-		INT32	m_wait { 0 };
+		//決定時の１フレーム待ち
+		//bool	m_decide_wait { F };
+
 
 	public:
 		CharaSele_Player_Actor ();
@@ -99,8 +100,29 @@ namespace GAME
 		bool Is_Wait() const;
 		bool Is_Decided () const;
 
+		//----------------------------------------------------------------
+		//操作
+		void PrevChara ();
+		void NextChara ();
+		void AssignChara ();
+
+		//----------------------------------------------------------------
+		void PrevColor ();
+		void NextColor ();
+		void AssignColor ();
+		//相手が使っていない方のカラー
+		CHARA_COLOR Another_Color () const;
+		//----------------------------------------------------------------
+		void Decide ();
+
+		bool SameChara () const;
+
+
 	private:
 //		P_Grp MakepGrp ( const s3d::String & filename );
+
+		//相手の残りのカラー
+		void Set_another_color ();
 	};
 
 	using P_ChSl_Plr_Actor = std::shared_ptr < CharaSele_Player_Actor >;

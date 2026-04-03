@@ -30,41 +30,12 @@ namespace GAME
 
 
 		//開戦ボタン
-#if 0
-
-		m_center_button = std::make_shared < GameGraphic > ();
-		m_center_button->AddTexture_FromArchive ( U"CharaSele\\center_button.png" );
-		m_center_button->SetPos ( 640 - 435 / 2, 960 - 435 / 2 );
-		m_center_button->SetZ ( Z_SHADOW );
-		AddpTask ( m_center_button );
-		GRPLST_INSERT ( m_center_button );
-
-		m_KaiSen = std::make_shared < GameGraphic > ();
-		m_KaiSen->AddTexture_FromArchive ( U"CharaSele\\KaiSen.png" );
-		m_KaiSen->SetPos ( 640 - 198 / 2, 960 - 104 );
-		m_KaiSen->SetZ ( Z_EFF );
-		AddpTask ( m_KaiSen );
-		GRPLST_INSERT ( m_KaiSen );
-
-#endif // 0
 		m_center_button = MakepGrp ( U"CharaSele\\center_button.png", Z_SHADOW );
 		m_center_button->SetPos ( 640 - 435 / 2, 960 - 435 / 2 );
 		m_KaiSen = MakepGrp ( U"CharaSele\\KaiSen.png", Z_EFF );
 		m_KaiSen->SetPos ( 640 - 198 / 2, 960 - 104 );
 
-
 		//1P,2P,CPU表示
-#if 0
-
-		m_playerInput = std::make_shared < GameGraphic > ();
-		m_playerInput->AddTexture_FromArchive ( U"Player_1P.png" );
-		m_playerInput->AddTexture_FromArchive ( U"Player_2P.png" );
-		m_playerInput->AddTexture_FromArchive ( U"Player_CPU.png" );
-		m_playerInput->SetZ ( Z_EFF );
-		AddpTask ( m_playerInput );
-		GRPLST_INSERT ( m_playerInput );
-
-#endif // 0
 		m_playerInput = MakepGrp ( U"Player_1P.png", Z_EFF );
 		m_playerInput->AddTexture_FromArchive ( U"Player_2P.png" );
 		m_playerInput->AddTexture_FromArchive ( U"Player_CPU.png" );
@@ -90,20 +61,10 @@ namespace GAME
 		m_ob_input_2p->SetIndexTexture ( 1 );
 		m_ob_input_2p->SetPos ( VEC2 ( INPUT_2P_X, INPUT_Y ) );
 
-
 		m_input_pos->SetValid ( F );
 
 
 		//トレーニング表示
-#if 0
-		m_training = std::make_shared < GameGraphic > ();
-		m_training->AddTexture_FromArchive ( U"Title\\Training.png" );
-		m_training->SetPos ( 640 - 303.f * 0.5f, 320 );
-		m_training->SetZ ( Z_EFF );
-		AddpTask ( m_training );
-		GRPLST_INSERT ( m_training );
-		m_training->SetValid ( F );
-#endif // 0
 		m_training = MakepGrp ( U"Title\\Training.png", Z_EFF );
 		m_training->SetPos ( 640 - 303.f * 0.5f, 320 );
 		m_training->SetValid ( F );
@@ -131,14 +92,14 @@ namespace GAME
 
 
 		//BGM
-		m_bgmName = MakepGrp ( U"1_1_transparent.png", Z_EFF );
-		m_bgmName->SetPos ( 640 - 303.f/2, 2 );
+		m_bgmName = MakepGrp ( U"Battle\\BGM_NAME_main_NoBGM.png", Z_EFF );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_GYAVA.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Ouka.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Sae.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Retsudou.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_FERARIA.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_TSUKI.png" );
+		m_bgmName->SetPos ( 640 - 303.f/2, 2 );
 
 
 		//保存用共通パラメータ
@@ -208,7 +169,7 @@ namespace GAME
 			SwitchMode ();
 		}
 
-		BGM_ID bgm_id = m_pParam->GetGameSetting().GetBGM_ID ();
+		BGM_ID bgm_id = p->GetGameSetting().GetBGM_ID ();
 		m_bgmName->SetIndexTexture ( bgm_id );
 	}
 
@@ -326,7 +287,7 @@ namespace GAME
 		{
 			GameSettingFile& stg = m_pParam->GetGameSetting();
 			stg.NextBGM ();
-			m_bgmName->SetIndexTexture (stg.GetBGM_ID () );
+			m_bgmName->SetIndexTexture ( stg.GetBGM_ID () );
 
 			//BGMなし以外は再生開始
 			AUD_STOP_ALL_BGM ();
