@@ -224,19 +224,24 @@ namespace GAME
 		DcsOffsetEf (plpExEf2, plpExEf1, pCharaRect1p);		//p2からp1へのチェック
 
 
+		bool offset_Dash1pEf2p = F;
+		bool offset_Dash2pEf1p = F;
+#define DASH_EF_OFFSET_CHECK 0
+#if DASH_EF_OFFSET_CHECK
+
 		//ダッシュとEfの相殺チェック
 		bool dash1p = m_pExeChara1p->IsDash ();
-		bool offset_Dash1pEf2p = F;
 		if ( dash1p )
 		{
 			offset_Dash1pEf2p = DcsOffsetDashEf ( plpExEf2, pCharaRect1p );	//p2からp1へのチェック
 		}
 		bool dash2p = m_pExeChara2p->IsDash ();
-		bool offset_Dash2pEf1p = F;
 		if ( dash2p )
 		{
 			offset_Dash2pEf1p = DcsOffsetDashEf ( plpExEf1, pCharaRect2p );	//p1からp2へのチェック
 		}
+
+#endif // DASH_EF_OFFSET_CHECK
 
 
 		//------------------------------------------------------

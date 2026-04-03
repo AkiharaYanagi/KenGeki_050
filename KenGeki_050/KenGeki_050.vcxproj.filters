@@ -484,6 +484,9 @@
     <ClCompile Include="Source\03_FtgMain\ExeChara\Main\ExeChara_RefuseTaikou.cpp">
       <Filter>03_FtgMain\Fighting\ExeChara\Main</Filter>
     </ClCompile>
+    <ClCompile Include="Source\03_FtgMain\Ef\EfClangMlt.cpp">
+      <Filter>03_FtgMain\Ef</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -1419,6 +1422,9 @@
       <Filter>03_FtgMain</Filter>
     </ClInclude>
     <ClInclude Include="Source\03_FtgMain\Ef\EfString.h">
+      <Filter>03_FtgMain\Ef</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\03_FtgMain\Ef\EfClangMlt.h">
       <Filter>03_FtgMain\Ef</Filter>
     </ClInclude>
   </ItemGroup>
