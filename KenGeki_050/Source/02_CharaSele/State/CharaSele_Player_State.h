@@ -67,6 +67,7 @@ namespace GAME
 	public:
 		void Move ();
 		void Input ();
+		void Start () { m_wait = 0; }
 	};
 	using P_ChSl_Plr_Stt_Active = std::shared_ptr < ChSl_Plr_Stt_Active >;
 

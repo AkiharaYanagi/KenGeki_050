@@ -213,6 +213,8 @@ namespace GAME
 	void CharaSele_Player_Actor::Set_Active ()
 	{
 		m_state = mp_sttActive;
+		mp_sttActive->Start ();	//稼働移行時の１フレーム待ち開始
+
 		m_pickFrame->Start ();
 		m_ch_color->Active ();
 	}
@@ -342,7 +344,7 @@ namespace GAME
 	{
 		m_pParam->GetGameSetting().Save ();	//ファイルに保存
 
-		//決定した瞬間、同キャラだったら色を変える
+		//決定した瞬間、相手が同キャラだったら色を変える
 		mwp_Other.lock ()->Set_another_color ();
 
 		//状態を移行

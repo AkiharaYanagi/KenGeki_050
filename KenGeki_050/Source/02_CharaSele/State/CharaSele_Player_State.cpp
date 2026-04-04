@@ -36,23 +36,12 @@ namespace GAME
 	//---------------------------------------------------
 	void ChSl_Plr_Stt_Active::Move ()
 	{
-		//最初の１回
-		if ( m_wait > 0 )
-		{
-			m_wait = 0;
-
-			//稼働開始
-			mwp_Actor.lock ()->Set_Active ();
-		}
-
-		//１フレーム待機
-		++ m_wait;
 	}
 
 	void ChSl_Plr_Stt_Active::Input ()
 	{
 		//最初の１フレームは移行のための待ち
-		if ( m_wait == 0 ) { return; }
+		if ( m_wait == 0 ) { ++ m_wait; return; }
 
 
 		//入力処理

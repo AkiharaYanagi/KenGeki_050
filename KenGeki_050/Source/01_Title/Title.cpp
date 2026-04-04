@@ -19,7 +19,7 @@
 namespace GAME
 {
 	//const char32_t Title::Ver[] = U"ver 0.62";
-	const char32_t Title::Ver[] = U"ver beta 0.63";
+	const char32_t Title::Ver[] = U"ver beta3 - 0.63";
 #if 0
 //	ver 0.62	2026/03/20(金) 月日星ボイス追加＋修正
 //	ver 0.61	2026/03/20(金) リザルト修正
