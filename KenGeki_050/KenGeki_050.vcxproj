@@ -141,6 +141,7 @@
     <ClCompile Include="Source\02_CharaSele\State\CharaSele_Player_State.cpp" />
     <ClCompile Include="Source\03_FtgMain\Ef\EfClang.cpp" />
     <ClCompile Include="Source\03_FtgMain\Ef\EfClangMlt.cpp" />
+    <ClCompile Include="Source\03_FtgMain\Ef\EfClangSng.cpp" />
     <ClCompile Include="Source\03_FtgMain\Ef\EfHitLine.cpp" />
     <ClCompile Include="Source\03_FtgMain\Ef\EfKouAtsu.cpp" />
     <ClCompile Include="Source\03_FtgMain\Ef\EfSouha.cpp" />
@@ -446,6 +447,7 @@
     <ClInclude Include="Source\02_CharaSele\State\CharaSele_Player_State.h" />
     <ClInclude Include="Source\03_FtgMain\Ef\EfClang.h" />
     <ClInclude Include="Source\03_FtgMain\Ef\EfClangMlt.h" />
+    <ClInclude Include="Source\03_FtgMain\Ef\EfClangSng.h" />
     <ClInclude Include="Source\03_FtgMain\Ef\EfHitLine.h" />
     <ClInclude Include="Source\03_FtgMain\Ef\EfKouAtsu.h" />
     <ClInclude Include="Source\03_FtgMain\Ef\EfSouha.h" />
