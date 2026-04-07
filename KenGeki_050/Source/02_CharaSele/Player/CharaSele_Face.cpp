@@ -32,7 +32,7 @@ namespace GAME
 
 		//オブジェクト個数
 		m_grp->ClearObject ();	//クリア
-		for ( int i = 0; i < N; ++ i )
+		for ( int i = 0; i < CHARA_NUM; ++ i )
 		{
 			//追加
 			m_grp->AddObject ();
@@ -63,10 +63,10 @@ namespace GAME
 		//固定配置を計算
 		if ( PLAYER_ID_1 == m_id )
 		{
-			for ( int i = 0; i < N; ++ i )
+			for ( int i = 0; i < CHARA_NUM; ++ i )
 			{
 				const float start = - D3DX_PI / 4;		//開始角度
-				const float angle = - i * D3DX_PI_TWICE / N;	//個数分の角度
+				const float angle = - i * D3DX_PI_TWICE / CHARA_NUM;	//個数分の角度
 				const float x = 0 + radius * cosf ( start + angle );
 				const float y = 960 - 36  + radius * sinf ( start + angle );
 
@@ -87,10 +87,10 @@ namespace GAME
 		}
 		else if ( PLAYER_ID_2 == m_id )
 		{
-			for ( int i = 0; i < N; ++ i )
+			for ( int i = 0; i < CHARA_NUM; ++ i )
 			{
 				const float start = - 3 * D3DX_PI / 4;		//開始角度
-				const float angle = i * D3DX_PI_TWICE / N;	//個数分の角度
+				const float angle = i * D3DX_PI_TWICE / CHARA_NUM;	//個数分の角度
 				const float x = 1280 + radius * cosf ( start + angle );
 				const float y = 960 - 36  + radius * sinf ( start + angle );
 
@@ -111,7 +111,7 @@ namespace GAME
 
 		//各オブジェクトの位置を設定
 		float dir = (PLAYER_ID_1 == m_id) ? 1.f: -1.f;	//向き
-		for ( int i = 0; i < N; ++ i )
+		for ( int i = 0; i < CHARA_NUM; ++ i )
 		{
 			P_Ob pob = m_grp->GetpObject ( i );
 
@@ -209,14 +209,19 @@ namespace GAME
 
 	void CharaSele_Face::ResetPos ()
 	{
-		for ( int i = 0; i < N; ++ i )
+
+
+		//対象キャラと、前後をインデックスで指定に変更
+
+
+		for ( int i = 0; i < CHARA_NUM; ++ i )
 		{
 			int pos = 0;
 
 			//インデックスはi, 位置はm_pos_turn
 			if ( i < m_pos_turn )	//マイナス側のみチェック
 			{
-				pos = N + ( i - m_pos_turn );
+				pos = CHARA_NUM + ( i - m_pos_turn );
 			}
 			else
 			{

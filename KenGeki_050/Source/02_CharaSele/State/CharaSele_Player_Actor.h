@@ -121,6 +121,10 @@ namespace GAME
 	private:
 //		P_Grp MakepGrp ( const s3d::String & filename );
 
+
+		//相手が決定済み、同キャラなら残りのカラー
+		bool Is_Other_Decided_SameChara () const;
+
 		//相手の残りのカラー
 		void Set_another_color ();
 	};

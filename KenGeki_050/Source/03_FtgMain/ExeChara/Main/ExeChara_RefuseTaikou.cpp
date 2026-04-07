@@ -17,7 +17,7 @@ namespace GAME
 {
 	//剣撃対抗は特定技のとき不成立
 	//T:成立しない, F:成立する
-	bool ExeChara::IsRefused_Taikou () const
+	bool ExeChara::IsRefused_Taikou ()
 	{
 		//==========================================
 		//◆ 自分・攻撃 -> 相手・くらい
@@ -32,13 +32,41 @@ namespace GAME
 		// 
 		// 特定技は剣撃対抗が不成立
 		// 
-
+		//タイマ
+		P_Timer pTmrTkNG = m_btlPrm.GetTmr_TaikouNG ();
+		UINT chainHitNum = m_btlPrm.GetChainHitNum ();
 
 		//超必殺技
-		if ( IsOverdrive () ) { return T; }
+		if ( IsOverdrive () )
+		{
+			return T;
+		}
 
 		//足払い
-		if ( IsNameAction ( U"足払い初撃" ) ) { return T; }
+		if ( IsNameAction ( U"足払い初撃" ) )
+		{
+			//１ヒット目は剣撃対抗不可、２ヒット目以降は剣撃対抗可能
+			//連続ヒット中はオフ(初撃は０)
+			if ( chainHitNum > 0)
+			{
+				return F;
+			}
+
+			if ( pTmrTkNG->IsActive() )
+			{
+				//2回目はオフ
+				pTmrTkNG->Reset();
+				return F;
+			}
+			else
+			{
+				//１回目はオン
+				pTmrTkNG->Start ( 120 );
+				return T;
+			}
+
+		}
+
 		if ( IsNameAction ( U"足払い追撃" ) ) { return T; }
 
 		//剣撃走破
@@ -131,6 +159,40 @@ namespace GAME
 				if ( 3 <= i && i <= 8 )
 				{ return T; }
 			}
+
+			//１ヒット目は剣撃対抗不可、２ヒット目以降は剣撃対抗可能
+			if ( IsNameAction ( U"特大攻撃") )
+			{
+				//連続ヒット中はオフ(初撃は０)
+				if ( chainHitNum > 0)
+				{
+					return F;
+				}
+
+				if ( pTmrTkNG->IsActive() )
+				{
+					//2回目はオフ
+					pTmrTkNG->Reset();
+					return F;
+				}
+				else
+				{
+					//１回目はオン
+					pTmrTkNG->Start ( 120 );
+					return T;
+				}
+
+			}
+
+			//タイマチェック
+			if ( pTmrTkNG->IsActive() )
+			{
+				return T;
+			}
+			else
+			{
+			}
+
 		break;
 
 		default: return F;

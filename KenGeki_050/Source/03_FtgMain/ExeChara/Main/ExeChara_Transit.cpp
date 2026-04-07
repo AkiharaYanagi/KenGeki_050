@@ -354,6 +354,17 @@ namespace GAME
 			}
 		}
 
+		//-----------------------------------------------------
+		//全キャラ
+		if ( IsNameAction ( U"足払い初撃" ) )
+		{
+			UINT chainHitNum = m_btlPrm.GetChainHitNum ();
+			//連続ヒット中は浮かないようにする
+			if ( chainHitNum > 0 )
+			{
+				nameAction = U"強制ダウン落下";
+			}
+		}
 
 		//@info のけぞり時間を指定してある場合、相手に適用
 

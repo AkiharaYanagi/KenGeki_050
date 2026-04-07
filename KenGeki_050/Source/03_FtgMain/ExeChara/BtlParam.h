@@ -97,6 +97,7 @@ namespace GAME
 		P_Timer		m_tmrVib;			//個別振動タイマ
 		P_Timer		m_tmrOfstCncl;		//相殺キャンセルタイマ
 		P_Timer		m_tmrTaikou;		//剣撃対抗受付タイマ
+		P_Timer		m_tmrTaikouNG;		//相手・剣撃対抗不可タイマ
 
 		UINT	m_blackOut { 0 };		//暗転
 		UINT	m_scpStop { 0 };		//スクリプトからの停止
@@ -239,6 +240,7 @@ namespace GAME
 		P_Timer GetTmr_Lurch () { return m_tmrLurch; }
 		P_Timer GetTmr_OfstCncl () { return m_tmrOfstCncl; }
 		P_Timer GetTmr_Taikou () { return m_tmrTaikou; }
+		P_Timer GetTmr_TaikouNG () { return m_tmrTaikouNG; }
 
 		void AllTmr_Clear () { for ( P_Timer ptmr : m_timers ) { ptmr->Clear (); } }
 

@@ -275,6 +275,16 @@ namespace GAME
 		//キャラ選択・前
 		m_ch_stand->Prev_Chara ();
 		AssignChara ();
+
+		//移動してから
+		//相手が決定済み、同キャラなら残りのカラー
+		if ( Is_Other_Decided_SameChara () )
+		{
+			//違うカラーで直接更新
+			m_ch_stand->Assign_Color ( Another_Color () );	//更新
+			AssignColor ();
+		}
+
 	}
 
 	void CharaSele_Player_Actor::NextChara ()
@@ -282,6 +292,16 @@ namespace GAME
 		//キャラ選択・次
 		m_ch_stand->Next_Chara ();
 		AssignChara ();
+
+		//移動してから
+		//相手が決定済み、同キャラなら残りのカラー
+		if ( Is_Other_Decided_SameChara () )
+		{
+			//違うカラーで直接更新
+			m_ch_stand->Assign_Color ( Another_Color () );	//更新
+			AssignColor ();
+		}
+
 	}
 
 	void CharaSele_Player_Actor::AssignChara ()
@@ -297,9 +317,10 @@ namespace GAME
 	//カラー選択・前
 	void CharaSele_Player_Actor::PrevColor ()
 	{
-		//相手が決定済みなら残りのカラー
-		if ( mwp_Other.lock ()->Is_Decided () )
+		//相手が決定済み、同キャラなら残りのカラー
+		if ( Is_Other_Decided_SameChara () )
 		{
+			//違うカラーで直接更新
 			m_ch_stand->Assign_Color ( Another_Color () );	//更新
 		}
 		else
@@ -312,8 +333,8 @@ namespace GAME
 	//カラー選択・次
 	void CharaSele_Player_Actor::NextColor ()
 	{
-		//相手が決定済みなら残りのカラー
-		if ( mwp_Other.lock ()->Is_Decided () )
+		//相手が決定済み、同キャラなら残りのカラー
+		if ( Is_Other_Decided_SameChara () )
 		{
 			m_ch_stand->Assign_Color ( Another_Color () );	//更新
 		}
@@ -362,6 +383,13 @@ namespace GAME
 		CHARA_NAME my_name = m_pParam->GetGameSetting ().GetCharaName ( m_id );
 
 		return ( my_name == other_name );
+	}
+
+	bool CharaSele_Player_Actor::Is_Other_Decided_SameChara () const
+	{
+		bool bOtherDecided = mwp_Other.lock ()->Is_Decided ();
+		bool bSameChara = SameChara ();
+		return ( bOtherDecided && bSameChara );
 	}
 
 

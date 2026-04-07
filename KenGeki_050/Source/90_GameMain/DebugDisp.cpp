@@ -21,16 +21,16 @@ namespace GAME
 	//====================================================
 	//ゲーム内ウィンドウへのデバッグ表示切替
 
-	const bool g_bDEBUG_DISP = T;
-//	const bool g_bDEBUG_DISP = F;
+//	const bool g_bDEBUG_DISP = T;
+	const bool g_bDEBUG_DISP = F;
 	//====================================================
 
 
 	//====================================================
 	//デバッグ用コマンドプロンプト表示切替
 
-	const bool g_bCMDPRMPT_DISP = T;
-//	const bool g_bCMDPRMPT_DISP = F;
+//	const bool g_bCMDPRMPT_DISP = T;
+	const bool g_bCMDPRMPT_DISP = F;
 	//====================================================
 
 
@@ -45,8 +45,8 @@ namespace GAME
 	//====================================================
 	//カーソル位置のモニタの中心から開始
 
-	const bool g_bSTART_CURSOR_POS = T;
-//	const bool g_bSTART_CURSOR_POS = F;
+//	const bool g_bSTART_CURSOR_POS = T;
+	const bool g_bSTART_CURSOR_POS = F;
 	//====================================================
 
 

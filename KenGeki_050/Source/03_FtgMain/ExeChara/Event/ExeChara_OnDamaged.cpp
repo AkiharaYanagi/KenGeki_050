@@ -92,20 +92,8 @@ namespace GAME
 		//★★★ 剣撃対抗 入力(打撃時にいずれかの入力で距離離し)
 		//		->内部処理はExeChara_Func.cpp
 		//-------------------------------------------------
-#if	0
-		//特定技のとき不成立
-		//超必殺技、剣撃走破
-		bool bOD = pOther->IsOverdrive ();
-		bool bSouha = pOther->IsNameAction ( U"剣撃走破_地上_発生" );
-		bool bSouhaAir = pOther->IsNameAction ( U"剣撃走破_空中_発生" );
-		bool bSouhaDash = pOther->IsNameAction ( U"剣撃走破_地上_ダッシュ" );
-		bool bSouhaAirDash = pOther->IsNameAction ( U"剣撃走破_空中_ダッシュ" );
 
-		bool bRefuseTaikou = bOD || bSouha || bSouhaAir || bSouhaDash || bSouhaAirDash ;
-
-#endif //
-
-		//剣撃対抗は特定技のとき不成立
+		//剣撃対抗は特定技のとき不成立(ExeChara_RefuseTaikou.cpp)
 		//T:成立しない, F:成立する
 		bool bRefuseTaikou = pOther->IsRefused_Taikou ();
 
@@ -134,9 +122,12 @@ namespace GAME
 			VEC2 vel = btlPrmOhter.GetVel ();
 			VEC2 acc = btlPrmOhter.GetAcc ();
 			bool dir = btlPrmOhter.GetDirRight ();	//攻撃側の向き
-			bool br = dir && vel.x < 0; 
-			bool bl = ! dir && vel.x > 0; 
-			if ( br || bl )
+			//bool br = dir && vel.x < 0; 
+			//bool bl = ! dir && vel.x > 0; 
+			//if ( br || bl )
+			//@info パラメータvelは向きの無い大きさ、BtlPrmで位置計算時にdirを掛ける
+			// スクリプトの時点で vel.x < 0 なら後ろ向き
+			if ( vel.x < 0 && pOther->IsFloat() )
 			{
 				damage = ( int ) ( damage * 0.5f );
 			}

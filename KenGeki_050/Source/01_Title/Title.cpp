@@ -19,9 +19,11 @@
 namespace GAME
 {
 	//const char32_t Title::Ver[] = U"ver 0.62";
-	const char32_t Title::Ver[] = U"ver beta3 - 0.63";
+	const char32_t Title::Ver[] = U"ver beta1 0.64";
+
 #if 0
-//	ver 0.62	2026/03/20(金) 月日星ボイス追加＋修正
+//	ver 0.63	2026/04/04(土) 修正
+//	ver 0.62	2026/04/01(水) 月日星ボイス追加＋修正
 //	ver 0.61	2026/03/20(金) リザルト修正
 //	ver 0.60	2026/03/19(木) 「月日星」プレイアブル
 //	--------------------------------------------------------------
@@ -84,7 +86,12 @@ namespace GAME
 		m_strVer = std::make_shared < GrpStr > ();
 		m_strVer->SetPos ( 1280/2 - 40, 934 );
 		m_strVer->SetZ ( Z_MENU - 0.001f );
-		m_strVer->SetStr ( Ver );
+
+		std::ostringstream oss;
+		oss << "beta " << __DATE__ << " " << __TIME__;
+		m_strVer->SetStr ( Unicode::FromUTF8 ( oss.str().c_str() ) );
+		//m_strVer->SetStr ( Ver );
+
 		AddpTask ( m_strVer );
 		GRPLST_INSERT ( m_strVer );
 

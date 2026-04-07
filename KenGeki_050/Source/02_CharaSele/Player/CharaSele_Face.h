@@ -24,8 +24,9 @@ namespace GAME
 		PLAYER_ID	m_id { _PLAYER_NUM };
 		 
 		//配置個数
-		const static int N { 10 };
+		const static int CHARA_NUM { 10 };
 
+		//メイン画像
 		P_Grp		m_grp;
 
 		//位置保存
@@ -54,6 +55,18 @@ namespace GAME
 
 		void ResetPos ();
 		void Assign ( CHARA_NAME name );
+
+	private:
+		//選択位置からキャラ名
+		CHARA_NAME POS_CHARA;
+
+		//選択キャラ名から前後の表示用キャラ名
+		struct PN_CHARA
+		{
+			CHARA_NAME prev;
+			CHARA_NAME next;
+			CHARA_NAME next2;
+		};
 	};
 
 	using P_ChSl_Fc = std::shared_ptr < CharaSele_Face >;

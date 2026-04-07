@@ -130,6 +130,7 @@ namespace GAME
 		m_tmrOfstCncl =	std::make_shared < Timer > ();		//相殺キャンセルタイマ
 		m_tmrWhiteDamage = std::make_shared < Timer > ();	//白ダメージ
 		m_tmrTaikou		= std::make_shared < Timer > ();	//剣撃対抗受付タイマ
+		m_tmrTaikouNG		= std::make_shared < Timer > ();	//剣撃対抗受付タイマ
 
 		m_timers.push_back ( m_tmrHitstop );
 		m_timers.push_back ( m_tmrDown );
@@ -141,6 +142,9 @@ namespace GAME
 		m_timers.push_back ( m_tmrOfstCncl );
 		m_timers.push_back ( m_tmrWhiteDamage );
 		m_timers.push_back ( m_tmrTaikou );
+
+		//m_timers.push_back ( m_tmrTaikouNG );
+		//アクション終了時にクリアしない
 	}
 
 	void BtlParam::PosInit ()
@@ -217,6 +221,14 @@ namespace GAME
 
 	void BtlParam::TimerMove ()
 	{
+		if ( PLAYER_ID_1 == m_playerID )
+		{
+			DBGOUT_WND_F ( DBGOUT_5, U"TaikouNG = {}"_fmt(m_tmrTaikouNG->GetTime() ) );
+		}
+		//手動ムーブ
+		m_tmrTaikouNG->Move ();
+
+
 		for ( P_Timer ptmr : m_timers )
 		{
 			ptmr->Move ();
@@ -272,6 +284,9 @@ namespace GAME
 		m_reviseThrow = 1.f;
 		m_reviseOverDrive = 1.f;
 		m_confirmed_revise = 1.f;
+
+		//剣撃対抗不可
+		m_tmrTaikouNG->Reset ();
 	}
 
 

@@ -581,7 +581,7 @@ namespace GAME
 
 
 		//剣撃対抗不可アクションの判定
-		bool IsRefused_Taikou () const;
+		bool IsRefused_Taikou ();
 
 		
 		//メインイメージを同一Z値で先頭にする
