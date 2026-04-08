@@ -93,7 +93,8 @@ namespace GAME
 
 #pragma region CONST
 
-		static const char32_t Ver[];	//Version
+//		static const char32_t Ver[];	//Version
+
 		static const float BG_X;
 		static const float BG_Y;
 		static const float BG_VX;

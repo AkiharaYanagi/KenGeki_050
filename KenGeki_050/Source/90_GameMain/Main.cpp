@@ -64,10 +64,13 @@ void Load ()
 
 	//-------------------------------------
 	//デバッグ用コマンドプロンプト表示
+
+	//InitVersion ();	//バージョン初期化（日付＋時刻）
+
 	if ( g_bCMDPRMPT_DISP )
 	{
 		DebugOutPrint::OpenPrompt ();
-		PRINT_F_S ( U"start DebugOutPrint.\n" );
+		PRINT_F_S ( U"start DebugOutPrint.\n{}\n"_fmt( g_VERSION ) );
 	}
 
 	//-------------------------------------
