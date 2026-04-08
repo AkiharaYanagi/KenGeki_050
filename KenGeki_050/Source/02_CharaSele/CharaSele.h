@@ -99,6 +99,11 @@ namespace GAME
 
 		void SwitchMode ();
 
+		//両者同一キャラ同一カラーか
+		void PrimalColor1p2p ();	//カラー優先チェック
+		bool SameCharaSameColor () const;
+
+
 #pragma region CONST
 		static const uint32 FADE_IN_T;
 		static const uint32 FADE_OUT_T;

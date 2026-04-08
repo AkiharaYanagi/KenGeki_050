@@ -96,6 +96,7 @@ namespace GAME
 		void Set_Active ();
 		void Change_CharaPick_to_Decide ();
 		void Change_CharaPick_to_Menu ();
+		void Change_CharaPick_to_Active ();
 
 		bool Is_Wait() const;
 		bool Is_Decided () const;
@@ -112,9 +113,14 @@ namespace GAME
 		void AssignColor ();
 		//相手が使っていない方のカラー
 		CHARA_COLOR Another_Color () const;
+		//外部から指定
+		void SetColor ( CHARA_COLOR clr );
+
 		//----------------------------------------------------------------
 		void Decide ();
+		void Cancel ();
 
+	//----------------------------------------------------------------
 		bool SameChara () const;
 
 

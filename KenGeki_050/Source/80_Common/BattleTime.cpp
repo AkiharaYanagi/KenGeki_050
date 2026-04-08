@@ -125,7 +125,14 @@ namespace GAME
 
 	void BattleTime::Set ()
 	{
-		m_time = START_TIME; 
+		m_time = m_startTime;
+		SetTime ( m_time );
+	}
+
+	void BattleTime::SetTime ( int time )
+	{
+		m_time = time;
+		m_startTime = time;
 
 		//--------------------------
 		// バトルタイム

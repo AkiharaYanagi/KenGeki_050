@@ -9,6 +9,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "CharaSele_Player_State.h"
 #include "CharaSele_Player_Actor.h"
+#include "../../90_GameMain/SeConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -68,16 +69,29 @@ namespace GAME
 			mwp_Actor.lock ()->NextColor ();
 		}
 
-		//ボタンで決定
+		//ボタン1で決定
 		if ( CFG_PUSH_KEY_PL ( input_id, PLY_BTN0 ) )
 		{
 			mwp_Actor.lock ()->Decide ();
+		}
+
+		//ボタン2でキャンセル
+		if ( CFG_PUSH_KEY_PL ( input_id, PLY_BTN1 ) )
+		{
+			AUD_PLAY_ONESHOT_SE ( SE_select_Cancel );
 		}
 	}
 
 	//---------------------------------------------------
 	void ChSl_Plr_Stt_Decide::Input ()
 	{
+		PLAYER_ID input_id = mwp_Actor.lock ()->GetInputPlayer ();
+
+		//ボタン2でキャンセル
+		if ( CFG_PUSH_KEY_PL ( input_id, PLY_BTN1 ) )
+		{
+			mwp_Actor.lock ()->Cancel ();
+		}
 	}
 
 	//---------------------------------------------------

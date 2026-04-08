@@ -83,6 +83,7 @@ namespace GAME
 		//タイマ
 		m_battleTime = std::make_shared < BattleTime > ();
 		AddpTask ( m_battleTime );
+		m_battleTime->SetTime ( 600 );
 		m_battleTime->Start ();
 
 		m_battleTime->SetPos_BG ( VEC2 ( (1280 / 2) - (185 / 2), 10 ) );
@@ -142,6 +143,7 @@ namespace GAME
 	void CharaSele::ParamInit()
 	{
 		P_Param p = GetpParam ();
+		m_pParam = p;
 		m_stage->SetpParam ( p );
 		m_plrActor_1p->SetpParam ( p );
 		m_plrActor_2p->SetpParam ( p );
@@ -368,6 +370,10 @@ namespace GAME
 		{
 			if ( ! m_fade_toFighting->IsActive () )
 			{
+				//カラー優先チェック
+			PrimalColor1p2p ();
+
+				//強制決定
 				m_plrActor_1p->Change_CharaPick_to_Decide ();
 				m_plrActor_2p->Change_CharaPick_to_Decide ();
 				AUD_PLAY_ONESHOT_SE ( SE_Sys_Enter );
@@ -460,6 +466,41 @@ namespace GAME
 
 		//設定ファイルに書出
 		pPrm->GetGameSetting().Save ();
+	}
+
+	//カラー優先チェック
+	void CharaSele::PrimalColor1p2p ()
+	{
+		//両者同一キャラ同一カラーか(未決定のみ)
+		if ( SameCharaSameColor () )
+		{
+			GameSettingFile& stg = m_pParam->GetGameSetting();
+			CHARA_COLOR color1 = stg.GetCharaColor1p ();
+
+			//1p優先
+			CHARA_COLOR another_color = ( color1 == CH_CLR_1 ) ? CH_CLR_2 : CH_CLR_1;
+			m_plrActor_2p->SetColor ( another_color );
+		}
+	}
+
+	//両者同一キャラ同一カラーか
+	bool CharaSele::SameCharaSameColor () const
+	{
+		GameSettingFile& stg = m_pParam->GetGameSetting();
+
+		CHARA_NAME name1 = stg.GetCharaName1p ();
+		CHARA_NAME name2 = stg.GetCharaName2p ();
+		bool same_chara = ( name1 == name2 );
+
+		CHARA_COLOR color1 = stg.GetCharaColor1p ();
+		CHARA_COLOR color2 = stg.GetCharaColor2p ();
+		bool same_color = ( color1 == color2 );
+
+		if ( same_chara && same_color )
+		{
+			return T;
+		}
+		return F;
 	}
 
 

@@ -240,6 +240,52 @@ namespace GAME
 		
 	}
 
+	//キャンセル
+	void CharaSele_Player_Actor::Change_CharaPick_to_Active ()
+	{
+		m_state = mp_sttActive;
+
+		m_pickFrame->Start ();
+		m_ch_color->Active ();
+
+
+		//キャンセル後、必要なら反対側入力IDに移行
+		PLAYER_ID input_id = mwp_Other.lock()->GetInputPlayer();
+		const GameSettingFile stg = m_pParam->GetGameSetting ();
+
+		//プレイヤーによって表示と操作を設定
+		switch ( stg.GetMutchMode () )
+		{
+		//1p,2p両方操作
+		case MODE_PLAYER_PLAYER :
+			//両方とも自分の操作のみなので何もしない
+		break;
+
+		//1pのみ操作
+		case MODE_PLAYER_CPU:
+		case MODE_CPU_PLAYER:
+		case MODE_CPU_CPU:
+			//1pが2p側をキャンセルした場合
+			if ( input_id != m_id )
+			{
+				//自身を待機して相手側に移行
+				Set_Wait ();
+				mwp_Other.lock()->Set_Active ();
+			}
+			else
+			{
+				//1pが自身をキャンセルした場合
+				Set_Active ();
+			}
+		break;
+
+
+		case MODE_PLAYER_NETWORK:
+		break;
+
+		}
+	}
+
 	void CharaSele_Player_Actor::Change_CharaPick_to_Menu ()
 	{
 		m_state = mp_sttMenu;
@@ -357,7 +403,15 @@ namespace GAME
 	{
 		PLAYER_ID other_id = m_id == PLAYER_ID_1 ? PLAYER_ID_2 : PLAYER_ID_1;
 		CHARA_COLOR other_clr = m_pParam->GetGameSetting ().GetCharaColor ( other_id );
-		return other_clr == CH_CLR_1 ? CH_CLR_2 : CH_CLR_1;
+		return ( other_clr == CH_CLR_1 )? CH_CLR_2 : CH_CLR_1;
+	}
+
+	void CharaSele_Player_Actor::SetColor ( CHARA_COLOR clr )
+	{
+		m_ch_stand->Assign_Color ( clr );	//パラメータ更新
+
+		//パラメータに保存されたカラーを取得してカラー表示に反映
+		AssignColor ();
 	}
 
 	//----------------------------------------------------------------
@@ -373,6 +427,14 @@ namespace GAME
 		AUD_PLAY_ONESHOT_SE ( SE_select_decide );
 	}
 
+	void CharaSele_Player_Actor::Cancel ()
+	{
+		//状態を移行
+		Change_CharaPick_to_Active ();
+		AUD_PLAY_ONESHOT_SE ( SE_select_Cancel );
+	}
+
+	//----------------------------------------------------------------
 	bool CharaSele_Player_Actor::SameChara () const
 	{
 		//自分のIDから相手のIDを取得

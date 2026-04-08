@@ -37,8 +37,8 @@ namespace GAME
 		void Move ();
 
 		void Set ();
-		void Start ()
-		{ m_active = T; }
+		void SetTime ( int time );
+		void Start (){ m_active = T; }
 		void Stop () { m_active = F; }
 
 		void DispTime ();

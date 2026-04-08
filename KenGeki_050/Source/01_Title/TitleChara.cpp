@@ -50,7 +50,7 @@ namespace GAME
 	void TitleChara::SetpParam ( P_Param p )
 	{
 		m_pParam = p;
-		const GameSettingFile stg = p->GetGameSetting ();
+		const GameSettingFile& stg = p->GetGameSetting ();
 
 		//最初はパラメータに保存されている選択キャラ
 		CHARA_NAME name1p = stg.GetCharaName1p ();
@@ -184,24 +184,6 @@ namespace GAME
 		CHARA_NAME name2p = GetRandomCharaName ();
 		CHARA_COLOR clr2p = static_cast < CHARA_COLOR > ( s3d::Random(0,1) );
 		SetChara ( name1p, clr1p, name2p, clr2p );
-
-#if 0
-
-		CHARA_NAME name1p = static_cast < CHARA_NAME > ( s3d::Random(0,4) );
-		CHARA_COLOR clr1p = static_cast < CHARA_COLOR > ( s3d::Random(0,1) );
-		P_Tx ptx1p = m_pParam->GetpChara_TxSet()->GetpTx_CutIn ( name1p, clr1p );
-		m_chara_1p->AssignpTexture ( ptx1p );
-		m_revX1 = m_posAdjustMap.at ( name1p );
-		m_x1 = START_X_1P + m_revX1;
-
-		CHARA_NAME name2p = static_cast < CHARA_NAME > ( s3d::Random(0,4) );
-		CHARA_COLOR clr2p = static_cast < CHARA_COLOR > ( s3d::Random(0,1) );
-		P_Tx ptx2p = m_pParam->GetpChara_TxSet()->GetpTx_CutIn ( name2p, clr2p );
-		m_chara_2p->AssignpTexture ( ptx2p );
-		m_revX2 = m_posAdjustMap.at ( name2p );
-		m_x2 = START_X_2P - m_revX2;
-
-#endif // 0
 	}
 
 
@@ -226,6 +208,13 @@ namespace GAME
 		m_chara_2p->AssignpTexture ( ptx2p );
 		m_revX2 = m_posAdjustMap.at ( name2 );
 		m_x2 = START_X_2P - m_revX2;
+
+		//パラメータにも記録
+		GameSettingFile& stg = m_pParam->GetGameSetting ();
+		stg.SetCharaName ( PLAYER_ID_1, name1 );
+		stg.SetCharaName ( PLAYER_ID_2, name2 );
+		stg.SetCharaColor ( PLAYER_ID_1, clr1 );
+		stg.SetCharaColor ( PLAYER_ID_2, clr2 );
 	}
 
 	CHARA_NAME TitleChara::GetRandomCharaName () const

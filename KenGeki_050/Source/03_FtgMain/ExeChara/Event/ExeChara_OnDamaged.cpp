@@ -120,11 +120,14 @@ namespace GAME
 		//バックジャンプ攻撃基礎補正(後ろ移動があれば)
 		{
 			VEC2 vel = btlPrmOhter.GetVel ();
+#if 0
 			VEC2 acc = btlPrmOhter.GetAcc ();
 			bool dir = btlPrmOhter.GetDirRight ();	//攻撃側の向き
 			//bool br = dir && vel.x < 0; 
 			//bool bl = ! dir && vel.x > 0; 
 			//if ( br || bl )
+#endif // 0
+
 			//@info パラメータvelは向きの無い大きさ、BtlPrmで位置計算時にdirを掛ける
 			// スクリプトの時点で vel.x < 0 なら後ろ向き
 			if ( vel.x < 0 && pOther->IsFloat() )

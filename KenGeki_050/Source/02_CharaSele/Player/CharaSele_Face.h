@@ -25,6 +25,7 @@ namespace GAME
 		 
 		//配置個数
 		const static int CHARA_NUM { 10 };
+		const static int USE_CHARA_NUM { 6 };
 
 		//メイン画像
 		P_Grp		m_grp;
@@ -32,10 +33,12 @@ namespace GAME
 		//位置保存
 		s3d::Array < VEC2 >		m_aryPos;
 
-		//回転
+		//回転中かどうか
 		bool		m_turn { F };
+
 		//回転位置
-		int			m_pos_turn { 0 };
+		//int			m_pos_turn { 0 };
+		CHARA_NAME		m_pos_turn { CHARA_NAME_NUM };
 
 	public:
 		CharaSele_Face ();
@@ -51,22 +54,22 @@ namespace GAME
 
 		void SetPlayerID ( PLAYER_ID id );
 
-		void SetPos ( int pos_turn );
+		//void SetPos ( int pos_turn );
 
 		void ResetPos ();
 		void Assign ( CHARA_NAME name );
 
 	private:
-		//選択位置からキャラ名
-		CHARA_NAME POS_CHARA;
 
 		//選択キャラ名から前後の表示用キャラ名
 		struct PN_CHARA
 		{
 			CHARA_NAME prev;
 			CHARA_NAME next;
-			CHARA_NAME next2;
 		};
+
+		//保存用
+		std::map < CHARA_NAME, PN_CHARA > m_map_pn_chara;
 	};
 
 	using P_ChSl_Fc = std::shared_ptr < CharaSele_Face >;

@@ -30,7 +30,7 @@ namespace GAME
 		m_grp->AddTexture_FromArchive ( U"CharaSele\\Face\\Chara_Face_Enemy0.png");
 
 
-		//オブジェクト個数
+		//メイン画像オブジェクト個数
 		m_grp->ClearObject ();	//クリア
 		for ( int i = 0; i < CHARA_NUM; ++ i )
 		{
@@ -44,6 +44,22 @@ namespace GAME
 
 		AddpTask ( m_grp );
 		GRPLST_INSERT ( m_grp );
+
+
+		//表示用キャラ名定数(prevが上、nextが下)
+		const PN_CHARA pn_chara_OUKA		{ CHARA_TSUKIHIBOSHI,		CHARA_SAE,			};
+		const PN_CHARA pn_chara_SAE			{ CHARA_OUKA,		CHARA_RETSUDOU,		};
+		const PN_CHARA pn_chara_RETSUDOU	{ CHARA_SAE,		CHARA_GYAVADARUGA,	};
+		const PN_CHARA pn_chara_GYAVADARUGA	{ CHARA_RETSUDOU,	CHARA_FERARIA,		};
+		const PN_CHARA pn_chara_FERARIA		{ CHARA_GYAVADARUGA,CHARA_TSUKIHIBOSHI,	};
+		const PN_CHARA pn_chara_TSUKIHIBOSHI{ CHARA_FERARIA,	CHARA_OUKA,		};
+
+		m_map_pn_chara [ CHARA_OUKA ]			= pn_chara_OUKA;
+		m_map_pn_chara [ CHARA_SAE ]			= pn_chara_SAE;
+		m_map_pn_chara [ CHARA_RETSUDOU ]		= pn_chara_RETSUDOU;
+		m_map_pn_chara [ CHARA_GYAVADARUGA ]	= pn_chara_GYAVADARUGA;
+		m_map_pn_chara [ CHARA_FERARIA ]		= pn_chara_FERARIA;
+		m_map_pn_chara [ CHARA_TSUKIHIBOSHI ]	= pn_chara_TSUKIHIBOSHI;
 	}
 
 	CharaSele_Face::~CharaSele_Face ()
@@ -144,7 +160,8 @@ namespace GAME
 	{
 		if ( m_turn )
 		{
-			SetPos ( m_pos_turn );
+			//SetPos ( m_pos_turn );
+			Assign ( m_pos_turn );
 		}
 
 		TASK_VEC::Move ();
@@ -153,11 +170,24 @@ namespace GAME
 	void CharaSele_Face::Next ()
 	{
 		m_turn = T;
+
+		switch ( m_pos_turn )
+		{
+		case CHARA_OUKA: m_pos_turn = CHARA_SAE; break;
+		case CHARA_SAE: m_pos_turn = CHARA_RETSUDOU; break;
+		case CHARA_RETSUDOU: m_pos_turn = CHARA_GYAVADARUGA; break;
+		case CHARA_GYAVADARUGA: m_pos_turn = CHARA_FERARIA; break;
+		case CHARA_FERARIA: m_pos_turn = CHARA_TSUKIHIBOSHI; break;
+		case CHARA_TSUKIHIBOSHI: m_pos_turn = CHARA_OUKA; break;
+		}
+
+
+#if 0
 //		int CHARA_NUM = N;
 //		int CHARA_NUM = 6;
-		int CHARA_NUM = 5;
+		int CN = 5;
 
-		if ( CHARA_NUM <= m_pos_turn + 1 )
+		if ( CN <= m_pos_turn + 1 )
 		{
 			m_pos_turn = 0;
 		}
@@ -166,23 +196,37 @@ namespace GAME
 			++ m_pos_turn;
 		}
 
-
 		if ( PLAYER_ID_1 == m_id )
 		{
 			DBGOUT_WND_F ( DBGOUT_4, U"m_pos_turn = {}"_fmt( m_pos_turn ) );
 		}
+
+#endif // 0
 	}
 
 	void CharaSele_Face::Prev ()
 	{
 		m_turn = T;
+
+		switch ( m_pos_turn )
+		{
+		case CHARA_OUKA: m_pos_turn = CHARA_TSUKIHIBOSHI; break;
+		case CHARA_SAE: m_pos_turn = CHARA_OUKA; break;
+		case CHARA_RETSUDOU: m_pos_turn = CHARA_SAE; break;
+		case CHARA_GYAVADARUGA: m_pos_turn = CHARA_RETSUDOU; break;
+		case CHARA_FERARIA: m_pos_turn = CHARA_GYAVADARUGA; break;
+		case CHARA_TSUKIHIBOSHI: m_pos_turn = CHARA_FERARIA; break;
+		}
+
+#if 0
+
 //		int CHARA_NUM = N;
 //		int CHARA_NUM = 6;
-		int CHARA_NUM = 5;
+		int CN = 5;
 
 		if ( m_pos_turn - 1 < 0 )
 		{
-			m_pos_turn = CHARA_NUM - 1;
+			m_pos_turn = CN - 1;
 		}
 		else
 		{
@@ -193,7 +237,11 @@ namespace GAME
 		{
 			DBGOUT_WND_F ( DBGOUT_4, U"m_pos_turn = {}"_fmt( m_pos_turn ) );
 		}
+
+#endif // 0
 	}
+
+#if 0
 
 	void CharaSele_Face::SetPos ( int pos_turn )
 	{
@@ -201,18 +249,30 @@ namespace GAME
 		ResetPos ();
 	}
 
+#endif // 0
+
 	void CharaSele_Face::Assign ( CHARA_NAME name )
 	{
-		m_pos_turn = static_cast < int > ( name );
+		//m_pos_turn = static_cast < int > ( name );
+		m_pos_turn = name;
 		ResetPos ();
 	}
 
 	void CharaSele_Face::ResetPos ()
 	{
-
-
 		//対象キャラと、前後をインデックスで指定に変更
+		P_Ob pob = m_grp->GetpObject ( 0 );
+		pob->SetIndexTexture ( static_cast < uint32_t > ( m_pos_turn ) );
 
+		P_Ob pob_p = m_grp->GetpObject ( 1 );
+		CHARA_NAME p = m_map_pn_chara [ m_pos_turn ].prev;
+		pob_p->SetIndexTexture ( static_cast < uint32_t > ( p ) );
+
+		P_Ob pob_n = m_grp->GetpObject ( CHARA_NUM - 1  );
+		CHARA_NAME n = m_map_pn_chara [ m_pos_turn ].next;
+		pob_n->SetIndexTexture ( static_cast < uint32_t > ( n ) );
+
+#if 0
 
 		for ( int i = 0; i < CHARA_NUM; ++ i )
 		{
@@ -243,6 +303,8 @@ namespace GAME
 			}
 
 		}
+
+#endif // 0
 
 		m_turn = F;
 	}
