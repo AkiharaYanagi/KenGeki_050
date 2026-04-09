@@ -75,10 +75,17 @@ namespace GAME
 			mwp_Actor.lock ()->Decide ();
 		}
 
-		//ボタン2でキャンセル
-		if ( CFG_PUSH_KEY_PL ( input_id, PLY_BTN1 ) )
+
+		//1pが操作する2p側のみ
+		PLAYER_ID m_id = mwp_Actor.lock ()->GetPlayerID ();
+		if ( (PLAYER_ID_1 == input_id) && (PLAYER_ID_2 == m_id) )
 		{
-			AUD_PLAY_ONESHOT_SE ( SE_select_Cancel );
+			//ボタン2でプレイヤー戻り(2p->1p)
+			if ( CFG_PUSH_KEY_PL ( input_id, PLY_BTN1 ) )
+			{
+				mwp_Actor.lock ()->PlayerReturn ();
+				AUD_PLAY_ONESHOT_SE ( SE_select_Cancel );
+			}
 		}
 	}
 

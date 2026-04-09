@@ -21,7 +21,7 @@ namespace GAME
 	
 	//====================================================
 	//バージョン表記
-	s3d::String g_VERSION = U"ver beta1 0.64";
+	s3d::String g_VERSION = U"ver 0.64";
 #if 0
 //	ver 0.63	2026/04/04(土) 修正
 //	ver 0.62	2026/04/01(水) 月日星ボイス追加＋修正
@@ -51,16 +51,21 @@ namespace GAME
 	//バージョン初期化（日付＋時刻）
 	void InitVersion ()
 	{
+#if 0
+
 		std::ostringstream oss;
 		oss << "beta " << __DATE__ << " " << __TIME__;
 		g_VERSION.assign ( s3d::Unicode::FromUTF8 ( oss.str ().c_str () ) );
+#else
+
+#endif // 0
 	}
 
 	//====================================================
 
 
 //デバッグ表示切替
-#define G_DEBUG_FLAG	1
+#define G_DEBUG_FLAG	0
 
 
 #if G_DEBUG_FLAG
@@ -72,7 +77,7 @@ namespace GAME
 	const bool g_bCMDPRMPT_DISP = T;
 
 	//タイトル画面で全キャラ読込
-	const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
+	const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
 
 	//カーソル位置のモニタの中心から開始
 	const bool g_bSTART_CURSOR_POS = T;
@@ -80,7 +85,7 @@ namespace GAME
 #else
 	const bool g_bDEBUG_DISP = F;
 	const bool g_bCMDPRMPT_DISP = F;
-	const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
+	const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
 	const bool g_bSTART_CURSOR_POS = F;
 
 #endif // G_DEBUG_FLAG

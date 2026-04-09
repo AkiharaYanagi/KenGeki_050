@@ -434,6 +434,15 @@ namespace GAME
 		AUD_PLAY_ONESHOT_SE ( SE_select_Cancel );
 	}
 
+	void CharaSele_Player_Actor::PlayerReturn ()
+	{
+		//状態を移行
+		Set_Wait ();	//自身を待機
+		mwp_Other.lock ()->Set_Active ();		//相手をアクティブに
+
+		AUD_PLAY_ONESHOT_SE ( SE_select_Cancel );
+	}
+
 	//----------------------------------------------------------------
 	bool CharaSele_Player_Actor::SameChara () const
 	{

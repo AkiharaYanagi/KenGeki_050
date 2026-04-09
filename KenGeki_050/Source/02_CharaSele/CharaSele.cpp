@@ -83,7 +83,8 @@ namespace GAME
 		//タイマ
 		m_battleTime = std::make_shared < BattleTime > ();
 		AddpTask ( m_battleTime );
-		m_battleTime->SetTime ( 600 );
+		//m_battleTime->SetTime ( 600 );
+		m_battleTime->Set ();	//default 3600
 		m_battleTime->Start ();
 
 		m_battleTime->SetPos_BG ( VEC2 ( (1280 / 2) - (185 / 2), 10 ) );

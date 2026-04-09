@@ -71,6 +71,7 @@ namespace GAME
 
 		//表示プレイヤー側（生成後即指定）
 		void SetPlayerID ( PLAYER_ID id );
+		PLAYER_ID GetPlayerID () const { return m_id; }
 
 		void SetpParam ( P_Param p );
 		void Load ();
@@ -119,6 +120,7 @@ namespace GAME
 		//----------------------------------------------------------------
 		void Decide ();
 		void Cancel ();
+		void PlayerReturn ();
 
 	//----------------------------------------------------------------
 		bool SameChara () const;
