@@ -59,6 +59,231 @@ namespace GAME
 	}
 	//======================================================
 
+	TrainingMenuItem::TrainingMenuItem ()
+	{
+	}
+
+	TrainingMenuItem::~TrainingMenuItem ()
+	{
+	}
+
+	void TrainingMenuItem::SetwpParentScene ( WP_Scene wp )
+	{
+		mwp_Scene = wp;
+	}
+
+	void TrainingMenuItem::On ()
+	{
+	}
+
+	void TrainingMenuItem::Off ()
+	{
+	}
+
+	P_PrmRect TrainingMenuItem::MakeSelectBGRect ( VEC2 pos, VEC2 size )
+	{
+		P_PrmRect pSelectBG = std::make_shared < PrmRect >();
+		pSelectBG->SetZ ( Z_MENU - 0.001f + 0.0001f );
+
+		//pSelectBG->SetPos( VEC2(bx1 - 4, by0 - 4) );
+		pSelectBG->SetPos( pos );
+		//pSelectBG->SetSize(VEC2(width0 + 8, height0 + 8));
+		pSelectBG->SetSize( size );
+
+		pSelectBG->SetColor(0x40ffffff);
+		AddpTask(pSelectBG);
+		GRPLST_INSERT(pSelectBG);
+		return pSelectBG;
+	}
+
+	P_PrmRect TrainingMenuItem::MakeSelectRect ( VEC2 pos, VEC2 size )
+	{
+		P_PrmRect pSelect = std::make_shared < PrmRect >();
+		pSelect->SetZ ( Z_MENU - 0.001f );
+		//pSelect->SetPos( VEC2(bx1, by0) );
+		pSelect->SetPos( pos );
+		//pSelect->SetSize(VEC2(pitch, height0));
+		pSelect->SetSize( size );
+		pSelect->SetColor(0x808080ff);
+		AddpTask(pSelect);
+		GRPLST_INSERT(pSelect);
+		return pSelect;
+	}
+
+	P_PrmRect TrainingMenuItem::MakeCursorRect ( VEC2 pos, VEC2 size )
+	{
+		P_PrmRect pCursor = std::make_shared < PrmRect >();
+		pCursor->SetZ ( Z_MENU - 0.001f );
+		pCursor->SetPos( pos );
+		pCursor->SetSize(size);
+		pCursor->SetColor(0xffff0000);
+		AddpTask(pCursor);
+		GRPLST_INSERT(pCursor);
+		return pCursor;
+	}
+
+	//======================================================
+	MenuItem_Ukemi::MenuItem_Ukemi ()
+	{
+#if 0
+		m_SelectBG = std::make_shared < PrmRect >();
+		m_SelectBG->SetZ ( Z_MENU - 0.001f + 0.0001f );
+		m_SelectBG->SetPos( VEC2(bx1 - 4, by0 - 4) );
+		m_SelectBG->SetSize(VEC2(width0 + 8, height0 + 8));
+		m_SelectBG->SetColor(0x40ffffff);
+		AddpTask(m_SelectBG);
+		GRPLST_INSERT(m_SelectBG);
+
+		m_Select = std::make_shared < PrmRect >();
+		m_Select->SetZ ( Z_MENU - 0.001f );
+		m_Select->SetPos( VEC2(bx1, by0) );
+		m_Select->SetSize(VEC2(pitch, height0));
+		m_Select->SetColor(0x808080ff);
+		AddpTask(m_Select);
+		GRPLST_INSERT(m_Select);
+
+		m_Cursor = std::make_shared < PrmRect >();
+		m_Cursor->SetZ ( Z_MENU - 0.001f );
+		m_Cursor->SetPos( VEC2(bx1, by0) );
+		m_Cursor->SetSize(VEC2(pitch, height0));
+		m_Cursor->SetColor(0xffff0000);
+		m_Cursor->SetFrame ( T );
+		AddpTask(m_Cursor);
+		GRPLST_INSERT(m_Cursor);
+#endif // 0
+		m_SelectBG = MakeSelectBGRect ( VEC2 ( bx1 - 4, by0 - 4 ), VEC2 ( width0 + 8, height0 + 8 ) );
+		m_Select = MakeSelectRect ( VEC2 ( bx1, by0 ), VEC2 ( pitch, height0 ) );
+		m_Cursor = MakeCursorRect ( VEC2(bx1, by0), VEC2(pitch, height0) );
+
+		m_StrUkemi = MakeStr ( U"空中受身", VEC2( 10 + bx0, 2 + by0) );
+		m_StrOn = MakeStr ( U"ON", VEC2( 10 + bx_none, 2 + by0) );
+		m_StrOff = MakeStr ( U"OFF", VEC2( 10 + bx_normal, 2 + by0) );
+
+		SetPosCursor(VEC2(bx_csr, by0 + by_csr));
+	}
+
+	P_GrpStr MenuItem_Ukemi::MakeStr ( LPCUSTR str, VEC2 pos )
+	{
+		P_GrpStr pStr = std::make_shared < GrpStr > ();
+		pStr->SetSize ( G_Font::FONT_SIZE::SIZE_30 );
+		pStr->SetZ ( Z_MENU - 0.001f );
+		pStr->SetPos( pos );
+		pStr->SetStr(str);
+		AddpTask(pStr);
+		GRPLST_INSERT(pStr);
+		return pStr;
+	}
+
+	MenuItem_Ukemi::~MenuItem_Ukemi ()
+	{
+	}
+
+	void MenuItem_Ukemi::Init ()
+	{
+		SetActive ( F );
+		MenuItem::Init ();
+	}
+
+	void MenuItem_Ukemi::Load ()
+	{
+		MenuItem::Load ();
+	}
+
+	void MenuItem_Ukemi::Move ()
+	{
+		MenuItem::Move ();
+	}
+
+	void MenuItem_Ukemi::Do() 
+	{
+		//入力
+		if ( CFG_PUSH_KEY_12 ( PLY_LEFT ) )
+		{
+			AUD_PLAY_ONESHOT_SE(SE_select_move);
+			PrevState ();
+			m_Cursor->SetPos( GetPosFromState ( m_ukemiState ) );
+		}
+		if ( CFG_PUSH_KEY_12 ( PLY_RIGHT ) )
+		{
+			AUD_PLAY_ONESHOT_SE(SE_select_move);
+			NextState ();
+			m_Cursor->SetPos( GetPosFromState ( m_ukemiState ) );
+		}
+
+		//決定
+		if ( CFG_PUSH_KEY_12 ( PLY_BTN0 ) )
+		{
+			AUD_PLAY_ONESHOT_SE(SE_select_Cancel);
+			//選択表示
+			m_Select->SetPos( GetPosFromState ( m_ukemiState ) );
+
+			//パラメータに設定
+			m_pParam->GetPrmResult ().m_prp_Ukemi.Set ( m_ukemiState );
+
+			//親メニュに戻る
+			this->SetActive(F);
+			mwp_Parent.lock()->SetActive ( T );
+		}
+
+		//キャンセル
+		if ( CFG_PUSH_KEY_12 ( PLY_BTN1 ) )
+		{
+			AUD_PLAY_ONESHOT_SE(SE_select_Cancel);
+			this->SetActive(F);
+			mwp_Parent.lock()->SetActive ( T );
+		}
+	}
+
+	void MenuItem_Ukemi::SetActive(bool b)
+	{
+		TrainingMenuItem::SetActive(b);
+		m_SelectBG->SetValid(b);
+		m_Cursor->SetValid(b);
+	}
+
+	void MenuItem_Ukemi::Off()
+	{
+		m_SelectBG->SetValid ( F );
+		m_StrUkemi->SetValid ( F );
+		m_StrOn->SetValid ( F );
+		m_StrOff->SetValid ( F );
+		m_Select->SetValid ( F );
+		TrainingMenuItem::Off();
+	}
+
+	void MenuItem_Ukemi::On()
+	{
+		m_ukemiState = m_pParam->GetPrmResult().m_prp_Ukemi.Get ();
+		m_Cursor->SetPos( GetPosFromState ( m_ukemiState ) );
+		m_Select->SetPos( GetPosFromState ( m_ukemiState ) );
+
+		m_StrUkemi->SetValid ( T );
+		m_StrOn->SetValid ( T );
+		m_StrOff->SetValid ( T );
+		m_Select->SetValid ( T );
+		TrainingMenuItem::On();
+	}
+
+	void MenuItem_Ukemi::NextState ()
+	{
+		//@info !=は自分に否定を代入ではなく、bool値を返す演算子
+		m_ukemiState = ! m_ukemiState;
+	}
+
+	void MenuItem_Ukemi::PrevState ()
+	{
+		m_ukemiState = ! m_ukemiState;
+	}
+
+	VEC2 MenuItem_Ukemi::GetPosFromState ( bool state )
+	{
+		float x = state ? 0: 100.f;
+		return VEC2( x, by0 );
+	}
+
+
+	//======================================================
+
 
 	MenuItem_Taikou::MenuItem_Taikou ()
 	{

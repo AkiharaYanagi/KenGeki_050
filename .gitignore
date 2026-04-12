@@ -385,3 +385,5 @@ FodyWeavers.xsd
 *.nsi
 *.zip
 *.exp
+/KenGeki_050/App/Screenshot
+KenGeki_050/App/setting.xml

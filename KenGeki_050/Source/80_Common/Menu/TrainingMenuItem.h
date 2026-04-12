@@ -23,21 +23,73 @@ namespace GAME
 	class TrainingMenuItem : public MenuItem
 	{
 	protected:
-		P_Param		m_pParam;		//共有パラメータ
+		P_Param		m_pParam;				//共有パラメータ
+		WP_Scene	mwp_Scene;				//大元シーンポインタ
 		VEC2		m_posCursor { 0, 0 };	//親カーソル位置
 
+		P_PrmRect	m_SelectBG;		//選択中背景
+		P_PrmRect	m_Select;		//選択表示
+		P_PrmRect	m_Cursor;		//選択カーソル
+
+		P_PrmRect MakeSelectBGRect ( VEC2 pos, VEC2 size );
+		P_PrmRect MakeSelectRect ( VEC2 pos, VEC2 size );
+		P_PrmRect MakeCursorRect ( VEC2 pos, VEC2 size );
+
+
 	public:
-		TrainingMenuItem (){}
+		TrainingMenuItem ();
 		TrainingMenuItem ( const TrainingMenuItem & rhs ) = delete;
-		~TrainingMenuItem(){}
+		~TrainingMenuItem ();
 
 		void SetpParam ( P_Param p ) { m_pParam = p; }
+		void SetwpParentScene ( WP_Scene wp );
+
+		void On () override;
+		void Off () override;
 
 		VEC2 GetPosCursor() const { return m_posCursor; }
 		void SetPosCursor(VEC2 v) { m_posCursor = v; }
+
 	};
 
 	using P_TrainingMenuItem = std::shared_ptr < TrainingMenuItem >;
+
+
+	//======================================================
+	class MenuItem_Ukemi	: public TrainingMenuItem
+	{
+		P_GrpStr	m_StrUkemi;		//受け身
+		P_GrpStr	m_StrOn;		//On
+		P_GrpStr	m_StrOff;		//Off
+
+
+		bool m_ukemiState { F };
+
+	public:
+		MenuItem_Ukemi ();
+		MenuItem_Ukemi ( const MenuItem_Ukemi & rhs ) = delete;
+		~MenuItem_Ukemi ();
+
+		void Init ();
+
+		void Load ();
+		void Move ();
+
+		void Do() override;
+		void SetActive(bool b) override;
+		void On () override;
+		void Off () override;
+
+		//bool GetState() const { return m_state; }
+
+	private:
+		P_GrpStr MakeStr ( LPCUSTR str, VEC2 pos );
+		void NextState ();
+		void PrevState ();
+		VEC2 GetPosFromState ( bool state );
+	};
+
+	using P_MenuItem_Ukemi = std::shared_ptr < MenuItem_Ukemi >;
 
 
 	//======================================================

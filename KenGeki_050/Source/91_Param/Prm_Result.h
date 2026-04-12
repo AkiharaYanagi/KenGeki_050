@@ -84,6 +84,7 @@ namespace GAME
 
 		void ResetBattleParam ();
 
+		Prp_bool		m_prp_Ukemi { F };		//受身
 		Prp_INT32		m_prp_CpuLevel { 4 };	//CPUレベル
 		Property < TaikouState >	m_prp_Taikou { TaikouState::Normal };	//CPU剣撃対抗状態
 	};

@@ -27,6 +27,9 @@ namespace GAME
 		AddpTask(m_str);
 		GRPLST_INSERT ( m_str );
 
+		m_item_Ukemi = std::make_shared < MenuItem_Ukemi >();
+		AddpTask(m_item_Ukemi);
+
 		m_item_Taikou = std::make_shared < MenuItem_Taikou >();
 		AddpTask(m_item_Taikou);
 
@@ -57,6 +60,7 @@ namespace GAME
 
 	void TrainingMenu::SetpParam ( P_Param p )
 	{
+		m_item_Ukemi->SetpParam ( p );
 		m_item_Taikou->SetpParam ( p );
 		m_item_CpuLevel->SetpParam ( p );
 		m_item_ToTitle->SetpParam ( p );
@@ -65,6 +69,7 @@ namespace GAME
 
 	void TrainingMenu::Load ()
 	{
+		SetpMenuItem ( m_item_Ukemi );
 		SetpMenuItem ( m_item_Taikou );
 		SetpMenuItem ( m_item_CpuLevel );
 		SetpMenuItem ( m_item_ToTitle );
@@ -156,6 +161,7 @@ namespace GAME
 
 	void TrainingMenu::SetwpParentScene ( WP_Scene wp )
 	{
+		m_item_Ukemi->SetwpParentScene ( wp );
 		m_item_Taikou->SetwpParentScene ( wp );
 		m_item_CpuLevel->SetwpParentScene ( wp );
 		m_item_ToTitle->SetwpParentScene ( wp );
