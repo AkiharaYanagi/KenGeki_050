@@ -27,11 +27,13 @@ namespace GAME
 		AddpTask(m_str);
 		GRPLST_INSERT ( m_str );
 
-		m_item_Ukemi = std::make_shared < MenuItem_Ukemi >();
-		AddpTask(m_item_Ukemi);
+		//m_item_Ukemi = std::make_shared < MenuItem_Ukemi >();
+		//AddpTask(m_item_Ukemi);
 
 		m_item_Taikou = std::make_shared < MenuItem_Taikou >();
 		AddpTask(m_item_Taikou);
+
+#if 0
 
 		m_item_CpuLevel = std::make_shared < MenuItem_CPU_LEVEL >();
 		AddpTask(m_item_CpuLevel);
@@ -41,6 +43,8 @@ namespace GAME
 
 		m_item_Return = std::make_shared < MenuItem_Return >();
 		AddpTask(m_item_Return);
+
+#endif // 0
 
 		m_cursor = std::make_shared < GameGraphic >();
 		m_cursor->AddTexture_FromArchive(U"cursor.png");
@@ -60,11 +64,32 @@ namespace GAME
 
 	void TrainingMenu::SetpParam ( P_Param p )
 	{
+#if 0
 		m_item_Ukemi->SetpParam ( p );
 		m_item_Taikou->SetpParam ( p );
 		m_item_CpuLevel->SetpParam ( p );
 		m_item_ToTitle->SetpParam ( p );
 		m_item_Return->SetpParam ( p );
+#endif // 0
+
+#if 0
+		for ( P_MenuItem pItem : Menu::GetvpMenuItem() )
+		{
+			( dynamic_pointer_cast < TrainingMenuItem > ( pItem ) )->SetpParam ( p );
+		}
+#endif // 0
+
+#if 0
+		std::function < void ( P_MenuItem ) > func = [ p ] ( P_MenuItem pItem )
+		{
+			P_TrainingMenuItem pT = std::dynamic_pointer_cast < TrainingMenuItem > ( pItem );
+			pT->SetpParam ( p );
+		};
+		Menu::ForEachMenuItem_Do ( func );
+#endif // 0
+
+		Menu::SetpParam ( p );
+
 	}
 
 	void TrainingMenu::Load ()

@@ -22,18 +22,27 @@ namespace GAME
 	//======================================================
 	class TrainingMenuItem : public MenuItem
 	{
-	protected:
 		P_Param		m_pParam;				//共有パラメータ
 		WP_Scene	mwp_Scene;				//大元シーンポインタ
 		VEC2		m_posCursor { 0, 0 };	//親カーソル位置
 
-		P_PrmRect	m_SelectBG;		//選択中背景
+		P_GrpStr	m_StrMain;		//見出し文字列
 		P_PrmRect	m_Select;		//選択表示
-		P_PrmRect	m_Cursor;		//選択カーソル
+		P_PrmRect	m_SelectBG;		//アクティブ中背景
+		P_PrmRect	m_Cursor;		//アクティブ中選択カーソル
 
-		P_PrmRect MakeSelectBGRect ( VEC2 pos, VEC2 size );
-		P_PrmRect MakeSelectRect ( VEC2 pos, VEC2 size );
-		P_PrmRect MakeCursorRect ( VEC2 pos, VEC2 size );
+		P_PrmRect MakePrmRect ();
+		P_PrmRect MakeSelectBGRect ();
+		P_PrmRect MakeSelectRect ();
+		P_PrmRect MakeCursorRect ();
+
+	protected:
+		P_GrpStr MakeStr ();
+		P_GrpStr MakeStr ( LPCUSTR str, VEC2 pos );
+		void SetStrMain ( LPCUSTR str, VEC2 pos );
+		void SetSelectBGRect ( VEC2 pos, VEC2 size );
+		void SetSelectRect ( VEC2 pos, VEC2 size );
+		void SetCursorRect ( VEC2 pos, VEC2 size );
 
 
 	public:
@@ -42,7 +51,9 @@ namespace GAME
 		~TrainingMenuItem ();
 
 		void SetpParam ( P_Param p ) { m_pParam = p; }
+		P_Param GetpParam () { return m_pParam; }
 		void SetwpParentScene ( WP_Scene wp );
+		void SetActive ( bool b ) override;
 
 		void On () override;
 		void Off () override;
@@ -50,6 +61,7 @@ namespace GAME
 		VEC2 GetPosCursor() const { return m_posCursor; }
 		void SetPosCursor(VEC2 v) { m_posCursor = v; }
 
+		void SetSelectPos ( VEC2 pos ) { m_Select->SetPos ( pos ); }
 	};
 
 	using P_TrainingMenuItem = std::shared_ptr < TrainingMenuItem >;
@@ -58,12 +70,11 @@ namespace GAME
 	//======================================================
 	class MenuItem_Ukemi	: public TrainingMenuItem
 	{
-		P_GrpStr	m_StrUkemi;		//受け身
+		bool m_ukemiState { F };	//対象の状態
+
+		//選択項目
 		P_GrpStr	m_StrOn;		//On
 		P_GrpStr	m_StrOff;		//Off
-
-
-		bool m_ukemiState { F };
 
 	public:
 		MenuItem_Ukemi ();
@@ -71,7 +82,6 @@ namespace GAME
 		~MenuItem_Ukemi ();
 
 		void Init ();
-
 		void Load ();
 		void Move ();
 
@@ -80,10 +90,8 @@ namespace GAME
 		void On () override;
 		void Off () override;
 
-		//bool GetState() const { return m_state; }
-
 	private:
-		P_GrpStr MakeStr ( LPCUSTR str, VEC2 pos );
+		//P_GrpStr MakeStr ( LPCUSTR str, VEC2 pos );
 		void NextState ();
 		void PrevState ();
 		VEC2 GetPosFromState ( bool state );
@@ -95,21 +103,14 @@ namespace GAME
 	//======================================================
 	class MenuItem_Taikou	: public TrainingMenuItem
 	{
-		P_PrmRect	m_SelectBG;		//選択中背景
-		P_PrmRect	m_Cursor;		//選択カーソル
+		//選択状態
+		TaikouState m_taikouState { TaikouState::Normal };
 
-		P_GrpStr	m_StrTaikou;	//剣撃対抗
+		//選択項目
 		P_GrpStr	m_StrNone;		//None
 		P_GrpStr	m_StrNormal;	//Normal
 		P_GrpStr	m_StrRandom;	//Random
 		P_GrpStr	m_StrForced;	//ForcedOn
-
-//		bool		m_state{ F };	//対象の状態
-		P_PrmRect	m_Select;		//選択表示
-
-		WP_Scene	mwp_Scene;
-
-		TaikouState m_taikouState { TaikouState::Normal };
 
 	public:
 		MenuItem_Taikou ();
@@ -117,7 +118,6 @@ namespace GAME
 		~MenuItem_Taikou ();
 
 		void Init ();
-
 		void Load ();
 		void Move ();
 
@@ -126,12 +126,8 @@ namespace GAME
 		void On () override;
 		void Off () override;
 
-		//bool GetState() const { return m_state; }
-
-		void SetwpParentScene ( WP_Scene wp );
-
 	private:
-		P_GrpStr MakeStr ( LPCUSTR str, VEC2 pos );
+		//P_GrpStr MakeStr ( LPCUSTR str, VEC2 pos );
 		void NextState ();
 		void PrevState ();
 		VEC2 GetPosFromState ( TaikouState state );
