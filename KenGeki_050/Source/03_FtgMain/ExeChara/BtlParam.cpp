@@ -203,6 +203,7 @@ namespace GAME
 		m_hitNum = 0;
 		m_chainHitNum = 0;
 		m_chainDamage = 0;
+		mn_AirDash = 0;		//ver0.65 漏れていたのを追加
 
 		//反動(ノックバック)
 		m_acc_recoil = 0;
@@ -236,7 +237,7 @@ namespace GAME
 	}
 
 	//------------------------------------------------
-	void BtlParam::TrainingInit ()
+	void BtlParam::TrainingReset ()
 	{
 		Init ();
 		m_mana = MANA_MAX;
@@ -523,6 +524,10 @@ namespace GAME
 	//バトルパラメータにおける毎フレームの入力による動作
 	void BtlParam::Move_Input ()
 	{
+		if ( PLAYER_ID_1 == m_playerID )
+		{
+			DBGOUT_WND_F ( DBGOUT_2, U"mn_AirDash = {}"_fmt ( mn_AirDash ) );
+		}
 	}
 
 

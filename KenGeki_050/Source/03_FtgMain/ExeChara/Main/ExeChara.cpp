@@ -547,7 +547,7 @@ namespace GAME
 	void ExeChara::TrainingInit ()
 	{
 		Init ();
-		m_btlPrm.TrainingInit ();
+		m_btlPrm.TrainingReset ();
 	}
 
 

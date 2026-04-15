@@ -336,6 +336,7 @@ namespace GAME
 			}
 		}
 
+		//-----------------------------------------------------
 		//特殊処理
 		bool b0 = IsNameAction ( U"乱舞超必殺技発生" );	//紗絵
 		bool b1 = IsNameAction ( U"波動必殺発生" );		//桜花
@@ -351,6 +352,20 @@ namespace GAME
 
 				//相手の「相手の変更先アクション」を指定
 				nameAction = U"ダメージ大";
+			}
+		}
+
+		//月日星
+		if ( m_name == CHARA_TSUKIHIBOSHI )
+		{
+			bool b_tokudai = IsNameAction ( U"特大攻撃" );
+			if ( b_tokudai )
+			{
+				//空中ヒット時に通常やられにする
+				if ( m_pOther.lock()->IsFloat () )
+				{
+					nameAction = U"空中やられ";
+				}
 			}
 		}
 

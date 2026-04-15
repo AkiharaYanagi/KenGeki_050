@@ -27,13 +27,10 @@ namespace GAME
 		Timer	m_tmrSlow;			//スロウ
 		Timer	m_tmrVibration;		//振動
 
-//		P_Timer		m_tmrBlackOut;		//暗転
 		P_PrmRect	m_bg_black;			//暗転用
 		P_PrmRect	m_bg_White;			//白転用
 		bool		m_WhiteOut { F };	//白転
-		P_FadeRect	m_fade_white;
-
-
+		P_FadeRect	m_fade_white;		//フェード白
 		P_PrmRect	m_bg_All_Black;		//全部黒
 
 
@@ -60,6 +57,7 @@ namespace GAME
 
 		void Load ();
 		void Init ();
+		void Reset ();
 		void Move ();
 
 //		GET_SET ( bool, GetScpStop, SetScpStop, m_ScpStop )
