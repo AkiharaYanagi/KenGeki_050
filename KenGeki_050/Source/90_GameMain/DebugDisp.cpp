@@ -21,8 +21,9 @@ namespace GAME
 	
 	//====================================================
 	//バージョン表記
-	s3d::String g_VERSION = U"ver 0.64";
+	s3d::String g_VERSION = U"beta ver 0.65";
 #if 0
+//	ver 0.64	2026/04/08(水) 月日星カラー追加＋修正
 //	ver 0.63	2026/04/04(土) 修正
 //	ver 0.62	2026/04/01(水) 月日星ボイス追加＋修正
 //	ver 0.61	2026/03/20(金) リザルト修正
@@ -49,23 +50,26 @@ namespace GAME
 
 
 	//バージョン初期化（日付＋時刻）
-	void InitVersion ()
+	void InitVersion ( const char* DATE, const char* TIME )
 	{
-#if 0
+#define BETA_DATE_TIME 1
+#if BETA_DATE_TIME
 
-		std::ostringstream oss;
-		oss << "beta " << __DATE__ << " " << __TIME__;
-		g_VERSION.assign ( s3d::Unicode::FromUTF8 ( oss.str ().c_str () ) );
+		//std::ostringstream oss;
+		//oss << "beta " << __DATE__ << " " << __TIME__;
+		//g_VERSION.assign ( s3d::Unicode::FromUTF8 ( oss.str ().c_str () ) );
+		DBGOUT_WND ()->DebugOutWnd_Build_Time ( DATE, TIME );
 #else
-
-#endif // 0
+		( void ) DATE;
+		( void ) TIME;
+#endif // BETA_DATE_TIME
 	}
 
 	//====================================================
 
 
 //デバッグ表示切替
-#define G_DEBUG_FLAG	0
+#define G_DEBUG_FLAG	1
 
 
 #if G_DEBUG_FLAG

@@ -65,17 +65,21 @@ void Load ()
 	//-------------------------------------
 	//デバッグ用コマンドプロンプト表示
 
-	InitVersion ();	//バージョン初期化（日付＋時刻）
-
 	if ( g_bCMDPRMPT_DISP )
 	{
 		DebugOutPrint::OpenPrompt ();
-		PRINT_F_S ( U"start DebugOutPrint.\n{}\n"_fmt( g_VERSION ) );
+		PRINT_F_S ( U"start DebugOutPrint.\n{}"_fmt( g_VERSION ) );
+
+		std::ostringstream oss;
+		oss << "Build: " << __DATE__ << " " << __TIME__ << std::endl;
+		PRINT_F_S ( s3d::Unicode::FromUTF8 ( oss.str ().c_str () ) );
 	}
 
 	//-------------------------------------
 	//システム初期化
 	gameSystem.SystemLoad ();
+
+	InitVersion (  __DATE__, __TIME__ );	//バージョン初期化（日付＋時刻）
 
 
 	//ゲームメイン

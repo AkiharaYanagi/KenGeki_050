@@ -20,7 +20,7 @@ namespace GAME
 //====================================================
 //バージョン表記
 extern s3d::String g_VERSION;
-void InitVersion ();
+void InitVersion ( const char* DATE, const char* TIME );
 //====================================================
 
 

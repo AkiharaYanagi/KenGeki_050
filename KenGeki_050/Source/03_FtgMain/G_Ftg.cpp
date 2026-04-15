@@ -46,6 +46,8 @@ namespace GAME
 		m_bResetPos = F;
 		m_bWallMove = F;
 		m_vel_resetPos = 40.f;
+
+		m_bScrollY = F;
 	}
 
 

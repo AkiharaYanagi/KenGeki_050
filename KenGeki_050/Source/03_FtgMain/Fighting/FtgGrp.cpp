@@ -18,10 +18,6 @@ namespace GAME
 {
 	FtgGrp::FtgGrp ()
 	{
-		m_fade_white = std::make_shared < FadeRect > ();
-		TASK_VEC::AddpTask ( m_fade_white );
-		GRPLST_INSERT ( m_fade_white );
-
 		//------------------------------------------------
 		//暗転
 		m_bg_black = std::make_shared < PrmRect > ();
@@ -41,6 +37,13 @@ namespace GAME
 		AddpTask ( m_bg_White );
 		GRPLST_INSERT ( m_bg_White );
 		m_bg_White->SetValid ( F );
+
+		//------------------------------------------------
+		//フェード白
+		m_fade_white = std::make_shared < FadeRect > ();
+		TASK_VEC::AddpTask ( m_fade_white );
+		GRPLST_INSERT ( m_fade_white );
+		m_fade_white->Off ();
 
 		//------------------------------------------------
 		//全部黒
@@ -109,7 +112,26 @@ namespace GAME
 		m_tmrSlow.Init ();
 		m_tmrVibration.Init ();
 
+		//TaskでInit()しないものを手動で初期化
+		m_bg_black->SetValid ( F );
+		m_bg_White->SetValid ( F );
+		m_fade_white->Off ();
+		m_bg_All_Black->SetValid ( F );
+
+		m_grpBG_scroll->SetValid ( F );
+		m_scl_bg_time = 0;
+
+		m_ef_mandara->SetValid ( F );
+		m_ef_mandara->SetColor ( _CLR(0xffffffff) );
+		m_mnd_bg_time = 0;
+
 		TASK_VEC::Init ();
+	}
+
+	void FtgGrp::Reset ()
+	{
+		Init ();
+		TASK_VEC::Reset ();
 	}
 
 	void FtgGrp::Move ()
