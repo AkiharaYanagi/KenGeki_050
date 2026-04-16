@@ -202,6 +202,7 @@
     <ClCompile Include="Source\05_Result\ResultMenu.cpp" />
     <ClCompile Include="Source\80_Common\BattleTime.cpp" />
     <ClCompile Include="Source\80_Common\Chara_TxSet.cpp" />
+    <ClCompile Include="Source\80_Common\Menu\Menu.cpp" />
     <ClCompile Include="Source\80_Common\Menu\PauseMenu.cpp" />
     <ClCompile Include="Source\80_Common\Menu\PauseMenuItem.cpp" />
     <ClCompile Include="Source\80_Common\Menu\PauseMenu_Const.cpp" />
@@ -499,6 +500,7 @@
     <ClInclude Include="Source\05_Result\ResultMenu.h" />
     <ClInclude Include="Source\80_Common\BattleTime.h" />
     <ClInclude Include="Source\80_Common\Chara_TxSet.h" />
+    <ClInclude Include="Source\80_Common\Menu\Menu.h" />
     <ClInclude Include="Source\80_Common\Menu\PauseMenu.h" />
     <ClInclude Include="Source\80_Common\Menu\PauseMenuItem.h" />
     <ClInclude Include="Source\80_Common\Menu\PauseMenu_Const.h" />

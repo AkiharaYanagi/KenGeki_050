@@ -1,6 +1,7 @@
 ﻿//=================================================================================================
 //
-//	リザルトメニュ
+//	Menu
+//		GameMenuをベースに、ゲーム内で使用するメニュを定義するファイル
 //
 //=================================================================================================
 #pragma once
@@ -9,7 +10,6 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
-#include "../80_Common/Menu/Menu.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -18,23 +18,32 @@
 namespace GAME
 {
 
-	class ResultMenuItem : public MenuItem
-	{
-	};
-
-
-	class ResultMenu	: public Menu
+	//=================================================
+	//メニュ 項目
+	class MenuItem : public GameMenuItem
 	{
 	public:
-		ResultMenu ();
-		ResultMenu ( const ResultMenu & rhs ) = delete;
-		~ResultMenu ();
-
-		void Load ();
+		MenuItem ();
+		MenuItem ( const MenuItem & rhs ) = delete;
+		~MenuItem ();
 	};
 
-	using P_ResultMenu = std::shared_ptr < ResultMenu >;
+	using P_MenuItem = std::shared_ptr < MenuItem >;
+	using VP_MenuItem = std::vector < P_MenuItem >;
 
+
+	//=================================================
+	//メニュ 動作主体
+	class Menu :  public GameMenu
+	{
+	public:
+		Menu ();
+		Menu ( const Menu & rhs ) = delete;
+		~Menu ();
+
+	};
+
+	using P_Menu = std::shared_ptr < Menu >;
 
 
 }	//namespace GAME

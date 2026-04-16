@@ -49,15 +49,15 @@ namespace GAME
 	// Y_N_メニュ
 	class YesNo_Menu : public Menu
 	{
-		P_MenuString	m_grpStr_yesno;
+		P_GameMenuString	m_grpStr_yesno;
 
 		//カーソル
 		P_Grp			m_cursor;
 		float		m_cursor_scaling_vy{ 0.05f };
 		float		m_cursor_scaling_y{ 1.f };
 
-		P_MenuString	m_grpStr_yes;
-		P_MenuString	m_grpStr_no;
+		P_GameMenuString	m_grpStr_yes;
+		P_GameMenuString	m_grpStr_no;
 
 		//メニュ項目
 		P_YNM_Item_Yes	m_yes;

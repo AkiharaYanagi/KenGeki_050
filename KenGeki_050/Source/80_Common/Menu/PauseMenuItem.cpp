@@ -23,8 +23,8 @@ namespace GAME
 	//タイトルに戻る
 	PMI_To_Title::PMI_To_Title ()
 	{
-		Menu::SetBG_use ( F );
-		m_grpStr_title = std::make_shared < MenuString > ();
+		GameMenu::SetBG_use ( F );
+		m_grpStr_title = std::make_shared < GameMenuString > ();
 		m_grpStr_title->SetStr ( U"タイトルに戻る" );
 		m_grpStr_title->SetPos ( 200, 300 );
 		m_grpStr_title->SetZ ( Z_MENU_STR );
@@ -62,8 +62,9 @@ namespace GAME
 	//ゲームに戻る
 	PMI_ResumeGame::PMI_ResumeGame ()
 	{
-		Menu::SetBG_use ( F );
-		m_grpStr_resume = std::make_shared < MenuString > ();
+		GameMenu::SetBG_use ( F );
+
+		m_grpStr_resume = std::make_shared < GameMenuString > ();
 		m_grpStr_resume->SetStr ( U"ゲームに戻る" );
 		m_grpStr_resume->SetPos ( 200, 400 );
 		m_grpStr_resume->SetZ ( Z_MENU_STR );

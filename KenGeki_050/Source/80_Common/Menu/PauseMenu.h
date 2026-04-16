@@ -26,7 +26,7 @@ namespace GAME
 		bool			m_bMenu { F };		//全体
 
 		//見出文字
-		P_MenuString	m_grpStr_pause;
+		P_GameMenuString	m_grpStr_pause;
 
 		//メニュ内容
 		P_PMI_To_Title		m_mi_title;

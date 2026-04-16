@@ -25,14 +25,14 @@ namespace GAME
 	{
 		//--------------------------------------------
 		//基本背景
-		Menu::SetBG_use ( T );
-		Menu::SetBG_Size ( WINDOW_WIDTH, WINDOW_HEIGHT );
-		Menu::SetBG_Pos ( 0.f, 0.f );
-		Menu::SetBG_Color ( _CLR ( 0xd0000000 ) );
+		GameMenu::SetBG_use ( T );
+		GameMenu::SetBG_Size ( WINDOW_WIDTH, WINDOW_HEIGHT );
+		GameMenu::SetBG_Pos ( 0.f, 0.f );
+		GameMenu::SetBG_Color ( _CLR ( 0xd0000000 ) );
 
 		//--------------------------------------------
 		//見出文字
-		m_grpStr_pause = std::make_shared < MenuString > ();
+		m_grpStr_pause = std::make_shared < GameMenuString > ();
 		m_grpStr_pause->SetStr ( U"- PAUSE -" );
 		m_grpStr_pause->SetPos ( 500, 120 );
 		m_grpStr_pause->SetZ ( Z_MENU_STR );
@@ -252,8 +252,8 @@ namespace GAME
 
 	void PauseMenu::SetwpParentScene ( WP_Scene wp )
 	{
-		m_mi_title->SetwpParent ( shared_from_this () );
-		m_mi_resume->SetwpParent ( shared_from_this () );
+		m_mi_title->SetwpParentMenu ( shared_from_this () );
+		m_mi_resume->SetwpParentMenu ( shared_from_this () );
 		m_yesnoMenu->SetwpParentScene ( wp );
 	}
 

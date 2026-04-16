@@ -22,6 +22,7 @@ namespace GAME
 	class TrainingMenu	: public Menu
 	{
 		P_MenuItem_Ukemi		m_item_Ukemi;		//受け身
+		P_MenuItem_Guard		m_item_Guard;		//ガード
 		P_MenuItem_Taikou		m_item_Taikou;		//剣撃対抗
 		P_MenuItem_CPU_LEVEL	m_item_CpuLevel;	//CPUレベル
 		P_MenuItem_ToTitle		m_item_ToTitle;		//タイトル
@@ -32,7 +33,7 @@ namespace GAME
 	public:
 		TrainingMenu ();
 		TrainingMenu ( const TrainingMenu & rhs ) = delete;
-		~TrainingMenu ();
+		~TrainingMenu () = default;
 
 		void Load () override;
 		void Move () override;

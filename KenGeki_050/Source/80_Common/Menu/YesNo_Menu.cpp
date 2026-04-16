@@ -67,21 +67,21 @@ namespace GAME
 		Menu::SetBG_Z ( Z_MENU_YN_BG );
 
 		//見出
-		m_grpStr_yesno = std::make_shared < MenuString > ();
+		m_grpStr_yesno = std::make_shared < GameMenuString > ();
 		m_grpStr_yesno->SetbMenu ( T );
 		m_grpStr_yesno->SetStr ( U"- 終了します -" );
 		m_grpStr_yesno->SetZ ( Z_MENU_YN_STR );
 		AddpTask ( m_grpStr_yesno );
 		GRPLST_INSERT ( m_grpStr_yesno );
 
-		m_grpStr_yes = std::make_shared < MenuString > ();
+		m_grpStr_yes = std::make_shared < GameMenuString > ();
 		m_grpStr_yes->SetbMenu ( T );
 		m_grpStr_yes->SetStr ( U"はい" );
 		m_grpStr_yes->SetZ ( Z_MENU_YN_STR );
 		AddpTask ( m_grpStr_yes );
 		GRPLST_INSERT ( m_grpStr_yes );
 
-		m_grpStr_no = std::make_shared < MenuString > ();
+		m_grpStr_no = std::make_shared < GameMenuString > ();
 		m_grpStr_no->SetbMenu ( T );
 		m_grpStr_no->SetStr ( U"いいえ" );
 		m_grpStr_no->SetZ ( Z_MENU_YN_STR );
@@ -201,7 +201,7 @@ namespace GAME
 	void YesNo_Menu::SetwpParentScene ( WP_Scene wp )
 	{
 		m_yes->SetwpParentScene ( wp );
-		m_no->SetwpParent ( shared_from_this () );
+		m_no->SetwpParentMenu ( shared_from_this () );
 	}
 
 

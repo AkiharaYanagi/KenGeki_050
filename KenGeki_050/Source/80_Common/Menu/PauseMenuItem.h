@@ -9,6 +9,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
+#include "Menu.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -36,7 +37,7 @@ namespace GAME
 	//タイトルに戻る
 	class PMI_To_Title : public PauseMenuItem
 	{
-		P_MenuString	m_grpStr_title;
+		P_GameMenuString	m_grpStr_title;
 	public :
 		PMI_To_Title ();
 		PMI_To_Title ( const PMI_To_Title & rhs ) = delete;
@@ -53,7 +54,7 @@ namespace GAME
 	//ゲームに戻る
 	class PMI_ResumeGame : public PauseMenuItem
 	{
-		P_MenuString	m_grpStr_resume;
+		P_GameMenuString	m_grpStr_resume;
 	public:
 		PMI_ResumeGame ();
 		PMI_ResumeGame ( const PMI_ResumeGame & rhs ) = delete;

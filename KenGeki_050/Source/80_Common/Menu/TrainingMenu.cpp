@@ -11,6 +11,7 @@
 #include "../../90_GameMain/SeConst.h"
 
 
+
 //-------------------------------------------------------------------------------------------------
 // 定義
 //-------------------------------------------------------------------------------------------------
@@ -18,59 +19,55 @@ namespace GAME
 {
 	TrainingMenu::TrainingMenu ()
 	{
-		SetBG_Color ( 0xa0000000 );
-		SetBG_Size ( VEC2 ( 1000, 800 ) );
-		SetBG_Pos ( VEC2 ( 1280 / 2 - 1000 / 2, 960 / 2 - 800 / 2 ) );
+		GameMenu::SetBG_Color ( 0xa0000000 );
+		GameMenu::SetBG_Size ( VEC2 ( 1000, 800 ) );
+		GameMenu::SetBG_Pos ( VEC2 ( 1280 / 2 - 1000 / 2, 960 / 2 - 800 / 2 ) );
 
 		m_str->SetPos( VEC2(300, 150) );
 		m_str->SetStr(U"ポーズ メニュー");
 		AddpTask(m_str);
 		GRPLST_INSERT ( m_str );
 
-		//m_item_Ukemi = std::make_shared < MenuItem_Ukemi >();
-		//AddpTask(m_item_Ukemi);
+
+		m_item_Ukemi = std::make_shared < MenuItem_Ukemi >();
+		AddpTask ( m_item_Ukemi );
+
+		m_item_Guard = std::make_shared < MenuItem_Guard >();
+		AddpTask ( m_item_Guard );
 
 		m_item_Taikou = std::make_shared < MenuItem_Taikou >();
-		AddpTask(m_item_Taikou);
-
-#if 0
+		AddpTask ( m_item_Taikou );
 
 		m_item_CpuLevel = std::make_shared < MenuItem_CPU_LEVEL >();
-		AddpTask(m_item_CpuLevel);
+		AddpTask ( m_item_CpuLevel );
 
 		m_item_ToTitle = std::make_shared < MenuItem_ToTitle >();
-		AddpTask(m_item_ToTitle);
+		AddpTask ( m_item_ToTitle );
 
 		m_item_Return = std::make_shared < MenuItem_Return >();
-		AddpTask(m_item_Return);
+		AddpTask ( m_item_Return );
 
-#endif // 0
 
 		m_cursor = std::make_shared < GameGraphic >();
 		m_cursor->AddTexture_FromArchive(U"cursor.png");
-		m_cursor->SetZ(Z_MENU);
-		m_cursor->SetPos(VEC2(300, 400));
+		m_cursor->SetZ(Z_MENU - 0.001f);
 		AddpTask(m_cursor);
 		GRPLST_INSERT(m_cursor);
+		m_cursor->SetPos ( m_item_Ukemi->GetPosCursor () );
 
 
 		//初期状態は非Active
 		SetActive( F );
 	}
 
-	TrainingMenu::~TrainingMenu ()
-	{
-	}
-
 	void TrainingMenu::SetpParam ( P_Param p )
 	{
-#if 0
 		m_item_Ukemi->SetpParam ( p );
+		m_item_Guard->SetpParam ( p );
 		m_item_Taikou->SetpParam ( p );
 		m_item_CpuLevel->SetpParam ( p );
 		m_item_ToTitle->SetpParam ( p );
 		m_item_Return->SetpParam ( p );
-#endif // 0
 
 #if 0
 		for ( P_MenuItem pItem : Menu::GetvpMenuItem() )
@@ -80,7 +77,7 @@ namespace GAME
 #endif // 0
 
 #if 0
-		std::function < void ( P_MenuItem ) > func = [ p ] ( P_MenuItem pItem )
+		std::function < void ( P_GameMenuItem ) > func = [ p ] ( P_GameMenuItem pItem )
 		{
 			P_TrainingMenuItem pT = std::dynamic_pointer_cast < TrainingMenuItem > ( pItem );
 			pT->SetpParam ( p );
@@ -94,19 +91,21 @@ namespace GAME
 
 	void TrainingMenu::Load ()
 	{
-		SetpMenuItem ( m_item_Ukemi );
-		SetpMenuItem ( m_item_Taikou );
-		SetpMenuItem ( m_item_CpuLevel );
-		SetpMenuItem ( m_item_ToTitle );
-		SetpMenuItem ( m_item_Return );
+		//メニューに登録
+		GameMenu::SetpMenuItem ( m_item_Ukemi );
+		GameMenu::SetpMenuItem ( m_item_Guard );
+		GameMenu::SetpMenuItem ( m_item_Taikou );
+		GameMenu::SetpMenuItem ( m_item_CpuLevel );
+		GameMenu::SetpMenuItem ( m_item_ToTitle );
+		GameMenu::SetpMenuItem ( m_item_Return );
 
 
-		Top();
+		//最初の選択
+		GameMenu::SelectTop();
 		SetCursorPos();
 
 		TASK_VEC::Load ();
 
-//		AllOn ();
 		AllOff ();
 	}
 
@@ -124,13 +123,13 @@ namespace GAME
 			if ( CFG_PUSH_KEY_12 ( PLY_UP ) )
 			{
 				AUD_PLAY_ONESHOT_SE (SE_select_move);
-				Prev();
+				Menu::Prev();
 				SetCursorPos();
 			}
 			if ( CFG_PUSH_KEY_12 ( PLY_DOWN ) )
 			{
 				AUD_PLAY_ONESHOT_SE (SE_select_move);
-				Next();
+				Menu::Next();
 				SetCursorPos();
 			}
 
@@ -178,7 +177,7 @@ namespace GAME
 
 	void TrainingMenu::SetCursorPos ()
 	{
-		P_MenuItem pItem = GetpMenuItem();	
+		P_GameMenuItem pItem = GetpMenuItem();	
 		P_TrainingMenuItem p = std::dynamic_pointer_cast<TrainingMenuItem>(pItem);
 		m_cursor->SetPos( p->GetPosCursor() );
 	}
@@ -187,9 +186,11 @@ namespace GAME
 	void TrainingMenu::SetwpParentScene ( WP_Scene wp )
 	{
 		m_item_Ukemi->SetwpParentScene ( wp );
+		m_item_Guard->SetwpParentScene ( wp );
 		m_item_Taikou->SetwpParentScene ( wp );
 		m_item_CpuLevel->SetwpParentScene ( wp );
 		m_item_ToTitle->SetwpParentScene ( wp );
+		m_item_Return->SetwpParentScene ( wp );
 	}
 
 	bool TrainingMenu::MenuInput ()
@@ -226,10 +227,14 @@ namespace GAME
 	void TrainingMenu::Off ()
 	{
 		m_str->SetValid ( F );
+
+		m_item_Ukemi->Off ();
+		m_item_Guard->Off ();
 		m_item_Taikou->Off ();
 		m_item_CpuLevel->Off ();
 		m_item_ToTitle->Off ();
 		m_item_Return->Off ();
+
 		m_cursor->SetValid ( F );
 		SetActive ( F );
 		Menu::Off ();
@@ -238,10 +243,14 @@ namespace GAME
 	void TrainingMenu::On ()
 	{
 		m_str->SetValid ( T );
+
+		m_item_Ukemi->On ();
+		m_item_Guard->On ();
 		m_item_Taikou->On ();
 		m_item_CpuLevel->On ();
 		m_item_ToTitle->On ();
 		m_item_Return->On ();
+
 		m_cursor->SetValid ( T );
 		SetActive ( T );
 		Menu::On ();
