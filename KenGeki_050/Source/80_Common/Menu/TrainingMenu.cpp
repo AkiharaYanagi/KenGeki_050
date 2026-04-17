@@ -17,13 +17,24 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+	//======================================================
+	//ソースファイル内のみ使用するための無名namespaceによる定数
+	namespace
+	{
+		constexpr float bx0 = 400;
+		constexpr float by0 = 100;	//基準
+	}
+
+	//======================================================
+
+
 	TrainingMenu::TrainingMenu ()
 	{
 		GameMenu::SetBG_Color ( 0xa0000000 );
 		GameMenu::SetBG_Size ( VEC2 ( 1000, 800 ) );
 		GameMenu::SetBG_Pos ( VEC2 ( 1280 / 2 - 1000 / 2, 960 / 2 - 800 / 2 ) );
 
-		m_str->SetPos( VEC2(300, 150) );
+		m_str->SetPos( VEC2(bx0, by0) );
 		m_str->SetStr(U"ポーズ メニュー");
 		AddpTask(m_str);
 		GRPLST_INSERT ( m_str );
@@ -53,7 +64,7 @@ namespace GAME
 		m_cursor->SetZ(Z_MENU - 0.001f);
 		AddpTask(m_cursor);
 		GRPLST_INSERT(m_cursor);
-		m_cursor->SetPos ( m_item_Ukemi->GetPosCursor () );
+		m_cursor->SetPos ( m_item_Ukemi->GetPosPrtCursor () );
 
 
 		//初期状態は非Active
@@ -179,7 +190,7 @@ namespace GAME
 	{
 		P_GameMenuItem pItem = GetpMenuItem();	
 		P_TrainingMenuItem p = std::dynamic_pointer_cast<TrainingMenuItem>(pItem);
-		m_cursor->SetPos( p->GetPosCursor() );
+		m_cursor->SetPos( p->GetPosPrtCursor() );
 	}
 
 

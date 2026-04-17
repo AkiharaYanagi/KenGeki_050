@@ -21,27 +21,41 @@ namespace GAME
 	//ソースファイル内のみ使用するための無名namespaceによる定数
 	namespace
 	{
-		constexpr float bx0 = 300;
-		constexpr float bx1 = bx0 + 200;
+		constexpr float bx0 = 250;			//見出し
+		constexpr float bx1 = bx0 + 250;	//項目
 
-		constexpr float by0 = 300;	//受身
-		constexpr float by1 = 400;	//ガード
-		constexpr float by2 = 500;	//剣撃対抗
-		constexpr float by3 = 600;	//CPUレベル
-		constexpr float by4 = 700;	//タイトル
-		constexpr float by5 = 800;	//戻る
+		constexpr float py  = 80;	//ピッチ
+		constexpr float by  = 250;	//基準y
+		constexpr float by0 = by + py * 0;	//受身
+		constexpr float by1 = by + py * 1;	//ガード
+		constexpr float by2 = by + py * 2;	//剣撃対抗
+		constexpr float by3 = by + py * 3;	//CPUレベル
+		constexpr float by4 = by + py * 4;	//タイトル
+		constexpr float by5 = by + py * 5;	//戻る
 
-		constexpr float pitch = 150;
-		constexpr float bx_none		= bx1 + pitch * 0;
-		constexpr float bx_normal	= bx1 + pitch * 1;
-		constexpr float bx_random	= bx1 + pitch * 2;
-		constexpr float bx_forced	= bx1 + pitch * 3;
+		//全体
+		constexpr float width0 = 600;
+		constexpr float height0 = 50;
 
+		//項目2つ
+		constexpr float pitch2 = 100;
+		constexpr float width2 = 200;
+		constexpr float bx_True		= bx1 + pitch2 * 0;
+		constexpr float bx_False	= bx1 + pitch2 * 1;
+		
+		//項目4つ
+		constexpr float pitch4 = 150;
+		constexpr float bx_none		= bx1 + pitch4 * 0;
+		constexpr float bx_normal	= bx1 + pitch4 * 1;
+		constexpr float bx_random	= bx1 + pitch4 * 2;
+		constexpr float bx_forced	= bx1 + pitch4 * 3;
+
+		//親カーソル位置
 		constexpr float bx_csr = bx0 - 100;
 		constexpr float by_csr = 15;
 
-		constexpr float width0 = pitch * 4;
-		constexpr float height0 = 50;
+		//文字列パディング
+		constexpr float STR_PAD = 10;
 
 		//MenuのZ値はBGで、Z_MENU(0.02)が基準
 		constexpr float Z_SEL_BG  = Z_MENU - 0.001f;
@@ -69,15 +83,21 @@ namespace GAME
 
 	void TrainingMenuItem::SetActive ( bool b )
 	{
-		m_SelectBG->SetValid ( b );
-		m_Cursor->SetValid ( b );
+		if ( m_bUseSelect )
+		{
+			m_SelectBG->SetValid ( b );
+			m_Cursor->SetValid ( b );
+		}
 		MenuItem::SetActive ( b );
 	}
 
 	void TrainingMenuItem::On ()
 	{
 		m_StrMain->SetValid ( T );
-		m_Select->SetValid ( T );
+		if ( m_bUseSelect )
+		{
+			m_Select->SetValid ( T );
+		}
 		SetActive ( F );	//選択は解除
 	}
 
@@ -90,6 +110,7 @@ namespace GAME
 		SetActive ( F );
 	}
 
+	//-------------------------------------------------
 	P_GrpStr TrainingMenuItem::MakeStr ()
 	{
 		P_GrpStr pStr = std::make_shared < GrpStr > ();
@@ -148,6 +169,11 @@ namespace GAME
 		m_Select->SetSize ( size );
 	}
 
+	void TrainingMenuItem::SetSelectWidth ( VEC2 size )
+	{
+		m_Select->SetSize ( size );
+	}
+
 	P_PrmRect TrainingMenuItem::MakeCursorRect ()
 	{
 		P_PrmRect p = MakePrmRect ( Z_CURSOR );
@@ -162,23 +188,35 @@ namespace GAME
 		m_Cursor->SetSize ( size );
 	}
 
-	void TrainingMenuItem::SetBaseRect ( float y )
+	void TrainingMenuItem::SetCursorWidth ( VEC2 size )
+	{
+		m_Cursor->SetSize ( size );
+	}
+
+	void TrainingMenuItem::SetBasePos ( float y )
 	{
 		m_y = y;
 		SetSelectBGRect ( VEC2 ( bx1 - 4, y - 4 ), VEC2 ( width0 + 8, height0 + 8 ) );
-		SetSelectRect ( VEC2 ( bx1, y ), VEC2 ( pitch, height0 ) );
-		SetCursorRect ( VEC2(bx1, y), VEC2(pitch, height0) );
-		SetPosCursor(VEC2(bx_csr, y + by_csr));
+		SetSelectPos ( VEC2 ( bx1, y ) );
+		SetCursorPos ( VEC2 ( bx1, y ) );
+		SetPosPrtCursor ( VEC2 ( bx_csr, y + by_csr ) );	//親カーソル位置
+	}
+
+	void TrainingMenuItem::SetWidth ( float w )
+	{
+		SetSelectWidth ( VEC2 ( w, height0 ) );
+		SetCursorWidth ( VEC2 ( w, height0 ) );
 	}
 
 
 	//======================================================
 	MenuItem_Ukemi::MenuItem_Ukemi ()
 	{
-		SetBaseRect ( by0 );
-		SetStrMain ( U"受身", VEC2( 10 + bx0, 2 + m_y ) );
-		m_StrOn = MakeStr ( U"ON", VEC2( 10 + bx_none, 2 + m_y) );
-		m_StrOff = MakeStr ( U"OFF", VEC2( 10 + bx_normal, 2 + m_y) );
+		SetBasePos ( by0 );
+		SetWidth ( pitch2 );
+		SetStrMain ( U"受身", VEC2( STR_PAD + bx0, 2 + m_y ) );
+		m_StrOn = MakeStr ( U"ON", VEC2( STR_PAD + bx_True, 2 + m_y) );
+		m_StrOff = MakeStr ( U"OFF", VEC2( STR_PAD + bx_False, 2 + m_y) );
 	}
 
 	void MenuItem_Ukemi::Do() 
@@ -234,6 +272,8 @@ namespace GAME
 	void MenuItem_Ukemi::On()
 	{
 		m_ukemiState = GetpParam()->GetPrmResult ().m_prp_Ukemi.Get ();
+		SetSelectPos( GetPosFromState () );
+		SetCursorPos ( GetPosFromState () );
 		m_StrOn->SetValid ( T );
 		m_StrOff->SetValid ( T );
 		TrainingMenuItem::On();
@@ -252,7 +292,7 @@ namespace GAME
 
 	VEC2 MenuItem_Ukemi::GetPosFromState () const
 	{
-		float x = m_ukemiState ? 0: 100.f;
+		float x = m_ukemiState ? bx_True: bx_False;
 		return VEC2( x, m_y );
 	}
 
@@ -260,10 +300,11 @@ namespace GAME
 	//======================================================
 	MenuItem_Guard::MenuItem_Guard ()
 	{
-		SetBaseRect ( by1 );
-		SetStrMain ( U"ガード", VEC2( 10 + bx0, 2 + m_y ) );
-		m_StrOn = MakeStr ( U"ON", VEC2( 10 + bx_none, 2 + m_y) );
-		m_StrOff = MakeStr ( U"OFF", VEC2( 10 + bx_normal, 2 + m_y) );
+		SetBasePos ( by1 );
+		SetWidth ( pitch2 );
+		SetStrMain ( U"ガード", VEC2( STR_PAD + bx0, 2 + m_y ) );
+		m_StrOn = MakeStr ( U"ON", VEC2( STR_PAD + bx_True, 2 + m_y) );
+		m_StrOff = MakeStr ( U"OFF", VEC2( STR_PAD + bx_False, 2 + m_y) );
 	}
 
 	void MenuItem_Guard::Do() 
@@ -317,6 +358,8 @@ namespace GAME
 	void MenuItem_Guard::On()
 	{
 		m_guardState = GetpParam()->GetPrmResult ().m_prp_Guard.Get ();
+		SetSelectPos( GetPosFromState () );
+		SetCursorPos ( GetPosFromState () );
 		m_StrOn->SetValid ( T );
 		m_StrOff->SetValid ( T );
 		TrainingMenuItem::On();
@@ -335,7 +378,7 @@ namespace GAME
 
 	VEC2 MenuItem_Guard::GetPosFromState ()
 	{
-		float x = m_guardState ? 0: 100.f;
+		float x = m_guardState ? bx_True: bx_False;
 		return VEC2( x, m_y );
 	}
 
@@ -345,7 +388,8 @@ namespace GAME
 
 	MenuItem_Taikou::MenuItem_Taikou ()
 	{
-		SetBaseRect ( by2 );
+		SetBasePos ( by2 );
+		SetWidth ( pitch4 );
 		SetStrMain ( U"剣撃対抗", VEC2( 10 + bx0, 2 + m_y) );
 
 		m_StrNone = MakeStr ( U"なし", VEC2( 10 + bx_none, 2 + m_y) );
@@ -408,6 +452,8 @@ namespace GAME
 	void MenuItem_Taikou::On()
 	{
 		m_taikouState = GetpParam()->GetPrmResult ().m_prp_Taikou.Get ();
+		SetSelectPos( GetPosFromState () );
+		SetCursorPos ( GetPosFromState () );
 		m_StrNone->SetValid ( T );
 		m_StrNormal->SetValid ( T );
 		m_StrRandom->SetValid ( T );
@@ -459,21 +505,13 @@ namespace GAME
 
 	MenuItem_CPU_LEVEL::MenuItem_CPU_LEVEL ()
 	{
-		SetBaseRect ( by3 );
+		SetBasePos ( by3 );
+		SetWidth ( BOX_W );
 		SetStrMain ( U"CPUレベル", VEC2( 10 + bx0, 2 + m_y ) );
 
 		m_aryLvStr.resize( 8 );
 		for ( INT32 i = 0; i < 8; ++ i )
 		{
-#if 0
-			m_aryLvStr[i] = std::make_shared < GrpStr > ();
-			m_aryLvStr[i]->SetSize ( G_Font::FONT_SIZE::SIZE_30 );
-			m_aryLvStr[i]->SetZ ( Z_MENU - 0.001f );
-			m_aryLvStr[i]->SetPos( VEC2( bx1 + BOX_W * i + 15, 2 + m_y) );
-			m_aryLvStr[i]->SetStr( U"{}"_fmt( i + 1 ) );
-			AddpTask(m_aryLvStr[i]);
-			GRPLST_INSERT(m_aryLvStr[i]);
-#endif // 0
 			VEC2 pos = VEC2 ( bx1 + BOX_W * i + 15, 2 + m_y );
 			m_aryLvStr [ i ] = MakeStr ( U"{}"_fmt ( i + 1 ).c_str(), pos);
 		}
@@ -515,6 +553,8 @@ namespace GAME
 		//最初の状態
 		INT32 level = GetpParam()->GetPrmResult ().m_prp_CpuLevel.Get ();
 		SetLevel ( level );
+		SetSelectPos( GetPosFromState () );
+		SetCursorPos ( GetPosFromState () );
 
 		for ( P_GrpStr p : m_aryLvStr )
 		{
@@ -566,7 +606,9 @@ namespace GAME
 
 	MenuItem_ToTitle::MenuItem_ToTitle ()
 	{
-		SetBaseRect ( by4 );
+		SetBasePos ( by4 );
+		SetbUseSelect ( F );	//選択表示はなし
+
 		SetStrMain ( U"タイトルに戻る", VEC2 ( 10 + bx0, 2 + m_y ) );
 
 		m_YesNoMenu = std::make_shared < YesNo_Menu > ();
@@ -584,7 +626,8 @@ namespace GAME
 	//======================================================
 	MenuItem_Return::MenuItem_Return ()
 	{
-		SetBaseRect ( by5 );
+		SetBasePos ( by5 );
+		SetbUseSelect ( F );	//選択表示はなし
 		SetStrMain ( U"ゲームに戻る", VEC2 ( 10 + bx0, 2 + m_y ) );
 	}
 

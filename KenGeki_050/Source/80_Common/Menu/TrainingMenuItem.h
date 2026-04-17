@@ -24,7 +24,7 @@ namespace GAME
 	{
 		P_Param		m_pParam;				//共有パラメータ
 		WP_Scene	mwp_Scene;				//大元シーンポインタ
-		VEC2		m_posCursor { 0, 0 };	//親カーソル位置
+		VEC2		m_posPrtCursor { 0, 0 };	//親カーソル位置
 
 		P_GrpStr	m_StrMain;		//見出し文字列
 		P_PrmRect	m_Select;		//選択表示
@@ -36,16 +36,27 @@ namespace GAME
 		P_PrmRect MakeSelectRect ();
 		P_PrmRect MakeCursorRect ();
 
+		bool	m_bUseSelect { T };		//選択可能かどうか(非表示)
+
+
 	protected:
+		void SetbUseSelect ( bool b ) { m_bUseSelect = b; }
+
 		void SetStrMain ( LPCUSTR str, VEC2 pos );
+
 		void SetSelectBGRect ( VEC2 pos, VEC2 size );
+
 		void SetSelectRect ( VEC2 pos, VEC2 size );
 		void SetSelectPos ( VEC2 pos ) { m_Select->SetPos ( pos ); }
+		void SetSelectWidth ( VEC2 size );
+
 		void SetCursorRect ( VEC2 pos, VEC2 size );
 		void SetCursorPos ( VEC2 pos ) { m_Cursor->SetPos ( pos ); }
+		void SetCursorWidth ( VEC2 size );
 
 		float m_y { 0 };	//基準Y座標
-		void SetBaseRect ( float y );
+		void SetBasePos ( float y );
+		void SetWidth ( float w );
 
 		//新規作成用
 		P_GrpStr MakeStr ();
@@ -67,8 +78,8 @@ namespace GAME
 		void On () override;
 		void Off () override;
 
-		VEC2 GetPosCursor() const { return m_posCursor; }
-		void SetPosCursor(VEC2 v) { m_posCursor = v; }
+		VEC2 GetPosPrtCursor() const { return m_posPrtCursor; }
+		void SetPosPrtCursor(VEC2 v) { m_posPrtCursor = v; }
 	};
 	using P_TrainingMenuItem = std::shared_ptr < TrainingMenuItem >;
 
