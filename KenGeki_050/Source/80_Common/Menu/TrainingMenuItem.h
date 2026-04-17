@@ -203,6 +203,9 @@ namespace GAME
 		~MenuItem_ToTitle () = default;
 
 		void Decide () override;
+
+		void SetwpEndMenu ( WP_GameMenu wp ) { m_YesNoMenu->SetwpEndMenu ( wp ); }
+		void SetwpParentScene_YS ( WP_Scene wp ) { m_YesNoMenu->SetwpParentScene ( wp ); }
 	};
 	using P_MenuItem_ToTitle = std::shared_ptr < MenuItem_ToTitle >;
 

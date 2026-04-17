@@ -299,6 +299,7 @@ namespace GAME
 		bool CanBeThrown () const;		//投げられ判定
 		bool IsThrowAction () const;	//投げ判定
 		bool IsNotOffset () const;		//相殺しない判定
+		bool CanUkemi () const;			//受身可能かどうか	
 
 		//特殊アクション（名前指定）
 		bool IsNameAction ( s3d::String name ) const { return m_pAction->Name.Is ( name ); }
@@ -483,6 +484,7 @@ namespace GAME
 		//アクション指定(Stateから指定)
 		void SetAction ( UINT action_id );
 		void SetAction ( s3d::String action_name );
+
 		//アクション移行(条件チェック)
 		UINT Check_TransitAction_Condition ( BRANCH_CONDITION CONDITION ) const;
 		//アクション移行(条件チェック) 名前を返す

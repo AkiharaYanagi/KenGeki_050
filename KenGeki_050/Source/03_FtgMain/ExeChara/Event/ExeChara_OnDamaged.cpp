@@ -340,6 +340,7 @@ namespace GAME
 
 
 	//ガードできる状態かどうか
+	//T: ガード成立, F: ガード不成立（ヒット）
 	bool ExeChara_OnDamaged::CanGuard () const
 	{
 		P_ExeChara pSelf  = m_pSelf .lock ();		//自分
@@ -388,6 +389,33 @@ namespace GAME
 		//----------------------------------------------
 		// レバー入れ判定
 		//----------------------------------------------
+
+		//トレモメニュー設定（ガード：ON)
+		if ( m_pParam->GetPrmResult().m_prp_Guard.Get() )
+		{
+			//2ヒット目以降はガード
+			UINT chainHitNum = m_btlPrm.GetChainHitNum ();
+			if ( chainHitNum == 0 )
+			{
+#if 0
+				//すべてガード
+				return T;
+#endif // 0
+
+				//初回はガード無し
+
+				//連続ヒットが切れたとき(N->0)からガード成立をオン
+				if ( m_btlPrm.GetTmr_TrainingGuard ()->IsActive () )
+				{
+					return T;
+				}
+				else
+				{
+					return F;
+				}
+
+			}
+		}
 
 		bool bStandGurad = F;	//立ちガード
 		bool bCrouchGurad = F;	//しゃがみガード

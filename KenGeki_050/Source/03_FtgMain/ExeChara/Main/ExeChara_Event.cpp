@@ -452,6 +452,25 @@ namespace GAME
 		return F;
 	}
 
+	//受身可能かどうか	
+	bool ExeChara::CanUkemi () const
+	{
+		//現在スクリプトのルートから「空中受身」がある場合
+		// 
+		//キャラの持つルート,ブランチ,コマンドの参照
+		const AP_Rut& vpRoute = m_pChara->GetvpRoute ();
+
+		//スクリプトの持つルートリスト
+		for ( UINT indexRut : m_pScript->GetcaRouteID () )
+		{
+			const P_Rut pRut = vpRoute [ indexRut ];
+			if ( pRut->Name.Is ( U"空中受身" ) )
+			{
+				return T;
+			}
+		}
+		return F;
+	}
 
 	//==========================================
 	//◆ 相手・攻撃 → 自分・くらい

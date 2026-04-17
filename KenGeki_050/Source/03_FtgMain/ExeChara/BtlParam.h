@@ -98,6 +98,7 @@ namespace GAME
 		P_Timer		m_tmrOfstCncl;		//相殺キャンセルタイマ
 		P_Timer		m_tmrTaikou;		//剣撃対抗受付タイマ
 		P_Timer		m_tmrTaikouNG;		//相手・剣撃対抗不可タイマ
+		P_Timer		m_tmrTrainingGuard;	//トレモ：連続ヒット切れガード成立
 
 		UINT	m_blackOut { 0 };		//暗転
 		UINT	m_scpStop { 0 };		//スクリプトからの停止
@@ -231,7 +232,7 @@ namespace GAME
 		GET_SET ( float, GetCnfmRvs, SetCnfmRvs, m_confirmed_revise )
 
 		//--------------------------------------------------------------------
-		//タイマ
+		//タイマ(Getのみ)
 		P_Timer GetTmr_ScpStop () { return m_tmrScpStop; }
 		P_Timer GetTmr_HitStop () { return m_tmrHitstop; }
 		P_Timer GetTmr_HitPitch () { return m_tmrHitPitch; }
@@ -241,6 +242,7 @@ namespace GAME
 		P_Timer GetTmr_OfstCncl () { return m_tmrOfstCncl; }
 		P_Timer GetTmr_Taikou () { return m_tmrTaikou; }
 		P_Timer GetTmr_TaikouNG () { return m_tmrTaikouNG; }
+		P_Timer GetTmr_TrainingGuard () { return m_tmrTrainingGuard; }
 
 		void AllTmr_Clear () { for ( P_Timer ptmr : m_timers ) { ptmr->Clear (); } }
 
@@ -293,6 +295,11 @@ namespace GAME
 		bool Is1P () const { return PLAYER_ID_1 == GetPlayerID(); }
 		bool Is2P () const { return PLAYER_ID_2 == GetPlayerID(); }
 	private:
+		//タイマ生成
+		P_Timer MakeTimer () { return MakeTimer ( 0 ); }
+		P_Timer MakeTimer ( UINT targetTime );
+
+
 		// 慣性の減少
 		void DecreaseInertial ( float d, VEC2 & inertial );
 

@@ -61,6 +61,7 @@ namespace GAME
 
 		m_cursor = std::make_shared < GameGraphic >();
 		m_cursor->AddTexture_FromArchive(U"cursor.png");
+		m_cursor->SetScalingCenter ( 0, 12.5f );
 		m_cursor->SetZ(Z_MENU - 0.001f);
 		AddpTask(m_cursor);
 		GRPLST_INSERT(m_cursor);
@@ -109,6 +110,10 @@ namespace GAME
 		GameMenu::SetpMenuItem ( m_item_CpuLevel );
 		GameMenu::SetpMenuItem ( m_item_ToTitle );
 		GameMenu::SetpMenuItem ( m_item_Return );
+
+		//特殊設定
+		m_item_ToTitle->SetwpParentMenu ( shared_from_this() );
+		m_item_ToTitle->SetwpEndMenu ( shared_from_this() );
 
 
 		//最初の選択
@@ -173,6 +178,12 @@ namespace GAME
 			Do ();
 		}
 
+		//カーソル回転
+		m_cursor_scaling_y += m_cursor_scaling_vy;
+		if (m_cursor_scaling_y >= 1.f) { m_cursor_scaling_vy = -0.1f; }
+		if (m_cursor_scaling_y <= -1.f) { m_cursor_scaling_vy = 0.1f; }
+		m_cursor->SetScaling(1.f, m_cursor_scaling_y);
+
 
 		TASK_VEC::Move ();
 	}
@@ -202,6 +213,9 @@ namespace GAME
 		m_item_CpuLevel->SetwpParentScene ( wp );
 		m_item_ToTitle->SetwpParentScene ( wp );
 		m_item_Return->SetwpParentScene ( wp );
+
+		//特殊設定
+		m_item_ToTitle->SetwpParentScene_YS ( wp );
 	}
 
 	bool TrainingMenu::MenuInput ()
@@ -215,9 +229,7 @@ namespace GAME
 			bool bCancelBtn = CFG_PUSH_KEY_12 ( PLY_BTN1 );
 			if ( bEsc || bMenuBtn || bCancelBtn )
 			{
-				AUD_PLAY_ONESHOT_SE(SE_select_Cancel);
-				Off ();
-				SetStopMain ( F );
+				Back ();
 				return F;
 			}
 		}
@@ -265,6 +277,18 @@ namespace GAME
 		m_cursor->SetValid ( T );
 		SetActive ( T );
 		Menu::On ();
+	}
+
+	void TrainingMenu::Back ()
+	{
+		AUD_PLAY_ONESHOT_SE(SE_select_Cancel);
+		//すべて非アクティブ
+		for ( P_GameMenuItem pItem : GameMenu::GetvpMenuItem() )
+		{
+			 pItem->SetActive ( F );
+		}
+		Off ();
+		SetStopMain ( F );
 	}
 
 

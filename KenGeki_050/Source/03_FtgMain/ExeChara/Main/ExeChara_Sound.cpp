@@ -90,7 +90,7 @@ namespace GAME
 			UINT n = m_pScript->Index.Get ();
 			bool b = m_btlPrm.GetFirstSE ();
 			bool b_HS = m_btlPrm.GetFirstSE_HS ();
-			DBGOUT_WND_F ( DBGOUT_7, U"[{}]: FirstSE = {}, HS = {}"_fmt( n, b, b_HS ) );
+			//DBGOUT_WND_F ( DBGOUT_7, U"[{}]: FirstSE = {}, HS = {}"_fmt( n, b, b_HS ) );
 		}
 
 

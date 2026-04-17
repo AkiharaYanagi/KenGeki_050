@@ -31,15 +31,16 @@ namespace GAME
 	public:
 		void Decide ();	//決定　タイトルに戻る
 		void SetwpParentScene ( WP_Scene wp ) { mwp_Scene = wp; }
-
 	};
 	using P_YNM_Item_Yes = std::shared_ptr < YNM_Item_Yes >;
 
 
 	class YNM_Item_No : public Menu
 	{
+		WP_GameMenu		mwp_EndMenu;	//特殊終了のためのメニュポインタ
 	public: 
 		void Decide ();	//キャンセル 自メニュを閉じる
+		void SetwpEndMenu ( WP_GameMenu wp ) { mwp_EndMenu = wp; }
 	};
 	using P_YNM_Item_No = std::shared_ptr < YNM_Item_No >;
 
@@ -77,8 +78,10 @@ namespace GAME
 
 		void On ();
 		void Off ();
+		void Back ();
 
 		void SetwpParentScene ( WP_Scene wp );
+		void SetwpEndMenu ( WP_GameMenu wp );
 
 	private:
 		static const float BG_X;

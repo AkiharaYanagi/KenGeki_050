@@ -36,30 +36,46 @@ namespace GAME
 	//================================================
 	void ExeChara::SpecialAction ()
 	{
+		//相手
+		P_ExeChara pOther = m_pOther.lock ();
+
 		//「相手」の、連続ヒット関連リセット
 		//-----------------------------------------------------
-		//立ち状態でリセット
-		if ( IsNameAction ( U"立ち" ) )
 		{
-			m_pOther.lock()->m_btlPrm.ChainReset ();
+			//単純チェック
+			bool bStand = IsNameAction ( U"立ち" );	//立ち状態でリセット
+			bool bDamaged = ! IsDamaged ();			//ダメージでないときもリセット
 
-			//基準スタミナ回復
-			//m_btlPrm.AddBalance ( 10 );
-		}
+			//次が立ちに戻る
+			bool bName = m_pAction->NextName.Is ( U"立ち" );
+			bool bEndScript = m_pAction->IsEndScript ( m_frame );	//最終スクリプト
+			bool bNextStand = bName && bEndScript;
 
-		//ダメージでないときもリセット
-		if ( ! IsDamaged () )
-		{
-			m_pOther.lock()->m_btlPrm.ChainReset ();
-		}
-
-		//次が立ちに戻る
-		if ( m_pAction->NextName.Is ( U"立ち" ) )
-		{
-			//最終スクリプト
-			if ( m_pAction->IsEndScript ( m_frame ) )
+			//総合判定
+			bool bChainReset = bStand || bDamaged || bNextStand;
+			if ( bChainReset )
 			{
-				m_pOther.lock()->m_btlPrm.ChainReset ();
+				//今までのヒット数が１以上
+				UINT hitNum = pOther->m_btlPrm.GetChainHitNum ();
+
+				//連続ヒット途切れ ( N->0なので１回)
+				if ( hitNum > 1 )
+				{
+					//自分
+					//トレモ：連続ヒット途切れ、ガード開始 
+					m_btlPrm.GetTmr_TrainingGuard()->Start ( 60 );
+				}
+
+
+				//相手：連続ヒット関連リセット
+				pOther->m_btlPrm.ChainReset ();
+			}
+
+			//1p攻撃、2pやられ
+			if ( IsPlayerID( PLAYER_ID_2 ) )
+			{
+				UINT time = m_btlPrm.GetTmr_TrainingGuard ()->GetTime ();
+				DBGOUT_WND_F( DBGOUT_7, U"連続ヒット途切れ、ガード開始 = {}"_fmt( time ) );
 			}
 		}
 

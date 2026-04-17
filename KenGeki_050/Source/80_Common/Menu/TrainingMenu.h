@@ -29,6 +29,8 @@ namespace GAME
 		P_MenuItem_Return		m_item_Return;		//戻る
 
 		P_Grp		m_cursor;	//カーソル
+		float		m_cursor_scaling_vy{ 0.05f };
+		float		m_cursor_scaling_y{ 1.f };
 
 	public:
 		TrainingMenu ();
@@ -48,6 +50,8 @@ namespace GAME
 
 		void Off ();
 		void On ();
+
+		void Back ();
 
 
 	private:

@@ -188,6 +188,15 @@ namespace GAME
 		}
 
 
+		//トレモ・受身オンのとき優先
+		if ( m_pParam->GetPrmResult ().m_prp_Ukemi.Get () )
+		{
+			if ( CanUkemi () )
+			{
+				transitID = m_pChara->GetBehavior ().GetSqcID ( U"空中受け身" );
+			}
+		}
+
 		//コマンドが完成かつ移行条件がOKなら
 		if ( NO_COMPLETE != transitID )
 		{
@@ -364,7 +373,7 @@ namespace GAME
 				//空中ヒット時に通常やられにする
 				if ( m_pOther.lock()->IsFloat () )
 				{
-					nameAction = U"空中やられ";
+					nameAction = U"強制ダウン落下";
 				}
 			}
 		}

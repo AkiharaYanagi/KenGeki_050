@@ -120,31 +120,28 @@ namespace GAME
 	void BtlParam::LoadTimer ()
 	{
 		//タイマの初期化
-		m_tmrHitstop	= std::make_shared < Timer > ( HITSTOP_TIME );	//ヒットストップ
-		m_tmrDown		= std::make_shared < Timer > ( DOWN_TIME );		//ダウンタイマ
-		m_tmrEnd		= std::make_shared < Timer > ( END_TIME );		//終了状態タイマ
-		m_tmrScpStop		= std::make_shared < Timer > ();		//ストップタイマ
-		m_tmrHitPitch	= std::make_shared < Timer > ();		//ヒット間隔タイマ
-		m_tmrLurch		= std::make_shared < Timer > ();		//のけぞりタイマ
-		m_tmrVib		 = std::make_shared < Timer > ();	//個別振動
-		m_tmrOfstCncl =	std::make_shared < Timer > ();		//相殺キャンセルタイマ
-		m_tmrWhiteDamage = std::make_shared < Timer > ();	//白ダメージ
-		m_tmrTaikou		= std::make_shared < Timer > ();	//剣撃対抗受付タイマ
-		m_tmrTaikouNG		= std::make_shared < Timer > ();	//剣撃対抗受付タイマ
+		m_tmrHitstop	= MakeTimer ( HITSTOP_TIME );	//ヒットストップ
+		m_tmrDown		= MakeTimer ( DOWN_TIME );		//ダウンタイマ
+		m_tmrEnd		= MakeTimer ( END_TIME );		//終了状態タイマ
+		m_tmrScpStop	= MakeTimer ();		//ストップタイマ
+		m_tmrHitPitch	= MakeTimer ();		//ヒット間隔タイマ
+		m_tmrLurch		= MakeTimer ();		//のけぞりタイマ
+		m_tmrVib		= MakeTimer ();	//個別振動
+		m_tmrOfstCncl	= MakeTimer ();		//相殺キャンセルタイマ
+		m_tmrWhiteDamage= MakeTimer ();	//白ダメージ
+		m_tmrTaikou		= MakeTimer ();	//剣撃対抗受付タイマ
+		m_tmrTaikouNG	= MakeTimer ();	//剣撃対抗受付タイマ
+		m_tmrTrainingGuard = MakeTimer ( 30 );	//トレモ：連続ヒット切れガード成立
 
-		m_timers.push_back ( m_tmrHitstop );
-		m_timers.push_back ( m_tmrDown );
-		m_timers.push_back ( m_tmrEnd );
-		m_timers.push_back ( m_tmrScpStop );
-		m_timers.push_back ( m_tmrHitPitch );
-		m_timers.push_back ( m_tmrLurch );
-		m_timers.push_back ( m_tmrVib );
-		m_timers.push_back ( m_tmrOfstCncl );
-		m_timers.push_back ( m_tmrWhiteDamage );
-		m_timers.push_back ( m_tmrTaikou );
-
-		//m_timers.push_back ( m_tmrTaikouNG );
 		//アクション終了時にクリアしない
+		//m_timers.push_back ( m_tmrTaikouNG );
+	}
+
+	P_Timer BtlParam::MakeTimer ( UINT targetTime )
+	{
+		P_Timer ptmr = std::make_shared < Timer > ( targetTime );
+		m_timers.push_back ( ptmr );
+		return ptmr;
 	}
 
 	void BtlParam::PosInit ()
@@ -936,6 +933,9 @@ namespace GAME
 		++ m_hitNum;
 
 		//@info 連続ヒット数は常に加算し、ニュートラル状態で「相手(m_pOther)」の値を０に戻す
+		// >>	"ExeChara_Special.cpp"
+		// void ExeChara::SpecialAction ()
+
 		//ガード時は加算しない
 
 #if 0

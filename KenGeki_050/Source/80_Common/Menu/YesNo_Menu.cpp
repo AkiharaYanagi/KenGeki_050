@@ -11,6 +11,7 @@
 #include "../../90_GameMain/Scene.h"
 #include "PauseMenu_Const.h"
 #include "../../90_GameMain/SeConst.h"
+#include "TrainingMenu.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -49,8 +50,15 @@ namespace GAME
 	void YNM_Item_No::Decide ()
 	{
 		AUD_PLAY_ONESHOT_SE(SE_select_Cancel);
-		P_YesNo_Menu p = std::dynamic_pointer_cast <YesNo_Menu> ( mwp_Parent.lock () );
-		p->Off ();
+		Off ();
+
+		//自メニュを閉じる
+		//P_YesNo_Menu p = std::dynamic_pointer_cast <YesNo_Menu> ( mwp_Parent.lock () );
+		//p->Back ();
+
+		//親メニューごと閉じる
+		P_TrainingMenu p = std::dynamic_pointer_cast < TrainingMenu > ( mwp_EndMenu.lock () );
+		p->Back ();
 	}
 
 
@@ -191,17 +199,21 @@ namespace GAME
 		Menu::Off ();
 	}
 
-#if 0
-	void YesNo_Menu::SetwpParent ( WP_FtgMain p )
+	void YesNo_Menu::Back ()
 	{
-		m_yes->SetpFtgMain ( p );
-		m_no->SetwpParent ( shared_from_this () );
+		Off ();
+		GetwpParentMenu ().lock ()->On ();
 	}
-#endif // 0
+
 	void YesNo_Menu::SetwpParentScene ( WP_Scene wp )
 	{
 		m_yes->SetwpParentScene ( wp );
 		m_no->SetwpParentMenu ( shared_from_this () );
+	}
+
+	void YesNo_Menu::SetwpEndMenu ( WP_GameMenu wp )
+	{
+		m_no->SetwpEndMenu ( wp );
 	}
 
 

@@ -44,6 +44,7 @@ namespace GAME
 	};
 
 	using P_Menu = std::shared_ptr < Menu >;
+	using WP_Menu = std::weak_ptr < Menu >;
 
 
 }	//namespace GAME
