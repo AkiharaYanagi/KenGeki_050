@@ -37,6 +37,7 @@ namespace GAME
 		void Load () override;
 		void Move () override;
 
+		void SetpParam ( P_Param p );
 //		void SetwpParent ( WP_FtgMain p );
 		void SetwpParentScene ( WP_Scene wp );
 
@@ -47,7 +48,7 @@ namespace GAME
 		void SetActive(bool b) override;
 		void On ();
 		void Off ();
-		void Back ();
+		void Back () override;
 
 	private:
 		void SetCursorPos ();

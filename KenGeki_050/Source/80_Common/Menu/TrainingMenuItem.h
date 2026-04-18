@@ -187,6 +187,8 @@ namespace GAME
 		void Off () override;
 		void Back ();
 
+		void ResetBasePos ( float y );
+
 	private:
 		void SetLevel ( INT32 level );
 		void NextLevel ();
@@ -210,6 +212,8 @@ namespace GAME
 
 		void SetwpEndMenu ( WP_GameMenu wp ) { m_YesNoMenu->SetwpEndMenu ( wp ); }
 		void SetwpParentScene_YS ( WP_Scene wp ) { m_YesNoMenu->SetwpParentScene ( wp ); }
+
+		void ResetBasePos ( float y );
 	};
 	using P_MenuItem_ToTitle = std::shared_ptr < MenuItem_ToTitle >;
 
@@ -223,6 +227,8 @@ namespace GAME
 		~MenuItem_Return () = default;
 
 		void Decide () override;
+
+		void ResetBasePos ( float y );
 	};
 	using P_MenuItem_Return = std::shared_ptr < MenuItem_Return >;
 

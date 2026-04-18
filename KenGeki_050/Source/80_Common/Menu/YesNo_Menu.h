@@ -50,7 +50,7 @@ namespace GAME
 	// Y_N_メニュ
 	class YesNo_Menu : public Menu
 	{
-		P_GameMenuString	m_grpStr_yesno;
+		//P_GameMenuString	m_grpStr_yesno;
 
 		//カーソル
 		P_Grp			m_cursor;

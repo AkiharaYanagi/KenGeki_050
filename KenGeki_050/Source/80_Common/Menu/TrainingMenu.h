@@ -48,7 +48,7 @@ namespace GAME
 		void SetActive(bool b) override;
 		void On ();
 		void Off ();
-		void Back ();
+		void Back () override;
 
 	private:
 		void SetCursorPos ();

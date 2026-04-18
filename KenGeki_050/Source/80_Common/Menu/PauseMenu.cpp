@@ -17,6 +17,22 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+	//ソースファイル内のみ使用するための無名namespaceによる定数
+	namespace
+	{
+		constexpr float bx0 = 250;			//見出し
+		constexpr float bx1 = bx0 + 250;	//項目
+
+		constexpr float py  = 80;	//ピッチ
+		constexpr float by  = 250;	//基準y
+		constexpr float by0 = by + py * 0;	//CPUレベル
+		constexpr float by1 = by + py * 1;	//タイトル
+		constexpr float by2 = by + py * 2;	//戻る
+		constexpr float by3 = by + py * 3;	//
+		constexpr float by4 = by + py * 4;	//
+		constexpr float by5 = by + py * 5;	//
+	}
+
 
 	PauseMenu::PauseMenu ()
 	{
@@ -38,12 +54,17 @@ namespace GAME
 		//CPUレベル
 		m_item_CpuLevel = std::make_shared < MenuItem_CPU_LEVEL >();
 		AddpTask ( m_item_CpuLevel );
+		m_item_CpuLevel->ResetBasePos ( by0 );
+
 		//タイトルに戻る
 		m_item_ToTitle = std::make_shared < MenuItem_ToTitle >();
 		AddpTask ( m_item_ToTitle );
+		m_item_ToTitle->ResetBasePos ( by1 );
+
 		//ゲームに戻る
 		m_item_Return = std::make_shared < MenuItem_Return >();
 		AddpTask ( m_item_Return );
+		m_item_Return->ResetBasePos ( by2 );
 
 		//--------------------------------------------
 		//カーソル
@@ -53,7 +74,7 @@ namespace GAME
 		m_cursor->SetScalingCenter ( 0, 12.5f );
 		AddpTask ( m_cursor );
 		GRPLST_INSERT ( m_cursor );
-		m_cursor->SetPos ( m_item_ToTitle->GetPosPrtCursor () );
+		m_cursor->SetPos ( m_item_CpuLevel->GetPosPrtCursor () );
 
 		//--------------------------------------------
 		//初期状態はOff
@@ -62,6 +83,14 @@ namespace GAME
 
 	PauseMenu::~PauseMenu ()
 	{
+	}
+
+	void PauseMenu::SetpParam ( P_Param p )
+	{
+		m_item_CpuLevel->SetpParam ( p );
+		m_item_ToTitle->SetpParam ( p );
+		m_item_Return->SetpParam ( p );
+		Menu::SetpParam ( p );
 	}
 
 	void PauseMenu::Load ()

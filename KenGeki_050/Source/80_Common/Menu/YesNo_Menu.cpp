@@ -58,8 +58,7 @@ namespace GAME
 		pParent->Off ();
 
 		//親メニューごと閉じる
-		P_TrainingMenu pAllMenu = std::dynamic_pointer_cast < TrainingMenu > ( mwp_EndMenu.lock () );
-		pAllMenu->Back ();
+		mwp_EndMenu.lock ()->Back ();
 	}
 
 
@@ -76,12 +75,19 @@ namespace GAME
 		Menu::SetBG_Z ( Z_MENU_YN_BG );
 
 		//見出
+#if 0
+
 		m_grpStr_yesno = std::make_shared < GameMenuString > ();
 		m_grpStr_yesno->SetbMenu ( T );
 		m_grpStr_yesno->SetStr ( U"- 終了します -" );
 		m_grpStr_yesno->SetZ ( Z_MENU_YN_STR );
 		AddpTask ( m_grpStr_yesno );
 		GRPLST_INSERT ( m_grpStr_yesno );
+
+#endif // 0
+		GameMenuItem::SetStr ( U"- 終了します -" );
+		m_str->SetZ ( Z_MENU_YN_STR );
+		GRPLST_REINSERT ( m_str );//Z再挿入
 
 		m_grpStr_yes = std::make_shared < GameMenuString > ();
 		m_grpStr_yes->SetbMenu ( T );
@@ -129,7 +135,8 @@ namespace GAME
 
 	void YesNo_Menu::Init ()
 	{
-		m_grpStr_yesno->SetPos (CAPTION_X, CAPTION_Y);
+		//m_grpStr_yesno->SetPos (CAPTION_X, CAPTION_Y);
+		GameMenuItem::SetPosStr ( VEC2 ( CAPTION_X, CAPTION_Y ) );
 		m_grpStr_yes->SetPos ( YES_X, BG_Y + 100 );
 		m_grpStr_no->SetPos ( NO_X, BG_Y + 100 );
 
@@ -179,7 +186,7 @@ namespace GAME
 
 	void YesNo_Menu::On ()
 	{
-		m_grpStr_yesno->SetValid ( T );
+		//m_grpStr_yesno->SetValid ( T );
 		m_grpStr_yes->SetValid ( T );
 		m_grpStr_no->SetValid ( T );
 		m_cursor->SetValid ( T );
@@ -191,7 +198,7 @@ namespace GAME
 
 	void YesNo_Menu::Off ()
 	{
-		m_grpStr_yesno->SetValid ( F );
+		//m_grpStr_yesno->SetValid ( F );
 		m_grpStr_yes->SetValid ( F );
 		m_grpStr_no->SetValid ( F );
 		m_cursor->SetValid ( F );

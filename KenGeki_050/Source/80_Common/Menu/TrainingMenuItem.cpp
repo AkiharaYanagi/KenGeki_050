@@ -40,8 +40,8 @@ namespace GAME
 		//項目2つ
 		constexpr float pitch2 = 100;
 		constexpr float width2 = 200;
-		constexpr float bx_True		= bx1 + pitch2 * 0;
-		constexpr float bx_False	= bx1 + pitch2 * 1;
+		constexpr float bx_False	= bx1 + pitch2 * 0;
+		constexpr float bx_True		= bx1 + pitch2 * 1;
 		
 		//項目4つ
 		constexpr float pitch4 = 150;
@@ -219,7 +219,7 @@ namespace GAME
 		m_StrOff = MakeStr ( U"OFF", VEC2( STR_PAD + bx_False, 2 + m_y) );
 	}
 
-	void MenuItem_Ukemi::Do() 
+	void MenuItem_Ukemi::Do () 
 	{
 		//入力
 		if ( CFG_PUSH_KEY_12 ( PLY_LEFT ) )
@@ -301,12 +301,12 @@ namespace GAME
 	MenuItem_Guard::MenuItem_Guard ()
 	{
 		SetBasePos ( by1 );
-		SetWidth ( pitch2 );
+		SetWidth ( pitch4 );
 		SetStrMain ( U"ガード", VEC2( STR_PAD + bx0, 2 + m_y ) );
-		m_StrNormal = MakeStr ( U"通常", VEC2( 10 + bx_4_0, 2 + m_y) );
-		m_StrHit1 = MakeStr ( U"1hit~", VEC2( 10 + bx_4_1, 2 + m_y) );
-		m_StrRandom = MakeStr ( U"ランダム", VEC2( 10 + bx_4_2, 2 + m_y) );
-		m_StrForced = MakeStr ( U"すべて", VEC2( 10 + bx_4_3, 2 + m_y) );
+		m_StrNormal = MakeStr ( U"通常",		VEC2( 10 + bx_4_0, 2 + m_y ) );
+		m_StrHit1   = MakeStr ( U"1hit~",	VEC2( 10 + bx_4_1, 2 + m_y ) );
+		m_StrForced = MakeStr ( U"すべて",	VEC2( 10 + bx_4_2, 2 + m_y ) );
+		m_StrRandom = MakeStr ( U"ランダム",	VEC2( 10 + bx_4_3, 2 + m_y ) );
 	}
 
 	void MenuItem_Guard::Do() 
@@ -350,8 +350,8 @@ namespace GAME
 	{
 		m_StrNormal->SetValid ( F );
 		m_StrHit1->SetValid ( F );
-		m_StrRandom->SetValid ( F );
 		m_StrForced->SetValid ( F );
+		m_StrRandom->SetValid ( F );
 		TrainingMenuItem::Off();
 	}
 
@@ -362,8 +362,8 @@ namespace GAME
 		SetCursorPos ( GetPosFromState () );
 		m_StrNormal->SetValid ( T );
 		m_StrHit1->SetValid ( T );
-		m_StrRandom->SetValid ( T );
 		m_StrForced->SetValid ( T );
+		m_StrRandom->SetValid ( T );
 		TrainingMenuItem::On();
 	}
 
@@ -379,9 +379,9 @@ namespace GAME
 		switch ( m_guardState )
 		{
 		case GuardState::Normal: m_guardState = GuardState::Hit1; break;
-		case GuardState::Hit1: m_guardState = GuardState::Random; break;
-		case GuardState::Random: m_guardState = GuardState::ForcedOn; break;
-		case GuardState::ForcedOn: m_guardState = GuardState::Normal; break;
+		case GuardState::Hit1: m_guardState = GuardState::ForcedOn; break;
+		case GuardState::ForcedOn: m_guardState = GuardState::Random; break;
+		case GuardState::Random: m_guardState = GuardState::Normal; break;
 		}
 	}
 
@@ -389,10 +389,10 @@ namespace GAME
 	{
 		switch ( m_guardState )
 		{
-		case GuardState::Normal: m_guardState = GuardState::Hit1; break;
-		case GuardState::Hit1: m_guardState = GuardState::Random; break;
+		case GuardState::Normal: m_guardState = GuardState::Random; break;
+		case GuardState::Hit1: m_guardState = GuardState::Normal; break;
+		case GuardState::ForcedOn: m_guardState = GuardState::Hit1; break;
 		case GuardState::Random: m_guardState = GuardState::ForcedOn; break;
-		case GuardState::ForcedOn: m_guardState = GuardState::Normal; break;
 		}
 	}
 
@@ -400,10 +400,10 @@ namespace GAME
 	{
 		switch ( m_guardState )
 		{
-		case GuardState::Normal: return VEC2( bx_4_0, m_y );
-		case GuardState::Hit1: return VEC2( bx_4_1, m_y );
-		case GuardState::Random: return VEC2( bx_4_2, m_y );
-		case GuardState::ForcedOn: return VEC2( bx_4_3, m_y );
+		case GuardState::Normal:	return VEC2( bx_4_0, m_y );
+		case GuardState::Hit1:		return VEC2( bx_4_1, m_y );
+		case GuardState::ForcedOn:	return VEC2( bx_4_2, m_y );
+		case GuardState::Random:	return VEC2( bx_4_3, m_y );
 		}
 		return VEC2( bx_4_0, m_y );
 	}
@@ -418,10 +418,10 @@ namespace GAME
 		SetWidth ( pitch4 );
 		SetStrMain ( U"剣撃対抗", VEC2( 10 + bx0, 2 + m_y) );
 
-		m_StrNone = MakeStr ( U"なし", VEC2( 10 + bx_4_0, 2 + m_y) );
-		m_StrNormal = MakeStr ( U"通常", VEC2( 10 + bx_4_1, 2 + m_y) );
+		m_StrNormal = MakeStr ( U"通常",    VEC2( 10 + bx_4_0, 2 + m_y) );
+		m_StrForced = MakeStr ( U"全て",    VEC2( 10 + bx_4_1, 2 + m_y) );
 		m_StrRandom = MakeStr ( U"ランダム", VEC2( 10 + bx_4_2, 2 + m_y) );
-		m_StrForced = MakeStr ( U"常にオン", VEC2( 10 + bx_4_3, 2 + m_y) );
+		m_StrNone   = MakeStr ( U"なし",    VEC2( 10 + bx_4_3, 2 + m_y) );
 	}
 
 	void MenuItem_Taikou::Do() 
@@ -468,10 +468,10 @@ namespace GAME
 
 	void MenuItem_Taikou::Off()
 	{
-		m_StrNone->SetValid ( F );
 		m_StrNormal->SetValid ( F );
-		m_StrRandom->SetValid ( F );
 		m_StrForced->SetValid ( F );
+		m_StrRandom->SetValid ( F );
+		m_StrNone->SetValid ( F );
 		TrainingMenuItem::Off();
 	}
 
@@ -480,10 +480,10 @@ namespace GAME
 		m_taikouState = GetpParam()->GetPrmResult ().m_prp_Taikou.Get ();
 		SetSelectPos( GetPosFromState () );
 		SetCursorPos ( GetPosFromState () );
-		m_StrNone->SetValid ( T );
 		m_StrNormal->SetValid ( T );
-		m_StrRandom->SetValid ( T );
 		m_StrForced->SetValid ( T );
+		m_StrRandom->SetValid ( T );
+		m_StrNone->SetValid ( T );
 		TrainingMenuItem::On();
 	}
 
@@ -491,10 +491,10 @@ namespace GAME
 	{
 		switch ( m_taikouState )
 		{
+		case TaikouState::Normal: m_taikouState = TaikouState::ForcedOn; break;
+		case TaikouState::ForcedOn: m_taikouState = TaikouState::Random; break;
+		case TaikouState::Random: m_taikouState = TaikouState::None; break;
 		case TaikouState::None: m_taikouState = TaikouState::Normal; break;
-		case TaikouState::Normal: m_taikouState = TaikouState::Random; break;
-		case TaikouState::Random: m_taikouState = TaikouState::ForcedOn; break;
-		case TaikouState::ForcedOn: m_taikouState = TaikouState::None; break;
 		}
 	}
 
@@ -502,10 +502,10 @@ namespace GAME
 	{
 		switch ( m_taikouState )
 		{
-		case TaikouState::None: m_taikouState = TaikouState::ForcedOn; break;
 		case TaikouState::Normal: m_taikouState = TaikouState::None; break;
-		case TaikouState::Random: m_taikouState = TaikouState::Normal; break;
-		case TaikouState::ForcedOn: m_taikouState = TaikouState::Random; break;
+		case TaikouState::ForcedOn: m_taikouState = TaikouState::Normal; break;
+		case TaikouState::Random: m_taikouState = TaikouState::ForcedOn; break;
+		case TaikouState::None: m_taikouState = TaikouState::Random; break;
 		}
 	}
 
@@ -513,10 +513,10 @@ namespace GAME
 	{
 		switch ( m_taikouState )
 		{
-		case TaikouState::None: return VEC2( bx_4_0, m_y );
-		case TaikouState::Normal: return VEC2( bx_4_1, m_y );
-		case TaikouState::Random: return VEC2( bx_4_2, m_y );
-		case TaikouState::ForcedOn: return VEC2( bx_4_3, m_y );
+		case TaikouState::Normal:		return VEC2( bx_4_0, m_y );
+		case TaikouState::ForcedOn:		return VEC2( bx_4_1, m_y );
+		case TaikouState::Random:		return VEC2( bx_4_2, m_y );
+		case TaikouState::None:			return VEC2( bx_4_3, m_y );
 		}
 		return VEC2( bx_4_0, m_y );
 	}
@@ -531,15 +531,27 @@ namespace GAME
 
 	MenuItem_CPU_LEVEL::MenuItem_CPU_LEVEL ()
 	{
-		SetBasePos ( by3 );
-		SetWidth ( BOX_W );
-		SetStrMain ( U"CPUレベル", VEC2( 10 + bx0, 2 + m_y ) );
-
 		m_aryLvStr.resize( 8 );
 		for ( INT32 i = 0; i < 8; ++ i )
 		{
 			VEC2 pos = VEC2 ( bx1 + BOX_W * i + 15, 2 + m_y );
 			m_aryLvStr [ i ] = MakeStr ( U"{}"_fmt ( i + 1 ).c_str(), pos);
+		}
+
+		ResetBasePos ( by3 );
+	}
+
+	void MenuItem_CPU_LEVEL::ResetBasePos ( float y ) 
+	{
+		SetBasePos ( y );
+		//m_y = y;
+		SetWidth ( BOX_W );
+		SetStrMain ( U"CPUレベル", VEC2( 10 + bx0, 2 + m_y ) );
+
+		for ( INT32 i = 0; i < 8; ++ i )
+		{
+			VEC2 pos = VEC2 ( bx1 + BOX_W * i + 15, 2 + m_y );
+			m_aryLvStr [ i ]->SetPos ( pos );
 		}
 	}
 
@@ -563,6 +575,8 @@ namespace GAME
 		if ( CFG_PUSH_KEY_12 ( PLY_BTN0 ) )
 		{
 			GetpParam()->GetPrmResult ().m_prp_CpuLevel.Set (m_level);
+			SetSelectPos( GetPosFromState () );
+
 			Back ();
 			GetwpParentScene().lock ()->ParamReset ();
 		}
@@ -641,6 +655,13 @@ namespace GAME
 		AddpTask ( m_YesNoMenu );
 	}
 
+	void MenuItem_ToTitle::ResetBasePos ( float y ) 
+	{
+		SetBasePos ( y );
+		//m_y = y;
+		SetStrMain ( U"タイトルに戻る", VEC2 ( 10 + bx0, 2 + m_y ) );
+	}
+
 	void MenuItem_ToTitle::Decide ()
 	{
 		AUD_PLAY_ONESHOT_SE(SE_select_Cancel);
@@ -654,6 +675,13 @@ namespace GAME
 	{
 		SetBasePos ( by5 );
 		SetbUseSelect ( F );	//選択表示はなし
+		SetStrMain ( U"ゲームに戻る", VEC2 ( 10 + bx0, 2 + m_y ) );
+	}
+
+	void MenuItem_Return::ResetBasePos ( float y ) 
+	{
+		SetBasePos ( y );
+		//m_y = y;
 		SetStrMain ( U"ゲームに戻る", VEC2 ( 10 + bx0, 2 + m_y ) );
 	}
 

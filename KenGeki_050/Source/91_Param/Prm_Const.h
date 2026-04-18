@@ -21,17 +21,17 @@ namespace GAME
 	{
 		Normal,		//通常
 		Hit1,		//1hit~
-		Random,		//ランダム
 		ForcedOn,	//全て
+		Random,		//ランダム
 	};
 
 	//剣撃対抗状態
 	enum class TaikouState
 	{
-		None,		//なし
 		Normal,		//通常
-		Random,		//ランダム
 		ForcedOn,	//全て
+		Random,		//ランダム
+		None,		//なし
 	};
 
 
