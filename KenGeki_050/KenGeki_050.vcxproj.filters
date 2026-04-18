@@ -391,9 +391,6 @@
     <ClCompile Include="Source\80_Common\Menu\PauseMenu_Const.cpp">
       <Filter>80_Common\Menu</Filter>
     </ClCompile>
-    <ClCompile Include="Source\80_Common\Menu\PauseMenuItem.cpp">
-      <Filter>80_Common\Menu</Filter>
-    </ClCompile>
     <ClCompile Include="Source\80_Common\Menu\YesNo_Menu.cpp">
       <Filter>80_Common\Menu</Filter>
     </ClCompile>
@@ -1335,9 +1332,6 @@
       <Filter>90_GameMain</Filter>
     </ClInclude>
     <ClInclude Include="Source\80_Common\Menu\PauseMenu_Const.h">
-      <Filter>80_Common\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\80_Common\Menu\PauseMenuItem.h">
       <Filter>80_Common\Menu</Filter>
     </ClInclude>
     <ClInclude Include="Source\80_Common\Menu\YesNo_Menu.h">

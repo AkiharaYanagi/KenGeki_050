@@ -193,7 +193,11 @@ namespace GAME
 		{
 			if ( CanUkemi () )
 			{
-				transitID = m_pChara->GetBehavior ().GetSqcID ( U"空中受け身" );
+				//相手が超必殺技でないとき
+				if ( ! m_pOther.lock ()->IsOverdrive () )
+				{
+					transitID = m_pChara->GetBehavior ().GetSqcID ( U"空中受け身" );
+				}
 			}
 		}
 

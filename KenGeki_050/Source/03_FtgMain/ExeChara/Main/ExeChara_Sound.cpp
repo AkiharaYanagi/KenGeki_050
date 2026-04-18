@@ -83,6 +83,8 @@ namespace GAME
 		}
 		//----------------------------------------------------------------
 
+#if 0
+
 //		DBGOUT_WND_F ( DBGOUT_0, U" FirstSE = {}"_fmt(  m_btlPrm.GetFirstSE () ? 1 : 0 ) );
 //		DBGOUT_WND_F ( DBGOUT_1, U" FirstSE = {}"_fmt(  m_btlPrm.GetFirstSE () ? 1 : 0 ) );
 		if ( m_btlPrm.GetPlayerID() == PLAYER_ID_1 )
@@ -92,6 +94,8 @@ namespace GAME
 			bool b_HS = m_btlPrm.GetFirstSE_HS ();
 			//DBGOUT_WND_F ( DBGOUT_7, U"[{}]: FirstSE = {}, HS = {}"_fmt( n, b, b_HS ) );
 		}
+
+#endif // 0
 
 
 		//----------------------------------------------------------------

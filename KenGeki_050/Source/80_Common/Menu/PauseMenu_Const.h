@@ -30,5 +30,11 @@ namespace GAME
 
 	//--------------------------------------
 
+	constexpr float MENU_BG_W = 1000;
+	constexpr float MENU_BG_H = 800;
+	constexpr float MENU_BG_X = 1280 / 2 - MENU_BG_W / 2;
+	constexpr float MENU_BG_Y = 960 / 2 - MENU_BG_H / 2 ;
+
+
 }	//namespace GAME
 

@@ -130,11 +130,10 @@ namespace GAME
 		m_tmrOfstCncl	= MakeTimer ();		//相殺キャンセルタイマ
 		m_tmrWhiteDamage= MakeTimer ();	//白ダメージ
 		m_tmrTaikou		= MakeTimer ();	//剣撃対抗受付タイマ
-		m_tmrTaikouNG	= MakeTimer ();	//剣撃対抗受付タイマ
-		m_tmrTrainingGuard = MakeTimer ( 30 );	//トレモ：連続ヒット切れガード成立
 
-		//アクション終了時にクリアしない
-		//m_timers.push_back ( m_tmrTaikouNG );
+		//アクション終了時にクリアしない(リセット時はクリア)(手動でMove())
+		m_tmrTaikouNG	= std::make_shared < Timer > ();	//剣撃対抗受付不可タイマ
+		m_tmrTrainingGuard = std::make_shared < Timer > ();	//トレモ：連続ヒット切れガード成立
 	}
 
 	P_Timer BtlParam::MakeTimer ( UINT targetTime )
@@ -196,6 +195,8 @@ namespace GAME
 		m_stop = false;
 
 		AllTmr_Clear ();
+		m_tmrTaikouNG->Clear();	//剣撃対抗受付不可タイマ
+		m_tmrTrainingGuard->Clear();	//トレモ：連続ヒット切れガード成立
 
 		m_hitNum = 0;
 		m_chainHitNum = 0;
@@ -225,6 +226,7 @@ namespace GAME
 		}
 		//手動ムーブ
 		m_tmrTaikouNG->Move ();
+		m_tmrTrainingGuard->Move ();
 
 
 		for ( P_Timer ptmr : m_timers )

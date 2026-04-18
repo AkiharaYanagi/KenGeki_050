@@ -155,8 +155,34 @@ namespace GAME
 
 	void GameSettingFile::SetCharaName_Rnd ()
 	{
+#if 0
 		m_name1p = static_cast < CHARA_NAME > ( s3d::Random ( 0, 4 ) );
 		m_name2p = static_cast < CHARA_NAME > ( s3d::Random ( 0, 4 ) );
+#endif // 0
+
+		//1p
+		switch ( s3d::Random ( 0, 5 ) )
+		{
+		case 0: m_name1p = CHARA_OUKA; break;
+		case 1: m_name1p = CHARA_SAE; break;
+		case 2: m_name1p = CHARA_RETSUDOU; break;
+		case 3: m_name1p = CHARA_GYAVADARUGA; break;
+		case 4: m_name1p = CHARA_FERARIA; break;
+		case 5: m_name1p = CHARA_TSUKIHIBOSHI; break;
+		default: break;
+		}
+
+		//2p
+		switch ( s3d::Random ( 0, 5 ) )
+		{
+		case 0: m_name2p = CHARA_OUKA; break;
+		case 1: m_name2p = CHARA_SAE; break;
+		case 2: m_name2p = CHARA_RETSUDOU; break;
+		case 3: m_name2p = CHARA_GYAVADARUGA; break;
+		case 4: m_name2p = CHARA_FERARIA; break;
+		case 5: m_name2p = CHARA_TSUKIHIBOSHI; break;
+		default: break;
+		}
 	}
 
 	//プレイヤ別　キャラカラー

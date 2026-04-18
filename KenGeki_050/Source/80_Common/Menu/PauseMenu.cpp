@@ -17,61 +17,47 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	const float PauseMenu::CURSOR_X = 100;
-	const float PauseMenu::CURSOR_Y = 330;
-
 
 	PauseMenu::PauseMenu ()
 	{
 		//--------------------------------------------
 		//基本背景
 		GameMenu::SetBG_use ( T );
-		GameMenu::SetBG_Size ( WINDOW_WIDTH, WINDOW_HEIGHT );
-		GameMenu::SetBG_Pos ( 0.f, 0.f );
-		GameMenu::SetBG_Color ( _CLR ( 0xd0000000 ) );
+		GameMenu::SetBG_Size ( MENU_BG_W, MENU_BG_H );
+		GameMenu::SetBG_Pos ( MENU_BG_X, MENU_BG_Y);
+		GameMenu::SetBG_Color ( 0xd0000000 );
 
 		//--------------------------------------------
 		//見出文字
-		m_grpStr_pause = std::make_shared < GameMenuString > ();
-		m_grpStr_pause->SetStr ( U"- PAUSE -" );
-		m_grpStr_pause->SetPos ( 500, 120 );
-		m_grpStr_pause->SetZ ( Z_MENU_STR );
-		AddpTask ( m_grpStr_pause );
-		GRPLST_INSERT ( m_grpStr_pause );
+		m_str->SetStr ( U"- PAUSE -" );
+		m_str->SetPos ( 500, 120 );
+
+		//--------------------------------------------
+		//項目
+
+		//CPUレベル
+		m_item_CpuLevel = std::make_shared < MenuItem_CPU_LEVEL >();
+		AddpTask ( m_item_CpuLevel );
+		//タイトルに戻る
+		m_item_ToTitle = std::make_shared < MenuItem_ToTitle >();
+		AddpTask ( m_item_ToTitle );
+		//ゲームに戻る
+		m_item_Return = std::make_shared < MenuItem_Return >();
+		AddpTask ( m_item_Return );
 
 		//--------------------------------------------
 		//カーソル
 		m_cursor = std::make_shared < GameGraphic > ();
 		m_cursor->AddTexture_FromArchive ( U"cursor.png" );
-		m_cursor->SetPos ( CURSOR_X, CURSOR_Y );
 		m_cursor->SetZ ( Z_MENU_STR );
 		m_cursor->SetScalingCenter ( 0, 12.5f );
 		AddpTask ( m_cursor );
 		GRPLST_INSERT ( m_cursor );
-
-		//--------------------------------------------
-		//メニュー項目
-
-		//タイトル
-		m_mi_title = std::make_shared < PMI_To_Title > ();
-		AddpTask ( m_mi_title );
-		//ゲームに戻る
-		m_mi_resume = std::make_shared < PMI_ResumeGame > ();
-		AddpTask ( m_mi_resume );
-
-
-		//--------------------------------------------
-		//Y/Nメニュ
-		m_yesnoMenu = std::make_shared < YesNo_Menu > ();
-		AddpTask ( m_yesnoMenu );
-
+		m_cursor->SetPos ( m_item_ToTitle->GetPosPrtCursor () );
 
 		//--------------------------------------------
 		//初期状態はOff
 		Off ();
-
-		//test
-//		On ();
 	}
 
 	PauseMenu::~PauseMenu ()
@@ -81,41 +67,70 @@ namespace GAME
 	void PauseMenu::Load ()
 	{
 		//--------------------------------------------
-		//メニュー項目
-		Menu::SetpMenuItem ( m_mi_title );
-		Menu::SetpMenuItem ( m_mi_resume );
+		//メニューリストに登録
+		GameMenu::SetpMenuItem ( m_item_CpuLevel );
+		GameMenu::SetpMenuItem ( m_item_ToTitle );
+		GameMenu::SetpMenuItem ( m_item_Return );
+
+		//特殊設定
+		m_item_ToTitle->SetwpParentMenu ( shared_from_this() );
+		m_item_ToTitle->SetwpEndMenu ( shared_from_this() );
 
 		Menu::Load ();
 	}
 
-	void PauseMenu::Do ()
-	{
-	}
-
 	void PauseMenu::Move ()
 	{
-		//Y/Nメニュ稼働時は何もしない
-		if ( m_yesnoMenu->GetActive () ) { Menu::Move (); return; }
+		//メイン停止以外は何もしない
+		if ( ! GetStopMain () ) { return; }
 
-		//非アクティブ時は何もしない
-		if ( ! GetActive () )
+		//Move()は常に実行
+
+		//active時
+		if ( GetActive () )
 		{
-			Menu::Move (); return;
+			//位置選択
+			if ( CFG_PUSH_KEY_12 ( PLY_UP ) )
+			{
+				AUD_PLAY_ONESHOT_SE (SE_select_move);
+				Menu::Prev();
+				SetCursorPos();
+			}
+			if ( CFG_PUSH_KEY_12 ( PLY_DOWN ) )
+			{
+				AUD_PLAY_ONESHOT_SE (SE_select_move);
+				Menu::Next();
+				SetCursorPos();
+			}
+
+			//決定
+			if ( CFG_PUSH_KEY_12 ( PLY_BTN0 ) )
+			{
+				AUD_PLAY_ONESHOT_SE (SE_select_Cancel);
+
+				//選択したItemをActiveにする
+				GetpMenuItem()->SetActive(T);
+
+				//最初の１回のみDecide()を実行
+				GetpMenuItem ()->Decide ();
+
+				//自身は非Activeにする
+				SetActive(F);
+			}
+
+			//キャンセル
+			if ( CFG_PUSH_KEY_12 ( PLY_BTN1 ) )
+			{
+				AUD_PLAY_ONESHOT_SE (SE_select_Cancel);
+				this->SetActive(F);
+				SetStopMain ( F );
+			}
 		}
-		if ( ! m_bMenu )
+		else
 		{
-			Menu::Move (); return; 
+			//ItemのDo()のみ実行
+			Do ();
 		}
-
-		//@info 解除を同一ボタンにすると同[F]で解除されてしまう
-		//-> MenuCheck()内部で分岐する
-		
-		Input ();
-
-
-		//Do()は選択されたメニュ項目について常に行う
-		Menu::Do ();
-
 
 		//カーソル回転
 		m_cursor_scaling_y += m_cursor_scaling_vy;
@@ -123,32 +138,49 @@ namespace GAME
 		if ( m_cursor_scaling_y <= -1.f ) { m_cursor_scaling_vy =   0.1f; }
 		m_cursor->SetScaling ( 1.f, m_cursor_scaling_y );
 
-		//カーソル位置
-		m_cursor->SetPos ( CURSOR_X, CURSOR_Y + 100.f * Menu::GetIdItem () );
-
-
 		Menu::Move ();
 	}
 
+	void PauseMenu::SetActive ( bool b )
+	{
+		Menu::SetActive ( b );
 
-	bool PauseMenu::MenuCheck ()
+		//カーソルも表示/非表示
+		m_cursor->SetValid ( b );
+	}
+
+
+	void PauseMenu::SetCursorPos ()
+	{
+		P_GameMenuItem pItem = GetpMenuItem();	
+		P_TrainingMenuItem p = std::dynamic_pointer_cast<TrainingMenuItem>(pItem);
+		m_cursor->SetPos( p->GetPosPrtCursor() );
+	}
+
+
+	void PauseMenu::SetwpParentScene ( WP_Scene wp )
+	{
+		m_item_CpuLevel->SetwpParentScene ( wp );
+		m_item_ToTitle->SetwpParentScene ( wp );
+		m_item_Return->SetwpParentScene ( wp );
+
+		//特殊設定
+		m_item_ToTitle->SetwpParentScene_YS ( wp );
+	}
+
+	bool PauseMenu::MenuInput ()
 	{
 		//メニュポーズ中
-		if ( m_bMenu )
+		if ( GetActive () )
 		{
 			//メニュポーズ解除
-			bool bEsc = ( WND_UTL::AscKey ( VK_ESCAPE ) );
-			bool bMenuBtn = ( CFG_PUSH_KEY ( P1_BTN6 ) || CFG_PUSH_KEY ( P2_BTN6 ) );
-			if ( bEsc || bMenuBtn )
+			bool bEsc = WND_UTL::AscKey ( VK_ESCAPE );
+			bool bMenuBtn = CFG_PUSH_KEY_12 ( PLY_BTN6 );
+			bool bCancelBtn = CFG_PUSH_KEY_12 ( PLY_BTN1 );
+			if ( bEsc || bMenuBtn || bCancelBtn )
 			{
-				AUD_PLAY_ONESHOT_SE(SE_select_Cancel);
-				Off ();
+				Back ();
 				return F;
-			}
-			else
-			{
-				Move ();
-				return T;
 			}
 		}
 
@@ -159,103 +191,51 @@ namespace GAME
 		{
 			AUD_PLAY_ONESHOT_SE (SE_select_move);
 			On ();
+			SetStopMain ( T );
 		}
 
 		return F;
 	}
 
-	void PauseMenu::Input ()
-	{
-		//=============================================================
-		// 操作
-		//=============================================================
-		//選択
-		if ( CFG_PUSH_KEY ( P1_DOWN ) || CFG_PUSH_KEY ( P2_DOWN ) )
-		{
-			AUD_PLAY_ONESHOT_SE ( SE_select_move );
-			Menu::Next ();
-		}
-		if ( CFG_PUSH_KEY ( P1_UP ) || CFG_PUSH_KEY ( P2_UP ) )
-		{
-			AUD_PLAY_ONESHOT_SE (SE_select_move);
-			Menu::Prev ();
-		}
-
-		//決定
-		if ( CFG_PUSH_KEY ( P1_BTN0 ) || CFG_PUSH_KEY ( P2_BTN0 ) )
-		{
-			Menu::Decide ();
-		}
-		//=============================================================
-	}
-
-
-	//稼働
 	void PauseMenu::Off ()
 	{
-		m_grpStr_pause->SetValid ( F );
+		m_str->SetValid ( F );
+
+		m_item_CpuLevel->Off ();
+		m_item_ToTitle->Off ();
+		m_item_Return->Off ();
+
 		m_cursor->SetValid ( F );
-
-		m_mi_title->Off ();
-		m_mi_resume->Off ();
-		m_yesnoMenu->Off ();
-
-		m_bMenu = F;
 		SetActive ( F );
-
 		Menu::Off ();
 	}
 
 	void PauseMenu::On ()
 	{
-		m_grpStr_pause->SetValid ( T );
+		m_str->SetValid ( T );
+
+		m_item_CpuLevel->On ();
+		m_item_ToTitle->On ();
+		m_item_Return->On ();
+
 		m_cursor->SetValid ( T );
-
-		m_mi_title->On ();
-		m_mi_resume->On ();
-
-		//yes_noは別で起動する
-//		m_yesnoMenu->On ();
-
-		m_bMenu = T;
 		SetActive ( T );
-
 		Menu::On ();
 	}
 
-
-	//表示
-	void PauseMenu::UnDisp ()
+	void PauseMenu::Back ()
 	{
-		m_grpStr_pause->SetValid ( F );
-		m_cursor->SetValid ( F );
-
-		m_mi_title->Off ();
-		m_mi_resume->Off ();
-		m_yesnoMenu->Off ();
-
-		//全体稼働フラグは残す
-		//m_bMenu = F;
-
-		SetActive ( F );
+		AUD_PLAY_ONESHOT_SE(SE_select_Cancel);
+		//すべて非アクティブ
+		for ( P_GameMenuItem pItem : GameMenu::GetvpMenuItem() )
+		{
+			 pItem->SetActive ( F );
+		}
+		Off ();
+		SetStopMain ( F );
 	}
 
-#if 0
-	void PauseMenu::SetwpParent ( WP_FtgMain p )
-	{
-		m_mi_title->SetwpParent ( shared_from_this () );
-		m_mi_resume->SetwpParent ( shared_from_this () );
 
-		m_yesnoMenu->SetwpParent ( p );
-	}
-#endif // 0
-
-	void PauseMenu::SetwpParentScene ( WP_Scene wp )
-	{
-		m_mi_title->SetwpParentMenu ( shared_from_this () );
-		m_mi_resume->SetwpParentMenu ( shared_from_this () );
-		m_yesnoMenu->SetwpParentScene ( wp );
-	}
 
 }	//namespace GAME
 

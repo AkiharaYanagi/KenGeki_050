@@ -51,21 +51,26 @@ namespace GAME
 			bool bEndScript = m_pAction->IsEndScript ( m_frame );	//最終スクリプト
 			bool bNextStand = bName && bEndScript;
 
+			//今までのヒット数が１以上
+			UINT hitNum = pOther->m_btlPrm.GetChainHitNum ();
+
 			//総合判定
 			bool bChainReset = bStand || bDamaged || bNextStand;
 			if ( bChainReset )
 			{
-				//今までのヒット数が１以上
-				UINT hitNum = pOther->m_btlPrm.GetChainHitNum ();
-
-				//連続ヒット途切れ ( N->0なので１回)
-				if ( hitNum > 1 )
+				//連続ヒット途切れ ( N->0なので１回 )
+				if ( hitNum > 0 )
 				{
-					//自分
-					//トレモ：連続ヒット途切れ、ガード開始 
-					m_btlPrm.GetTmr_TrainingGuard()->Start ( 60 );
+					//ガード設定もオンのとき
+					bool bGuard = m_pParam->GetPrmResult ().m_prp_Guard.Is ( GuardState::Hit1 );
+					if ( bGuard )
+					{
+						//自分
+						//トレモ：連続ヒット途切れ、ガード開始 
+						m_btlPrm.GetTmr_TrainingGuard()->Start ( 60 );
+						m_btlPrm.GetTmr_TrainingGuard()->Move ();	//＋１
+					}
 				}
-
 
 				//相手：連続ヒット関連リセット
 				pOther->m_btlPrm.ChainReset ();
@@ -74,8 +79,12 @@ namespace GAME
 			//1p攻撃、2pやられ
 			if ( IsPlayerID( PLAYER_ID_2 ) )
 			{
+				//タイマーは１からスタート
 				UINT time = m_btlPrm.GetTmr_TrainingGuard ()->GetTime ();
-				DBGOUT_WND_F( DBGOUT_7, U"連続ヒット途切れ、ガード開始 = {}"_fmt( time ) );
+				UINT limit = 60 - time;
+				if ( time == 0 ) { limit = 0; }
+
+				DBGOUT_WND_F( DBGOUT_7, U"{}連続ヒット途切れ、ガード開始 = {}"_fmt( hitNum, limit ) );
 			}
 		}
 
@@ -187,48 +196,100 @@ namespace GAME
 
 		//-----------------------------------------------------
 		//紗絵
-		if ( IsNameAction ( U"超雷電蹴_発生" ) )
+		if ( m_name == CHARA_SAE )
 		{
-#if 0
-			//カットイン
-			if ( m_pScript->GetFrame () == 0 )
+			if ( IsNameAction ( U"投げ成立0" ) )
 			{
-				m_testCutIn->SetValid ( T );
-			}
-			if ( m_pAction->IsEndScript ( m_frame ) )
-			{
-				m_testCutIn->SetValid ( F );
-			}
-#endif // 0
+				if ( m_pScript->Index.Is ( 0 ) )
+				{
+					TopByZ ();
 
-			if ( m_pScript->Index.Is ( 1 ) )
+					//位置調整用
+					float bDir = m_btlPrm.GetDirRight () ? 1.f : -1.f;
+					VEC2 my_pos = GetPos ();
+					VEC2 pos_rev = { my_pos.x + ( bDir * 250 ), my_pos.y + 0 };
+
+					m_pOther.lock()->SetPos ( pos_rev );	//位置同期
+				}
+			}
+
+			if ( IsNameAction ( U"超雷電蹴_発生" ) )
 			{
-				m_pFtgGrp->SetOverDrive ( T );
+	#if 0
+				//カットイン
+				if ( m_pScript->GetFrame () == 0 )
+				{
+					m_testCutIn->SetValid ( T );
+				}
+				if ( m_pAction->IsEndScript ( m_frame ) )
+				{
+					m_testCutIn->SetValid ( F );
+				}
+	#endif // 0
+
+				if ( m_pScript->Index.Is ( 1 ) )
+				{
+					m_pFtgGrp->SetOverDrive ( T );
+				}
 			}
 		}
 
 		//-----------------------------------------------------
 		//桜花
-		if ( IsNameAction ( U"超必殺技B成立" ) )
+		if ( m_name == CHARA_OUKA )
 		{
-			if ( m_pScript->Index.Is ( 2 ) )
+			if ( IsNameAction ( U"投げ成立0" ) )
 			{
-				m_pFtgGrp->StartWhiteOut ( 60 + 4 );
-				m_dispChara->TurnShadow ( T );
-				m_pOther.lock()->m_dispChara->TurnShadow ( T );
+				if ( m_pScript->Index.Is ( 0 ) )
+				{
+					TopByZ ();
+
+					//位置調整用
+					float bDir = m_btlPrm.GetDirRight () ? 1.f : -1.f;
+					VEC2 my_pos = GetPos ();
+					VEC2 pos_rev = { my_pos.x + ( bDir * 250 ), my_pos.y + 0 };
+
+					m_pOther.lock()->SetPos ( pos_rev );	//位置同期
+				}
 			}
 
-			if ( ! m_pFtgGrp->IsActive_WhiteOut () )
+			if ( IsNameAction ( U"超必殺技B成立" ) )
 			{
-				m_dispChara->TurnShadow ( F );
-				m_pOther.lock()->m_dispChara->TurnShadow ( F );
+				if ( m_pScript->Index.Is ( 2 ) )
+				{
+					m_pFtgGrp->StartWhiteOut ( 60 + 4 );
+					m_dispChara->TurnShadow ( T );
+					m_pOther.lock()->m_dispChara->TurnShadow ( T );
+				}
+
+				if ( ! m_pFtgGrp->IsActive_WhiteOut () )
+				{
+					m_dispChara->TurnShadow ( F );
+					m_pOther.lock()->m_dispChara->TurnShadow ( F );
+				}
 			}
+
 		}
 
 		//-----------------------------------------------------
 		//烈堂
 		if ( m_name == CHARA_RETSUDOU )
 		{
+			if ( IsNameAction ( U"投げ成立0" ) )
+			{
+				if ( m_pScript->Index.Is ( 0 ) )
+				{
+					TopByZ ();
+
+					//位置調整用
+					float bDir = m_btlPrm.GetDirRight () ? 1.f : -1.f;
+					VEC2 my_pos = GetPos ();
+					VEC2 pos_rev = { my_pos.x + ( bDir * 250 ), my_pos.y + 0 };
+
+					m_pOther.lock()->SetPos ( pos_rev );	//位置同期
+				}
+			}
+
 		}
 
 		//-----------------------------------------------------
@@ -523,6 +584,21 @@ namespace GAME
 		//フェラリア
 		if ( m_name == CHARA_FERARIA )
 		{
+			if ( IsNameAction ( U"投げ成立0" ) )
+			{
+				if ( m_pScript->Index.Is ( 0 ) )
+				{
+					m_pOther.lock()->TopByZ ();
+
+					//位置調整用
+					float bDir = m_btlPrm.GetDirRight () ? 1.f : -1.f;
+					VEC2 my_pos = GetPos ();
+					VEC2 pos_rev = { my_pos.x + ( bDir * 50 ), my_pos.y + 0 };
+
+					m_pOther.lock()->SetPos ( pos_rev );	//位置同期
+				}
+			}
+
 			if ( IsNameAction ( U"トゥララ・コモタン成立1" ) )
 			{
 				//補正解除
@@ -535,6 +611,21 @@ namespace GAME
 		//月日星
 		if ( m_name == CHARA_TSUKIHIBOSHI )
 		{
+			if ( IsNameAction ( U"投げ成立0" ) )
+			{
+				if ( m_pScript->Index.Is ( 0 ) )
+				{
+					TopByZ ();
+
+					//位置調整用
+					float bDir = m_btlPrm.GetDirRight () ? 1.f : -1.f;
+					VEC2 my_pos = GetPos ();
+					VEC2 pos_rev = { my_pos.x + ( bDir * 250 ), my_pos.y + 0 };
+
+					m_pOther.lock()->SetPos ( pos_rev );	//位置同期
+				}
+			}
+
 			//背景上部延長
 			if ( IsNameAction ( U"エリアルジャンプ" ) )
 			{

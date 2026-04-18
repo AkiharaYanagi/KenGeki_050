@@ -53,12 +53,13 @@ namespace GAME
 		Off ();
 
 		//自メニュを閉じる
-		//P_YesNo_Menu p = std::dynamic_pointer_cast <YesNo_Menu> ( mwp_Parent.lock () );
-		//p->Back ();
+		P_YesNo_Menu pParent = std::dynamic_pointer_cast <YesNo_Menu> ( mwp_Parent.lock () );
+		//pParent->Back ();
+		pParent->Off ();
 
 		//親メニューごと閉じる
-		P_TrainingMenu p = std::dynamic_pointer_cast < TrainingMenu > ( mwp_EndMenu.lock () );
-		p->Back ();
+		P_TrainingMenu pAllMenu = std::dynamic_pointer_cast < TrainingMenu > ( mwp_EndMenu.lock () );
+		pAllMenu->Back ();
 	}
 
 

@@ -24,12 +24,12 @@ namespace GAME
 		AddpTask ( m_fighting );
 
 		//ポーズメニュ
-#if 0
 		m_pauseMenu = std::make_shared < PauseMenu > ();
 		AddpTask ( m_pauseMenu );
-#endif // 0
+#if 0
 		m_trainingMenu = std::make_shared < TrainingMenu > ();
 		AddpTask ( m_trainingMenu );
+#endif // 0
 
 
 #if 0
@@ -74,7 +74,8 @@ namespace GAME
 	void FtgMain::ParamInit ()
 	{
 		m_fighting->ParamInit ( GetpParam () );
-		m_trainingMenu->SetpParam ( GetpParam () );
+		m_pauseMenu->SetpParam ( GetpParam () );
+		//m_trainingMenu->SetpParam ( GetpParam () );
 	}
 
 	void FtgMain::ParamReset ()
@@ -91,10 +92,10 @@ namespace GAME
 		Scene::SetwpThis ( shared_from_this () );
 
 		//Menu用にthisを保存
-#if 0
 		m_pauseMenu->SetwpParentScene ( shared_from_this () );
-#endif // 0
+#if 0
 		m_trainingMenu->SetwpParentScene ( shared_from_this () );
+#endif // 0
 
 
 #if 0
@@ -127,14 +128,24 @@ namespace GAME
 		{
 			return;
 		}
-#endif // 0
-		m_trainingMenu->MenuInput ();
-		if ( m_trainingMenu->GetStopMain () )
+		//m_trainingMenu->MenuInput ();
+		//if ( m_trainingMenu->GetStopMain () )
 		{
 			//メニュ動作のみ
 			m_trainingMenu->Move ();
 			return;
 		}
+#endif // 0
+
+		m_pauseMenu->MenuInput ();
+		if ( m_pauseMenu->GetStopMain () )
+		{
+			//メニュ動作のみ
+			m_pauseMenu->Move ();
+			return;
+		}
+
+
 
 
 #if 0

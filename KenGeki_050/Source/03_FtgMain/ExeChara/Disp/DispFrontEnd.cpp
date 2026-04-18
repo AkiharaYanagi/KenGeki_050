@@ -204,7 +204,7 @@ namespace GAME
 	{
 		P_GrpStr p = std::make_shared < GrpStr > ();
 		p->SetStr ( str );
-		p->SetZ ( Z_SYS );
+		p->SetZ ( Z_SYS - 0.001f );
 		p->SetSize ( size );
 		p->SetColorF ( clr );
 		AddpTask ( p );

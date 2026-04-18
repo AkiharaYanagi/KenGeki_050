@@ -219,7 +219,8 @@ namespace GAME
 
 	CHARA_NAME TitleChara::GetRandomCharaName () const
 	{
-		//対象のキャラのみ
+		//タイトルカットイン対象のキャラのみ
+#if 0
 		const CHARA_NAME name[] = {
 			CHARA_OUKA,
 			CHARA_SAE,
@@ -227,7 +228,22 @@ namespace GAME
 			CHARA_GYAVADARUGA,
 			CHARA_FERARIA,
 		};
-		return name [ s3d::Random ( 0, 4 ) ];
+#endif // 0
+
+		CHARA_NAME name = CHARA_OUKA;
+		int rnd = s3d::Random ( 0, 4 );
+
+		switch ( rnd )
+		{
+		case 0: name = CHARA_OUKA; break;
+		case 1: name = CHARA_SAE; break;
+		case 2: name = CHARA_RETSUDOU; break;
+		case 3: name = CHARA_GYAVADARUGA; break;
+		case 4: name = CHARA_FERARIA; break;
+		default: break;
+		}
+
+		return name;
 	}
 
 

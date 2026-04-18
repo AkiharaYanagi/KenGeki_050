@@ -108,10 +108,18 @@ namespace GAME
 			m_btlPrm.AddAccel ( 200 );	//アクセルゲージプラス(-500～1000)
 		}
 		
+		//------------------------------------------
+		//相手が超必殺技のとき受身不可
+		bool bUkemi = pNextAct->Name.Is ( U"空中受け身" );
+		bool bOD = m_pOther.lock ()->IsOverdrive ();
+		if ( bUkemi && bOD )
+		{
+			return F;
+		}
 
 		//------------------------------------------
 
-		//このアクションが不可能なら次をチェック
+		//このアクションは遷移可能
 		return T;
 	}
 

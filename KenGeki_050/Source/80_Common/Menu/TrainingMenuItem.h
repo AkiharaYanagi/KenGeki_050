@@ -113,11 +113,14 @@ namespace GAME
 	//======================================================
 	class MenuItem_Guard	: public TrainingMenuItem
 	{
-		bool m_guardState { F };	//対象の状態
+		//対象の状態
+		GuardState	 m_guardState { GuardState::Normal };
 
 		//選択項目
-		P_GrpStr	m_StrOn;		//On
-		P_GrpStr	m_StrOff;		//Off
+		P_GrpStr	m_StrNormal;	//Normal
+		P_GrpStr	m_StrHit1;		//Hit1
+		P_GrpStr	m_StrRandom;	//Random
+		P_GrpStr	m_StrForced;	//ForcedOn
 
 	public:
 		MenuItem_Guard ();
@@ -127,6 +130,7 @@ namespace GAME
 		void Do() override;
 		void On () override;
 		void Off () override;
+		void Back ();
 
 	private:
 		void NextState ();

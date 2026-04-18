@@ -9,7 +9,6 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
-#include "../../90_GameMain/Scene.h"
 #include "TrainingMenuItem.h"
 
 
@@ -40,19 +39,16 @@ namespace GAME
 		void Load () override;
 		void Move () override;
 
-		void SetActive(bool b) override;
-
 		void SetpParam ( P_Param p );
 		void SetwpParentScene ( WP_Scene wp );
 
 		//メインMove()中でチェックしてtrueのとき他を処理しないでreturnする
 		bool MenuInput ();
 
-		void Off ();
+		void SetActive(bool b) override;
 		void On ();
-
+		void Off ();
 		void Back ();
-
 
 	private:
 		void SetCursorPos ();

@@ -8,6 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "TrainingMenu.h"
+#include "PauseMenu_Const.h"
 #include "../../90_GameMain/SeConst.h"
 
 
@@ -30,16 +31,20 @@ namespace GAME
 
 	TrainingMenu::TrainingMenu ()
 	{
-		GameMenu::SetBG_Color ( 0xa0000000 );
-		GameMenu::SetBG_Size ( VEC2 ( 1000, 800 ) );
-		GameMenu::SetBG_Pos ( VEC2 ( 1280 / 2 - 1000 / 2, 960 / 2 - 800 / 2 ) );
+		//--------------------------------------------
+		//基本背景
+		GameMenu::SetBG_use ( T );
+		GameMenu::SetBG_Color ( 0xd0000000 );
+		GameMenu::SetBG_Size( MENU_BG_W, MENU_BG_H );
+		GameMenu::SetBG_Pos ( MENU_BG_X, MENU_BG_Y );
 
+		//--------------------------------------------
+		//見出文字
 		m_str->SetPos( VEC2(bx0, by0) );
-		m_str->SetStr(U"ポーズ メニュー");
-		AddpTask(m_str);
-		GRPLST_INSERT ( m_str );
+		m_str->SetStr(U"- Training Menu -");
 
-
+		//--------------------------------------------
+		//項目
 		m_item_Ukemi = std::make_shared < MenuItem_Ukemi >();
 		AddpTask ( m_item_Ukemi );
 
@@ -58,18 +63,19 @@ namespace GAME
 		m_item_Return = std::make_shared < MenuItem_Return >();
 		AddpTask ( m_item_Return );
 
-
+		//--------------------------------------------
+		//カーソル
 		m_cursor = std::make_shared < GameGraphic >();
 		m_cursor->AddTexture_FromArchive(U"cursor.png");
+		m_cursor->SetZ ( Z_MENU_STR );
 		m_cursor->SetScalingCenter ( 0, 12.5f );
-		m_cursor->SetZ(Z_MENU - 0.001f);
 		AddpTask(m_cursor);
 		GRPLST_INSERT(m_cursor);
 		m_cursor->SetPos ( m_item_Ukemi->GetPosPrtCursor () );
 
-
-		//初期状態は非Active
-		SetActive( F );
+		//--------------------------------------------
+		//初期状態はOff
+		Off ();
 	}
 
 	void TrainingMenu::SetpParam ( P_Param p )
@@ -103,7 +109,7 @@ namespace GAME
 
 	void TrainingMenu::Load ()
 	{
-		//メニューに登録
+		//メニューリストに登録
 		GameMenu::SetpMenuItem ( m_item_Ukemi );
 		GameMenu::SetpMenuItem ( m_item_Guard );
 		GameMenu::SetpMenuItem ( m_item_Taikou );
@@ -185,7 +191,7 @@ namespace GAME
 		m_cursor->SetScaling(1.f, m_cursor_scaling_y);
 
 
-		TASK_VEC::Move ();
+		Menu::Move ();
 	}
 
 	void TrainingMenu::SetActive ( bool b )

@@ -204,7 +204,6 @@
     <ClCompile Include="Source\80_Common\Chara_TxSet.cpp" />
     <ClCompile Include="Source\80_Common\Menu\Menu.cpp" />
     <ClCompile Include="Source\80_Common\Menu\PauseMenu.cpp" />
-    <ClCompile Include="Source\80_Common\Menu\PauseMenuItem.cpp" />
     <ClCompile Include="Source\80_Common\Menu\PauseMenu_Const.cpp" />
     <ClCompile Include="Source\80_Common\Menu\TrainingMenu.cpp" />
     <ClCompile Include="Source\80_Common\Menu\TrainingMenuItem.cpp" />
@@ -502,7 +501,6 @@
     <ClInclude Include="Source\80_Common\Chara_TxSet.h" />
     <ClInclude Include="Source\80_Common\Menu\Menu.h" />
     <ClInclude Include="Source\80_Common\Menu\PauseMenu.h" />
-    <ClInclude Include="Source\80_Common\Menu\PauseMenuItem.h" />
     <ClInclude Include="Source\80_Common\Menu\PauseMenu_Const.h" />
     <ClInclude Include="Source\80_Common\Menu\TrainingMenu.h" />
     <ClInclude Include="Source\80_Common\Menu\TrainingMenuItem.h" />

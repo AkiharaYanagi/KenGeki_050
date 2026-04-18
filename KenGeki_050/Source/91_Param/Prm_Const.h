@@ -16,13 +16,22 @@
 namespace GAME
 {
 
-	//CPU剣撃対抗状態
+	//ガード状態
+	enum class GuardState
+	{
+		Normal,		//通常
+		Hit1,		//1hit~
+		Random,		//ランダム
+		ForcedOn,	//全て
+	};
+
+	//剣撃対抗状態
 	enum class TaikouState
 	{
-		None,
-		Normal,
-		Random,
-		ForcedOn,
+		None,		//なし
+		Normal,		//通常
+		Random,		//ランダム
+		ForcedOn,	//全て
 	};
 
 

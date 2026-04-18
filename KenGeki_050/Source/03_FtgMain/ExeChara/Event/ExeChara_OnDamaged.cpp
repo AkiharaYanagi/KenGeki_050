@@ -390,33 +390,40 @@ namespace GAME
 		// レバー入れ判定
 		//----------------------------------------------
 
+		//----------------------------------------------
 		//トレモメニュー設定（ガード：ON)
-		if ( m_pParam->GetPrmResult().m_prp_Guard.Get() )
+
+		GuardState guardState = m_pParam->GetPrmResult ().m_prp_Guard.Get ();
+		switch ( guardState )
 		{
-			//2ヒット目以降はガード
-			UINT chainHitNum = m_btlPrm.GetChainHitNum ();
-			if ( chainHitNum == 0 )
+		case GuardState::Normal:
+			//通常通りは何もしない
+		break;
+
+		case GuardState::Hit1:
+			//連続ヒットが切れたとき(N->0)からガード成立をオン
+			if ( m_btlPrm.GetTmr_TrainingGuard ()->IsActive () )
 			{
-#if 0
-				//すべてガード
+				//ガード続行
+				m_btlPrm.GetTmr_TrainingGuard ()->Start ( 60 );
 				return T;
-#endif // 0
-
-				//初回はガード無し
-
-				//連続ヒットが切れたとき(N->0)からガード成立をオン
-				if ( m_btlPrm.GetTmr_TrainingGuard ()->IsActive () )
-				{
-					return T;
-				}
-				else
-				{
-					return F;
-				}
-
 			}
-		}
+		break;
 
+		case GuardState::Random:
+			//ランダム
+			return ( 0 == s3d::Random ( 0, 1 ) );
+		break;
+
+		case GuardState::ForcedOn:
+			return T;	//常にオン
+		break;
+		}
+		//----------------------------------------------
+
+
+		//----------------------------------------------
+		//通常時
 		bool bStandGurad = F;	//立ちガード
 		bool bCrouchGurad = F;	//しゃがみガード
 
