@@ -63,8 +63,8 @@ namespace GAME
 
 
 		bool		m_immortal{F};		//相殺やヒットで終了しない
-
 		bool		m_full_display{F};	//画面全体描画(固定位置)
+		bool		m_out_display{F};	//画面外で消える	
 
 	public:
 		ExeEffect ( P_Sequence pEffect, P_Chara pChara, P_EfGnrt pEfGnrt, VEC2 ptChara, bool dirRight );
@@ -128,6 +128,7 @@ namespace GAME
 		GET_SET ( bool, GetOffset, SetOffset, m_offset )	//相殺
 		GET_SET ( bool, GetHit, SetHit, m_hit )				//ヒット
 		GET_SET ( bool, GetImmortal, SetImmortal, m_immortal )		//不滅
+		GET_SET ( bool, GetOutDisplay, SetOutDisplay, m_out_display )	//画面外で消える
 
 
 		//---------------------------------------------------------------

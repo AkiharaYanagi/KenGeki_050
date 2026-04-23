@@ -36,7 +36,8 @@ namespace GAME
 		void Init ();
 		void Move ();
 
-		void Set ();
+		void SetDefault ();	//基準値にセット
+		void SetUnlimited ();	//無制限にセット
 		void SetTime ( int time );
 		void Start (){ m_active = T; }
 		void Stop () { m_active = F; }
@@ -48,9 +49,10 @@ namespace GAME
 		void On ();
 		void Off ();
 
+		bool GetActive () const { return m_active; }
 		void SetActive ( bool b ) { m_active = b; }
 
-		void SetTraining ();
+//		void SetTraining ();
 
 
 		void SetPos_BG ( VEC2 pos );

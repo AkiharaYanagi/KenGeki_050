@@ -103,7 +103,7 @@ namespace GAME
 			++ m_count;
 
 	//		if ( (float)GROUND_Y < m_ptEffect.y ) { m_end = T; }
-			if (180 < m_count) { m_end = T; }
+			if (90 < m_count) { m_end = T; }
 		}
 		
 		if (m_pEffect->Name.Is(U"4H_Shot"))

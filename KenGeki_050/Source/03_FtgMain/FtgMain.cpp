@@ -73,9 +73,17 @@ namespace GAME
 
 	void FtgMain::ParamInit ()
 	{
-		m_fighting->ParamInit ( GetpParam () );
-		m_pauseMenu->SetpParam ( GetpParam () );
+		P_Param pPrm = GetpParam ();
+		m_fighting->ParamInit ( pPrm );
+
+		m_pauseMenu->SetpParam ( pPrm );
 		//m_trainingMenu->SetpParam ( GetpParam () );
+		// 
+		//トレーニングモードでないとき、トレモ用設定をオフ
+		Prm_Result& prmRslt = pPrm->GetPrmResult ();
+		prmRslt.m_prp_Ukemi.Set ( F );
+		prmRslt.m_prp_Guard.Set ( GuardState::Normal );
+		prmRslt.m_prp_Taikou.Set ( TaikouState::Normal );
 	}
 
 	void FtgMain::ParamReset ()

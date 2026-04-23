@@ -106,11 +106,11 @@ namespace GAME
 
 	void FtgGrp::Init ()
 	{
-		m_tmrScpStop.Init ();
-		m_tmrBlackOut.Init ();
-		m_tmrWhiteOut.Init ();
-		m_tmrSlow.Init ();
-		m_tmrVibration.Init ();
+		m_tmrScpStop.Clear ();
+		m_tmrBlackOut.Clear ();
+		m_tmrWhiteOut.Clear ();
+		m_tmrSlow.Clear ();
+		m_tmrVibration.Clear ( );
 
 		//TaskでInit()しないものを手動で初期化
 		m_bg_black->SetValid ( F );

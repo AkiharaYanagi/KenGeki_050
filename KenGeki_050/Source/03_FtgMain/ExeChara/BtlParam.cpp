@@ -123,15 +123,16 @@ namespace GAME
 		m_tmrHitstop	= MakeTimer ( HITSTOP_TIME );	//ヒットストップ
 		m_tmrDown		= MakeTimer ( DOWN_TIME );		//ダウンタイマ
 		m_tmrEnd		= MakeTimer ( END_TIME );		//終了状態タイマ
-		m_tmrScpStop	= MakeTimer ();		//ストップタイマ
-		m_tmrHitPitch	= MakeTimer ();		//ヒット間隔タイマ
-		m_tmrLurch		= MakeTimer ();		//のけぞりタイマ
+		m_tmrScpStop	= MakeTimer ();	//ストップタイマ
+		m_tmrHitPitch	= MakeTimer ();	//ヒット間隔タイマ
+		m_tmrLurch		= MakeTimer ();	//のけぞりタイマ
 		m_tmrVib		= MakeTimer ();	//個別振動
-		m_tmrOfstCncl	= MakeTimer ();		//相殺キャンセルタイマ
+		m_tmrOfstCncl	= MakeTimer ();	//相殺キャンセルタイマ
 		m_tmrWhiteDamage= MakeTimer ();	//白ダメージ
 		m_tmrTaikou		= MakeTimer ();	//剣撃対抗受付タイマ
 
 		//アクション終了時にクリアしない(リセット時はクリア)(手動でMove())
+		m_tmrTaikouOn	= std::make_shared < Timer > ();	//剣撃対抗成立後タイマ
 		m_tmrTaikouNG	= std::make_shared < Timer > ();	//剣撃対抗受付不可タイマ
 		m_tmrTrainingGuard = std::make_shared < Timer > ();	//トレモ：連続ヒット切れガード成立
 	}
@@ -195,6 +196,7 @@ namespace GAME
 		m_stop = false;
 
 		AllTmr_Clear ();
+		m_tmrTaikouOn->Clear();	//剣撃対抗成立後タイマ
 		m_tmrTaikouNG->Clear();	//剣撃対抗受付不可タイマ
 		m_tmrTrainingGuard->Clear();	//トレモ：連続ヒット切れガード成立
 
@@ -222,9 +224,10 @@ namespace GAME
 	{
 		if ( PLAYER_ID_1 == m_playerID )
 		{
-			DBGOUT_WND_F ( DBGOUT_5, U"TaikouNG = {}"_fmt(m_tmrTaikouNG->GetTime() ) );
+			DBGOUT_WND_F ( DBGOUT_3, U"TaikouNG = {}"_fmt(m_tmrTaikouNG->GetTime() ) );
 		}
 		//手動ムーブ
+		m_tmrTaikouOn->Move ();
 		m_tmrTaikouNG->Move ();
 		m_tmrTrainingGuard->Move ();
 
@@ -350,6 +353,28 @@ namespace GAME
 		acc.y += m_hitDrop;			//加速度に加える
 		m_posChara.y += m_hitDrop;	//直接位置を補正する
 
+
+		//------------------------
+		// 被・剣撃対抗 時　水平補正
+		P_Timer pTmrTK_On = m_pOther.lock ()->GetrBtlPrm().GetTmr_TaikouOn ();
+		if ( PLAYER_ID_1 == m_playerID )
+		{
+			DBGOUT_WND_F ( DBGOUT_2, U"m_tmrTaikouOn = {}"_fmt ( pTmrTK_On->GetTime() ) );
+		}
+		if ( pTmrTK_On->IsActive () )
+		{
+			//自分（攻撃側）空中のみ
+			if ( m_pExeChara.lock ()->IsJump () || m_pExeChara.lock ()->IsFloat () )
+			{
+				//ダッシュ時特殊処理
+				if ( m_vel.x > 0 )
+				{
+					//正面方向を反転
+					//m_vel.x *= -0.01f;
+					m_vel.x = 0;
+				}
+			}
+		}
 
 
 		//------------------------
@@ -523,10 +548,14 @@ namespace GAME
 	//バトルパラメータにおける毎フレームの入力による動作
 	void BtlParam::Move_Input ()
 	{
+#if 0
+
 		if ( PLAYER_ID_1 == m_playerID )
 		{
 			DBGOUT_WND_F ( DBGOUT_2, U"mn_AirDash = {}"_fmt ( mn_AirDash ) );
 		}
+
+#endif // 0
 	}
 
 
@@ -681,6 +710,7 @@ namespace GAME
 		if ( m_pSequence->Name.Is ( U"勝利")		) {	return T; }
 		if ( m_pSequence->Name.Is ( U"時間切れ敗北")		) {	return T; }
 		if ( m_pSequence->Name.Is ( U"引分")		) {	return T; }
+		if ( m_pSequence->Name.Is ( U"しゃがみ持続")	) { return T; }
 #if 0						
 		if ( m_pSequence>Name.Is ( U"ダメージ小")	) {	return T; }
 		if ( m_pSequence>Name.Is ( U"空中やられ")	) {	return T; }

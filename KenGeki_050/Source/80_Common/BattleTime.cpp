@@ -123,10 +123,19 @@ namespace GAME
 		return F;
 	}
 
-	void BattleTime::Set ()
+	void BattleTime::SetDefault ()
 	{
 		m_time = m_startTime;
 		SetTime ( m_time );
+	}
+
+	void BattleTime::SetUnlimited ()
+	{
+		m_startTime = 0;
+		m_time = 0;
+		m_battle_time_01->SetIndexTexture ( 0 );
+		m_battle_time_02->SetIndexTexture ( 0 );
+		m_active = F;
 	}
 
 	void BattleTime::SetTime ( int time )
@@ -173,14 +182,22 @@ namespace GAME
 
 	}
 
+#if 0
 
 	//トレーニングモード設定
 	void BattleTime::SetTraining ()
 	{
+#if 0
 		m_startTime = 5940;
 		m_time = 5940;
 		m_active = F;
+#endif // 0
+		m_startTime = 0;
+		m_time = 0;
+		m_active = F;
 	}
+
+#endif // 0
 
 	void BattleTime::SetPos_BG ( VEC2 pos )
 	{

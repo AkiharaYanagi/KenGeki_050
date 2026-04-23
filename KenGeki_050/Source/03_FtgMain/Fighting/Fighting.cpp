@@ -252,7 +252,7 @@ namespace GAME
 	//時間計測初期化
 	void Fighting::TimeSet ()
 	{
-		m_btlTime->Set ();
+		m_btlTime->SetDefault ();
 	}
 
 	//タイムアップ
@@ -338,7 +338,7 @@ namespace GAME
 	//残ライフで勝者決定
 	void Fighting::DecideWinner_FromLife ()
 	{
-		//トレーニングモードは時間計測しない
+		//トレーニングモードは計測しない
 		if ( m_bTraining ) { return; }
 
 		//タイムアップ時、残り体力で勝者を決める

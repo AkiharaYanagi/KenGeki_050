@@ -166,7 +166,7 @@ namespace GAME
 	class FTG_DM_WallBreak : public FtgDemoState
 	{
 		//壁割エフェクト
-		P_WallBreak		m_wallBreakEf;
+		//P_WallBreak		m_wallBreakEf;
 
 		//タイマ
 		P_Timer		m_timer;

@@ -119,13 +119,34 @@ namespace GAME
 
 		//エフェクト終了条件
 
-		//全体表示のときは画面外終了しない
-		bool bFull = m_full_display;
-		//画面外のとき終了
-		bool bOut = m_ptEffect.x < 0 - 100 || GAME_WIDTH + 100 < m_ptEffect.x ;
-		if ( ! bFull && bOut )
+		DBGOUT_WND_F ( DBGOUT_5, U"m_ptEffect.y = {}"_fmt ( m_ptEffect.y ) );
+
+		
+		
+		//画面全体エフェクト表示,
+		// または画面外で消えないフラグのときは画面外終了しない
+		if ( m_full_display || m_out_display )
 		{
-			m_end = true;
+			//フェラリア 2M 特殊処理
+			if ( m_out_display )
+			{
+				//Yのみ消える
+				bool bOutY = (m_ptEffect.y < 0 - 100) || (GROUND_Y + 100 < m_ptEffect.y) ;
+				if ( bOutY )
+				{
+					m_end = T;
+				}
+			}
+		}
+		else
+		{
+			//画面外のとき終了
+			bool bOutX = (m_ptEffect.x < 0 - 100) || (GAME_WIDTH + 100 < m_ptEffect.x) ;
+			bool bOutY = (m_ptEffect.y < 0 - 100) || (GROUND_Y + 100 < m_ptEffect.y) ;
+			if ( bOutX || bOutY )
+			{
+				m_end = T;
+			}
 		}
 
 		//エフェクト移項用

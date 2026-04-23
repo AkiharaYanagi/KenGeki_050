@@ -208,6 +208,7 @@ namespace GAME
 		MenuItem_ToTitle ( const MenuItem_ToTitle & rhs ) = delete;
 		~MenuItem_ToTitle () = default;
 
+		void Off () override { m_YesNoMenu->Off (); TrainingMenuItem::Off (); }
 		void Decide () override;
 
 		void SetwpEndMenu ( WP_GameMenu wp ) { m_YesNoMenu->SetwpEndMenu ( wp ); }

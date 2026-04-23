@@ -84,7 +84,7 @@ namespace GAME
 		m_battleTime = std::make_shared < BattleTime > ();
 		AddpTask ( m_battleTime );
 		//m_battleTime->SetTime ( 600 );
-		m_battleTime->Set ();	//default 3600
+		m_battleTime->SetDefault ();	//default 3600
 		m_battleTime->Start ();
 
 		m_battleTime->SetPos_BG ( VEC2 ( (1280 / 2) - (185 / 2), 10 ) );
@@ -157,6 +157,9 @@ namespace GAME
 		{
 			m_training->SetValid ( T );
 
+			//時間無制限
+			m_battleTime->SetUnlimited ();
+
 			// MODE_PLAYER_PLAYER : で操作は両者とも1P
 			m_pl_1p->SetIndexTexture ( PL_INDEX_1P );
 			m_plrActor_1p->SetInputPlayer ( PLAYER_ID_1 );
@@ -166,9 +169,12 @@ namespace GAME
 			m_plrActor_2p->SetInputPlayer ( PLAYER_ID_1 );
 			m_plrActor_2p->Set_Wait ();
 			m_ob_input_2p->SetValid ( F );
+
+			//
 		}
 		else //通常バトル
 		{
+			//P1とP2の操作モードを設定
 			SwitchMode ();
 		}
 
@@ -367,7 +373,8 @@ namespace GAME
 		}
 
 		//タイマで強制移行
-		if ( m_battleTime->IsTimeUp () )
+		bool bActive = m_battleTime->GetActive ();	//時間無制限
+		if ( m_battleTime->IsTimeUp () && bActive )
 		{
 			if ( ! m_fade_toFighting->IsActive () )
 			{

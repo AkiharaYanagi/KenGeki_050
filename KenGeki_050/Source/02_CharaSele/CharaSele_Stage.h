@@ -34,8 +34,6 @@ namespace GAME
 		~CharaSele_Stage ();
 
 		void SetpParam ( P_Param p );
-		void Load ();
-		void Move ();
 
 		void Next ();
 		void Prev ();
@@ -43,6 +41,11 @@ namespace GAME
 		STAGE_NAME GetStageName () const
 		{
 			return static_cast < STAGE_NAME > ( m_index );
+		}
+
+		uint32_t GetStageIndex ( STAGE_NAME stageName ) const
+		{
+			return static_cast < uint32_t > ( m_index );
 		}
 	};
 

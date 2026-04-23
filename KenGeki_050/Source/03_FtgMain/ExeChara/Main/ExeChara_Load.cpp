@@ -296,8 +296,11 @@ namespace GAME
 		UINT32 i = 0;
 		for ( P_Rut pRut : vpRoute )
 		{
-//			if ( 0 == pRut->GetName ().compare ( U"地上超必殺技" ) )
-			if ( pRut->Name.Is ( U"地上超必殺技" ) )
+			bool b0 = pRut->Name.Is ( U"地上通常技" );
+			bool b1 = pRut->Name.Is ( U"地上必殺技" );
+			bool b2 = pRut->Name.Is ( U"地上超必殺技" );
+			bool b3 = pRut->Name.Is ( U"相殺専用技" );
+			if ( b0 || b1 || b2 || b3 )
 			{
 				const V_UINT32 vBrc = pRut->GetcaIDBranch ();
 

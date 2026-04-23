@@ -73,8 +73,12 @@ namespace GAME
 #endif // 0
 
 		//-------------------------------------------------
-		//ゲージ
-		//アクセルゲージ　剣撃対抗用
+		//ゲージ 固定数増加
+		// 
+		//剣撃ゲージ　剣撃対抗用
+		m_btlPrm.AddBalance ( 100 );
+
+		//アクセルゲージ
 		m_btlPrm.AddAccel ( 10 );
 
 		//-------------------------------------------------
@@ -205,7 +209,7 @@ namespace GAME
 
 		m_btlPrm.OnDamage ( - confirmed_damage );	//power は＋の値、ダメージ計算はマイナスにして加算
 
-		//スタミナ反映（くらい時増加、ガード時減少）
+		//剣撃ゲージ反映（くらい時増加、ガード時減少）
 		if ( bGuard )
 		{
 			m_btlPrm.AddBalance ( (int)( -10.f * confirmed_damage ) );

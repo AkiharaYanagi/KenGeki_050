@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <Ctrl_Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <LastDirectory>F:\Projects\KenGeki_020\KenGeki_020\App\Data</LastDirectory>
-  <LastFilepath>F:\Projects\KenGeki_020\KenGeki_020\App\Data\Tsukihibosi.dat</LastFilepath>
+  <LastFilepath>F:\Projects\KenGeki_020\KenGeki_020\App\Data\Ferallia.dat</LastFilepath>
   <File_ActionList>C:\Users\MYCOM\Desktop\ActionList.txt</File_ActionList>
   <Dir_ImageListAct>F:\Backup\0408\新しいフォルダー</Dir_ImageListAct>
   <File_EffectList>EffectList.txt</File_EffectList>
   <Dir_ImageListEf>EfImage</Dir_ImageListEf>
-  <File_CommandList>CommandList.txt</File_CommandList>
+  <File_CommandList>C:\Users\MYCOM\Desktop\Cmd.txt</File_CommandList>
   <File_BranchList>C:\Users\MYCOM\Desktop\Branch1.txt</File_BranchList>
   <File_RouteList>RouteList.txt</File_RouteList>
 </Ctrl_Settings>

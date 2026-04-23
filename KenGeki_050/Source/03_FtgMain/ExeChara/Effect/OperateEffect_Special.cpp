@@ -127,6 +127,7 @@ namespace GAME
 
 
 			//pExeEffect->SetImmortal ( T );
+			pExeEffect->SetOutDisplay ( T );
 			pExeEffect->GetpEfGnrt()->Loop.Set ( 0 );
 			pExeEffect->SetCalcOff ( T );
 			pExeEffect->SetShader ( F );

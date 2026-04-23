@@ -42,6 +42,7 @@ namespace GAME
 			return T;
 		}
 
+
 		//足払い
 		if ( IsNameAction ( U"足払い初撃" ) )
 		{
@@ -141,6 +142,8 @@ namespace GAME
 			if ( IsNameAction ( U"空中必殺技着地") ) { return T; }
 			if ( IsNameAction ( U"空中必殺技成立") ) { return T; }
 
+#if 0
+			//通常技の初段を対抗不可に
 			if ( IsNameAction ( U"小攻撃") )
 			{
 				uint32 i = m_pScript->Index.Get();
@@ -160,8 +163,40 @@ namespace GAME
 				{ return T; }
 			}
 
-			//１ヒット目は剣撃対抗不可、２ヒット目以降は剣撃対抗可能
-			if ( IsNameAction ( U"特大攻撃") )
+#endif // 0
+
+			{
+
+			//コンボ用は２ヒット目でも初撃は剣撃対抗不可+タイマスタート
+			bool bComboTokudai = IsNameAction ( U"コンボ特大攻撃" );
+			if ( bComboTokudai )
+			{
+				//始動は既に連続ヒット中
+
+				//10Hit以降は可能
+				if ( chainHitNum > 10 )
+				{
+					return F;
+				}
+
+				if ( pTmrTkNG->IsActive() )
+				{
+					//2回目はオフ
+					pTmrTkNG->Reset();
+					return F;
+				}
+				else
+				{
+					//１回目はオン
+					pTmrTkNG->Start ( 120 );
+					return T;
+				}
+
+			}
+
+			//１ヒット目は剣撃対抗不可+タイマスタート、２ヒット目以降は剣撃対抗可能
+			bool bTokudai = IsNameAction ( U"特大攻撃" );
+			if ( bTokudai )
 			{
 				//連続ヒット中はオフ(初撃は０)
 				if ( chainHitNum > 0)
@@ -181,6 +216,8 @@ namespace GAME
 					pTmrTkNG->Start ( 120 );
 					return T;
 				}
+
+			}
 
 			}
 

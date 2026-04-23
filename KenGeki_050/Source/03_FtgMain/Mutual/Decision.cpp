@@ -226,7 +226,7 @@ namespace GAME
 
 		bool offset_Dash1pEf2p = F;
 		bool offset_Dash2pEf1p = F;
-#define DASH_EF_OFFSET_CHECK 0
+#define DASH_EF_OFFSET_CHECK 1
 #if DASH_EF_OFFSET_CHECK
 
 		//ダッシュとEfの相殺チェック

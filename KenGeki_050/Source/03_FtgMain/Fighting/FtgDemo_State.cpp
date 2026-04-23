@@ -347,8 +347,12 @@ namespace GAME
 	//特殊演出：壁割り
 	FTG_DM_WallBreak::FTG_DM_WallBreak ()
 	{
+#if 0
+
 		m_wallBreakEf = std::make_shared < WallBreak > ();
 		AddpTask ( m_wallBreakEf );
+
+#endif // 0
 		m_timer = std::make_shared < Timer > ( 60 );
 
 		m_name.assign ( U"FTG_DM_WallBreak" );
@@ -357,9 +361,11 @@ namespace GAME
 	void FTG_DM_WallBreak::Start ()
 	{
 		//壁割エフェクト位置
+#if 0
 		float wall_R = G_Ftg::inst()->GetWallRight ();
 		m_wallBreakEf->SetPos ( wall_R - (float)GAME_WIDTH_HALF );
 		m_wallBreakEf->On ();
+#endif // 0
 
 		//タイマスタート
 		m_timer->Start ();
@@ -375,7 +381,9 @@ namespace GAME
 		//終了
 		if ( m_timer->IsLast() )
 		{
+#if 0
 			m_wallBreakEf->Off ();
+#endif // 0
 
 			//壁位置をリセット
 			G_Ftg::inst()->ResetWall ();

@@ -588,16 +588,38 @@ namespace GAME
 			{
 				if ( m_pScript->Index.Is ( 0 ) )
 				{
-					m_pOther.lock()->TopByZ ();
+					TopByZ ();
 
 					//位置調整用
 					float bDir = m_btlPrm.GetDirRight () ? 1.f : -1.f;
 					VEC2 my_pos = GetPos ();
-					VEC2 pos_rev = { my_pos.x + ( bDir * 50 ), my_pos.y + 0 };
+					VEC2 pos_rev = { my_pos.x + ( bDir * 0 ), my_pos.y + 0 };
+					SetPos ( pos_rev );	//位置同期(自分)
 
-					m_pOther.lock()->SetPos ( pos_rev );	//位置同期
+					VEC2 pos_rev_other = { my_pos.x + ( bDir * 100 ), my_pos.y + 0 };
+					m_pOther.lock()->SetPos ( pos_rev_other );	//位置同期(相手)
 				}
 			}
+
+			if ( IsNameAction ( U"カキャ・ムルチャ落下" ) )
+			{
+				//ガード時分岐
+				if ( m_pOther.lock ()->IsGuard () )
+				{
+					SetAction ( U"カキャ・ムルチャ攻撃なし落下" );
+				}
+			}
+
+#if 0
+			if ( IsNameAction ( U"カキャ・ムルチャEX落下" ) )
+			{
+				//ガード時分岐
+				if ( m_pOther.lock ()->IsGuard () )
+				{
+					SetAction ( U"カキャ・ムルチャEX攻撃なし落下" );
+				}
+			}
+#endif // 0
 
 			if ( IsNameAction ( U"トゥララ・コモタン成立1" ) )
 			{
@@ -623,6 +645,15 @@ namespace GAME
 					VEC2 pos_rev = { my_pos.x + ( bDir * 250 ), my_pos.y + 0 };
 
 					m_pOther.lock()->SetPos ( pos_rev );	//位置同期
+				}
+			}
+
+			if ( IsNameAction ( U"特大攻撃" ) )
+			{
+				//1Hit目以降
+				if ( 0 < m_btlPrm.GetChainHitNum () )
+				{
+					SetAction ( U"コンボ特大攻撃" );
 				}
 			}
 
@@ -740,12 +771,18 @@ namespace GAME
 				m_pFtgGrp->EndAllBlack ();
 			}
 
+			if ( IsNameActionFrame ( U"超必殺技B4", 0 ) )
+			{
+				//補正解除
+				m_btlPrm.SetReviseOverDrive ( 1.0f );
+			}
 			if ( IsNameActionFrame ( U"超必殺技B4", 34 ) )
 			{
 				m_pFtgGrp->EfMandara_On ();
 			}
 			if ( IsNameActionEnd ( U"超必殺技B4" ) )
 			{
+
 				m_pFtgGrp->EfMandara_Off ();
 			}
 			//----------------------------------------------------

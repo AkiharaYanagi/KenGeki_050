@@ -91,9 +91,10 @@ namespace GAME
 
 		bool IsWait ();	//両者待機状態
 
-
+#if 0
 		//トレーニングモード設定
 		void SetTraining ();
+#endif // 0
 
 		//トレーニングモード初期化
 		void TrainingInit ();

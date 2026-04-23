@@ -241,6 +241,9 @@ namespace GAME
 		//-----------------------------------------------------
 		//成立時
 
+		//成立タイマ開始
+		pOther->m_btlPrm.GetTmr_TaikouOn()->Start ( 20 );
+
 		//---------------------------------------------
 		//ノックバック量を計算済みの値
 		// 
@@ -322,6 +325,25 @@ namespace GAME
 		m_btlPrm.SetAccRecoil ( accRecoil );
 		pOther->m_btlPrm.SetAccRecoil ( accRecoil_other );
 
+
+		//==========================================
+		//◆ 自分・攻撃 -> 相手・くらい
+		//ヒット発生(攻撃成立側)
+		//==========================================
+		//自分ノックバック処理
+
+		//y方向移動量を水平に固定
+		VEC2 inertial = pOther->m_btlPrm.GetInertial ();
+		inertial.y = 0;
+		pOther->m_btlPrm.SetInertial ( inertial );
+
+		VEC2 vel = pOther->m_btlPrm.GetVel ();
+		vel.y = 0;
+		pOther->m_btlPrm.SetVel ( vel );
+
+		VEC2 acc = pOther->m_btlPrm.GetAcc ();
+		acc.y = 0;
+		pOther->m_btlPrm.SetAcc ( acc );
 
 
 #if 0

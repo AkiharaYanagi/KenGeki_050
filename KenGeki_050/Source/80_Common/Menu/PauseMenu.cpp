@@ -218,6 +218,9 @@ namespace GAME
 		bool bMenuBtn = ( CFG_PUSH_KEY ( P1_BTN6 ) || CFG_PUSH_KEY ( P2_BTN6 ) );
 		if ( bEsc || bMenuBtn )
 		{
+			//振動オフ(外部機能)
+			G_GrpTx::Inst()->VibOff ();
+
 			AUD_PLAY_ONESHOT_SE (SE_select_move);
 			On ();
 			SetStopMain ( T );

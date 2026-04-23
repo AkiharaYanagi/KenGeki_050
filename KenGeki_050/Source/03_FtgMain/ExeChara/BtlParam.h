@@ -97,6 +97,7 @@ namespace GAME
 		P_Timer		m_tmrVib;			//個別振動タイマ
 		P_Timer		m_tmrOfstCncl;		//相殺キャンセルタイマ
 		P_Timer		m_tmrTaikou;		//剣撃対抗受付タイマ
+		P_Timer		m_tmrTaikouOn;		//剣撃対抗成立後タイマ
 		P_Timer		m_tmrTaikouNG;		//相手・剣撃対抗不可タイマ
 		P_Timer		m_tmrTrainingGuard;	//トレモ：連続ヒット切れガード成立
 
@@ -241,6 +242,7 @@ namespace GAME
 		P_Timer GetTmr_Lurch () { return m_tmrLurch; }
 		P_Timer GetTmr_OfstCncl () { return m_tmrOfstCncl; }
 		P_Timer GetTmr_Taikou () { return m_tmrTaikou; }
+		P_Timer GetTmr_TaikouOn () { return m_tmrTaikouOn; }
 		P_Timer GetTmr_TaikouNG () { return m_tmrTaikouNG; }
 		P_Timer GetTmr_TrainingGuard () { return m_tmrTrainingGuard; }
 

@@ -11,7 +11,6 @@
 #include "Game.h"
 #include "../90_GameMain/Scene.h"
 #include "../03_FtgMain/Fighting/Fighting.h"
-//#include "../80_Common/Menu/PauseMenu.h"
 #include "../80_Common/Menu/TrainingMenu.h"
 
 
@@ -20,6 +19,7 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+
 	class Training : public Scene, public std::enable_shared_from_this < Training >
 	{
 		//トレーニング表示
@@ -30,25 +30,8 @@ namespace GAME
 		//戦闘
 		P_FTG			m_fighting;
 
-
-#if 0
-		//キー説明
-		P_GrpAcv		m_keyIntro;
-
-		//ロード中
-		P_PrmRect		m_rectLoad;
-		UINT			m_wait;
-		P_GrpStr		m_NowLoading;
-
-#endif // 0
-
-
-		//ポーズメニュ
-		//P_PauseMenu		m_pauseMenu;
+		//ポーズメニュ(トレーニング専用)
 		P_TrainingMenu		m_trainingMenu;
-
-#if 0
-#endif // 0
 
 		static const float	BX;
 		static const float	BY;
@@ -65,7 +48,6 @@ namespace GAME
 		void Load ();
 		void Init ();
 		void Move ();
-
 
 		P_GameScene Transit ();
 	};

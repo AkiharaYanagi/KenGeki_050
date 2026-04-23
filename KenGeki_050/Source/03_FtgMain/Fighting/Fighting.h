@@ -170,12 +170,16 @@ namespace GAME
 		//タイマ切替
 		void SetActiveTimer ( bool b ) { m_btlTime->SetActive ( b ); }
 
+#if 0
+
 		//トレーニングモード設定
 		void SetTraining ()
 		{
 			m_mutualChara->SetTraining ();
 			m_btlTime->SetTraining ();
 		}
+
+#endif // 0
 
 		void Test_Win_1p () { m_exeChara2->Test_Lose();}
 		void Test_Win_2p () { m_exeChara1->Test_Lose();}
