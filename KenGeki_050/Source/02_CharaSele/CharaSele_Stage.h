@@ -24,8 +24,9 @@ namespace GAME
 		//保存用共通パラメータ
 		P_Param			m_pParam;
 
+		//現在選択している背景の表示
 		P_Grp		m_bg;
-		INT32		m_index { 0 };
+		//INT32		m_index { 0 };
 		constexpr static INT32 STAGE_NUM { 9 };
 
 	public:
@@ -38,14 +39,9 @@ namespace GAME
 		void Next ();
 		void Prev ();
 
-		STAGE_NAME GetStageName () const
-		{
-			return static_cast < STAGE_NAME > ( m_index );
-		}
-
 		uint32_t GetStageIndex ( STAGE_NAME stageName ) const
 		{
-			return static_cast < uint32_t > ( m_index );
+			return static_cast < uint32_t > ( stageName );
 		}
 	};
 

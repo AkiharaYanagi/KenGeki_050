@@ -183,6 +183,13 @@ namespace GAME
 		CHARA_COLOR clr1p = static_cast < CHARA_COLOR > ( s3d::Random(0,1) );
 		CHARA_NAME name2p = GetRandomCharaName ();
 		CHARA_COLOR clr2p = static_cast < CHARA_COLOR > ( s3d::Random(0,1) );
+
+		//同キャラ同カラー補正
+		if ( ( name1p == name2p ) && ( clr1p == clr2p ) )
+		{
+			clr2p = ( clr1p == CH_CLR_1 ) ?  CH_CLR_2 : CH_CLR_1;
+		}
+
 		SetChara ( name1p, clr1p, name2p, clr2p );
 	}
 
@@ -220,26 +227,16 @@ namespace GAME
 	CHARA_NAME TitleChara::GetRandomCharaName () const
 	{
 		//タイトルカットイン対象のキャラのみ
-#if 0
-		const CHARA_NAME name[] = {
-			CHARA_OUKA,
-			CHARA_SAE,
-			CHARA_RETSUDOU,
-			CHARA_GYAVADARUGA,
-			CHARA_FERARIA,
-		};
-#endif // 0
-
 		CHARA_NAME name = CHARA_OUKA;
-		int rnd = s3d::Random ( 0, 4 );
 
-		switch ( rnd )
+		switch ( s3d::Random ( 0, 5 ) )
 		{
 		case 0: name = CHARA_OUKA; break;
 		case 1: name = CHARA_SAE; break;
 		case 2: name = CHARA_RETSUDOU; break;
 		case 3: name = CHARA_GYAVADARUGA; break;
 		case 4: name = CHARA_FERARIA; break;
+		case 5: name = CHARA_TSUKIHIBOSHI; break;
 		default: break;
 		}
 

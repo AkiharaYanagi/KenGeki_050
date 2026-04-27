@@ -49,13 +49,14 @@ namespace GAME
 			case CHARA_OUKA:		height = 160; break;
 			case CHARA_SAE:			height = 80; break;
 			case CHARA_RETSUDOU:	height = 240; break;
-			case CHARA_GYAVADARUGA:	height = 320; break;
+			case CHARA_GYAVADARUGA:	height = 250; break;
 			default: break;
 			}
 
 			//現在値と比較して低かったらFALSE
 			float pos_y = m_btlPrm.GetPos().y;
-			if ( pos_y > - height + (float)GROUND_Y )
+			float target_y = - height + ( float ) GROUND_Y;
+			if ( pos_y > target_y )
 			{
 				return F;
 			}

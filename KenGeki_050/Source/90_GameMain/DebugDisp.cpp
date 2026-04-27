@@ -21,7 +21,7 @@ namespace GAME
 	
 	//====================================================
 	//バージョン表記
-	s3d::String g_VERSION = U"beta ver 0.66";
+	s3d::String g_VERSION = U"ver 0.66";
 #if 0
 //	ver 0.66	2026/04/24(金) EVOJ前修正
 //	ver 0.65	2026/04/19(日) 修正
@@ -71,7 +71,7 @@ namespace GAME
 
 
 //デバッグ表示切替
-#define G_DEBUG_FLAG	1
+#define G_DEBUG_FLAG	0
 
 
 #if G_DEBUG_FLAG

@@ -494,7 +494,17 @@ namespace GAME
 	{
 		m_OnDamaged.OnEfDamaged ();
 
-		//自身側
+
+
+		//特殊処理
+		//相手側
+		if ( m_pOther.lock()->m_name == CHARA_FERARIA )
+		{
+			if ( IsNameAction ( U"投げ成立0" ) )
+			{
+			}
+		}
+
 		m_btlPrm.DecisionWhiteDamage ();
 	}
 

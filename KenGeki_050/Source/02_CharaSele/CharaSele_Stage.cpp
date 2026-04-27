@@ -18,19 +18,19 @@ namespace GAME
 	CharaSele_Stage::CharaSele_Stage ()
 	{
 		m_bg = std::make_shared < GameGraphic > ();
+		m_bg->SetZ ( Z_BG );
 		AddpTask ( m_bg );
 		GRPLST_INSERT ( m_bg );
-		m_bg->SetZ ( Z_BG );
 
 		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_hara_evening.png" );
 		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_hara_noon.png" );
 		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_hara_night.png" );
 		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_school_morning.png" );
-		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_school_night.png" );
 		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_school_noon.png" );
+		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_school_night.png" );
 		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_Taishou_morning.png" );
-		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_Taishou_night.png" );
 		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_Taishou_noon.png" );
+		m_bg->AddTexture_FromArchive ( U"CharaSele\\BG\\BG_Taishou_night.png" );
 	}
 
 	CharaSele_Stage::~CharaSele_Stage ()
@@ -42,23 +42,11 @@ namespace GAME
 	{
 		m_pParam = p;
 		STAGE_NAME name = p->GetGameSetting ().GetStage_Name ();
-		m_index = static_cast < INT32 > ( name );
-		m_bg->SetIndexTexture ( m_index );
+		m_bg->SetIndexTexture ( GetStageIndex ( name ) );
 	}
 
 	void CharaSele_Stage::Next ()
 	{
-#if 0
-		if ( m_index == STAGE_NUM - 1 )
-		{
-			m_index = 0;
-		}
-		else
-		{
-			++ m_index;
-		}
-#endif // 0
-
 		STAGE_NAME stageName = m_pParam->GetGameSetting().GetStage_Name ();
 		switch ( stageName )
 		{
@@ -82,19 +70,25 @@ namespace GAME
 
 	void CharaSele_Stage::Prev ()
 	{
-		if ( m_index == 0 )
+		STAGE_NAME stageName = m_pParam->GetGameSetting().GetStage_Name ();
+		switch ( stageName )
 		{
-			m_index = STAGE_NUM - 1;
-		}
-		else
-		{
-			-- m_index;
+		case STAGE_ASAHINO_HARA:	stageName = STAGE_TAISHOU_NINGT;	break;
+		case STAGE_YUUHINO_HARA:	stageName = STAGE_ASAHINO_HARA;		break;
+		case STAGE_YORUNO_HARA :	stageName = STAGE_YUUHINO_HARA;		break;
+		case STAGE_SCHOOL_MORNING:	stageName = STAGE_YORUNO_HARA;		break;
+		case STAGE_SCHOOL_NOON:		stageName = STAGE_SCHOOL_MORNING;	break;
+		case STAGE_SCHOOL_NIGHT:	stageName = STAGE_SCHOOL_NOON;		break;
+		case STAGE_TAISHOU_MORNING:	stageName = STAGE_SCHOOL_NIGHT;		break;
+		case STAGE_TAISHOU_NOON:	stageName = STAGE_TAISHOU_MORNING;	break;
+		case STAGE_TAISHOU_NINGT:	stageName = STAGE_TAISHOU_NOON;		break;
 		}
 
-		m_bg->SetIndexTexture ( m_index );
+		//表示の更新
+		m_bg->SetIndexTexture ( GetStageIndex ( stageName ) );
 
 		//値の保存
-		m_pParam->GetGameSetting ().SetStage_Name ( GetStageName () );
+		m_pParam->GetGameSetting ().SetStage_Name ( stageName );
 	}
 
 
