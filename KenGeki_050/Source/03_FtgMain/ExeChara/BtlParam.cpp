@@ -950,9 +950,21 @@ namespace GAME
 		UINT hitstop = HITSTOP_TIME;
 
 		//技指定
-		if ( m_pSequence->Name.Is ( U"波動" ) )
+		//桜花
+		if ( pExeCh->GetCharaName () == CHARA_OUKA )
 		{
-			hitstop += 10;
+			if ( m_pSequence->Name.Is ( U"鶍の嘴EX" ) )
+			{
+				hitstop += 10;
+			}
+		}
+		//ギャバダルガ
+		if ( pExeCh->GetCharaName () == CHARA_GYAVADARUGA )
+		{
+			if ( m_pSequence->Name.Is ( U"波動" ) )
+			{
+				hitstop += 10;
+			}
 		}
 		//月日星
 		if ( pExeCh->GetCharaName() == CHARA_TSUKIHIBOSHI )

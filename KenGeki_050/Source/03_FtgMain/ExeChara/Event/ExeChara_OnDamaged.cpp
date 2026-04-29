@@ -154,6 +154,17 @@ namespace GAME
 		//ガード成立時のダメージ補正
 		float g = bGuard ? 0.1f : 1.f;
 
+		if ( bGuard )
+		{
+			if ( pOther->GetCharaName() == CHARA_GYAVADARUGA )
+			{
+				if ( pOther->IsNameAction ( U"波動" ) )
+				{
+					g = 0.9f;	//ギャバダルガの特殊ケズリ
+				}
+			}
+		}
+
 		//-------------------------------------------------
 		//特殊補正
 		//相手(攻撃側)が投げ 保存した値を使う
