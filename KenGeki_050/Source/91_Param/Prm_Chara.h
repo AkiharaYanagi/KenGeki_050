@@ -81,11 +81,8 @@ namespace GAME
 		s3d::AsyncTask < void >	m_asyncLoad_Retu;
 		s3d::AsyncTask < void >	m_asyncLoad_Gaba;
 		s3d::AsyncTask < void >	m_asyncLoad_Fera;
-
 		s3d::AsyncTask < void >	m_asyncLoad_Tuki;
-
-#if 0
-#endif // 0
+		s3d::AsyncTask < void >	m_asyncLoad_Rein;
 
 		//終了ミューテックス
 		std::mutex				m_mutex;
@@ -100,12 +97,9 @@ namespace GAME
 		Prm_Chara		m_Retsu;
 		Prm_Chara		m_Gaba;
 		Prm_Chara		m_Fera;
-
-
 		Prm_Chara		m_Tsuki;
-#if 0
+		Prm_Chara		m_Reina;
 
-#endif // 0
 
 	public:
 		Prm_Chara_all ();
@@ -129,6 +123,8 @@ namespace GAME
 		static void _Load_Retu ( Prm_Chara_all * pThis );
 		static void _Load_Gaba ( Prm_Chara_all * pThis );
 		static void _Load_Fera ( Prm_Chara_all * pThis );
+		static void _Load_Tuki ( Prm_Chara_all * pThis );
+		static void _Load_Rein ( Prm_Chara_all * pThis );
 	};
 
 

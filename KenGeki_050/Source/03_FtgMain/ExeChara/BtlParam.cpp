@@ -135,6 +135,7 @@ namespace GAME
 		m_tmrTaikouOn	= std::make_shared < Timer > ();	//剣撃対抗成立後タイマ
 		m_tmrTaikouNG	= std::make_shared < Timer > ();	//剣撃対抗受付不可タイマ
 		m_tmrTrainingGuard = std::make_shared < Timer > ();	//トレモ：連続ヒット切れガード成立
+		m_tmrThrowInv = std::make_shared < Timer > ();	//やられ後投げ無敵タイマ
 	}
 
 	P_Timer BtlParam::MakeTimer ( UINT targetTime )
@@ -199,6 +200,7 @@ namespace GAME
 		m_tmrTaikouOn->Clear();	//剣撃対抗成立後タイマ
 		m_tmrTaikouNG->Clear();	//剣撃対抗受付不可タイマ
 		m_tmrTrainingGuard->Clear();	//トレモ：連続ヒット切れガード成立
+		m_tmrThrowInv->Clear();	//やられ後投げ無敵タイマ
 
 		m_hitNum = 0;
 		m_chainHitNum = 0;
@@ -224,12 +226,16 @@ namespace GAME
 	{
 		if ( PLAYER_ID_1 == m_playerID )
 		{
-			DBGOUT_WND_F ( DBGOUT_3, U"TaikouNG = {}"_fmt(m_tmrTaikouNG->GetTime() ) );
+			//DBGOUT_WND_F ( DBGOUT_3, U"TaikouNG = {}"_fmt(m_tmrTaikouNG->GetTime() ) );
+			bool bActive = m_tmrThrowInv->IsActive ();
+			UINT time = m_tmrThrowInv->GetTime ();
+			DBGOUT_WND_F ( DBGOUT_3, U"ThrowInv = {},{}"_fmt( bActive ? 1:0, time ) );
 		}
 		//手動ムーブ
 		m_tmrTaikouOn->Move ();
 		m_tmrTaikouNG->Move ();
 		m_tmrTrainingGuard->Move ();
+		m_tmrThrowInv->Move ();
 
 
 		for ( P_Timer ptmr : m_timers )
@@ -372,6 +378,9 @@ namespace GAME
 					//正面方向を反転
 					//m_vel.x *= -0.01f;
 					m_vel.x = 0;
+
+					//上下方向を無くす
+					m_vel.y = 0;
 				}
 			}
 		}
@@ -619,6 +628,13 @@ namespace GAME
 
 				//自身を変更
 				m_pExeChara.lock()->SetAction ( indexAction );	//遷移
+
+				//特殊処理
+				if ( m_pExeChara.lock()->IsNameAction ( U"着地" ) )
+				{
+					//投げ無敵
+					m_tmrThrowInv->Start ( 10 );
+				}
 			}
 
 			//位置が基準より下で立ち状態だったら

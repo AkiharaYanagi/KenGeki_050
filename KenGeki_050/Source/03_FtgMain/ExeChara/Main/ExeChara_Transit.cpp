@@ -54,6 +54,8 @@ namespace GAME
 			//次アクション m_frame = 0に遷移
 		}
 
+
+
 		//-----------------------------------------------------
 		// スクリプト通常処理
 		ExeScript ();
@@ -618,24 +620,19 @@ namespace GAME
 		//------------------------------------------------
 		//◆移項限定処理
 		//ダッシュから次アクションに移項するとき、慣性を残す
-		if ( ! ExistActionName ( U"前ダッシュ開始" ) )
-		{
-			assert ( 0 );
-		}
-#if 0
-		if ( ! ExistActionName ( U"ボタンダッシュ開始" ) )
-		{
-			assert ( 0 );
-		}
-#endif // 0
-
-		bool bDash = IsNameAction ( U"前ダッシュ開始" );
-//		bool bBtnDash = IsNameAction ( U"ボタンダッシュ開始" );
-//		if ( bDash || bBtnDash )
-		if ( bDash )
+		bool bDashStart = IsNameAction ( U"前ダッシュ開始" );
+		bool bDash = IsNameAction ( U"前ダッシュ" );
+		if ( bDashStart || bDash )
 		{
 			m_btlPrm.SetDashInertial ( VEC2 ( 10.f, 0 ) );
 		}
+
+		//やられ状態からの戻りに「投げ無敵状態」をつける
+		if ( IsDamaged () )
+		{
+			m_btlPrm.GetTmr_ThrowInv()->Start ( 1 );
+		}
+
 		//------------------------------------------------
 
 		//各種状態の終了

@@ -123,7 +123,7 @@ namespace GAME
 		//アクション名表示
 		void UpdateActionName ( s3d::String actionName, UINT frame );
 
-		//アクション名表示
+		//状態名表示
 		void UpdateStateName ( s3d::String stateName );
 
 		//表示切替

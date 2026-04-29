@@ -413,21 +413,13 @@ namespace GAME
 		if ( Is_AP_Jump () ) { return F; }
 
 		//アクション属性が"AC_DAMAGED"は「不可」
-#if 0
-		//指定アクションのとき 「可能」
-		if ( pAct->IsName ( _T("ダメージ小") ) ) { return T; }
-		if ( pAct->IsName ( _T("ダメージ大") ) ) { return T; }
-#endif // 0
 		if ( IsDamaged () ) { return F; }
 
 		//アクション属性が"AC_GUARD"は「不可」
-#if 0
-		if ( pAct->Name.Is ( U"ガード小" ) ) { return F; }
-		if ( pAct->Name.Is ( U"ガード中" ) ) { return F; }
-		if ( pAct->Name.Is ( U"ガード大" ) ) { return F; }
-		if ( pAct->Name.Is ( U"しゃがみガード" ) ) { return F; }
-#endif // 0
 		if ( IsGuard () ) { return F; }
+
+		//特殊タイマー：投げ無敵（やられ状態からの戻りフレーム）
+		if ( m_btlPrm.GetcTmr_ThrowInv ()->IsActive () ) { return F; }
 
 
 		//それ以外は「可能」

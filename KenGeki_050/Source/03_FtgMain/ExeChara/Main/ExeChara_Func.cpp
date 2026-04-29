@@ -241,6 +241,46 @@ namespace GAME
 		//-----------------------------------------------------
 		//成立時
 
+		//---------------------------------------------
+		//上下の判定
+		P_CharaInput pChInp = pOther->GetpCharaInput();
+		bool bLvr8 = pChInp->IsLvr8 ();	// 上方向が入力されているとき
+
+		if ( bLvr8 )
+		{
+			//空中やられに状態を変更して終了
+			pOther->SetAction ( U"空中やられ" );
+
+			//成立フラグ
+			pOther->m_btlPrm.SetTaikou ( T );
+			//フレーム最初にFalse、以降同一フレーム処理で判定に用いる
+			//主にエフェクト発生
+
+			//受付時間を解除
+			pOther->m_btlPrm.GetTmr_Taikou()->Clear ();
+
+			return;
+		}
+
+		bool bLvr2 = pChInp->IsLvr2 ();	// 下方向が入力されているとき
+		if ( bLvr2 )
+		{
+			//空中やられに状態を変更して終了
+			pOther->SetAction ( U"バウンド(追打)" );
+
+			//成立フラグ
+			pOther->m_btlPrm.SetTaikou ( T );
+			//フレーム最初にFalse、以降同一フレーム処理で判定に用いる
+			//主にエフェクト発生
+
+			//受付時間を解除
+			pOther->m_btlPrm.GetTmr_Taikou()->Clear ();
+
+			return;
+		}
+
+
+		//---------------------------------------------
 		//成立タイマ開始
 		pOther->m_btlPrm.GetTmr_TaikouOn()->Start ( 20 );
 

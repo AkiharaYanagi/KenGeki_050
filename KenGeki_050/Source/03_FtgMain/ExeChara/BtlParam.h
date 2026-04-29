@@ -100,6 +100,7 @@ namespace GAME
 		P_Timer		m_tmrTaikouOn;		//剣撃対抗成立後タイマ
 		P_Timer		m_tmrTaikouNG;		//相手・剣撃対抗不可タイマ
 		P_Timer		m_tmrTrainingGuard;	//トレモ：連続ヒット切れガード成立
+		P_Timer		m_tmrThrowInv;		//やられ後投げ無敵タイマ
 
 		UINT	m_blackOut { 0 };		//暗転
 		UINT	m_scpStop { 0 };		//スクリプトからの停止
@@ -245,6 +246,8 @@ namespace GAME
 		P_Timer GetTmr_TaikouOn () { return m_tmrTaikouOn; }
 		P_Timer GetTmr_TaikouNG () { return m_tmrTaikouNG; }
 		P_Timer GetTmr_TrainingGuard () { return m_tmrTrainingGuard; }
+		P_Timer GetTmr_ThrowInv () { return m_tmrThrowInv; }
+		P_Timer GetcTmr_ThrowInv () const { return m_tmrThrowInv; }
 
 		void AllTmr_Clear () { for ( P_Timer ptmr : m_timers ) { ptmr->Clear (); } }
 

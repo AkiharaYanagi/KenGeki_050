@@ -147,6 +147,44 @@ namespace GAME
 			//回数リセットは "着地" 時
 		}
 
+		//-----------------------------------------------------
+		//着地
+		if ( IsNameActionFrame ( U"着地", 0 ) )
+		{
+#if 0
+
+	void CHST_Main::PreScriptMove ()
+	{
+		P_ExeChara pExe = GetwpExeChara ().lock ();
+		pExe->Input ();				//入力		
+
+
+		pExe->PreMove_Effect ();	//エフェクト動作
+
+		//ヒットストップ時は以降を飛ばす
+		if ( pExe->IsHitStop () )
+		{
+			return;
+		}
+
+		pExe->TransitAction ();		//アクション遷移
+		pExe->CalcPos ();			//位置計算
+		pExe->SetCollisionRect ();	//接触枠設定
+//		pExe->OverEfPart ();		//EfPart重なり
+		pExe->Generate_Effect ();	//エフェクト生成
+	}
+
+#endif // 0
+
+			//投げ無敵
+			//m_btlPrm.GetcTmr_ThrowInv ()->Start ( 10 );
+
+			//@info
+			//ここではTransitAction中なので、着地[0]に遷移せず、
+			// CalcPos()で着地判定と移行を行う	
+
+		}
+
 
 #if 0
 
