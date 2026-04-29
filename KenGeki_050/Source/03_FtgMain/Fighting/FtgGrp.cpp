@@ -242,7 +242,7 @@ namespace GAME
 		{
 			m_grpBG_scroll->SetPos ( 0, G_BASE_POS().y - 1300 );
 		}
-		DBGOUT_WND_F ( DBGOUT_4, U"G_BASE_POS().y = {}"_fmt( G_BASE_POS().y ) );
+		//DBGOUT_WND_F ( DBGOUT_4, U"G_BASE_POS().y = {}"_fmt( G_BASE_POS().y ) );
 
 
 		//---------------------------------------------------

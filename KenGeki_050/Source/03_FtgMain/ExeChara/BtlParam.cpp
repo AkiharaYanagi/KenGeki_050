@@ -224,6 +224,8 @@ namespace GAME
 
 	void BtlParam::TimerMove ()
 	{
+#if 0
+
 		if ( PLAYER_ID_1 == m_playerID )
 		{
 			//DBGOUT_WND_F ( DBGOUT_3, U"TaikouNG = {}"_fmt(m_tmrTaikouNG->GetTime() ) );
@@ -231,6 +233,8 @@ namespace GAME
 			UINT time = m_tmrThrowInv->GetTime ();
 			DBGOUT_WND_F ( DBGOUT_3, U"ThrowInv = {},{}"_fmt( bActive ? 1:0, time ) );
 		}
+
+#endif // 0
 		//手動ムーブ
 		m_tmrTaikouOn->Move ();
 		m_tmrTaikouNG->Move ();
@@ -360,31 +364,6 @@ namespace GAME
 		m_posChara.y += m_hitDrop;	//直接位置を補正する
 
 
-		//------------------------
-		// 被・剣撃対抗 時　水平補正
-		P_Timer pTmrTK_On = m_pOther.lock ()->GetrBtlPrm().GetTmr_TaikouOn ();
-		if ( PLAYER_ID_1 == m_playerID )
-		{
-			DBGOUT_WND_F ( DBGOUT_2, U"m_tmrTaikouOn = {}"_fmt ( pTmrTK_On->GetTime() ) );
-		}
-		if ( pTmrTK_On->IsActive () )
-		{
-			//自分（攻撃側）空中のみ
-			if ( m_pExeChara.lock ()->IsJump () || m_pExeChara.lock ()->IsFloat () )
-			{
-				//ダッシュ時特殊処理
-				if ( m_vel.x > 0 )
-				{
-					//正面方向を反転
-					//m_vel.x *= -0.01f;
-					m_vel.x = 0;
-
-					//上下方向を無くす
-					m_vel.y = 0;
-				}
-			}
-		}
-
 
 		//------------------------
 		//計算種類で分岐
@@ -436,6 +415,32 @@ namespace GAME
 		default: break;
 		}
 
+
+
+		//------------------------
+		// 被・剣撃対抗 時　水平補正
+		P_Timer pTmrTK_On = m_pOther.lock ()->GetrBtlPrm().GetTmr_TaikouOn ();
+		if ( PLAYER_ID_1 == m_playerID )
+		{
+			DBGOUT_WND_F ( DBGOUT_2, U"m_tmrTaikouOn = {}"_fmt ( pTmrTK_On->GetTime() ) );
+		}
+		if ( pTmrTK_On->IsActive () )
+		{
+					//正面方向を反転
+					//m_vel.x *= -0.01f;
+					m_vel.x = 0;
+
+					//上下方向を無くす
+					//m_vel.y = 0;
+				//ダッシュ時特殊処理
+				if ( m_vel.x > 0 )
+				{
+				}
+			//自分（攻撃側）空中のみ
+			if ( m_pExeChara.lock ()->IsJump () || m_pExeChara.lock ()->IsFloat () )
+			{
+			}
+		}
 
 
 		//---------------
@@ -906,6 +911,8 @@ namespace GAME
 			float abs = std::abs ( recoil_i );
 			float recoil_dir = dir * abs;
 
+#if 0
+
 			if ( GetPlayerID () == PLAYER_ID_1 )
 			{
 				DBGOUT_WND_F ( DBGOUT_5, U"p1:recoil_i {} = {} * {}"_fmt ( recoil_dir, dir, abs ) );
@@ -914,6 +921,8 @@ namespace GAME
 			{
 				DBGOUT_WND_F ( DBGOUT_6, U"p2:recoil_i {} = {} * {}"_fmt ( recoil_dir, dir, abs ) );
 			}
+
+#endif // 0
 
 			//保存
 			recoil_i = recoil_dir;

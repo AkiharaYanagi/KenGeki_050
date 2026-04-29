@@ -370,6 +370,24 @@ namespace GAME
 			}
 		}
 
+#if 0
+		//ギャバダルガ
+		if ( m_name == CHARA_GYAVADARUGA )
+		{
+			bool b_A_H = IsNameAction ( U"ジャンプ大" );
+			bool b_AD_H = IsNameAction ( U"空中ダッシュ大攻撃" );
+			if ( b_A_H || b_AD_H )
+			{
+				UINT chainHitNum = m_btlPrm.GetChainHitNum ();
+				//現在１ヒット（今回２ヒット目）のときに通常やられにする
+				if ( chainHitNum >= 1 )
+				{
+					nameAction = U"空中やられ";
+				}
+			}
+		}
+#endif // 0
+
 		//月日星
 		if ( m_name == CHARA_TSUKIHIBOSHI )
 		{

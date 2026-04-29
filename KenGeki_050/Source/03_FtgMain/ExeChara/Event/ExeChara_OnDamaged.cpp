@@ -297,11 +297,25 @@ namespace GAME
 		//追加ノックバック
 		if ( pSelf->IsNameAction ( U"空中やられ" ) )
 		{
-			float recoil_e = 1.f * pScp->Get_FP_B().Recoil_E.Get();
+			float recoil_e = 1.f * pScpOther->Get_FP_B().Recoil_E.Get();
 			float x = m_btlPrm.GetPos().x;
 			float y = recoil_e + m_btlPrm.GetPos().y;
 			//float y = m_btlPrm.GetPos().y;
 			m_btlPrm.SetPos ( VEC2 ( x, y ) );
+		}
+
+		//ギャバダルガ
+		if ( pOther->GetCharaName() == CHARA_GYAVADARUGA )
+		{
+			bool b_A_H = pOther->IsNameAction ( U"ジャンプ大" );
+			bool b_AD_H = pOther->IsNameAction ( U"空中ダッシュ大攻撃" );
+			if ( b_A_H || b_AD_H )
+			{
+				float recoil_e = 1.f * pScpOther->Get_FP_B().Recoil_E.Get();
+				float x = m_btlPrm.GetPos().x;
+				float y = recoil_e + m_btlPrm.GetPos().y;
+				m_btlPrm.SetPos ( VEC2 ( x, y ) );
+			}
 		}
 
 		//-------------------------------------------------
@@ -496,6 +510,7 @@ namespace GAME
 		//下段は両方向
 		bCrouchGurad = bLvr13;
 
+#if 0
 
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
 		{
@@ -505,6 +520,8 @@ namespace GAME
 		{
 			DBGOUT_WND_F ( DBGOUT_6, U"p1 std {},crc {}"_fmt ( bStandGurad, bCrouchGurad ) );
 		}
+
+#endif // 0
 
 
 
@@ -763,12 +780,16 @@ namespace GAME
 		btlPrmOhter.AddChainDamage ( confirmed_damage );
 
 		int32 chnDmg = btlPrmOhter.GetChainDamage ();
+#if 0
+
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_2 )	//相手
 		{
 			DBGOUT_WND_F ( DBGOUT_0, U"ダメージ = {}"_fmt( damage ) );
 			DBGOUT_WND_F ( DBGOUT_1, U"連続ヒットダメージ = {}"_fmt( chnDmg ) );
 			DBGOUT_WND_F ( DBGOUT_2, U"rev_od = {}"_fmt( rev_od ) );
 		}
+
+#endif // 0
 
 		//リザルト用に保存 (相手の値)
 		if ( pSelf->Is1P () )

@@ -297,8 +297,8 @@ namespace GAME
 
 		//----------------------------------------------------------
 		// デバッグ表示用
-		//bool bt = bTimerTaikou;
-		//float ar0 = accRecoil;
+		bool bt = bTimerTaikou;
+		float ar0 = accRecoil;
 		//----------------------------------------------------------
 		
 
@@ -386,7 +386,6 @@ namespace GAME
 		pOther->m_btlPrm.SetAcc ( acc );
 
 
-#if 0
 		float ar1 = m_btlPrm.GetAccRecoil ();
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
 		{
@@ -400,6 +399,7 @@ namespace GAME
 			DBGOUT_WND_F ( DBGOUT_4, U"計算前：accRecoil = {:.3f}"_fmt( ar0 ) );
 			DBGOUT_WND_F ( DBGOUT_5, U"計算後：accRecoil = {:.3f}"_fmt( ar1 ) );
 		}
+#if 0
 #endif // 0
 	}
 

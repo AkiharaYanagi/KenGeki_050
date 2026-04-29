@@ -367,6 +367,7 @@ namespace GAME
 		//アクションとスクリプトをバトルパラメータに渡す
 		m_btlPrm.Update ( m_pAction, m_pScript );
 
+#if 0
 
 		if ( Is1P () )
 		{
@@ -375,6 +376,8 @@ namespace GAME
 			DBGOUT_WND_F ( DBGOUT_0, U"1p_vel = {},{}"_fmt( vel.x, vel.y ) );
 			DBGOUT_WND_F ( DBGOUT_1, U"1p_acc = {},{}"_fmt( acc.x, acc.y ) );
 		}
+
+#endif // 0
 
 		//------------------------------------------------
 		//直接ダメージ処理

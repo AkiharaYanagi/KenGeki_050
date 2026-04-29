@@ -119,7 +119,7 @@ namespace GAME
 
 		//エフェクト終了条件
 
-		DBGOUT_WND_F ( DBGOUT_5, U"m_ptEffect.y = {}"_fmt ( m_ptEffect.y ) );
+		//DBGOUT_WND_F ( DBGOUT_5, U"m_ptEffect.y = {}"_fmt ( m_ptEffect.y ) );
 
 		
 		
