@@ -364,6 +364,32 @@ namespace GAME
 		m_posChara.y += m_hitDrop;	//直接位置を補正する
 
 
+		//------------------------
+		// 被・剣撃対抗 時　水平補正
+		P_Timer pTmrTK_On = m_pOther.lock ()->GetrBtlPrm().GetTmr_TaikouOn ();
+		if ( PLAYER_ID_1 == m_playerID )
+		{
+			DBGOUT_WND_F ( DBGOUT_2, U"m_tmrTaikouOn = {}"_fmt ( pTmrTK_On->GetTime() ) );
+		}
+		if ( pTmrTK_On->IsActive () )
+		{
+				//ダッシュ時特殊処理
+				if ( m_vel.x > 0 )
+				{
+				}
+			//自分（攻撃側）空中のみ
+			if ( m_pExeChara.lock ()->IsJump () || m_pExeChara.lock ()->IsFloat () )
+			{
+					//正面方向を反転
+					//m_vel.x *= -0.01f;
+					m_vel.x = 0;
+
+					//上下方向を無くす
+					//m_vel.y = 0;
+			}
+		}
+
+
 
 		//------------------------
 		//計算種類で分岐
@@ -415,32 +441,6 @@ namespace GAME
 		default: break;
 		}
 
-
-
-		//------------------------
-		// 被・剣撃対抗 時　水平補正
-		P_Timer pTmrTK_On = m_pOther.lock ()->GetrBtlPrm().GetTmr_TaikouOn ();
-		if ( PLAYER_ID_1 == m_playerID )
-		{
-			DBGOUT_WND_F ( DBGOUT_2, U"m_tmrTaikouOn = {}"_fmt ( pTmrTK_On->GetTime() ) );
-		}
-		if ( pTmrTK_On->IsActive () )
-		{
-					//正面方向を反転
-					//m_vel.x *= -0.01f;
-					m_vel.x = 0;
-
-					//上下方向を無くす
-					//m_vel.y = 0;
-				//ダッシュ時特殊処理
-				if ( m_vel.x > 0 )
-				{
-				}
-			//自分（攻撃側）空中のみ
-			if ( m_pExeChara.lock ()->IsJump () || m_pExeChara.lock ()->IsFloat () )
-			{
-			}
-		}
 
 
 		//---------------

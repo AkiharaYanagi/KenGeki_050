@@ -125,6 +125,10 @@ namespace GAME
 		m_ef_mandara->SetColor ( _CLR(0xffffffff) );
 		m_mnd_bg_time = 0;
 
+		//リセット時にも、振動オフ
+		//タイマStartでオン、IsLastでオフなので
+		G_GrpTx::Inst()->VibOff ();
+
 		TASK_VEC::Init ();
 	}
 

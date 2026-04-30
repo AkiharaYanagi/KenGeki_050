@@ -311,10 +311,13 @@ namespace GAME
 			bool b_AD_H = pOther->IsNameAction ( U"空中ダッシュ大攻撃" );
 			if ( b_A_H || b_AD_H )
 			{
-				float recoil_e = 1.f * pScpOther->Get_FP_B().Recoil_E.Get();
-				float x = m_btlPrm.GetPos().x;
-				float y = recoil_e + m_btlPrm.GetPos().y;
-				m_btlPrm.SetPos ( VEC2 ( x, y ) );
+				if ( ! bGuard )
+				{
+					float recoil_e = 1.f * pScpOther->Get_FP_B().Recoil_E.Get();
+					float x = m_btlPrm.GetPos().x;
+					float y = recoil_e + m_btlPrm.GetPos().y;
+					m_btlPrm.SetPos ( VEC2 ( x, y ) );
+				}
 			}
 		}
 
@@ -668,16 +671,22 @@ namespace GAME
 			pOther->SetNameChangeMine ( U"ノーリアクション" );
 		}
 
-#if 0
 
 		//-------------------------------------------------
-		//★★★ 剣撃対抗 (打撃時にいずれかの入力で距離離し)
-		if ( ! pOther->IsOverdrive () )	//攻撃した相手が超必殺でないとき
+		//★★★ 剣撃対抗 入力(打撃時にいずれかの入力で距離離し)
+		//		->内部処理はExeChara_Func.cpp
+		//-------------------------------------------------
+
+		//剣撃対抗は特定技のとき不成立(ExeChara_RefuseTaikou.cpp)
+		//T:成立しない, F:成立する
+		bool bRefuseTaikou = pOther->IsRefused_Taikou ();
+
+		if ( ! bRefuseTaikou )
 		{
 			//受付タイマをON
 			m_btlPrm.GetTmr_Taikou()->Start ( TAIKOU_TIME );
 		}
-
+#if 0
 #endif // 0
 
 		//-------------------------------------------------

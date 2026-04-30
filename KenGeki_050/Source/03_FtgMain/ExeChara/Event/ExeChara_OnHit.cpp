@@ -125,21 +125,6 @@ namespace GAME
 		//-------------------------------------------------
 
 		//分岐後 ヒット時処理
-		//特定アクション
-#if 0
-		if ( pSelf->IsNameAction ( U"特大攻撃" ) )
-		{
-			m_pFtgGrp->StartVibration ( 10 );
-		}
-		if ( pSelf->GetCharaName () == CHARA_TSUKIHIBOSHI )
-		{
-			if ( pSelf->IsNameAction ( U"特大攻撃" ) )
-			{
-				pSelf->StartAerial ();
-			}
-		}
-#endif // 0
-
 
 		//-------------------------------------------------
 		//ノックバック
@@ -376,15 +361,31 @@ namespace GAME
 		//条件分岐 (相手→自分でないとスクリプトが変わってしまう)
 
 		//自分のエフェクトからブランチ（相手ヒット）を検索し、遷移先アクション名を取得する
-		const s3d::String& nameAction = pSelf->Check_TransitAction_Condition_str ( pFrm, BRC_HIT_E );
+		s3d::String nameAction = pSelf->Check_TransitAction_Condition_str ( pFrm, BRC_HIT_E );
 
 		m_btlPrm.SetHitEst ( true );		//攻撃成立フラグ
 //		m_tmrHitstop->Start ();		//エフェクトはヒットストップしない
 		m_btlPrm.GetTmr_HitPitch ()->Start ();
 
+		//やられ状態のとき空中チェック
+		//@info 特殊状態　（特定技やられなど）は除く
+		bool bDai = U"ダメージ大" == nameAction ;
+		bool bSyou = U"ダメージ小" == nameAction ;
+
+		if ( bDai || bSyou )
+		{
+			//相手が空中( GROUND_Y < pos_y )
+			float e_pos_y = m_pOther.lock()->GetPos().y;
+			if ( e_pos_y < (float)GROUND_Y )
+			{
+				nameAction = U"空中やられ";
+			}
+		}
+
+		//=================================================================
+
 		//相手の変更先アクション名を保存
 		pSelf->SetNameChangeOther ( nameAction );
-
 
 		//-------------------------------------------------
 		//ノックバック

@@ -240,16 +240,18 @@ namespace GAME
 
 		//-----------------------------------------------------
 		//成立時
+		P_CharaInput pChInp = pOther->GetpCharaInput();
+#if 0
 
 		//---------------------------------------------
 		//上下の判定
-		P_CharaInput pChInp = pOther->GetpCharaInput();
 		bool bLvr8 = pChInp->IsLvr8 ();	// 上方向が入力されているとき
 
 		if ( bLvr8 )
 		{
 			//空中やられに状態を変更して終了
 			pOther->SetAction ( U"空中やられ" );
+			pOther->GetBtlPrm ().SetVel ( VEC2 ( 0, -200 ) );	//上昇
 
 			//成立フラグ
 			pOther->m_btlPrm.SetTaikou ( T );
@@ -265,8 +267,17 @@ namespace GAME
 		bool bLvr2 = pChInp->IsLvr2 ();	// 下方向が入力されているとき
 		if ( bLvr2 )
 		{
-			//空中やられに状態を変更して終了
-			pOther->SetAction ( U"バウンド(追打)" );
+			//相手が空中( GROUND_Y < pos_y )
+			float e_pos_y = m_pOther.lock()->GetPos().y;
+			if ( e_pos_y < (float)GROUND_Y )
+			{
+				pOther->GetBtlPrm ().SetVel ( VEC2 ( 0, 200 ) );	//下降
+			}
+			else
+			{
+				//地上ならバウンド状態にして終了
+				pOther->SetAction ( U"バウンド(追打)" );
+			}
 
 			//成立フラグ
 			pOther->m_btlPrm.SetTaikou ( T );
@@ -277,6 +288,57 @@ namespace GAME
 			pOther->m_btlPrm.GetTmr_Taikou()->Clear ();
 
 			return;
+		}
+
+#endif // 0
+
+		//--------------------------------------------------------------------
+		bool bInputBack = F;	//後ろ入力
+		bool bLvr4 = pChInp->IsLvr4 ();	// 後	方向が入力されているとき
+		bool bLvr6 = pChInp->IsLvr6 ();	// 前	方向が入力されているとき
+		//P_CharaInputは、キャラの向きに合わせて前が右、後ろが左になるように入力を変換している
+		//位置で修正する
+
+		//向きによらず相手と逆向き
+		float mx = GetPos ().x;
+		float ox = pOther->GetPos ().x;
+
+		//ほぼ同位置のときは向きは両方
+		if ( std::abs ( mx - ox ) < 5 )
+		{
+			bInputBack = bLvr4 || bLvr6;
+		}
+		//距離が離れた通常時
+		else
+		{
+			//自分左：相手右
+			if ( mx < ox )
+			{
+				//相手右向
+				if ( pOther->GetDirRight () )
+				{
+					bInputBack = bLvr6;
+				}
+				//相手左向
+				else
+				{
+					bInputBack = bLvr4;	//自分と逆
+				}
+			}
+			//相手左：自分右
+			else if ( ox < mx )
+			{
+				//相手右向
+				if ( pOther->GetDirRight () )
+				{
+					bInputBack = bLvr4;	//自分と逆
+				}
+				//相手左向
+				else
+				{
+					bInputBack = bLvr6;
+				}
+			}
 		}
 
 
@@ -297,8 +359,8 @@ namespace GAME
 
 		//----------------------------------------------------------
 		// デバッグ表示用
-		bool bt = bTimerTaikou;
-		float ar0 = accRecoil;
+		//bool bt = bTimerTaikou;
+		//float ar0 = accRecoil;
 		//----------------------------------------------------------
 		
 
@@ -362,10 +424,20 @@ namespace GAME
 
 		//---------------------
 		//値を再保存
-		m_btlPrm.SetAccRecoil ( accRecoil );
-		pOther->m_btlPrm.SetAccRecoil ( accRecoil_other );
 
+		if ( bInputBack )
+		{
+			//後ろ対抗：相手自身が下がる(方向逆)
+			m_btlPrm.SetAccRecoil ( -1.f * accRecoil_other );
+			pOther->m_btlPrm.SetAccRecoil ( -1.f * accRecoil );
+		}
+		else
+		{
+			m_btlPrm.SetAccRecoil ( accRecoil );
+			pOther->m_btlPrm.SetAccRecoil ( accRecoil_other );
+		}
 
+#if 0
 		//==========================================
 		//◆ 自分・攻撃 -> 相手・くらい
 		//ヒット発生(攻撃成立側)
@@ -399,7 +471,6 @@ namespace GAME
 			DBGOUT_WND_F ( DBGOUT_4, U"計算前：accRecoil = {:.3f}"_fmt( ar0 ) );
 			DBGOUT_WND_F ( DBGOUT_5, U"計算後：accRecoil = {:.3f}"_fmt( ar1 ) );
 		}
-#if 0
 #endif // 0
 	}
 
