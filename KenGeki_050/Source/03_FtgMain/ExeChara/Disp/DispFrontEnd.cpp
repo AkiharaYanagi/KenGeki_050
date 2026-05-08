@@ -452,6 +452,7 @@ namespace GAME
 			case CHARA_NAME::CHARA_GYAVADARUGA:	fc =  6; nm = 3; break;
 			case CHARA_NAME::CHARA_FERARIA:		fc =  8; nm = 4; break;
 			case CHARA_NAME::CHARA_TSUKIHIBOSHI:fc = 10; nm = 5; break;
+			case CHARA_NAME::CHARA_REINA:		fc = 10; nm = 5; break;
 			}
 		}
 		else if ( CHARA_COLOR::CH_CLR_2 == clr )
@@ -464,18 +465,22 @@ namespace GAME
 			case CHARA_NAME::CHARA_GYAVADARUGA:	fc =  7; nm = 3; break;
 			case CHARA_NAME::CHARA_FERARIA:		fc =  9; nm = 4; break;
 			case CHARA_NAME::CHARA_TSUKIHIBOSHI:fc = 11; nm = 5; break;
+			case CHARA_NAME::CHARA_REINA:		fc = 10; nm = 5; break;
 			}
 		}
 
+
+		//追加途中
+		if ( name == CHARA_NAME::CHARA_REINA )
+		{
+			m_face->SetValid ( F );
+			m_name->SetValid ( F );
+		}
+
+
+
 		m_face->SetIndexTexture ( fc );
 		m_name->SetIndexTexture ( nm );
-
-#if 0
-
-		m_face->SetIndexTexture ( (uint32)charaName - 1 );
-		m_name->SetIndexTexture ( (uint32)charaName - 1 );
-
-#endif // 0
 
 
 		//プレイヤモード(入力種類)による初期化
