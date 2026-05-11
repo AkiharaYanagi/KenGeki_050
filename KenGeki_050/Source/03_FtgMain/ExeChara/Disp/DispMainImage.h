@@ -25,7 +25,7 @@ namespace GAME
 	class DispMainImage : public TASK_VEC
 	{
 		P_Grp		m_mainGraphic;		//メイングラフィック表示
-		PAP_Tx		mpap_Tx;	//メインイメージのテクスチャリスト
+		//PAP_Tx		mpap_Tx;	//メインイメージのテクスチャリスト
 
 		P_Grp		m_grpShadow;	//影
 

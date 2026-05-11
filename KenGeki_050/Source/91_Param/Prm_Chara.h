@@ -30,6 +30,11 @@ namespace GAME
 		//キャラカラー
 		PAP_Tx		m_papTx_clr1 { nullptr };
 		PAP_Tx		m_papTx_clr2 { nullptr };
+
+		//atlas
+		//Atlas		m_atlas_clr1;
+		//Atlas		m_atlas_clr2;
+
 		//共通エフェクト
 		PAP_Tx		m_papTx_gns { nullptr };
 

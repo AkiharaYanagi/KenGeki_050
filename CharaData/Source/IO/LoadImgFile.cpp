@@ -5,6 +5,7 @@
 //=================================================================================================
 #include "LoadImgFile.h"
 namespace FS = std::filesystem;
+#include "04_GameFile.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -170,7 +171,7 @@ namespace GAME
 	PAP_Tx LoadImgFile::LoadAtlas ( const s3d::String & filepath )
 	{
 		//atlasをデシリアライズ
-		Atlas atlas;
+		legacy::Atlas atlas;
 		s3d::Deserializer < s3d::BinaryReader > br { filepath };
 
 		if ( not br )
@@ -219,7 +220,7 @@ namespace GAME
 //		size_t szDmprsBuf = dcmprsBuf.size ();
 		s3d::MemoryReader mr { dcmprsBuf };
 
-		Atlas atlas;
+		legacy::Atlas atlas;
 		atlas.LoadMemoryStream ( mr );
 
 		return atlas.GetpapTx ();

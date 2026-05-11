@@ -57,6 +57,7 @@ namespace GAME
 	constexpr char32_t CHARA_IMG1_REINA []	= U"Chara\\Reina_1p_bhv.lz4";
 	constexpr char32_t CHARA_IMG2_REINA []	= U"Chara\\Reina_2p_bhv.lz4";
 	constexpr char32_t CHARA_GNS_REINA []	= U"Chara\\Reina_gns.lz4";
+	constexpr char32_t CHARA_ATLS1_REINA []	= U"Chara\\Reina_1p_bhv.atls";
 
 
 	//Chara_Color_File_Name
@@ -209,7 +210,6 @@ namespace GAME
 		SetStrImg_1p ( IMG1 );		//イメージファイル名を設定
 		SetStrImg_2p ( IMG2 );		//イメージファイル名を設定
 		SetStrGns ( GNS );		//エフェクトイメージファイル名を設定
-
 	}
 
 

@@ -41,10 +41,11 @@ namespace GAME
 	void DispMainImage::SetpChara ( P_Chara pChara )
 	{
 		//キャラのメインテクスチャアレイを設置
-		mpap_Tx = pChara->GetBehavior().GetpapTx ();
+		//mpap_Tx = pChara->GetBehavior().GetpapTx ();
+		PAP_Tx pap_Tx = pChara->GetBehavior().GetpapTx ();
 
 		m_mainGraphic->ClearTexture ();
-		for ( P_Tx ptx : *mpap_Tx )
+		for ( P_Tx ptx : *pap_Tx )
 		{
 			m_mainGraphic->AddpTexture ( ptx );
 		}

@@ -71,8 +71,8 @@ namespace GAME
 	{
 		Compend		behavior;
 		Compend		garnish;
-#if 0
 
+#if 0
 //		Behavior		m_bhvMain;		//メイン スクリプト
 		PAP_Tx			mpap_txMain;	//メインイメージ テクスチャ配列
 		PAP_Action		mpap_Action;	//アクション配列
