@@ -333,6 +333,15 @@ namespace GAME
 			{
 				m_btlPrm.GetTmr_HitStop ()->Start ( stopTime );	//ヒットストップの設定
 			}
+
+			//レイナ
+			if ( pOther->GetCharaName() == CHARA_REINA )
+			{
+				if ( pOther->IsNameAction ( U"大攻撃" ) )
+				{
+					m_btlPrm.GetTmr_HitStop ()->Start ( 7 );	//ヒットストップの設定
+				}
+			}
 		}
 		//ガード時以外(ヒット時)
 		else

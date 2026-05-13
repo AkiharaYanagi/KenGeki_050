@@ -32,7 +32,7 @@ namespace GAME
 		PAP_Tx		m_papTx_clr2 { nullptr };
 
 		//atlas
-		//Atlas		m_atlas_clr1;
+		Atlas		m_atlas_clr1;
 		//Atlas		m_atlas_clr2;
 
 		//共通エフェクト
@@ -108,7 +108,8 @@ namespace GAME
 
 	public:
 		Prm_Chara_all ();
-		Prm_Chara_all ( const Prm_Chara_all & rhs );	//コピー可能
+		//Prm_Chara_all ( const Prm_Chara_all & rhs );	//コピー可能
+		Prm_Chara_all ( const Prm_Chara_all & rhs ) = delete;	//コピー不可
 		~Prm_Chara_all ();
 
 

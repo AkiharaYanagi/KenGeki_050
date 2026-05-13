@@ -228,6 +228,8 @@ namespace GAME
 		m_Reina.SetFileName ( CHARA_SCP_REINA, CHARA_IMG1_REINA, CHARA_IMG2_REINA, CHARA_GNS_REINA );
 	}
 
+#if 0
+
 	Prm_Chara_all::Prm_Chara_all ( const Prm_Chara_all & rhs )
 	{
 		m_Ouka = rhs.m_Ouka;
@@ -238,6 +240,8 @@ namespace GAME
 		m_Tsuki = rhs.m_Tsuki;
 		m_Reina = rhs.m_Reina;
 	}
+
+#endif // 0
 
 	Prm_Chara_all::~Prm_Chara_all ()
 	{
