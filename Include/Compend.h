@@ -10,6 +10,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "Define_Siv3D.h"
 #include "Sequence.h"
+//#include "Atlas/Atlas.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -25,6 +26,8 @@ namespace GAME
 
 		PAP_Adi		mpap_VC;		//ボイス
 		PAP_Adi		mpap_SE;		//SE
+
+		//const Atlas &	m_atlas;		//アトラス参照
 
 	public:
 		Compend ();
@@ -50,6 +53,9 @@ namespace GAME
 		//テクスチャ配列の設定
 		void SetpapTx_Main ( PAP_Tx paptx ) { mpap_Tx = paptx; }
 		PAP_Tx GetpapTx () { return mpap_Tx; }
+
+		//アトラスの設定
+		//void SetcrAtlas ( const Atlas & atlas ) { m_atlas = atlas; }
 	};
 
 	using P_CCompend = std::shared_ptr < Compend >;
