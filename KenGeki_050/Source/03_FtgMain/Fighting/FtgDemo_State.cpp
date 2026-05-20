@@ -11,8 +11,8 @@
 #include "FtgDemo_Actor.h"
 #include "Fighting.h"
 #include "../G_Ftg.h"
-#include "../../90_GameMain/SoundConst.h"
-#include "../../90_GameMain/VoiceConst.h"
+#include "00_Core/SoundConst.h"
+#include "00_Core/VoiceConst.h"
 
 
 //-------------------------------------------------------------------------------------------------

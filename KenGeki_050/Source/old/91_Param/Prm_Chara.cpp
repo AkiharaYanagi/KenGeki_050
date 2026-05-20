@@ -1,0 +1,435 @@
+﻿//=================================================================================================
+//
+//	Prm_Chara
+//
+//=================================================================================================
+
+//-------------------------------------------------------------------------------------------------
+// ヘッダファイルのインクルード
+//-------------------------------------------------------------------------------------------------
+#include "Prm_Chara.h"
+#include "LoadCharaBin_s3d.h"
+#include "LoadImgFile.h"
+
+
+//-------------------------------------------------------------------------------------------------
+// 定義
+//-------------------------------------------------------------------------------------------------
+namespace GAME
+{
+#pragma region FILE_NAME
+
+	//キャラメインデータファイル .scp
+	//キャライメージファイル bhv 1p/2p .lz4
+	//キャラエフェクトイメージファイル gns.lz4
+
+	constexpr char32_t CHARA_SCP_OUKA []	= U"chara\\Ouka.scp";
+	constexpr char32_t CHARA_IMG1_OUKA []	= U"Chara\\Ouka_1p_bhv.lz4";
+	constexpr char32_t CHARA_IMG2_OUKA []	= U"Chara\\Ouka_2p_bhv.lz4";
+	constexpr char32_t CHARA_GNS_OUKA []	= U"Chara\\Ouka_gns.lz4";
+
+	constexpr char32_t CHARA_SCP_SAE []		= U"Chara\\Sae.scp";
+	constexpr char32_t CHARA_IMG1_SAE []	= U"Chara\\Sae_1p_bhv.lz4";
+	constexpr char32_t CHARA_IMG2_SAE []	= U"Chara\\Sae_2p_bhv.lz4";
+	constexpr char32_t CHARA_GNS_SAE []		= U"Chara\\Sae_gns.lz4";
+
+	constexpr char32_t CHARA_SCP_RETSU []	= U"Chara\\Retsudou.scp";
+	constexpr char32_t CHARA_IMG1_RETSU []	= U"Chara\\Retsudou_1p_bhv.lz4";
+	constexpr char32_t CHARA_IMG2_RETSU []	= U"Chara\\Retsudou_2p_bhv.lz4";
+	constexpr char32_t CHARA_GNS_RETSU []	= U"Chara\\Retsudou_gns.lz4";
+
+	constexpr char32_t CHARA_SCP_GABA []	= U"Chara\\Gabadaruga.scp";
+	constexpr char32_t CHARA_IMG1_GABA []	= U"Chara\\Gabadaruga_1p_bhv.lz4";
+	constexpr char32_t CHARA_IMG2_GABA []	= U"Chara\\Gabadaruga_2p_bhv.lz4";
+	constexpr char32_t CHARA_GNS_GABA []	= U"Chara\\Gabadaruga_gns.lz4";
+
+	constexpr char32_t CHARA_SCP_FERA []	= U"Chara\\Ferallia.scp";
+	constexpr char32_t CHARA_IMG1_FERA []	= U"Chara\\Ferallia_1p_bhv.lz4";
+	constexpr char32_t CHARA_IMG2_FERA []	= U"Chara\\Ferallia_2p_bhv.lz4";
+	constexpr char32_t CHARA_GNS_FERA []	= U"Chara\\Ferallia_gns.lz4";
+
+	constexpr char32_t CHARA_SCP_TUKI []	= U"Chara\\Tsukihibosi.scp";
+	constexpr char32_t CHARA_IMG1_TUKI []	= U"Chara\\Tsukihibosi_1p_bhv.lz4";
+	constexpr char32_t CHARA_IMG2_TUKI []	= U"Chara\\Tsukihibosi_2p_bhv.lz4";
+	constexpr char32_t CHARA_GNS_TUKI []	= U"Chara\\Tsukihibosi_gns.lz4";
+
+	constexpr char32_t CHARA_SCP_REINA []	= U"Chara\\Reina.scp";
+	constexpr char32_t CHARA_IMG1_REINA []	= U"Chara\\Reina_1p_bhv.lz4";
+	constexpr char32_t CHARA_IMG2_REINA []	= U"Chara\\Reina_2p_bhv.lz4";
+	constexpr char32_t CHARA_GNS_REINA []	= U"Chara\\Reina_gns.lz4";
+	constexpr char32_t CHARA_ATLS1_REINA []	= U"Chara\\Reina_1p_bhv.atls";
+
+
+	//Chara_Color_File_Name
+	struct CH_CLR_FL_NM
+	{
+		LPCUSTR clr1;
+		LPCUSTR clr2;
+	};
+
+	LPCUSTR OUKA_clr[] { CHARA_IMG1_OUKA, CHARA_IMG2_OUKA };
+	LPCUSTR SAE_clr[]  { CHARA_IMG1_SAE, CHARA_IMG2_SAE };
+	LPCUSTR RETSU_clr[] { CHARA_IMG1_RETSU, CHARA_IMG2_RETSU };
+	LPCUSTR GABA_clr[] { CHARA_IMG1_GABA, CHARA_IMG2_GABA };
+	LPCUSTR FERA_clr[] { CHARA_IMG1_FERA, CHARA_IMG2_FERA };
+	LPCUSTR TUKI_clr[] { CHARA_IMG1_TUKI, CHARA_IMG2_TUKI };
+	LPCUSTR REINA_clr[] { CHARA_IMG1_REINA, CHARA_IMG2_REINA };
+
+
+#pragma endregion
+
+
+	Prm_Chara::Prm_Chara ()
+	{
+	}
+
+	Prm_Chara::Prm_Chara ( const Prm_Chara & rhs )
+	{
+		m_pChara		= rhs.m_pChara;
+		m_papTx_clr1	= rhs.m_papTx_clr1;
+		m_papTx_clr2	= rhs.m_papTx_clr2;
+		m_papTx_gns		= rhs.m_papTx_gns;
+	}
+
+	Prm_Chara::~Prm_Chara ()
+	{
+	}
+
+
+	void Prm_Chara::Load ()
+	{
+		//既に読み込んでいる場合、何もしない
+		if ( m_pChara != nullptr ) { return; }
+
+		//---------------------------------------------------
+		//スクリプト　
+		PRINT_F_S( U"スクリプト" );
+		m_pChara = std::make_shared < Chara > ();	//キャラデータ実体
+		LoadCharaBin_s3d lcb;
+		lcb.Load ( m_filename_scp, * m_pChara );
+		PRINT_F_S( U"OK" );
+
+		//---------------------------------------------------
+		//カラー
+		PRINT_F_S( U"カラー" );
+		//ビヘイビア
+		LoadImgFile lif;
+
+		//1p
+		m_papTx_clr1 = lif.LoadLz4_Bhv ( m_filename_img_1p );
+
+		//2p
+#if 0
+		//test
+		m_papTx_clr2 = m_papTx_clr1;
+
+#endif // 0
+		
+		//1p2p同じファイル名のとき既存データ利用
+		s3d::String clr1 ( m_filename_img_1p );
+		s3d::String clr2 ( m_filename_img_2p );
+		if ( clr1 == clr2  )
+		{
+			m_papTx_clr2 = m_papTx_clr1;
+		}
+		else
+		{
+			m_papTx_clr2 = lif.LoadLz4_Bhv ( m_filename_img_2p );
+		}
+
+
+		//キャラに設置(初期値1p)
+		m_pChara->SetpapTx_Main ( m_papTx_clr1 );
+		PRINT_F_S( U"OK" );
+
+		//---------------------------------------------------
+		PRINT_F_S( U"エフェクト" );
+		//ガーニッシュ
+		m_papTx_gns = lif.LoadLz4_Gns ( m_filename_gns );
+
+		//キャラに設置(初期値1p)
+		m_pChara->SetpapTx_Ef ( m_papTx_clr1 );
+		PRINT_F_S( U"OK" );
+	}
+
+
+	//個別キャラデータを取得 (未ロード時はロードしてから取得)
+	P_Chara Prm_Chara::GetpChara ( CHARA_COLOR clr )
+	{
+		PRINT_F_S( U"スクリプト" );
+		//スクリプト部
+		if ( nullptr == m_pChara )
+		{
+			m_pChara = std::make_shared < Chara > ();	//キャラデータ実体
+			LoadCharaBin_s3d lcb;
+			lcb.Load ( m_filename_scp, * m_pChara );
+		}
+		PRINT_F_S( U"OK" );
+
+
+		PRINT_F_S( U"カラー" );
+		//カラー別
+		LoadImgFile lif;
+		if ( CH_CLR_1 == clr )
+		{
+			if ( nullptr == m_papTx_clr1 )
+			{
+				m_papTx_clr1 = lif.LoadLz4_Bhv ( m_filename_img_1p );
+			}
+			m_pChara->SetpapTx_Main ( m_papTx_clr1 );
+		}
+		else if ( CH_CLR_2 == clr )
+		{
+			if ( nullptr == m_papTx_clr2 )
+			{
+				m_papTx_clr2 = lif.LoadLz4_Bhv ( m_filename_img_2p );
+			}
+
+			m_pChara->SetpapTx_Main ( m_papTx_clr2 );
+		}
+		PRINT_F_S( U"OK" );
+
+
+		PRINT_F_S( U"エフェクト" );
+		//共通エフェクト
+		if ( nullptr == m_papTx_gns )
+		{
+			s3d::String fn ( m_filename_scp );
+			m_papTx_gns = lif.LoadLz4_Gns ( m_filename_gns );
+		}
+		m_pChara->SetpapTx_Ef ( m_papTx_gns );
+		PRINT_F_S( U"OK" );
+
+
+		return m_pChara;
+	}
+
+	void Prm_Chara::SetFileName ( LPCUSTR SCP, LPCUSTR IMG1, LPCUSTR IMG2, LPCUSTR GNS )
+	{
+		SetStrScp ( SCP );		//スクリプトファイル名を設定
+		SetStrImg_1p ( IMG1 );		//イメージファイル名を設定
+		SetStrImg_2p ( IMG2 );		//イメージファイル名を設定
+		SetStrGns ( GNS );		//エフェクトイメージファイル名を設定
+	}
+
+
+
+
+	//-----------------------------------------
+
+	Prm_Chara_all::Prm_Chara_all ()
+	{
+		m_Ouka.SetFileName	( CHARA_SCP_OUKA , CHARA_IMG1_OUKA , CHARA_IMG2_OUKA , CHARA_GNS_OUKA  );
+		m_Sae.SetFileName	( CHARA_SCP_SAE  , CHARA_IMG1_SAE  , CHARA_IMG2_SAE  , CHARA_GNS_SAE   );
+		m_Retsu.SetFileName ( CHARA_SCP_RETSU, CHARA_IMG1_RETSU, CHARA_IMG2_RETSU, CHARA_GNS_RETSU );
+		m_Gaba.SetFileName	( CHARA_SCP_GABA , CHARA_IMG1_GABA , CHARA_IMG2_GABA , CHARA_GNS_GABA  );
+		m_Fera.SetFileName	( CHARA_SCP_FERA , CHARA_IMG1_FERA , CHARA_IMG2_FERA , CHARA_GNS_FERA  );
+		m_Tsuki.SetFileName ( CHARA_SCP_TUKI , CHARA_IMG1_TUKI , CHARA_IMG2_TUKI , CHARA_GNS_TUKI  );
+		m_Reina.SetFileName ( CHARA_SCP_REINA, CHARA_IMG1_REINA, CHARA_IMG2_REINA, CHARA_GNS_REINA );
+	}
+
+#if 0
+
+	Prm_Chara_all::Prm_Chara_all ( const Prm_Chara_all & rhs )
+	{
+		m_Ouka = rhs.m_Ouka;
+		m_Sae = rhs.m_Sae;
+		m_Retsu = rhs.m_Retsu;
+		m_Gaba = rhs.m_Gaba;
+		m_Fera = rhs.m_Fera;
+		m_Tsuki = rhs.m_Tsuki;
+		m_Reina = rhs.m_Reina;
+	}
+
+#endif // 0
+
+	Prm_Chara_all::~Prm_Chara_all ()
+	{
+		//非同期タスク開放
+#if 0
+		if ( m_task.isValid () )
+		{
+			m_abort = true;
+			m_task.wait ();
+		}
+#endif // 0
+
+		if ( m_asyncLoad_Ouka.isValid () ) { m_asyncLoad_Ouka.wait (); }
+		if ( m_asyncLoad_Sae_.isValid () ) { m_asyncLoad_Sae_.wait (); }
+		if ( m_asyncLoad_Retu.isValid () ) { m_asyncLoad_Retu.wait (); }
+		if ( m_asyncLoad_Gaba.isValid () ) { m_asyncLoad_Gaba.wait (); }
+		if ( m_asyncLoad_Fera.isValid () ) { m_asyncLoad_Fera.wait (); }
+
+#if 0
+#endif // 0
+
+	}
+
+
+	//すべて読込(非同期処理)
+	void Prm_Chara_all::LoadAll_Async ()
+	{
+		PRINT_F_S ( U"Prm_Chara_all::LoadAll_Async" );
+
+		m_asyncLoad_Ouka = s3d::Async ( _Load_Ouka, this );
+		m_asyncLoad_Sae_ = s3d::Async ( _Load_Sae_, this );
+		m_asyncLoad_Retu = s3d::Async ( _Load_Retu, this );
+		m_asyncLoad_Gaba = s3d::Async ( _Load_Gaba, this );
+		m_asyncLoad_Fera = s3d::Async ( _Load_Fera, this );
+		m_asyncLoad_Fera = s3d::Async ( _Load_Tuki, this );
+		m_asyncLoad_Rein = s3d::Async ( _Load_Rein, this );
+	}
+
+	//すべて読込(同期処理)
+	void Prm_Chara_all::LoadAll_Sync ()
+	{
+		PRINT_F_S ( U"Start Prm_Chara_all::_LoadAll_Sync" );
+
+
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Ouka" );
+		m_Ouka.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Ouka" );
+
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Sae_" );
+		m_Sae.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Sae_" );
+
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Retu" );
+		m_Retsu.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Retu" );
+
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_m_Gaba" );
+		m_Gaba.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_m_Gaba" );
+
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_m_Fera" );
+		m_Fera.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_m_Fera" );
+
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_m_Fera" );
+		m_Tsuki.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_m_Fera" );
+
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_m_Fera" );
+		m_Reina.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_m_Fera" );
+
+
+		PRINT_F_S ( U"End Prm_Chara_all::_LoadAll_Sync" );
+	}
+
+
+	//すべて読込
+	void Prm_Chara_all::_LoadAll ( Prm_Chara_all * pThis )
+	{
+		PRINT_F_S ( U"Start Prm_Chara_all::_LoadAll" );
+		pThis->m_Ouka.Load ();
+		pThis->m_Sae.Load ();
+		pThis->m_Retsu.Load ();
+		pThis->m_Gaba.Load ();
+		pThis->m_Fera.Load ();
+		pThis->m_Tsuki.Load ();
+		pThis->m_Reina.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_LoadAll" );
+	}
+
+	void Prm_Chara_all::_Load_Ouka ( Prm_Chara_all * pThis )
+	{
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Ouka" );
+		pThis->m_Ouka.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Ouka" );
+	}
+
+	void Prm_Chara_all::_Load_Sae_ ( Prm_Chara_all * pThis )
+	{
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Sae_" );
+		pThis->m_Sae.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Sae_" );
+	}
+
+	void Prm_Chara_all::_Load_Retu ( Prm_Chara_all * pThis )
+	{
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Retu" );
+		pThis->m_Retsu.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Retu" );
+	}
+
+	void Prm_Chara_all::_Load_Gaba ( Prm_Chara_all * pThis )
+	{
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Gaba" );
+		pThis->m_Gaba.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Gaba" );
+	}
+
+	void Prm_Chara_all::_Load_Fera ( Prm_Chara_all * pThis )
+	{
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Fera" );
+		pThis->m_Fera.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Fera" );
+	}
+
+	void Prm_Chara_all::_Load_Tuki ( Prm_Chara_all * pThis )
+	{
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Fera" );
+		pThis->m_Tsuki.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Fera" );
+	}
+
+	void Prm_Chara_all::_Load_Rein ( Prm_Chara_all * pThis )
+	{
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Fera" );
+		pThis->m_Reina.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Fera" );
+	}
+
+
+	//キャラ名とカラーからデータポインタを取得
+	P_Chara Prm_Chara_all::GetpChara ( CHARA_NAME name, CHARA_COLOR clr )
+	{
+		switch ( name )
+		{
+		case CHARA_OUKA:
+			PRINT_F_S ( U"GetpChara ( CHARA_OUKA, CLR_{} )"_fmt((int32)clr) );
+			if ( m_asyncLoad_Ouka.isValid () )
+			{
+				m_asyncLoad_Ouka.wait ();
+			}
+			return m_Ouka.GetpChara ( clr );
+
+		case CHARA_SAE:
+			PRINT_F_S ( U"GetpChara ( CHARA_SAE, CLR_{} )"_fmt((int32)clr) );
+			if ( m_asyncLoad_Sae_.isValid () ) { m_asyncLoad_Sae_.wait (); }
+			return m_Sae.GetpChara ( clr );
+
+		case CHARA_RETSUDOU:
+			PRINT_F_S ( U"GetpChara ( CHARA_RETSUDOU, CLR_{} )"_fmt((int32)clr) );
+			if ( m_asyncLoad_Retu.isValid () ) { m_asyncLoad_Retu.wait (); }
+			return m_Retsu.GetpChara ( clr );
+
+		case CHARA_GYAVADARUGA:
+			PRINT_F_S ( U"GetpChara ( CHARA_GABADARUGA, CLR_{} )"_fmt((int32)clr) );
+			if ( m_asyncLoad_Gaba.isValid () ) { m_asyncLoad_Gaba.wait (); }
+			return m_Gaba.GetpChara ( clr );
+
+		case CHARA_FERARIA:
+			PRINT_F_S ( U"GetpChara ( CHARA_FERARIA, CLR_{} )"_fmt((int32)clr) );
+			if ( m_asyncLoad_Fera.isValid () ) { m_asyncLoad_Fera.wait (); }
+			return m_Fera.GetpChara ( clr );
+
+		case CHARA_TSUKIHIBOSHI:
+			PRINT_F_S ( U"GetpChara ( CHARA_TSUKIHIBOSHI, CLR_{} )"_fmt((int32)clr) );
+			if ( m_asyncLoad_Tuki.isValid () ) { m_asyncLoad_Tuki.wait (); }
+			return m_Tsuki.GetpChara ( clr );
+
+		case CHARA_REINA:
+			PRINT_F_S ( U"GetpChara ( CHARA_REINA, CLR_{} )"_fmt((int32)clr) );
+			if ( m_asyncLoad_Rein.isValid () ) { m_asyncLoad_Rein.wait (); }
+			return m_Reina.GetpChara ( clr );
+		}
+
+		return m_Ouka.GetpChara ( clr );
+	}
+
+
+}	//namespace GAME
+

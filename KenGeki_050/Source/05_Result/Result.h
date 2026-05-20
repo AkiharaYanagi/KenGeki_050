@@ -11,7 +11,7 @@
 #include "Game.h"
 #include "../90_GameMain/Scene.h"
 #include "ResultMenu.h"
-#include "../80_Common/Chara_TxSet.h"
+#include "00_Core/Chara_TxSet.h"
 
 
 //-------------------------------------------------------------------------------------------------

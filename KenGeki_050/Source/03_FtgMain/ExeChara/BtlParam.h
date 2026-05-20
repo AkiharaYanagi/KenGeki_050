@@ -9,8 +9,8 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
-#include "../../90_GameMain/GameConst.h"
-#include "../../91_Param/Param.h"
+#include "00_Core/GameConst.h"
+#include "00_Core/Param.h"
 #include "../FtgConst.h"
 #include "Timer.h"
 #include "TimerSlow.h"

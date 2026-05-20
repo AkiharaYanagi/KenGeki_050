@@ -14,7 +14,7 @@
 #include "../Player/CharaSele_Face.h"
 #include "../Player/CharaSele_Color.h"
 #include "../Player/CharaSele_PickFrame.h"
-#include "../../91_Param/Param.h"
+#include "00_Core/Param.h"
 
 
 //-------------------------------------------------------------------------------------------------

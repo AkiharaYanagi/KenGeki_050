@@ -14,7 +14,7 @@
 #include "../Mutual/MutualChara.h"
 #include "FtgDemo_Actor.h"
 #include "FtgGrp.h"
-#include "../../80_Common/BattleTime.h"
+#include "00_Core/BattleTime.h"
 #include "Round.h"
 
 

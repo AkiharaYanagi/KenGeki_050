@@ -9,7 +9,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
-#include "../../../91_Param/Param.h"
+#include "00_Core/Param.h"
 #include "DispMainImage.h"
 #include "DispInput.h"
 #include "DispRect.h"

@@ -200,23 +200,15 @@
     <ClCompile Include="Source\04_Training\Training.cpp" />
     <ClCompile Include="Source\05_Result\Result.cpp" />
     <ClCompile Include="Source\05_Result\ResultMenu.cpp" />
-    <ClCompile Include="Source\80_Common\BattleTime.cpp" />
-    <ClCompile Include="Source\80_Common\Chara_TxSet.cpp" />
     <ClCompile Include="Source\80_Common\Menu\Menu.cpp" />
     <ClCompile Include="Source\80_Common\Menu\PauseMenu.cpp" />
     <ClCompile Include="Source\80_Common\Menu\PauseMenu_Const.cpp" />
     <ClCompile Include="Source\80_Common\Menu\TrainingMenu.cpp" />
     <ClCompile Include="Source\80_Common\Menu\TrainingMenuItem.cpp" />
     <ClCompile Include="Source\80_Common\Menu\YesNo_Menu.cpp" />
-    <ClCompile Include="Source\80_Common\SelectArrow.cpp" />
     <ClCompile Include="Source\90_GameMain\DebugDisp.cpp" />
     <ClCompile Include="Source\90_GameMain\Main.cpp" />
     <ClCompile Include="Source\90_GameMain\Scene.cpp" />
-    <ClCompile Include="Source\90_GameMain\SoundConst.cpp" />
-    <ClCompile Include="Source\91_Param\GameSettingFile.cpp" />
-    <ClCompile Include="Source\91_Param\Param.cpp" />
-    <ClCompile Include="Source\91_Param\Prm_Chara.cpp" />
-    <ClCompile Include="Source\91_Param\Prm_Result.cpp" />
     <ClCompile Include="Source\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -487,7 +479,6 @@
     <ClInclude Include="Source\03_FtgMain\Fighting\FtgGrp.h" />
     <ClInclude Include="Source\03_FtgMain\Fighting\Round.h" />
     <ClInclude Include="Source\03_FtgMain\Fighting\WallBreak.h" />
-    <ClInclude Include="Source\03_FtgMain\FtgConst.h" />
     <ClInclude Include="Source\03_FtgMain\FtgMain.h" />
     <ClInclude Include="Source\03_FtgMain\G_Ftg.h" />
     <ClInclude Include="Source\03_FtgMain\Mutual\Collision.h" />
@@ -497,27 +488,15 @@
     <ClInclude Include="Source\04_Training\Training.h" />
     <ClInclude Include="Source\05_Result\Result.h" />
     <ClInclude Include="Source\05_Result\ResultMenu.h" />
-    <ClInclude Include="Source\80_Common\BattleTime.h" />
-    <ClInclude Include="Source\80_Common\Chara_TxSet.h" />
     <ClInclude Include="Source\80_Common\Menu\Menu.h" />
     <ClInclude Include="Source\80_Common\Menu\PauseMenu.h" />
     <ClInclude Include="Source\80_Common\Menu\PauseMenu_Const.h" />
     <ClInclude Include="Source\80_Common\Menu\TrainingMenu.h" />
     <ClInclude Include="Source\80_Common\Menu\TrainingMenuItem.h" />
     <ClInclude Include="Source\80_Common\Menu\YesNo_Menu.h" />
-    <ClInclude Include="Source\80_Common\SelectArrow.h" />
     <ClInclude Include="Source\90_GameMain\DebugDisp.h" />
-    <ClInclude Include="Source\90_GameMain\GameConst.h" />
     <ClInclude Include="Source\90_GameMain\GameMain.h" />
     <ClInclude Include="Source\90_GameMain\Scene.h" />
-    <ClInclude Include="Source\90_GameMain\SeConst.h" />
-    <ClInclude Include="Source\90_GameMain\SoundConst.h" />
-    <ClInclude Include="Source\90_GameMain\VoiceConst.h" />
-    <ClInclude Include="Source\91_Param\GameSettingFile.h" />
-    <ClInclude Include="Source\91_Param\Param.h" />
-    <ClInclude Include="Source\91_Param\Prm_Chara.h" />
-    <ClInclude Include="Source\91_Param\Prm_Const.h" />
-    <ClInclude Include="Source\91_Param\Prm_Result.h" />
     <ClInclude Include="Source\stdafx.h" />
   </ItemGroup>
   <ItemGroup>

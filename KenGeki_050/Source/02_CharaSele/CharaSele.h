@@ -11,10 +11,10 @@
 #include "Game.h"
 #include "../90_GameMain/Scene.h"
 #include "State/CharaSele_Player_Actor.h"
-#include "../80_Common/BattleTime.h"
+#include "00_Core/BattleTime.h"
 #include "Menu/CharaSele_Menu.h"
 #include "CharaSele_Stage.h"
-#include "../91_Param/Param.h"
+#include "00_Core/Param.h"
 
 
 //-------------------------------------------------------------------------------------------------

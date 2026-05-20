@@ -134,9 +134,6 @@
     <Filter Include="04_Training">
       <UniqueIdentifier>{fe83c5e6-45af-4f23-b218-1721d3f42839}</UniqueIdentifier>
     </Filter>
-    <Filter Include="91_Param">
-      <UniqueIdentifier>{8638ad2b-c86f-4764-9ad7-c3616e863695}</UniqueIdentifier>
-    </Filter>
     <Filter Include="03_FtgMain">
       <UniqueIdentifier>{a2744d53-717b-41ac-bfa5-8bf166077747}</UniqueIdentifier>
     </Filter>
@@ -151,12 +148,6 @@
     </Filter>
     <Filter Include="03_FtgMain\Ef">
       <UniqueIdentifier>{9016c052-f748-4a0f-bcc6-2630ed3d59f6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="80_Common">
-      <UniqueIdentifier>{a7c88da7-c22a-41bd-9bb7-ca09ffce6ad7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="80_Common\Menu">
-      <UniqueIdentifier>{15ce9095-9ac4-4559-8cdd-528ce17986c8}</UniqueIdentifier>
     </Filter>
     <Filter Include="05_Result">
       <UniqueIdentifier>{c9d5ac0d-3183-42ce-a3f6-f5474f7dcb99}</UniqueIdentifier>
@@ -200,6 +191,12 @@
     <Filter Include="02_CharaSele\State">
       <UniqueIdentifier>{64cadde6-4c49-46b0-b82a-4a3d30d9cdac}</UniqueIdentifier>
     </Filter>
+    <Filter Include="80_Common">
+      <UniqueIdentifier>{3876fd6e-376e-4a80-a252-b789f03673b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="80_Common\Menu">
+      <UniqueIdentifier>{2a315e2f-c9ca-46f5-aef4-8aa7ec2cb3f8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\stdafx.cpp">
@@ -213,21 +210,6 @@
     </ClCompile>
     <ClCompile Include="Source\04_Training\Training.cpp">
       <Filter>04_Training</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\91_Param\Param.cpp">
-      <Filter>91_Param</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\91_Param\Prm_Chara.cpp">
-      <Filter>91_Param</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\91_Param\GameSettingFile.cpp">
-      <Filter>91_Param</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\90_GameMain\SoundConst.cpp">
-      <Filter>90_GameMain</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\91_Param\Prm_Result.cpp">
-      <Filter>91_Param</Filter>
     </ClCompile>
     <ClCompile Include="Source\03_FtgMain\Fighting\BG\_BG.cpp">
       <Filter>03_FtgMain\Fighting\BG</Filter>
@@ -388,23 +370,11 @@
     <ClCompile Include="Source\03_FtgMain\Fighting\BG.cpp">
       <Filter>03_FtgMain\Fighting</Filter>
     </ClCompile>
-    <ClCompile Include="Source\80_Common\Menu\PauseMenu_Const.cpp">
-      <Filter>80_Common\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\80_Common\Menu\YesNo_Menu.cpp">
-      <Filter>80_Common\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\80_Common\Menu\PauseMenu.cpp">
-      <Filter>80_Common\Menu</Filter>
-    </ClCompile>
     <ClCompile Include="Source\05_Result\ResultMenu.cpp">
       <Filter>05_Result</Filter>
     </ClCompile>
     <ClCompile Include="Source\05_Result\Result.cpp">
       <Filter>05_Result</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\80_Common\BattleTime.cpp">
-      <Filter>80_Common</Filter>
     </ClCompile>
     <ClCompile Include="Source\01_Title\TitleChara.cpp">
       <Filter>01_Title</Filter>
@@ -445,12 +415,6 @@
     <ClCompile Include="Source\02_CharaSele\State\CharaSele_Player_Actor.cpp">
       <Filter>02_CharaSele\State</Filter>
     </ClCompile>
-    <ClCompile Include="Source\80_Common\SelectArrow.cpp">
-      <Filter>80_Common</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\80_Common\Chara_TxSet.cpp">
-      <Filter>80_Common</Filter>
-    </ClCompile>
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Stand.cpp">
       <Filter>02_CharaSele\Player</Filter>
     </ClCompile>
@@ -466,12 +430,6 @@
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_Name.cpp">
       <Filter>02_CharaSele\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Source\80_Common\Menu\TrainingMenu.cpp">
-      <Filter>80_Common\Menu</Filter>
-    </ClCompile>
-    <ClCompile Include="Source\80_Common\Menu\TrainingMenuItem.cpp">
-      <Filter>80_Common\Menu</Filter>
-    </ClCompile>
     <ClCompile Include="Source\03_FtgMain\G_Ftg.cpp">
       <Filter>03_FtgMain</Filter>
     </ClCompile>
@@ -486,6 +444,21 @@
     </ClCompile>
     <ClCompile Include="Source\03_FtgMain\Ef\EfClangSng.cpp">
       <Filter>03_FtgMain\Ef</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\80_Common\Menu\PauseMenu.cpp">
+      <Filter>80_Common\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\80_Common\Menu\PauseMenu_Const.cpp">
+      <Filter>80_Common\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\80_Common\Menu\TrainingMenu.cpp">
+      <Filter>80_Common\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\80_Common\Menu\TrainingMenuItem.cpp">
+      <Filter>80_Common\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\80_Common\Menu\YesNo_Menu.cpp">
+      <Filter>80_Common\Menu</Filter>
     </ClCompile>
     <ClCompile Include="Source\80_Common\Menu\Menu.cpp">
       <Filter>80_Common\Menu</Filter>
@@ -1166,32 +1139,11 @@
     <ClInclude Include="Source\90_GameMain\Scene.h">
       <Filter>90_GameMain</Filter>
     </ClInclude>
-    <ClInclude Include="Source\90_GameMain\GameConst.h">
-      <Filter>90_GameMain</Filter>
-    </ClInclude>
     <ClInclude Include="Source\90_GameMain\GameMain.h">
       <Filter>90_GameMain</Filter>
     </ClInclude>
     <ClInclude Include="Source\04_Training\Training.h">
       <Filter>04_Training</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\91_Param\Param.h">
-      <Filter>91_Param</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\91_Param\Prm_Chara.h">
-      <Filter>91_Param</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\91_Param\GameSettingFile.h">
-      <Filter>91_Param</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\90_GameMain\SoundConst.h">
-      <Filter>90_GameMain</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\91_Param\Prm_Result.h">
-      <Filter>91_Param</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\03_FtgMain\FtgConst.h">
-      <Filter>03_FtgMain</Filter>
     </ClInclude>
     <ClInclude Include="Source\03_FtgMain\Fighting\BG\_BG.h">
       <Filter>03_FtgMain\Fighting\BG</Filter>
@@ -1328,26 +1280,11 @@
     <ClInclude Include="Source\90_GameMain\DebugDisp.h">
       <Filter>90_GameMain</Filter>
     </ClInclude>
-    <ClInclude Include="Source\90_GameMain\SeConst.h">
-      <Filter>90_GameMain</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\80_Common\Menu\PauseMenu_Const.h">
-      <Filter>80_Common\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\80_Common\Menu\YesNo_Menu.h">
-      <Filter>80_Common\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\80_Common\Menu\PauseMenu.h">
-      <Filter>80_Common\Menu</Filter>
-    </ClInclude>
     <ClInclude Include="Source\05_Result\ResultMenu.h">
       <Filter>05_Result</Filter>
     </ClInclude>
     <ClInclude Include="Source\05_Result\Result.h">
       <Filter>05_Result</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\80_Common\BattleTime.h">
-      <Filter>80_Common</Filter>
     </ClInclude>
     <ClInclude Include="Source\01_Title\Title.h">
       <Filter>01_Title</Filter>
@@ -1357,9 +1294,6 @@
     </ClInclude>
     <ClInclude Include="Source\01_Title\TitleDemo.h">
       <Filter>01_Title</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\90_GameMain\VoiceConst.h">
-      <Filter>90_GameMain</Filter>
     </ClInclude>
     <ClInclude Include="Source\02_CharaSele\Menu\CharaSele_Menu.h">
       <Filter>02_CharaSele\Menu</Filter>
@@ -1394,12 +1328,6 @@
     <ClInclude Include="Source\02_CharaSele\CharaSele.h">
       <Filter>02_CharaSele</Filter>
     </ClInclude>
-    <ClInclude Include="Source\80_Common\SelectArrow.h">
-      <Filter>80_Common</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\80_Common\Chara_TxSet.h">
-      <Filter>80_Common</Filter>
-    </ClInclude>
     <ClInclude Include="Source\01_Title\TitleMenu.h">
       <Filter>01_Title</Filter>
     </ClInclude>
@@ -1408,15 +1336,6 @@
     </ClInclude>
     <ClInclude Include="Source\02_CharaSele\Player\CharaSele_Name.h">
       <Filter>02_CharaSele\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\80_Common\Menu\TrainingMenuItem.h">
-      <Filter>80_Common\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\80_Common\Menu\TrainingMenu.h">
-      <Filter>80_Common\Menu</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\91_Param\Prm_Const.h">
-      <Filter>91_Param</Filter>
     </ClInclude>
     <ClInclude Include="Source\03_FtgMain\G_Ftg.h">
       <Filter>03_FtgMain</Filter>
@@ -1429,6 +1348,21 @@
     </ClInclude>
     <ClInclude Include="Source\03_FtgMain\Ef\EfClangSng.h">
       <Filter>03_FtgMain\Ef</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\80_Common\Menu\PauseMenu.h">
+      <Filter>80_Common\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\80_Common\Menu\PauseMenu_Const.h">
+      <Filter>80_Common\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\80_Common\Menu\TrainingMenu.h">
+      <Filter>80_Common\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\80_Common\Menu\TrainingMenuItem.h">
+      <Filter>80_Common\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\80_Common\Menu\YesNo_Menu.h">
+      <Filter>80_Common\Menu</Filter>
     </ClInclude>
     <ClInclude Include="Source\80_Common\Menu\Menu.h">
       <Filter>80_Common\Menu</Filter>

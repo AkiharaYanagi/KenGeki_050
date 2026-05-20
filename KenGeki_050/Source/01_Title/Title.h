@@ -13,8 +13,8 @@
 #include "TitleChara.h"
 #include "TitleMenu.h"
 #include "TitleDemo.h"
-#include "../80_Common/SelectArrow.h"
-#include "../91_Param/Param.h"
+#include "00_Core/SelectArrow.h"
+#include "00_Core/Param.h"
 
 
 //-------------------------------------------------------------------------------------------------

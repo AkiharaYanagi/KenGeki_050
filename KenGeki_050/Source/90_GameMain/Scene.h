@@ -11,8 +11,8 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
-#include "GameConst.h"
-#include "../91_Param/Param.h"
+#include "00_Core/00_Core.h"
+#include "00_Core/Param.h"
 //#include "G_Ftg.h"
 
 

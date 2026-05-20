@@ -9,7 +9,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "TrainingMenu.h"
 #include "PauseMenu_Const.h"
-#include "../../90_GameMain/SeConst.h"
+#include "00_Core/SeConst.h"
 
 
 

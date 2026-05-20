@@ -10,7 +10,7 @@
 #include "YesNo_Menu.h"
 #include "../../90_GameMain/Scene.h"
 #include "PauseMenu_Const.h"
-#include "../../90_GameMain/SeConst.h"
+#include "00_Core/SeConst.h"
 #include "TrainingMenu.h"
 
 

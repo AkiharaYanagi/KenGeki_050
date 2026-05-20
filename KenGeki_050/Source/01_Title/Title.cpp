@@ -8,8 +8,8 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Title.h"
-#include "../90_GameMain/SeConst.h"
-#include "../90_GameMain/VoiceConst.h"
+#include "00_Core/SeConst.h"
+#include "00_Core/VoiceConst.h"
 #include "../90_GameMain/DebugDisp.h"
 
 

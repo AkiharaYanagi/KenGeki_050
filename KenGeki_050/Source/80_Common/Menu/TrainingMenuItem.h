@@ -11,7 +11,7 @@
 #include "Game.h"
 #include "../../90_GameMain/Scene.h"
 #include "YesNo_Menu.h"
-#include "../../91_Param/Prm_Const.h"
+#include "00_Core/Prm_Const.h"
 
 
 //-------------------------------------------------------------------------------------------------
