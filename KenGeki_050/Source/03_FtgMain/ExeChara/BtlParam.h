@@ -131,6 +131,9 @@ namespace GAME
 		float	m_reviseOverDrive { 1.f };	//超必後の連続技中補正
 		float	m_confirmed_revise { 1.f };	//最終確定補正値
 
+		//キャラ個別
+		float	m_reina_od_vx { 0 };		//レイナ：超必殺技速度
+
 	public:
 		BtlParam ();
 		BtlParam ( const BtlParam & rhs );	// ※ コピー可能
@@ -232,6 +235,8 @@ namespace GAME
 		GET_SET ( float, GetReviseThrow, SetReviseThrow, m_reviseThrow )
 		GET_SET ( float, GetReviseOverDrive, SetReviseOverDrive, m_reviseOverDrive )
 		GET_SET ( float, GetCnfmRvs, SetCnfmRvs, m_confirmed_revise )
+
+		GET_SET ( float, GetReinaOdVx, SetReinaOdVx, m_reina_od_vx )
 
 		//--------------------------------------------------------------------
 		//タイマ(Getのみ)

@@ -28,30 +28,34 @@ namespace GAME
 		//	Ef個別指定
 		//----------------------------------
 		if ( pEffect->Name.Is ( U"空中竜巻_鞘" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"HitLine0" ) ) { /* pExeEffect->SetShader ( F ); */ }
-		if ( pEffect->Name.Is ( U"HitLine1" ) ) { /* pExeEffect->SetShader ( F ); */ }
-		if ( pEffect->Name.Is ( U"HitSmoke" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"HitSmoke1" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"DustCloud" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"Guard" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"地面" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"Ukemi" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"EX" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"暁0" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"暁1" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"颯0" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"颯1" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"贐" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"極" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"万雷発生" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"万雷中派生" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"OD_A_R" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"OD_A_L" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"OD_A_G" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"Ef_テル・プム" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"Ef_ニャムヒー" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"空中飛び道具" ) ) { pExeEffect->SetShader ( F ); }
-		if ( pEffect->Name.Is ( U"Aura" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"HitLine0" ) ) { /* pExeEffect->SetShader ( F ); */ }
+		else if ( pEffect->Name.Is ( U"HitLine1" ) ) { /* pExeEffect->SetShader ( F ); */ }
+		else if ( pEffect->Name.Is ( U"HitSmoke" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"HitSmoke1" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"DustCloud" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"Guard" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"地面" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"Ukemi" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"EX" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"暁0" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"暁1" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"颯0" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"颯1" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"贐" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"極" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"万雷発生" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"万雷中派生" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"OD_A_R" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"OD_A_L" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"OD_A_G" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"Ef_テル・プム" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"Ef_ニャムヒー" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"空中飛び道具" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"Aura" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"Rose" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"RosePetal" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"Wind" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"Light" ) ) { pExeEffect->SetShader ( F ); }
 
 
 		//全部オフ

@@ -112,6 +112,15 @@ namespace GAME
 #endif // 0
 	}
 
+
+	void ExeChara::SetpFtgGrp ( P_FtgGrp p )
+	{
+		m_pFtgGrp = p;
+		m_oprtEf->SetpFtgGrp ( p );
+	}
+
+
+
 	//------------------------
 	//初期化(複数回実行可能)
 	void ExeChara::Init ()

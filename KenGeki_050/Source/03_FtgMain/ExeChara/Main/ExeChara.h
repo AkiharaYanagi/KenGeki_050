@@ -200,7 +200,8 @@ namespace GAME
 		void SetpOther ( WP_ExeChara p );
 
 		//全体画像処理を設定
-		void SetpFtgGrp ( P_FtgGrp p ) { m_pFtgGrp = p; }
+		void SetpFtgGrp ( P_FtgGrp p );
+		P_FtgGrp GetpFtgGrp () const { return m_pFtgGrp; }
 
 		//パラメータ
 		P_Param GetpParam () const { return m_pParam; }

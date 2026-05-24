@@ -658,7 +658,6 @@ namespace GAME
 		P_ExeChara pOther = m_pOther.lock ();		//相手
 
 		//相手Efスクリプト
-		//P_Frame pScpOther = pOther->GetpScript ();
 		P_Frame pEfScpOther = pOther->GetpExEf ()->GetpScript ();
 
 		//パラメータ
@@ -858,6 +857,8 @@ namespace GAME
 		if ( bGuard )
 		{
 			//個別
+#if 0
+
 			bool bRai0 = pOther->IsNameAction ( U"雷電蹴_1" );
 			bool bKuuRai0 = pOther->IsNameAction ( U"空中雷電蹴_1" );
 			bool bKuuRai1 = pOther->IsNameAction ( U"空中雷電蹴_持続" );
@@ -865,10 +866,24 @@ namespace GAME
 			{
 				m_btlPrm.GetTmr_HitStop ()->Start ( stopTime );	//ヒットストップの設定
 			}
+
+#endif // 0
 		}
 		//ガード時以外(ヒット時)
 		else
 		{
+			//相手Efスクリプト
+			P_Sequence pEf = pOther->GetpExEf ()->GetpEffect();
+
+			//個別
+			bool bRose = pEf->Name.Is ( U"Rose" );
+			if ( bRose )
+			{
+				m_pOther.lock ()->SetAction ( U"ヴォルデーリャ成立1" );
+				return;
+			}
+
+			//通常
 			m_btlPrm.GetTmr_HitStop ()->Start ( stopTime );	//ヒットストップの設定
 		}
 

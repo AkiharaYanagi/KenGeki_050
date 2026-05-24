@@ -12,6 +12,8 @@
 #include "Game.h"
 #include "ExeEffect.h"
 #include "../BtlParam.h"
+#include "../../Fighting/FtgGrp.h"
+
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
@@ -31,6 +33,8 @@ namespace GAME
 		bool			m_bStop { F };
 		bool			m_bGenerate { F };
 
+		P_FtgGrp		m_pFtgGrp;		//全体画像処理
+
 	public:
 		OperateEffect ();
 		OperateEffect ( const OperateEffect & rhs ) = delete;
@@ -41,6 +45,11 @@ namespace GAME
 
 		void Disp ();	//復旧時表示のみ
 
+		//-----------------------------
+		//全体画像処理を設定
+		void SetpFtgGrp ( P_FtgGrp p );
+
+		//-----------------------------
 		//エフェクト事前生成
 		void MakeEfList ( P_Chara p );
 

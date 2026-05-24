@@ -220,6 +220,8 @@ namespace GAME
 		m_reviseThrow = 1.f;
 		m_reviseOverDrive = 1.f;
 		m_confirmed_revise = 1.f;
+
+		m_reina_od_vx = 0;
 	}
 
 	void BtlParam::TimerMove ()
@@ -386,6 +388,23 @@ namespace GAME
 
 					//上下方向を無くす
 					//m_vel.y = 0;
+			}
+		}
+
+		//------------------------------
+		//個別
+		//-----------------------------------------------------
+		//レイナ
+		P_ExeChara pSelf = m_pExeChara.lock ();
+		if ( pSelf->GetCharaName() == CHARA_REINA )
+		{
+			if ( pSelf->IsNameAction ( U"ヴォルデーリャ成立1" ) )
+			{
+				UINT32 bIndex = pFrm->Index.Get ();
+				if ( 3 < bIndex )
+				{
+					vel.x = m_reina_od_vx;
+				}
 			}
 		}
 

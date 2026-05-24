@@ -826,6 +826,47 @@ namespace GAME
 			//----------------------------------------------------
 		}
 
+		//-----------------------------------------------------
+		//レイナ
+		if ( m_name == CHARA_REINA )
+		{
+			if ( IsNameActionFrame ( U"投げ成立0", 0 ) )
+			{
+				TopByZ ();
+
+				//位置調整用
+				float bDir = m_btlPrm.GetDirRight () ? 1.f : -1.f;
+				VEC2 my_pos = GetPos ();
+				VEC2 pos_rev = { my_pos.x + ( bDir * 0 ), my_pos.y + 0 };
+				SetPos ( pos_rev );	//位置同期(自分)
+
+				VEC2 pos_rev_other = { my_pos.x + ( bDir * 100 ), my_pos.y + 0 };
+				pOther->SetPos ( pos_rev_other );	//位置同期(相手)
+			}
+
+			if ( IsNameAction ( U"ヴォルデーリャ成立1" ) )
+			{
+				if ( m_pScript->Index.Is ( 0 ) )
+				{
+					TopByZ ();
+					VEC2 my_pos = GetPos ();
+					VEC2 other_pos = pOther->GetPos ();
+					float distance = my_pos.x - other_pos.x;
+					distance = distance + ( GetDirRight () ? - 100 : 100 );
+					distance = distance * ( GetDirRight () ? -1.f : 1.f );
+					float vel = distance / 43;	//43[F]
+
+					m_btlPrm.SetReinaOdVx ( vel );
+				}
+			}
+
+			if ( IsNameActionFrame ( U"ヴォルデーリャ成立2", 0 ) )
+			{
+				//超必殺技補正解除
+				m_btlPrm.SetReviseOverDrive ( 1.0f );
+			}
+		}
+
 
 
 		//-----------------------------------------------------

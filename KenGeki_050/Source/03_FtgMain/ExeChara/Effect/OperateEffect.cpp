@@ -26,6 +26,13 @@ namespace GAME
 //		Rele ();
 	}
 
+
+	void OperateEffect::SetpFtgGrp ( P_FtgGrp p )
+	{
+		m_pFtgGrp = p;
+	}
+
+
 	void OperateEffect::Init ()
 	{
 		for ( P_ExEf pEx : * m_plpExeEffect )
