@@ -102,6 +102,9 @@ namespace GAME
 		void SetwpParentScene ( WP_Scene wp ) { mwp_This = wp; }
 		void SetwpThis ( WP_Scene wp ) { mwp_This = wp; }
 
+		//次のシーンを外部から設定
+		void SetpNextScene ( P_Scene p ) { mp_Transit = p; }
+
 		//メニュ用シーン移項
 		void Transit_Title ();		//タイトルに戻る
 //		void Transit_Intro ();		//イントロに移行

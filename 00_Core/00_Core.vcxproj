@@ -418,16 +418,18 @@
     <ClInclude Include="..\Include\00_Core\Prm_Chara.h" />
     <ClInclude Include="..\Include\00_Core\Prm_Const.h" />
     <ClInclude Include="..\Include\00_Core\Prm_Result.h" />
+    <ClInclude Include="..\Include\00_Core\Scene_lib.h" />
     <ClInclude Include="..\Include\00_Core\SeConst.h" />
     <ClInclude Include="..\Include\00_Core\SelectArrow.h" />
     <ClInclude Include="..\Include\00_Core\SoundConst.h" />
     <ClInclude Include="..\Include\00_Core\VoiceConst.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\00_Common\Source\Common\BattleTime.cpp" />
+    <ClCompile Include="Source\Common\BattleTime.cpp" />
     <ClCompile Include="Source\Common\Chara_TxSet.cpp" />
     <ClCompile Include="Source\Common\SelectArrow.cpp" />
     <ClCompile Include="Source\Const\SoundConst.cpp" />
+    <ClCompile Include="Source\Main\Scene_lib.cpp" />
     <ClCompile Include="Source\Param\GameSettingFile.cpp" />
     <ClCompile Include="Source\Param\Param.cpp" />
     <ClCompile Include="Source\Param\Prm_Chara.cpp" />
