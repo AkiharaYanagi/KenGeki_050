@@ -793,5 +793,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\05_Result\Result_lib.h" />
+    <ClInclude Include="..\Include\05_Result\05_Result.h" />
   </ItemGroup>
 </Project>

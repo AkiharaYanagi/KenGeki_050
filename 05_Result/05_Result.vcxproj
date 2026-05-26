@@ -409,6 +409,7 @@
     <ClCompile Include="Result_lib.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Include\05_Result\05_Result.h" />
     <ClInclude Include="..\Include\05_Result\Result_lib.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

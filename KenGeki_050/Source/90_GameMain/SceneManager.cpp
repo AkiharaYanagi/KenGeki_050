@@ -16,7 +16,8 @@
 #include "../02_CharaSele/CharaSele.h"
 #include "../03_FtgMain/FtgMain.h"
 #include "../04_Training/Training.h"
-#include "../05_Result/Result_lib.h"
+
+#include "05_Result/Result_lib.h"
 
 
 
@@ -158,13 +159,6 @@ namespace GAME
 		//最初のシーンにパラメータを設定する
 		pScene->SetpParam ( std::move ( m_pParam ) );
 		pScene->ParamInit ();
-
-	}
-
-
-	void SceneManager_lib::Move ()
-	{
-		GameSceneManager::Move ();
 	}
 
 

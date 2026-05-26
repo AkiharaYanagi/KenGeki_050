@@ -13,6 +13,7 @@
 
 //ゲーム内容ヘッダファイルのインクルード
 #include "Scene.h"
+//#include "SceneManager.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -32,6 +33,7 @@ namespace GAME
 #else
 		//ゲームに用いるオブジェクトクラス
 		std::shared_ptr < SceneManager > m_pTask;
+		//std::shared_ptr < SceneManager_lib > m_pTask;
 #endif	//GAME_MAIN_TEST
 
 	public:
@@ -50,6 +52,7 @@ namespace GAME
 			m_pTask = std::make_shared < GameTask > ();
 #else
 			m_pTask = std::make_shared < SceneManager > ();
+			//m_pTask = std::make_shared < SceneManager_lib > ();
 #endif	//GAME_MAIN_TEST
 		}
 	};

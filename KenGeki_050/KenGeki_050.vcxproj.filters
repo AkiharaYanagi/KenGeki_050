@@ -463,6 +463,9 @@
     <ClCompile Include="Source\80_Common\Menu\Menu.cpp">
       <Filter>80_Common\Menu</Filter>
     </ClCompile>
+    <ClCompile Include="Source\90_GameMain\SceneManager.cpp">
+      <Filter>90_GameMain</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -1366,6 +1369,9 @@
     </ClInclude>
     <ClInclude Include="Source\80_Common\Menu\Menu.h">
       <Filter>80_Common\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\90_GameMain\SceneManager.h">
+      <Filter>90_GameMain</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

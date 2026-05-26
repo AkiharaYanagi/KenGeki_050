@@ -12,6 +12,7 @@
 #include "Game.h"
 #include "00_Core/Scene_lib.h"
 #include "00_Core/Param.h"
+#include "05_Result/05_Result.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -32,7 +33,6 @@ namespace GAME
 
 		void Load ();
 		void Start ();
-		void Move ();
 
 		//シーン共通パラメータ
 		void SetpParam ( P_Param&& pParam ) { m_pParam = std::move ( pParam ); }
