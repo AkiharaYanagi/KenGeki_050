@@ -12,10 +12,13 @@
 #include "DebugDisp.h"
 
 //状態遷移先
-#include "../01_Title/Title.h"
+#include "01_Title/Title_lib.h"
+
+#if 0
 #include "../02_CharaSele/CharaSele.h"
 #include "../03_FtgMain/FtgMain.h"
 #include "../04_Training/Training.h"
+#endif // 0
 
 #include "05_Result/Result_lib.h"
 
@@ -102,19 +105,18 @@ namespace GAME
 		std::shared_ptr < Scene_lib > pScene = nullptr;
 
 		//リザルトから開始
-		pScene = std::make_shared < Result_lib > ();
+		//pScene = std::make_shared < Result_lib > ();
 
-#if 0
-		P_Scene pScene = nullptr;
 
 		switch ( startMode )
 		{
 		//---------------------------------------------
 		//タイトルから開始
 		case START_TITLE:
-			pScene = std::make_shared < Title > ();
+			pScene = std::make_shared < Title_lib > ();
 		break;
 
+#if 0
 		//---------------------------------------------
 		//バトルから開始
 		case START_BATTLE:
@@ -127,12 +129,15 @@ namespace GAME
 			pScene = std::make_shared < CharaSele > ();
 //			pScene = std::make_shared < _CharaSele > ();
 		break;
+#endif // 0
 
 		//---------------------------------------------
 		case START_RESULT:
 			//リザルトから開始
 			pScene = std::make_shared < Result_lib > ();
 		break;
+
+#if 0
 
 		//---------------------------------------------
 		case START_TRAINING:
@@ -146,11 +151,12 @@ namespace GAME
 			break;
 
 		//---------------------------------------------
+
+#endif // 0
 		default: break;
 
 		}
 
-#endif // 0
 
 		//シーンの設定
 		SetScene ( pScene );

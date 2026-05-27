@@ -411,6 +411,7 @@
     <ClInclude Include="..\Include\00_Core\00_Core.h" />
     <ClInclude Include="..\Include\00_Core\BattleTime.h" />
     <ClInclude Include="..\Include\00_Core\Chara_TxSet.h" />
+    <ClInclude Include="..\Include\00_Core\DebugDisp.h" />
     <ClInclude Include="..\Include\00_Core\FtgConst.h" />
     <ClInclude Include="..\Include\00_Core\GameConst.h" />
     <ClInclude Include="..\Include\00_Core\GameSettingFile.h" />
@@ -429,6 +430,7 @@
     <ClCompile Include="Source\Common\Chara_TxSet.cpp" />
     <ClCompile Include="Source\Common\SelectArrow.cpp" />
     <ClCompile Include="Source\Const\SoundConst.cpp" />
+    <ClCompile Include="Source\Main\DebugDisp.cpp" />
     <ClCompile Include="Source\Main\Scene_lib.cpp" />
     <ClCompile Include="Source\Param\GameSettingFile.cpp" />
     <ClCompile Include="Source\Param\Param.cpp" />

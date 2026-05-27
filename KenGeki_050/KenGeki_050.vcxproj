@@ -206,7 +206,6 @@
     <ClCompile Include="Source\80_Common\Menu\TrainingMenu.cpp" />
     <ClCompile Include="Source\80_Common\Menu\TrainingMenuItem.cpp" />
     <ClCompile Include="Source\80_Common\Menu\YesNo_Menu.cpp" />
-    <ClCompile Include="Source\90_GameMain\DebugDisp.cpp" />
     <ClCompile Include="Source\90_GameMain\Main.cpp" />
     <ClCompile Include="Source\90_GameMain\Scene.cpp" />
     <ClCompile Include="Source\90_GameMain\SceneManager.cpp" />
@@ -495,7 +494,6 @@
     <ClInclude Include="Source\80_Common\Menu\TrainingMenu.h" />
     <ClInclude Include="Source\80_Common\Menu\TrainingMenuItem.h" />
     <ClInclude Include="Source\80_Common\Menu\YesNo_Menu.h" />
-    <ClInclude Include="Source\90_GameMain\DebugDisp.h" />
     <ClInclude Include="Source\90_GameMain\GameMain.h" />
     <ClInclude Include="Source\90_GameMain\Scene.h" />
     <ClInclude Include="Source\90_GameMain\SceneManager.h" />

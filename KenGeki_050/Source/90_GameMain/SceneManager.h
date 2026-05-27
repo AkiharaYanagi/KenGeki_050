@@ -12,6 +12,7 @@
 #include "Game.h"
 #include "00_Core/Scene_lib.h"
 #include "00_Core/Param.h"
+#include "01_Title/01_Title.h"
 #include "05_Result/05_Result.h"
 
 

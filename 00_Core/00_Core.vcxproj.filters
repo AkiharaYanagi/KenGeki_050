@@ -847,6 +847,9 @@
     <ClInclude Include="..\Include\00_Core\Scene_lib.h">
       <Filter>Main</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\00_Core\DebugDisp.h">
+      <Filter>Main</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Const\SoundConst.cpp">
@@ -875,6 +878,9 @@
     </ClCompile>
     <ClCompile Include="Source\Common\BattleTime.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Main\DebugDisp.cpp">
+      <Filter>Main</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

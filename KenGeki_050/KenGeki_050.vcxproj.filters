@@ -421,9 +421,6 @@
     <ClCompile Include="Source\01_Title\TitleMenu.cpp">
       <Filter>01_Title</Filter>
     </ClCompile>
-    <ClCompile Include="Source\90_GameMain\DebugDisp.cpp">
-      <Filter>90_GameMain</Filter>
-    </ClCompile>
     <ClCompile Include="Source\02_CharaSele\Player\CharaSele_PickFrame.cpp">
       <Filter>02_CharaSele\Player</Filter>
     </ClCompile>
@@ -1279,9 +1276,6 @@
     </ClInclude>
     <ClInclude Include="Source\03_FtgMain\Fighting\BG.h">
       <Filter>03_FtgMain\Fighting</Filter>
-    </ClInclude>
-    <ClInclude Include="Source\90_GameMain\DebugDisp.h">
-      <Filter>90_GameMain</Filter>
     </ClInclude>
     <ClInclude Include="Source\05_Result\ResultMenu.h">
       <Filter>05_Result</Filter>
