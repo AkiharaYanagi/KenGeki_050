@@ -833,15 +833,7 @@ namespace GAME
 			if ( IsNameActionFrame ( U"投げ成立0", 0 ) )
 			{
 				TopByZ ();
-
-				//位置調整用
-				float bDir = m_btlPrm.GetDirRight () ? 1.f : -1.f;
-				VEC2 my_pos = GetPos ();
-				VEC2 pos_rev = { my_pos.x + ( bDir * 0 ), my_pos.y + 0 };
-				SetPos ( pos_rev );	//位置同期(自分)
-
-				VEC2 pos_rev_other = { my_pos.x + ( bDir * 100 ), my_pos.y + 0 };
-				pOther->SetPos ( pos_rev_other );	//位置同期(相手)
+				SetPosEachOther ( VEC2 ( 100, 0 ) );	//位置同期
 			}
 
 			if ( IsNameAction ( U"ヴォルデーリャ成立1" ) )
@@ -849,6 +841,8 @@ namespace GAME
 				if ( m_pScript->Index.Is ( 0 ) )
 				{
 					TopByZ ();
+
+					//距離で速度を指定
 					VEC2 my_pos = GetPos ();
 					VEC2 other_pos = pOther->GetPos ();
 					float distance = my_pos.x - other_pos.x;
@@ -865,6 +859,38 @@ namespace GAME
 				//超必殺技補正解除
 				m_btlPrm.SetReviseOverDrive ( 1.0f );
 			}
+
+			bool bni1 = IsNameAction ( U"ヴニベルソ1" );
+			bool bni2 = IsNameAction ( U"ヴニベルソ2" );
+			bool bni3 = IsNameAction ( U"ヴニベルソ3" );
+			bool bni4 = IsNameAction ( U"ヴニベルソ4" );
+			if ( bni1 || bni2 || bni3 || bni4 )
+			{
+				//補正解除
+				m_btlPrm.SetReviseOverDrive ( 1.0f );
+			}
+
+			if ( IsNameActionFrame ( U"ヴニベルソ1", 0 ) )
+			{
+				//ヒット時のロック
+				TopByZ ();
+				SetPosEachOther ( VEC2 ( 100, 0 ) );	//位置同期
+			}
+			if ( IsNameActionFrame ( U"ヴニベルソ3", 21 ) )
+			{
+				//ヒット時のロック
+				TopByZ ();
+				SetPosEachOther ( VEC2 ( -200, 0 ) );	//位置同期
+			}
+#if 0
+
+			if ( IsNameActionFrame ( U"ヴニベルソ4", 40 ) )
+			{
+				//フィニッシュ
+				m_pOther.lock()->SetAction ( U"垂直吹き飛びダウン" );
+			}
+
+#endif // 0
 		}
 
 
@@ -1093,6 +1119,21 @@ namespace GAME
 		bool bEnd = IsEndScript ();
 		return bName && bEnd;
 	}
+
+	//投げなどで、相手との位置をロックする
+	void ExeChara::SetPosEachOther ( VEC2 pos )
+	{
+		//位置調整用
+		bool bDir = m_btlPrm.GetDirRight ();
+		float dir = bDir ? 1.f : -1.f;
+		VEC2 my_pos = GetPos ();
+		VEC2 pos_rev = { my_pos.x + ( dir * pos.x ), my_pos.y + pos.y };
+
+		m_pOther.lock()->SetPos ( pos_rev );	//位置同期
+		m_pOther.lock()->SetDirRight ( ! bDir );	//向き同期
+	}
+
+
 
 }	//namespace GAME
 

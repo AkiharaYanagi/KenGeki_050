@@ -509,6 +509,8 @@ namespace GAME
 		void SetParamFromScript ();	//スクリプトからパラメータを反映する
 		void SpecialAction ();		//特殊アクション指定
 
+		//投げなどで、相手との位置をロックする
+		void SetPosEachOther ( VEC2 pos );
 
 	public:
 		//------------------------------------------------
