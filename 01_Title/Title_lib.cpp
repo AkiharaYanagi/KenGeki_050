@@ -343,7 +343,7 @@ namespace GAME
 
 			//Scene_lib::Transit_Fighting ( MUTCH_MODE::MODE_CPU_CPU );
 			GetpParam ()->GetGameSetting().SetMutchMode ( MUTCH_MODE::MODE_CPU_CPU );
-			Transit_Fighting ();
+			Transit_FtgMain ();
 		}
 
 		//-----------------------------------

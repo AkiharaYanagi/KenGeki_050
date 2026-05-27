@@ -25,6 +25,16 @@ namespace GAME
 	using WP_Scene_lib = std::weak_ptr < Scene_lib >;
 	using P_Scene_lib = std::shared_ptr < Scene_lib >;
 
+	//==================================================================
+	//生成関数
+	class CreateScene
+	{
+	public:
+		virtual P_Scene_lib Do () = 0;
+	};
+	using P_CreateScene = std::shared_ptr < CreateScene >;
+	//==================================================================
+
 
 	//-----------------------------------------------
 	//ゲーム場面
@@ -98,6 +108,15 @@ namespace GAME
 
 		//次のシーンを外部から設定
 		void SetpNextScene ( P_Scene_lib p ) { mp_Transit = p; }
+
+		//-------------------------------------------------
+		//共通としてタイトルのみ遷移を用意
+	private:
+		P_CreateScene	mp_CreateTitle;		//次のシーン
+		
+	public:
+		void SetpNext_Title ( P_CreateScene p ) { mp_CreateTitle = p; }
+		void Transit_Title ();
 	};
 
 

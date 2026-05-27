@@ -9,13 +9,13 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "SceneManager.h"
-#include "DebugDisp.h"
+#include "00_Core/DebugDisp.h"
 
 //状態遷移先
 #include "01_Title/Title_lib.h"
+#include "02_CharaSele/CharaSele.h"
 
 #if 0
-#include "../02_CharaSele/CharaSele.h"
 #include "../03_FtgMain/FtgMain.h"
 #include "../04_Training/Training.h"
 #endif // 0
@@ -29,6 +29,15 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+	//====================================================================
+	P_Scene_lib CreateTitle::Do () { return std::make_shared < Title_lib > (); }
+	P_Scene_lib CreateCharaSele::Do () { return std::make_shared < CharaSele > (); }
+	//P_Scene_lib CreateFtgMain::Do () { return std::make_shared < FtgMain_lib > (); }
+	P_Scene_lib CreateFtgMain::Do () { return std::make_shared < Title_lib > (); }
+	//P_Scene_lib CreateTraining::Do () { return std::make_shared < Training_lib > (); }
+	P_Scene_lib CreateTraining::Do () { return std::make_shared < Title_lib > (); }
+	P_Scene_lib CreateResult::Do () { return std::make_shared < Result_lib > (); }
+
 	//====================================================================
 	SceneManager_lib::SceneManager_lib()
 	{
@@ -46,7 +55,6 @@ namespace GAME
 		//シーン共通パラメータ読込
 		m_pParam->Load ();
 
-		//-------------------------------------
 		//シーン開始
 		Start ();
 
@@ -104,19 +112,21 @@ namespace GAME
 		//開始シーンの選択
 		std::shared_ptr < Scene_lib > pScene = nullptr;
 
-		//リザルトから開始
-		//pScene = std::make_shared < Result_lib > ();
-
-
 		switch ( startMode )
 		{
 		//---------------------------------------------
 		//タイトルから開始
 		case START_TITLE:
-			pScene = std::make_shared < Title_lib > ();
+			pScene = MakeTitle ();
 		break;
 
 #if 0
+		//---------------------------------------------
+		//キャラセレから開始
+		case START_CHARA_SELE:
+			pScene = std::make_shared < CharaSele > ();
+//			pScene = std::make_shared < _CharaSele > ();
+		break;
 		//---------------------------------------------
 		//バトルから開始
 		case START_BATTLE:
@@ -124,35 +134,18 @@ namespace GAME
 		break;
 
 		//---------------------------------------------
-		//キャラセレから開始
-		case START_CHARA_SELE:
-			pScene = std::make_shared < CharaSele > ();
-//			pScene = std::make_shared < _CharaSele > ();
+		case START_TRAINING:
+			//トレーニングから開始
+			pScene = std::make_shared < Training > ();
 		break;
 #endif // 0
 
 		//---------------------------------------------
 		case START_RESULT:
 			//リザルトから開始
-			pScene = std::make_shared < Result_lib > ();
+			pScene = MakeResult ();
 		break;
 
-#if 0
-
-		//---------------------------------------------
-		case START_TRAINING:
-			//トレーニングから開始
-			pScene = std::make_shared < Training > ();
-		break;
-
-		case TEST_VOID:
-			//テスト：空のシーン
-			pScene = std::make_shared < TestScene > ();
-			break;
-
-		//---------------------------------------------
-
-#endif // 0
 		default: break;
 
 		}
@@ -166,6 +159,59 @@ namespace GAME
 		pScene->SetpParam ( std::move ( m_pParam ) );
 		pScene->ParamInit ();
 	}
+
+
+	P_Scene_lib SceneManager_lib::MakeTitle()
+	{
+		P_Title_lib p = std::make_shared < Title_lib > ();
+		p->SetpNext_CharaSele ( std::make_shared < CreateCharaSele > () );
+		//p->SetpNext_FtgMain ( std::make_shared < CreateFtgMain > () );
+		p->SetpNext_FtgMain ( std::make_shared < CreateTitle > () );
+		return p;
+	}
+
+	P_Scene_lib SceneManager_lib::MakeCharaSele()
+	{
+		P_ChSl p = std::make_shared < CharaSele > ();
+		//p->SetpNext_Fighting ( std::make_shared < CreateFtgMain > () );
+		p->SetpNext_Fighting ( std::make_shared < CreateTitle > () );
+		//p->SetpNext_Training ( std::make_shared < CreateTraining > () );
+		p->SetpNext_Training ( std::make_shared < CreateTitle > () );
+		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
+		return p;
+	}
+
+	P_Scene_lib SceneManager_lib::MakeFtgMain()
+	{
+#if 0
+		P_Title_lib p = std::make_shared < FtgMain_lib > ();
+		p->SetpNext_CharaSele ( std::make_shared < CreateCharaSele > () );
+		p->SetpNext_Fighting ( std::make_shared < CreateCharaSele > () );
+		return p;
+
+#endif // 0
+		return std::make_shared < Title_lib > ();
+	}
+
+	P_Scene_lib SceneManager_lib::MakeTraining()
+	{
+#if 0
+		P_Title_lib p = std::make_shared < Title_lib > ();
+		p->SetpNext_CharaSele ( std::make_shared < CreateCharaSele > () );
+		p->SetpNext_Fighting ( std::make_shared < CreateCharaSele > () );
+		return p;
+#endif // 0
+		return std::make_shared < Title_lib > ();
+	}
+
+	P_Scene_lib SceneManager_lib::MakeResult()
+	{
+		P_Result_lib p = std::make_shared < Result_lib > ();
+		p->SetpNext_CharaSele ( std::make_shared < CreateCharaSele > () );
+		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
+		return p;
+	}
+
 
 
 }	//namespace GAME

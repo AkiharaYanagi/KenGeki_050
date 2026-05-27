@@ -59,6 +59,16 @@ namespace GAME
 		TEST_VOID,
 	};
 
+	//シーン種類
+	enum class SCENE_TYPE
+	{
+		TITLE,
+		CHARA_SELE,
+		FTG_MAIN,
+		TRAINING,
+		RESULT,
+	};
+
 
 	//戦闘（対戦種類：メイン, トレーニング) モード
 	enum class FTG_MODE

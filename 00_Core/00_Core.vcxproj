@@ -415,7 +415,10 @@
     <ClInclude Include="..\Include\00_Core\FtgConst.h" />
     <ClInclude Include="..\Include\00_Core\GameConst.h" />
     <ClInclude Include="..\Include\00_Core\GameSettingFile.h" />
+    <ClInclude Include="..\Include\00_Core\Menu.h" />
     <ClInclude Include="..\Include\00_Core\Param.h" />
+    <ClInclude Include="..\Include\00_Core\PauseMenu.h" />
+    <ClInclude Include="..\Include\00_Core\PauseMenu_Const.h" />
     <ClInclude Include="..\Include\00_Core\Prm_Chara.h" />
     <ClInclude Include="..\Include\00_Core\Prm_Const.h" />
     <ClInclude Include="..\Include\00_Core\Prm_Result.h" />
@@ -423,11 +426,21 @@
     <ClInclude Include="..\Include\00_Core\SeConst.h" />
     <ClInclude Include="..\Include\00_Core\SelectArrow.h" />
     <ClInclude Include="..\Include\00_Core\SoundConst.h" />
+    <ClInclude Include="..\Include\00_Core\TrainingMenu.h" />
+    <ClInclude Include="..\Include\00_Core\TrainingMenuItem.h" />
     <ClInclude Include="..\Include\00_Core\VoiceConst.h" />
+    <ClInclude Include="..\Include\00_Core\YesNo_Menu.h" />
+    <ClInclude Include="..\KenGeki_050\Source\90_GameMain\old\Scene.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Common\BattleTime.cpp" />
     <ClCompile Include="Source\Common\Chara_TxSet.cpp" />
+    <ClCompile Include="Source\Common\Menu\Menu.cpp" />
+    <ClCompile Include="Source\Common\Menu\PauseMenu.cpp" />
+    <ClCompile Include="Source\Common\Menu\PauseMenu_Const.cpp" />
+    <ClCompile Include="Source\Common\Menu\TrainingMenu.cpp" />
+    <ClCompile Include="Source\Common\Menu\TrainingMenuItem.cpp" />
+    <ClCompile Include="Source\Common\Menu\YesNo_Menu.cpp" />
     <ClCompile Include="Source\Common\SelectArrow.cpp" />
     <ClCompile Include="Source\Const\SoundConst.cpp" />
     <ClCompile Include="Source\Main\DebugDisp.cpp" />

@@ -140,6 +140,9 @@
     <Filter Include="Param">
       <UniqueIdentifier>{e2592ade-3119-440b-bf93-6d344a140497}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common\Menu">
+      <UniqueIdentifier>{468cd100-583b-4ca9-b22a-7cdcb19bdfe0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -850,6 +853,27 @@
     <ClInclude Include="..\Include\00_Core\DebugDisp.h">
       <Filter>Main</Filter>
     </ClInclude>
+    <ClInclude Include="..\KenGeki_050\Source\90_GameMain\old\Scene.h">
+      <Filter>Main</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\00_Core\PauseMenu_Const.h">
+      <Filter>Common\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\00_Core\TrainingMenu.h">
+      <Filter>Common\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\00_Core\TrainingMenuItem.h">
+      <Filter>Common\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\00_Core\YesNo_Menu.h">
+      <Filter>Common\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\00_Core\Menu.h">
+      <Filter>Common\Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\00_Core\PauseMenu.h">
+      <Filter>Common\Menu</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Const\SoundConst.cpp">
@@ -881,6 +905,24 @@
     </ClCompile>
     <ClCompile Include="Source\Main\DebugDisp.cpp">
       <Filter>Main</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Common\Menu\Menu.cpp">
+      <Filter>Common\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Common\Menu\PauseMenu.cpp">
+      <Filter>Common\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Common\Menu\PauseMenu_Const.cpp">
+      <Filter>Common\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Common\Menu\TrainingMenu.cpp">
+      <Filter>Common\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Common\Menu\TrainingMenuItem.cpp">
+      <Filter>Common\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Common\Menu\YesNo_Menu.cpp">
+      <Filter>Common\Menu</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

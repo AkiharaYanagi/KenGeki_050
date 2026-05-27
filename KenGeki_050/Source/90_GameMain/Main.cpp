@@ -10,7 +10,7 @@
 #include "Game.h"
 #include "GameMain.h"
 #include "CharaData.h"
-#include "DebugDisp.h"
+#include "00_Core/DebugDisp.h"
 
 
 //-------------------------------------------------------------------------------------------------

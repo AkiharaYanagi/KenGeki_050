@@ -24,8 +24,8 @@ namespace GAME
 	{
 		//----------------------------------------
 		//シーン移行
-		P_Scene_lib		mp_Title;		//次のシーン
-		P_Scene_lib		mp_CharaSele;	//次のシーン
+		P_CreateScene	mp_CreateTitle;		//次のシーン
+		P_CreateScene	mp_CreateCharaSele;	//次のシーン
 		//----------------------------------------
 
 		P_GrpMovie		m_mov;		//背景ムービー
@@ -79,8 +79,8 @@ namespace GAME
 
 		P_GameScene Transit ();
 
-		void SetpNext_Title ( P_Scene_lib p ) { mp_Title = p; }
-		void SetpNext_CharaSele ( P_Scene_lib p ) { mp_CharaSele = p; }
+		void SetpNext_Title ( P_CreateScene p ) { mp_CreateTitle = p; }
+		void SetpNext_CharaSele ( P_CreateScene p ) { mp_CreateCharaSele = p; }
 
 	private:
 

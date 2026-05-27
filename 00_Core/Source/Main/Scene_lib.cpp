@@ -48,5 +48,10 @@ namespace GAME
 	}
 
 
+	void Scene_lib::Transit_Title ()
+	{
+		SetpNextScene ( mp_CreateTitle->Do() );
+	}
+
 }	//namespace GAME
 

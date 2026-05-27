@@ -307,7 +307,7 @@ namespace GAME
 			if ( GetpParam()->GetGameSetting().GetDemo () )
 			{
 				//Scene_lib::Transit_Title ();
-				Scene_lib::SetpNextScene ( mp_Title );
+				Scene_lib::SetpNextScene ( mp_CreateTitle->Do() );
 			}
 			else
 			{
@@ -341,7 +341,7 @@ namespace GAME
 
 				//キャラセレに移行
 				//Scene_lib::Transit_CharaSele ();
-				Scene_lib::SetpNextScene ( mp_CharaSele );
+				Scene_lib::SetpNextScene ( mp_CreateCharaSele->Do() );
 
 
 				m_plus_wait = 0;
