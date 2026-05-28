@@ -406,11 +406,33 @@
   <ItemGroup>
     <ClCompile Include="Source\CharaSele.cpp" />
     <ClCompile Include="Source\CharaSele_Stage.cpp" />
+    <ClCompile Include="Source\Menu\CharaSele_Menu.cpp" />
+    <ClCompile Include="Source\Menu\CharaSele_Menu_Actor.cpp" />
+    <ClCompile Include="Source\Menu\CharaSele_Menu_State.cpp" />
+    <ClCompile Include="Source\Player\CharaSele_CharaGrp.cpp" />
+    <ClCompile Include="Source\Player\CharaSele_Color.cpp" />
+    <ClCompile Include="Source\Player\CharaSele_Face.cpp" />
+    <ClCompile Include="Source\Player\CharaSele_Name.cpp" />
+    <ClCompile Include="Source\Player\CharaSele_PickFrame.cpp" />
+    <ClCompile Include="Source\Player\CharaSele_Stand.cpp" />
+    <ClCompile Include="Source\State\CharaSele_Player_Actor.cpp" />
+    <ClCompile Include="Source\State\CharaSele_Player_State.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\02_CharaSele\02_CharaSele.h" />
     <ClInclude Include="..\Include\02_CharaSele\CharaSele.h" />
     <ClInclude Include="Source\CharaSele_Stage.h" />
+    <ClInclude Include="Source\Menu\CharaSele_Menu.h" />
+    <ClInclude Include="Source\Menu\CharaSele_Menu_Actor.h" />
+    <ClInclude Include="Source\Menu\CharaSele_Menu_State.h" />
+    <ClInclude Include="Source\Player\CharaSele_CharaGrp.h" />
+    <ClInclude Include="Source\Player\CharaSele_Color.h" />
+    <ClInclude Include="Source\Player\CharaSele_Face.h" />
+    <ClInclude Include="Source\Player\CharaSele_Name.h" />
+    <ClInclude Include="Source\Player\CharaSele_PickFrame.h" />
+    <ClInclude Include="Source\Player\CharaSele_Stand.h" />
+    <ClInclude Include="Source\State\CharaSele_Player_Actor.h" />
+    <ClInclude Include="Source\State\CharaSele_Player_State.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

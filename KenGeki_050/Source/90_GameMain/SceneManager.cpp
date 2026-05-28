@@ -11,13 +11,6 @@
 #include "SceneManager.h"
 #include "00_Core/DebugDisp.h"
 
-//状態遷移先
-#include "01_Title/Title_lib.h"
-#include "02_CharaSele/CharaSele.h"
-#include "03_FtgMain/FtgMain.h"
-#include "04_Training/Training.h"
-#include "05_Result/Result_lib.h"
-
 
 //-------------------------------------------------------------------------------------------------
 // 定義
@@ -25,11 +18,63 @@
 namespace GAME
 {
 	//====================================================================
-	P_Scene_lib CreateTitle::Do () { return std::make_shared < Title_lib > (); }
-	P_Scene_lib CreateCharaSele::Do () { return std::make_shared < CharaSele > (); }
-	P_Scene_lib CreateFtgMain::Do () { return std::make_shared < FtgMain > (); }
-	P_Scene_lib CreateTraining::Do () { return std::make_shared < Training > (); }
-	P_Scene_lib CreateResult::Do () { return std::make_shared < Result_lib > (); }
+	//シーン生成関数
+	//	各シーンで、遷移先のシーン生成を設定しておく
+	P_Scene_lib CreateTitle::Do () { return MakeTitle (); }
+	P_Scene_lib CreateCharaSele::Do () { return MakeCharaSele (); }
+	P_Scene_lib CreateFtgMain::Do () { return MakeFtgMain (); }
+	P_Scene_lib CreateTraining::Do () { return MakeTraining (); }
+	P_Scene_lib CreateResult::Do () { return MakeResult (); }
+
+
+	//各シーンの生成　（TitleはScene全て）
+	P_Scene_lib MakeTitle()
+	{
+		GRPLST_CLEAR ();
+		P_Title_lib p = std::make_shared < Title_lib > ();
+		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
+		p->SetpNext_CharaSele ( std::make_shared < CreateCharaSele > () );
+		p->SetpNext_FtgMain ( std::make_shared < CreateFtgMain > () );
+		return p;
+	}
+
+	P_Scene_lib MakeCharaSele()
+	{
+		GRPLST_CLEAR ();
+		P_ChSl p = std::make_shared < CharaSele > ();
+		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
+		p->SetpNext_Fighting ( std::make_shared < CreateFtgMain > () );
+		p->SetpNext_Training ( std::make_shared < CreateTraining > () );
+		return p;
+	}
+
+	P_Scene_lib MakeFtgMain()
+	{
+		GRPLST_CLEAR ();
+		P_FtgMain p = std::make_shared < FtgMain > ();
+		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
+		p->SetpNext_CharaSele ( std::make_shared < CreateCharaSele > () );
+		p->SetpNext_Result ( std::make_shared < CreateResult > () );
+		return p;
+	}
+
+	P_Scene_lib MakeTraining()
+	{
+		GRPLST_CLEAR ();
+		P_Training p = std::make_shared < Training > ();
+		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
+		return p;
+	}
+
+	P_Scene_lib MakeResult()
+	{
+		GRPLST_CLEAR ();
+		P_Result_lib p = std::make_shared < Result_lib > ();
+		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
+		p->SetpNext_CharaSele ( std::make_shared < CreateCharaSele > () );
+		return p;
+	}
+
 
 	//====================================================================
 	SceneManager_lib::SceneManager_lib()
@@ -107,42 +152,13 @@ namespace GAME
 
 		switch ( startMode )
 		{
-		//---------------------------------------------
-		//タイトルから開始
-		case START_TITLE:
-			pScene = MakeTitle ();
-		break;
-
-#if 0
-		//---------------------------------------------
-		//キャラセレから開始
-		case START_CHARA_SELE:
-			pScene = std::make_shared < CharaSele > ();
-//			pScene = std::make_shared < _CharaSele > ();
-		break;
-		//---------------------------------------------
-		//バトルから開始
-		case START_BATTLE:
-			pScene = std::make_shared < FtgMain > ();
-		break;
-
-		//---------------------------------------------
-		case START_TRAINING:
-			//トレーニングから開始
-			pScene = std::make_shared < Training > ();
-		break;
-#endif // 0
-
-		//---------------------------------------------
-		case START_RESULT:
-			//リザルトから開始
-			pScene = MakeResult ();
-		break;
-
+		case START_TITLE:		pScene = MakeTitle (); break;		//タイトルから開始
+		case START_CHARA_SELE:	pScene = MakeCharaSele (); break;	//キャラセレから開始
+		case START_BATTLE:		pScene = MakeFtgMain (); break;		//バトルから開始
+		case START_TRAINING:	pScene = MakeTraining (); break;	//トレーニングから開始
+		case START_RESULT:		pScene = MakeResult (); break;		//リザルトから開始
 		default: break;
-
 		}
-
 
 		//シーンの設定
 		SetScene ( pScene );
@@ -152,51 +168,6 @@ namespace GAME
 		pScene->SetpParam ( std::move ( m_pParam ) );
 		pScene->ParamInit ();
 	}
-
-	//各シーンの生成　（TitleはScene全て）
-	P_Scene_lib SceneManager_lib::MakeTitle()
-	{
-		P_Title_lib p = std::make_shared < Title_lib > ();
-		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
-		p->SetpNext_CharaSele ( std::make_shared < CreateCharaSele > () );
-		p->SetpNext_FtgMain ( std::make_shared < CreateFtgMain > () );
-		return p;
-	}
-
-	P_Scene_lib SceneManager_lib::MakeCharaSele()
-	{
-		P_ChSl p = std::make_shared < CharaSele > ();
-		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
-		p->SetpNext_Fighting ( std::make_shared < CreateFtgMain > () );
-		p->SetpNext_Training ( std::make_shared < CreateTraining > () );
-		return p;
-	}
-
-	P_Scene_lib SceneManager_lib::MakeFtgMain()
-	{
-		P_FtgMain p = std::make_shared < FtgMain > ();
-		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
-		p->SetpNext_CharaSele ( std::make_shared < CreateCharaSele > () );
-		p->SetpNext_Result ( std::make_shared < CreateResult > () );
-		return p;
-	}
-
-	P_Scene_lib SceneManager_lib::MakeTraining()
-	{
-		P_Training p = std::make_shared < Training > ();
-		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
-		return p;
-	}
-
-	P_Scene_lib SceneManager_lib::MakeResult()
-	{
-		P_Result_lib p = std::make_shared < Result_lib > ();
-		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
-		p->SetpNext_CharaSele ( std::make_shared < CreateCharaSele > () );
-		return p;
-	}
-
-
 
 }	//namespace GAME
 

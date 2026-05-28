@@ -128,6 +128,15 @@
     <Filter Include="Resource Files\engine\font\min">
       <UniqueIdentifier>{1b103960-f11a-4515-b4f1-f59333ce00d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Menu">
+      <UniqueIdentifier>{749a1ea6-bb0a-4525-b5ec-29626777508b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{2e3a4509-0bb7-44ee-91eb-dc55bbb27c0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="State">
+      <UniqueIdentifier>{33542db0-4a1c-4277-9d0b-2cdc4d89dd94}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -791,10 +800,76 @@
   <ItemGroup>
     <ClCompile Include="Source\CharaSele.cpp" />
     <ClCompile Include="Source\CharaSele_Stage.cpp" />
+    <ClCompile Include="Source\State\CharaSele_Player_Actor.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\State\CharaSele_Player_State.cpp">
+      <Filter>State</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\CharaSele_Color.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\CharaSele_Face.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\CharaSele_Name.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\CharaSele_PickFrame.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\CharaSele_Stand.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player\CharaSele_CharaGrp.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Menu\CharaSele_Menu_Actor.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Menu\CharaSele_Menu_State.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Menu\CharaSele_Menu.cpp">
+      <Filter>Menu</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\02_CharaSele\CharaSele.h" />
     <ClInclude Include="..\Include\02_CharaSele\02_CharaSele.h" />
     <ClInclude Include="Source\CharaSele_Stage.h" />
+    <ClInclude Include="Source\State\CharaSele_Player_Actor.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\State\CharaSele_Player_State.h">
+      <Filter>State</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\CharaSele_CharaGrp.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\CharaSele_Color.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\CharaSele_Face.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\CharaSele_Name.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\CharaSele_PickFrame.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player\CharaSele_Stand.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Menu\CharaSele_Menu.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Menu\CharaSele_Menu_Actor.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Menu\CharaSele_Menu_State.h">
+      <Filter>Menu</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
