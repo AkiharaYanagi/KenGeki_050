@@ -7,8 +7,8 @@
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "00_Core/TrainingMenu.h"
-#include "00_Core/PauseMenu_Const.h"
+#include "00_Core/Menu/TrainingMenu.h"
+#include "00_Core/Menu/PauseMenu_Const.h"
 #include "00_Core/SeConst.h"
 
 

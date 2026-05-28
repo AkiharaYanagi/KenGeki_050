@@ -22,12 +22,6 @@ namespace GAME
 
 	class Result_lib : public Scene_lib, public std::enable_shared_from_this < Result_lib >
 	{
-		//----------------------------------------
-		//シーン移行
-		P_CreateScene	mp_CreateTitle;		//次のシーン
-		P_CreateScene	mp_CreateCharaSele;	//次のシーン
-		//----------------------------------------
-
 		P_GrpMovie		m_mov;		//背景ムービー
 
 		P_Ch_TxSet		m_chTxSet;	//キャラ立絵 共有テクスチャ
@@ -79,8 +73,14 @@ namespace GAME
 
 		P_GameScene Transit ();
 
-		void SetpNext_Title ( P_CreateScene p ) { mp_CreateTitle = p; }
+		//----------------------------------------
+	private:
+		//シーン移行
+		P_CreateScene	mp_CreateCharaSele;	//次のシーン
+	public:
 		void SetpNext_CharaSele ( P_CreateScene p ) { mp_CreateCharaSele = p; }
+		void Transit_CharaSele () { SetpNextScene ( mp_CreateCharaSele->Do() ); }
+		//----------------------------------------
 
 	private:
 

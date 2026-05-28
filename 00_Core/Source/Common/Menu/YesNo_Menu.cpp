@@ -7,11 +7,11 @@
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "00_Core/YesNo_Menu.h"
-#include "00_Core/PauseMenu_Const.h"
-#include "00_Core/SeConst.h"
-#include "00_Core/TrainingMenu.h"
+#include "00_Core/Menu/YesNo_Menu.h"
+#include "00_Core/Menu/PauseMenu_Const.h"
+#include "00_Core/Menu/TrainingMenu.h"
 #include "00_Core/Scene_lib.h"
+#include "00_Core/SeConst.h"
 
 
 //-------------------------------------------------------------------------------------------------

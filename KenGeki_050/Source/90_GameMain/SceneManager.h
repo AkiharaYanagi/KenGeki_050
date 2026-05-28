@@ -13,22 +13,12 @@
 #include "00_Core/Scene_lib.h"
 #include "00_Core/Param.h"
 
-#include "01_Title/01_Title.h"
-#include "02_CharaSele/02_CharaSele.h"
-//#include "03_FtgMain/03_FtgMain.h"
-//#include "04_Training/04_Training.h"
-#include "05_Result/05_Result.h"
-
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	//仮
-	class FtgMain_lib : public Scene_lib {}; 
-	class Training_lib : public Scene_lib {}; 
-
 	//==================================================================
 	//生成関数
 	class CreateTitle : public CreateScene { public: P_Scene_lib Do (); };

@@ -1,0 +1,202 @@
+﻿//=================================================================================================
+//
+// エグゼキャラ　ソースファイル
+//
+//=================================================================================================
+
+//-------------------------------------------------------------------------------------------------
+// ヘッダファイルのインクルード
+//-------------------------------------------------------------------------------------------------
+#include "ExeChara.h"
+
+
+//-------------------------------------------------------------------------------------------------
+// 定義
+//-------------------------------------------------------------------------------------------------
+namespace GAME
+{
+	//================================================
+	//	アクション遷移中、特定アクション
+	// 戻値　T : 遷移可能なのでその値で先に進む
+	//		F : 遷移不可なので戻り先ループ内でconinue;して飛ばす
+	//================================================
+	// 
+	//アクション移項（コマンドに関する処理）
+	//引数：	pNext 次のアクション
+	bool ExeChara::TranditAction_Exclusion ( P_Sequence pNextAct )
+	{
+		//------------------------------------------
+		//空中ダッシュ回数による遷移不可処理
+		bool AirDash = pNextAct->Name.Is ( U"空中ダッシュ" );
+		bool LowAirDash = pNextAct->Name.Is ( U"低空ダッシュ" );
+		if ( AirDash || LowAirDash )
+		{
+			UINT n = m_btlPrm.GetNAirDash ();
+			if ( 0 < n )
+			{ return F; }
+		}
+
+		//空中ダッシュ高度制限
+		if ( AirDash )
+		{
+			//左上原点(0,0), 地上高さ == GROUND_Y, 上方向にマイナス
+
+			float height = 200;
+
+			//キャラ別
+			switch ( m_name )
+			{
+			case CHARA_OUKA:		height = 160; break;
+			case CHARA_SAE:			height = 80; break;
+			case CHARA_RETSUDOU:	height = 240; break;
+			case CHARA_GYAVADARUGA:	height = 250; break;
+			default: break;
+			}
+
+			//現在値と比較して低かったらFALSE
+			float pos_y = m_btlPrm.GetPos().y;
+			float target_y = - height + ( float ) GROUND_Y;
+			if ( pos_y > target_y )
+			{
+				return F;
+			}
+		}
+
+
+		//------------------------------------------
+		//対象IDがバランス消費で移項不可能なら次へ
+		int Nextbalance = pNextAct->Balance.Get ();
+		if ( Nextbalance != 0 )
+		{
+			//現在値と比較
+			if ( m_btlPrm.GetBalance() >= Nextbalance )
+			{
+				//必要量があれば消費して遷移する
+				m_btlPrm.AddBalance ( -1 * Nextbalance );
+			}
+			else
+			{
+				return F; //足りないとき遷移しない
+			}
+		}
+
+
+		//------------------------------------------
+		//対象IDがマナ消費で移項不可能なら次へ
+
+		//マナ使用アクション　遷移チェック
+		int mana = pNextAct->Mana.Get ();
+		if ( mana != 0 )
+		{
+			//マナ消費
+			if ( m_btlPrm.GetMana () >= mana )
+			{
+				//必要量があれば消費して遷移する
+				m_btlPrm.AddMana ( - MANA_MAX / 2 );
+			}
+			else //足りないとき遷移しない
+			{
+				return F;
+			}
+		}
+
+		//-----------------------------------------------------
+		//超必殺全般(コマンド成立時に１回　アクション遷移時だと複数発動してしまう)
+		if ( pNextAct->Category.Is ( AC_OVERDRIVE ) )
+		{
+			//超必殺技はゲージを直接増加
+			m_btlPrm.AddBalance ( 2000 );	//剣撃ゲージプラス(0～10000)
+			m_btlPrm.AddAccel ( 200 );	//アクセルゲージプラス(-500～1000)
+		}
+		
+		//------------------------------------------
+		//相手が超必殺技のとき受身不可
+		bool bUkemi = pNextAct->Name.Is ( U"空中受け身" );
+		bool bOD = m_pOther.lock ()->IsOverdrive ();
+		if ( bUkemi && bOD )
+		{
+			return F;
+		}
+
+		//------------------------------------------
+
+		//このアクションは遷移可能
+		return T;
+	}
+
+
+#if 0
+
+	//アクション移項（コマンドに関する処理）限定
+	bool ExeChara::TranditAction_Command_Special ()
+	{
+		//-----------------------------------------------------
+		// コマンドによる分岐
+		//コマンドが完成したIDを優先順に保存したリスト
+		m_pCharaInput->MakeTransitIDList ( *m_pChara, m_pScript, m_btlPrm.GetDirRight () );
+		const std::vector < UINT > & vCompID = m_pCharaInput->GetvCompID ();
+
+		uint32 transitID = (uint32)NO_COMPLETE;
+		for ( UINT id : vCompID )
+		{
+			//遷移先チェック
+			P_Sequence pAct = m_pChara->GetpAction ( id );
+
+			if ( ! pAct->IsName ( U"雷電蹴_0" ) )
+			{
+				continue;
+			}
+			
+			//特殊アクション 除外 指定　：　不可能なら次をチェック
+			if ( ! TranditAction_Exclusion ( pAct ) )
+			{
+				continue;
+			}
+
+			//------------------------------------------
+
+			//可能なら遷移先に指定して終了
+			transitID = id;
+			break;
+		}
+
+		//コマンドが完成していたら
+		if ( NO_COMPLETE != transitID )
+		{
+			//現在アクションとして最後の処理
+			EndAction ();
+
+			//遷移先チェック
+			P_Sequence pact = m_pChara->GetpAction ( transitID );
+			P_Frame pscr = pact->GetpScript ( 0 );
+
+			//バランス処理
+			int bl_a = pact->GetBalance ();		//アクション消費バランス
+			m_btlPrm.AddBalance ( bl_a );
+
+			//アクション遷移
+			m_actionID = transitID;
+
+			//スクリプト処理
+			ExeScript ();
+
+			//アクション移項を計測
+			m_btlPrm.AddNActTrs ( 1 );
+
+			//次フレームのスクリプトを１つ進める
+			//今回フレームは取得済みのm_pScriptを用いる
+			++ m_frame;
+
+			//終了
+			return T;
+		}
+
+		return F;
+	}
+
+#endif // 0
+
+
+
+}	//namespace GAME
+

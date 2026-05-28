@@ -306,8 +306,7 @@ namespace GAME
 			//デモモードのとき、タイトルにもどる
 			if ( GetpParam()->GetGameSetting().GetDemo () )
 			{
-				//Scene_lib::Transit_Title ();
-				Scene_lib::SetpNextScene ( mp_CreateTitle->Do() );
+				Scene_lib::Transit_Title();
 			}
 			else
 			{

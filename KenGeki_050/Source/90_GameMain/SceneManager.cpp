@@ -14,14 +14,9 @@
 //状態遷移先
 #include "01_Title/Title_lib.h"
 #include "02_CharaSele/CharaSele.h"
-
-#if 0
-#include "../03_FtgMain/FtgMain.h"
-#include "../04_Training/Training.h"
-#endif // 0
-
+#include "03_FtgMain/FtgMain.h"
+#include "04_Training/Training.h"
 #include "05_Result/Result_lib.h"
-
 
 
 //-------------------------------------------------------------------------------------------------
@@ -32,10 +27,8 @@ namespace GAME
 	//====================================================================
 	P_Scene_lib CreateTitle::Do () { return std::make_shared < Title_lib > (); }
 	P_Scene_lib CreateCharaSele::Do () { return std::make_shared < CharaSele > (); }
-	//P_Scene_lib CreateFtgMain::Do () { return std::make_shared < FtgMain_lib > (); }
-	P_Scene_lib CreateFtgMain::Do () { return std::make_shared < Title_lib > (); }
-	//P_Scene_lib CreateTraining::Do () { return std::make_shared < Training_lib > (); }
-	P_Scene_lib CreateTraining::Do () { return std::make_shared < Title_lib > (); }
+	P_Scene_lib CreateFtgMain::Do () { return std::make_shared < FtgMain > (); }
+	P_Scene_lib CreateTraining::Do () { return std::make_shared < Training > (); }
 	P_Scene_lib CreateResult::Do () { return std::make_shared < Result_lib > (); }
 
 	//====================================================================
@@ -160,55 +153,46 @@ namespace GAME
 		pScene->ParamInit ();
 	}
 
-
+	//各シーンの生成　（TitleはScene全て）
 	P_Scene_lib SceneManager_lib::MakeTitle()
 	{
 		P_Title_lib p = std::make_shared < Title_lib > ();
+		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
 		p->SetpNext_CharaSele ( std::make_shared < CreateCharaSele > () );
-		//p->SetpNext_FtgMain ( std::make_shared < CreateFtgMain > () );
-		p->SetpNext_FtgMain ( std::make_shared < CreateTitle > () );
+		p->SetpNext_FtgMain ( std::make_shared < CreateFtgMain > () );
 		return p;
 	}
 
 	P_Scene_lib SceneManager_lib::MakeCharaSele()
 	{
 		P_ChSl p = std::make_shared < CharaSele > ();
-		//p->SetpNext_Fighting ( std::make_shared < CreateFtgMain > () );
-		p->SetpNext_Fighting ( std::make_shared < CreateTitle > () );
-		//p->SetpNext_Training ( std::make_shared < CreateTraining > () );
-		p->SetpNext_Training ( std::make_shared < CreateTitle > () );
 		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
+		p->SetpNext_Fighting ( std::make_shared < CreateFtgMain > () );
+		p->SetpNext_Training ( std::make_shared < CreateTraining > () );
 		return p;
 	}
 
 	P_Scene_lib SceneManager_lib::MakeFtgMain()
 	{
-#if 0
-		P_Title_lib p = std::make_shared < FtgMain_lib > ();
+		P_FtgMain p = std::make_shared < FtgMain > ();
+		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
 		p->SetpNext_CharaSele ( std::make_shared < CreateCharaSele > () );
-		p->SetpNext_Fighting ( std::make_shared < CreateCharaSele > () );
+		p->SetpNext_Result ( std::make_shared < CreateResult > () );
 		return p;
-
-#endif // 0
-		return std::make_shared < Title_lib > ();
 	}
 
 	P_Scene_lib SceneManager_lib::MakeTraining()
 	{
-#if 0
-		P_Title_lib p = std::make_shared < Title_lib > ();
-		p->SetpNext_CharaSele ( std::make_shared < CreateCharaSele > () );
-		p->SetpNext_Fighting ( std::make_shared < CreateCharaSele > () );
+		P_Training p = std::make_shared < Training > ();
+		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
 		return p;
-#endif // 0
-		return std::make_shared < Title_lib > ();
 	}
 
 	P_Scene_lib SceneManager_lib::MakeResult()
 	{
 		P_Result_lib p = std::make_shared < Result_lib > ();
-		p->SetpNext_CharaSele ( std::make_shared < CreateCharaSele > () );
 		p->SetpNext_Title ( std::make_shared < CreateTitle > () );
+		p->SetpNext_CharaSele ( std::make_shared < CreateCharaSele > () );
 		return p;
 	}
 

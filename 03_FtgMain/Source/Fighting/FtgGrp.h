@@ -1,0 +1,125 @@
+﻿//=================================================================================================
+//
+//	FtgGrp ヘッダファイル
+//		Fighting 全体共通画面処理
+//
+//=================================================================================================
+#pragma once
+
+//-------------------------------------------------------------------------------------------------
+// ヘッダファイルのインクルード
+//-------------------------------------------------------------------------------------------------
+#include "Game.h"
+#include "../Ef/EfString.h"
+
+
+//-------------------------------------------------------------------------------------------------
+// 宣言
+//-------------------------------------------------------------------------------------------------
+namespace GAME
+{
+	class FtgGrp : public TASK_VEC
+	{
+		//タイマ
+		Timer	m_tmrScpStop;		//一時停止
+		Timer	m_tmrBlackOut;		//暗転
+		Timer	m_tmrWhiteOut;		//白転
+		Timer	m_tmrSlow;			//スロウ
+		Timer	m_tmrVibration;		//振動
+
+		P_PrmRect	m_bg_black;			//暗転用
+		P_PrmRect	m_bg_White;			//白転用
+		bool		m_WhiteOut { F };	//白転
+		P_FadeRect	m_fade_white;		//フェード白
+		P_PrmRect	m_bg_All_Black;		//全部黒
+
+
+		bool	m_wallbreak { F };	//壁割
+		PLAYER_ID	m_WB_Plyaer { _PLAYER_NUM };	//壁を割った側のプレイヤ
+
+		bool	m_overdrive { F };	//超必殺演出
+
+		//test 動画
+		std::unique_ptr < s3d::VideoTexture > mp_vtx;
+
+		//特殊背景
+		P_Grp	m_grpBG_scroll;	//スクロール背景
+		int32_t	m_scl_bg_time { 0 };	//スクロール背景の時間管理
+
+		P_EfString	m_efString;		//エフェクト：必殺技文字
+		P_Grp		m_ef_mandara;	//エフェクト：マンダラ
+		int32_t		m_mnd_bg_time { 0 };	//マンダラ背景の時間管理
+
+	public:
+		FtgGrp ();
+		FtgGrp ( const FtgGrp & rhs ) = delete;
+		~FtgGrp ();
+
+		void Load ();
+		void Init ();
+		void Reset ();
+		void Move ();
+
+//		GET_SET ( bool, GetScpStop, SetScpStop, m_ScpStop )
+//		GET_SET ( bool, GetBlackOut, SetBlackOut, m_BrackOut )
+		GET_SET ( bool, GetWhiteOut, SetWhiteOut, m_WhiteOut )
+//		GET_SET ( bool, GetSlow, SetSlow, m_Slow )
+		GET_SET ( bool, GetOverDrive, SetOverDrive, m_overdrive )
+		GET_SET ( bool, GetWallBreak, SetWallBreak, m_wallbreak )
+		GET_SET ( PLAYER_ID, GetWB_Player, SetWB_Player, m_WB_Plyaer )
+
+		//---------------------------------------
+		void StartScpStop ( UINT i ) { m_tmrScpStop.Start ( i ); }
+		bool IsActive_ScpStop () const { return m_tmrScpStop.IsActive (); }
+		bool IsStart_ScpStop () const { return m_tmrScpStop.IsStart (); }
+		bool IsLast_ScpStop () const { return m_tmrScpStop.IsLast (); }
+		void ClearTmr_ScpStop () { m_tmrScpStop.Clear (); }
+
+		//---------------------------------------
+		void StartBlackOut ( UINT i ) { m_tmrBlackOut.Start ( i ); }
+		bool IsActive_BlackOut () const { return m_tmrBlackOut.IsActive (); }
+
+		//---------------------------------------
+		void StartWhiteOut ( UINT i ) { m_tmrWhiteOut.Start ( i ); }
+		bool IsActive_WhiteOut () const { return m_tmrWhiteOut.IsActive (); }
+
+		//---------------------------------------
+		void StartSlow ( UINT i ) { m_tmrSlow.Start ( i ); }
+		bool IsSlowStart () const { return m_tmrSlow.IsStart (); }
+		bool IsSlowLast () const { return m_tmrSlow.IsLast ();	}
+		void InitSlow () { m_tmrSlow.Clear (); };
+
+		//---------------------------------------
+		void StartVibration ( UINT i ) { m_tmrVibration.Start ( i ); }
+
+
+		//---------------------------------------
+		void StartAllBlack () { m_bg_All_Black->SetValid ( T ); }
+		void EndAllBlack () { m_bg_All_Black->SetValid ( F ); }
+
+		//---------------------------------------
+		void SetScrollBGColor ( _CLR clr ) { m_grpBG_scroll->SetColor ( clr ); }
+		void StartAerial ();
+		bool IsAerial () const { return m_grpBG_scroll->GetValid (); }
+		bool IsAerialFade () const { return (0 < m_scl_bg_time); }
+		void EndAerial ();
+
+		//---------------------------------------
+		void EfString_Start () { m_efString->Start (); }
+
+		//---------------------------------------
+		void EfMandara_On () { m_ef_mandara->SetValid ( T ); }
+		void EfMandara_Off ()
+		{
+			//m_ef_mandara->SetValid ( F );
+			m_mnd_bg_time = 8;
+		}
+
+	};
+
+	using P_FtgGrp = std::shared_ptr < FtgGrp >;
+
+
+}	//namespace GAME
+
+

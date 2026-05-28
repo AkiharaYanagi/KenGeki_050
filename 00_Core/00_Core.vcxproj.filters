@@ -856,22 +856,22 @@
     <ClInclude Include="..\KenGeki_050\Source\90_GameMain\old\Scene.h">
       <Filter>Main</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\00_Core\PauseMenu_Const.h">
+    <ClInclude Include="..\Include\00_Core\Menu\Menu.h">
       <Filter>Common\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\00_Core\TrainingMenu.h">
+    <ClInclude Include="..\Include\00_Core\Menu\PauseMenu.h">
       <Filter>Common\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\00_Core\TrainingMenuItem.h">
+    <ClInclude Include="..\Include\00_Core\Menu\PauseMenu_Const.h">
       <Filter>Common\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\00_Core\YesNo_Menu.h">
+    <ClInclude Include="..\Include\00_Core\Menu\TrainingMenu.h">
       <Filter>Common\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\00_Core\Menu.h">
+    <ClInclude Include="..\Include\00_Core\Menu\TrainingMenuItem.h">
       <Filter>Common\Menu</Filter>
     </ClInclude>
-    <ClInclude Include="..\Include\00_Core\PauseMenu.h">
+    <ClInclude Include="..\Include\00_Core\Menu\YesNo_Menu.h">
       <Filter>Common\Menu</Filter>
     </ClInclude>
   </ItemGroup>

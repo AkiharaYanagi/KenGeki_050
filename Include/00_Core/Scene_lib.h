@@ -113,10 +113,10 @@ namespace GAME
 		//共通としてタイトルのみ遷移を用意
 	private:
 		P_CreateScene	mp_CreateTitle;		//次のシーン
-		
 	public:
 		void SetpNext_Title ( P_CreateScene p ) { mp_CreateTitle = p; }
 		void Transit_Title ();
+		//-------------------------------------------------
 	};
 
 

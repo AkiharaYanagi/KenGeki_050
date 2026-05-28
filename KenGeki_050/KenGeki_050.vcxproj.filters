@@ -136,9 +136,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source\stdafx.cpp">
-      <Filter>99_Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\90_GameMain\Main.cpp">
       <Filter>90_GameMain</Filter>
     </ClCompile>
@@ -771,9 +768,6 @@
     <None Include="App\engine\shader\glsl\quad_warp.frag">
       <Filter>99_Resource Files\engine\shader\glsl</Filter>
     </None>
-    <None Include=".editorconfig">
-      <Filter>99_Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Media Include="App\example\test.mp3">
@@ -815,9 +809,6 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\stdafx.h">
-      <Filter>99_Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="Source\90_GameMain\GameMain.h">
       <Filter>90_GameMain</Filter>
     </ClInclude>
