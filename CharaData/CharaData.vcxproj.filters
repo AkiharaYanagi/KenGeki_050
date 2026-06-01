@@ -757,9 +757,6 @@
     <None Include="App\engine\shader\glsl\quad_warp.frag">
       <Filter>Resource Files\engine\shader\glsl</Filter>
     </None>
-    <None Include=".editorconfig">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Media Include="App\example\test.mp3">
@@ -801,9 +798,6 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>Resource Files</Filter>
-    </ClCompile>
     <ClCompile Include="Source\Chara\Chara.cpp">
       <Filter>Chara</Filter>
     </ClCompile>
@@ -845,9 +839,6 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>Resource Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Include\Chara.h">
       <Filter>Chara</Filter>
     </ClInclude>

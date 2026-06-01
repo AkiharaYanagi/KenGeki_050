@@ -127,6 +127,15 @@ namespace GAME
 
 	Fighting::~Fighting ()
 	{
+		//シングルトンのライブラリは
+		//デストラクタにしないで手動で破棄
+
+		//格闘部分共通パラメータシングルトン破棄
+		//G_Ftg::Destroy ();
+	}
+
+	void Fighting::Rele ()
+	{
 		//格闘部分共通パラメータシングルトン破棄
 		G_Ftg::Destroy ();
 	}
