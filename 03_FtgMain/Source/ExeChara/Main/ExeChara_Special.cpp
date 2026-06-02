@@ -860,37 +860,35 @@ namespace GAME
 				m_btlPrm.SetReviseOverDrive ( 1.0f );
 			}
 
+			bool bni0 = IsNameAction ( U"ヴニベルソ0" );
 			bool bni1 = IsNameAction ( U"ヴニベルソ1" );
 			bool bni2 = IsNameAction ( U"ヴニベルソ2" );
 			bool bni3 = IsNameAction ( U"ヴニベルソ3" );
 			bool bni4 = IsNameAction ( U"ヴニベルソ4" );
-			if ( bni1 || bni2 || bni3 || bni4 )
+			if ( bni0 || bni1 || bni2 || bni3 || bni4 )
 			{
 				//補正解除
 				m_btlPrm.SetReviseOverDrive ( 1.0f );
 			}
 
-			if ( IsNameActionFrame ( U"ヴニベルソ1", 0 ) )
+			if ( IsNameAction ( U"ヴニベルソ0" ) )
 			{
 				//ヒット時のロック
-				TopByZ ();
-				SetPosEachOther ( VEC2 ( 100, 0 ) );	//位置同期
-			}
-			if ( IsNameActionFrame ( U"ヴニベルソ3", 21 ) )
-			{
-				//ヒット時のロック
-				TopByZ ();
-				SetPosEachOther ( VEC2 ( -200, 0 ) );	//位置同期
-			}
-#if 0
-
-			if ( IsNameActionFrame ( U"ヴニベルソ4", 40 ) )
-			{
-				//フィニッシュ
-				m_pOther.lock()->SetAction ( U"垂直吹き飛びダウン" );
+				if ( m_pScript->Index.Is ( 1 ) )
+				{
+					SetPosEachOther ( VEC2 ( 300, 0 ) );	//位置同期
+				}
 			}
 
-#endif // 0
+			if ( IsNameAction ( U"ヴニベルソ3" ) )
+			{
+				UINT32 i = m_pScript->Index.Get ();
+
+				if ( 27 < i && i < 37 ) 
+				{
+					SetPosEachOther ( VEC2 ( 150.f - (i-27) * 50, 0 ) );	//位置同期
+				}
+			}
 		}
 
 
