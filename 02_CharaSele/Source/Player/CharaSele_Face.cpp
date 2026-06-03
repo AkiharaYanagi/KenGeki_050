@@ -47,19 +47,20 @@ namespace GAME
 
 
 		//表示用キャラ名定数(prevが上、nextが下)
-		const PN_CHARA pn_chara_OUKA		{ CHARA_TSUKIHIBOSHI,		CHARA_SAE,			};
-		const PN_CHARA pn_chara_SAE			{ CHARA_OUKA,		CHARA_RETSUDOU,		};
-		const PN_CHARA pn_chara_RETSUDOU	{ CHARA_SAE,		CHARA_GYAVADARUGA,	};
-		const PN_CHARA pn_chara_GYAVADARUGA	{ CHARA_RETSUDOU,	CHARA_FERARIA,		};
-		const PN_CHARA pn_chara_FERARIA		{ CHARA_GYAVADARUGA,CHARA_TSUKIHIBOSHI,	};
-		const PN_CHARA pn_chara_TSUKIHIBOSHI{ CHARA_FERARIA,	CHARA_OUKA,		};
-
+		const PN_CHARA pn_chara_OUKA		{ CHARA_REINA,			CHARA_SAE,			};
+		const PN_CHARA pn_chara_SAE			{ CHARA_OUKA,			CHARA_RETSUDOU,		};
+		const PN_CHARA pn_chara_RETSUDOU	{ CHARA_SAE,			CHARA_GYAVADARUGA,	};
+		const PN_CHARA pn_chara_GYAVADARUGA	{ CHARA_RETSUDOU,		CHARA_FERARIA,		};
+		const PN_CHARA pn_chara_FERARIA		{ CHARA_GYAVADARUGA,	CHARA_TSUKIHIBOSHI,	};
+		const PN_CHARA pn_chara_TSUKIHIBOSHI{ CHARA_FERARIA,		CHARA_REINA,		};
+		const PN_CHARA pn_chara_REINA		{ CHARA_TSUKIHIBOSHI,	CHARA_OUKA, };
 		m_map_pn_chara [ CHARA_OUKA ]			= pn_chara_OUKA;
 		m_map_pn_chara [ CHARA_SAE ]			= pn_chara_SAE;
 		m_map_pn_chara [ CHARA_RETSUDOU ]		= pn_chara_RETSUDOU;
 		m_map_pn_chara [ CHARA_GYAVADARUGA ]	= pn_chara_GYAVADARUGA;
 		m_map_pn_chara [ CHARA_FERARIA ]		= pn_chara_FERARIA;
 		m_map_pn_chara [ CHARA_TSUKIHIBOSHI ]	= pn_chara_TSUKIHIBOSHI;
+		m_map_pn_chara [ CHARA_REINA ]			= pn_chara_REINA;
 	}
 
 	CharaSele_Face::~CharaSele_Face ()
@@ -171,6 +172,10 @@ namespace GAME
 	{
 		m_turn = T;
 
+		m_pos_turn = m_map_pn_chara [ m_pos_turn ].next;
+
+#if 0
+
 		switch ( m_pos_turn )
 		{
 		case CHARA_OUKA: m_pos_turn = CHARA_SAE; break;
@@ -181,32 +186,15 @@ namespace GAME
 		case CHARA_TSUKIHIBOSHI: m_pos_turn = CHARA_OUKA; break;
 		}
 
-
-#if 0
-//		int CHARA_NUM = N;
-//		int CHARA_NUM = 6;
-		int CN = 5;
-
-		if ( CN <= m_pos_turn + 1 )
-		{
-			m_pos_turn = 0;
-		}
-		else
-		{
-			++ m_pos_turn;
-		}
-
-		if ( PLAYER_ID_1 == m_id )
-		{
-			DBGOUT_WND_F ( DBGOUT_4, U"m_pos_turn = {}"_fmt( m_pos_turn ) );
-		}
-
 #endif // 0
 	}
 
 	void CharaSele_Face::Prev ()
 	{
 		m_turn = T;
+		m_pos_turn = m_map_pn_chara [ m_pos_turn ].prev;
+
+#if 0
 
 		switch ( m_pos_turn )
 		{
@@ -218,38 +206,8 @@ namespace GAME
 		case CHARA_TSUKIHIBOSHI: m_pos_turn = CHARA_FERARIA; break;
 		}
 
-#if 0
-
-//		int CHARA_NUM = N;
-//		int CHARA_NUM = 6;
-		int CN = 5;
-
-		if ( m_pos_turn - 1 < 0 )
-		{
-			m_pos_turn = CN - 1;
-		}
-		else
-		{
-			-- m_pos_turn;
-		}
-
-		if ( PLAYER_ID_1 == m_id )
-		{
-			DBGOUT_WND_F ( DBGOUT_4, U"m_pos_turn = {}"_fmt( m_pos_turn ) );
-		}
-
 #endif // 0
 	}
-
-#if 0
-
-	void CharaSele_Face::SetPos ( int pos_turn )
-	{
-		m_pos_turn = pos_turn;
-		ResetPos ();
-	}
-
-#endif // 0
 
 	void CharaSele_Face::Assign ( CHARA_NAME name )
 	{

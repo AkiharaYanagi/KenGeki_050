@@ -15,7 +15,7 @@
 namespace GAME
 {
 
-	const int CharaSele_Stand::CH_NUM = 6;	//表示キャラ数
+	const int CharaSele_Stand::CH_NUM = 7;	//表示キャラ数
 
 	const std::array < CHARA_NAME, CHARA_NAME_COUNT > CharaSele_Stand::chara_name =
 	{
