@@ -219,6 +219,14 @@ namespace GAME
 
 		}
 
+		bool bSouha_d = IsNameAction ( U"剣撃走破_地上_ダッシュ" );
+		bool bSouha_air_d = IsNameAction ( U"剣剣撃走破_空中_ダッシュ" );
+		if ( bSouha_d || bSouha_air_d )
+		{
+			//ダッシュ中はゲージ消費
+			m_btlPrm.AddBalance ( -20 );
+		}
+
 		//-----------------------------------------------------
 		//超必殺全般
 		if ( IsOverdrive () )
@@ -575,6 +583,8 @@ namespace GAME
 			//----------------------------------------------------------
 			if ( IsNameAction ( U"超必殺技AA1" ) )	//成立時
 			{
+				//補正解除
+				m_btlPrm.SetReviseOverDrive ( 1.0f );
 				//状態指定
 				if ( m_pScript->Index.Is ( 0 ) )
 				{
@@ -598,6 +608,8 @@ namespace GAME
 			}
 			if ( IsNameAction ( U"超必殺技AA2" ) )
 			{
+				//補正解除
+				m_btlPrm.SetReviseOverDrive ( 1.0f );
 				//状態指定
 				if ( m_pScript->Index.Is ( 15 ) )
 				{
@@ -607,6 +619,8 @@ namespace GAME
 			}
 			if ( IsNameAction ( U"超必殺技AA3" ) )
 			{
+				//補正解除
+				m_btlPrm.SetReviseOverDrive ( 1.0f );
 				//状態指定
 				if ( m_pScript->Index.Is ( 15 ) )
 				{

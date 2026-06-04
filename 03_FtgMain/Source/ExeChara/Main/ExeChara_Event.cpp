@@ -74,15 +74,25 @@ namespace GAME
 		OnOffset_Common ();
 	}
 
-	//相殺発生	//自分：Offset, 相手：Attack
+	//相殺発生
 	void ExeChara::OnOffset_Common ()
 	{
 		//全体振動
 		m_pFtgGrp->StartVibration ( 10 );
 
+
+		//剣撃走破時はバランス増加無し
+		bool bSouha_g = IsNameAction ( U"剣撃走破_地上_発生" );
+		bool bSouha_air = IsNameAction ( U"剣撃走破_空中_発生" );
+		bool bSouha_d = IsNameAction ( U"剣撃走破_地上_ダッシュ" );
+		bool bSouha_air_d = IsNameAction ( U"剣剣撃走破_空中_ダッシュ" );
+
+		bool bSouha = bSouha_g || bSouha_air || bSouha_d || bSouha_air_d;
+		int addBalance = bSouha ? 0: 5000;
+
 		//ゲージ増加
 		m_btlPrm.AddAccel ( 100 );
-		m_btlPrm.AddBalance ( 500 );
+		m_btlPrm.AddBalance ( addBalance );
 		m_btlPrm.AddMana ( 500 );
 
 

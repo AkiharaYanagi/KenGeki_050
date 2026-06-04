@@ -114,7 +114,6 @@ namespace GAME
 //		startMode = START_RESULT;
 #endif // 0
 
-#if 0
 
 		//デバッグ表示オン/オフ 初期状態
 		//ExeChara 1p/2p のとき、1pの値を2pで上書きに注意
@@ -133,6 +132,7 @@ namespace GAME
 			Print;
 		}
 
+#if 0
 #endif // 0
 
 
