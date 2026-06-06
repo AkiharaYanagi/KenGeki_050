@@ -278,6 +278,18 @@ namespace GAME
 					m_pFtgGrp->SetOverDrive ( T );
 				}
 			}
+
+			if ( IsNameAction ( U"超雷電蹴_持続" ) )
+			{
+				//補正解除
+				m_btlPrm.SetReviseOverDrive ( 1.0f );
+			}
+
+			if ( IsNameAction ( U"雷嵐ヒット" ) )
+			{
+				//補正解除
+				m_btlPrm.SetReviseOverDrive ( 1.0f );
+			}
 		}
 
 		//-----------------------------------------------------
@@ -848,6 +860,11 @@ namespace GAME
 			{
 				TopByZ ();
 				SetPosEachOther ( VEC2 ( 100, 0 ) );	//位置同期
+			}
+
+			if ( IsNameActionFrame ( U"ヴェンガンサ1", 0 ) )
+			{
+				SetPosEachOther ( VEC2 ( 200, -200 ) );	//位置同期
 			}
 
 			if ( IsNameAction ( U"ヴォルデーリャ成立1" ) )

@@ -165,6 +165,7 @@ namespace GAME
 
 #endif // 0
 
+
 			{
 
 			//コンボ用は２ヒット目でも初撃は剣撃対抗不可+タイマスタート
@@ -230,6 +231,12 @@ namespace GAME
 			{
 			}
 
+		break;
+
+		case CHARA_REINA:
+			if ( IsNameAction ( U"ヴァンガーテEX") ) { return T; }
+			if ( IsNameAction ( U"ヴァンガーテEX1") ) { return T; }
+			if ( IsNameAction ( U"ヴァンガーテEX2") ) { return T; }
 		break;
 
 		default: return F;

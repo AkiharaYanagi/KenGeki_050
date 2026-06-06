@@ -266,7 +266,22 @@ namespace GAME
 
 		//------------------------------------------------------
 		//メインキャラ同士の本体相殺チェック
+		bool NotOffset1p = m_pExeChara1p->IsNotOffset ();
+		bool NotOffset2p = m_pExeChara2p->IsNotOffset ();
 
+		bool offset_aa = F;		//攻撃・攻撃
+		bool offset_ao = F;		//攻撃・相殺判定
+		bool offset_oa = F;		//相殺・攻撃判定
+
+		//どちらも相殺無効でないとき
+		if ( (! NotOffset1p) && (! NotOffset2p ) )
+		{
+			offset_aa = OverlapAryRect_Center (pvARect1, pvARect2, center);
+			offset_ao = OverlapAryRect_Center (pvARect1, pvORect2, center);
+			offset_oa = OverlapAryRect_Center (pvORect1, pvARect2, center);
+		}
+
+#if 0
 		//攻撃・攻撃
 		bool offset_aa = OverlapAryRect_Center (pvARect1, pvARect2, center);
 
@@ -284,11 +299,7 @@ namespace GAME
 			offset_oa = OverlapAryRect_Center (pvORect1, pvARect2, center);
 		}
 
-
-//		m_bOffsetChara = DcsOffset ( pCharaRect1p, pCharaRect2p, center );
-//		m_bOffsetChara = offset_aa || offset_ao || offset_oa;
-
-		//bool bOffset = offset_aa || offset_ao || offset_oa;
+#endif // 0
 
 		bool bOffset = offset_aa || offset_ao || offset_oa;
 

@@ -56,7 +56,10 @@ namespace GAME
 		else if ( pEffect->Name.Is ( U"RosePetal" ) ) { pExeEffect->SetShader ( F ); }
 		else if ( pEffect->Name.Is ( U"Wind" ) ) { pExeEffect->SetShader ( F ); }
 		else if ( pEffect->Name.Is ( U"Light" ) ) { pExeEffect->SetShader ( F ); }
-		else if ( pEffect->Name.Is ( U"2H" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"2LEf" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"2MEfa" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"2MEfb" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"2HEf" ) ) { pExeEffect->SetShader ( F ); }
 
 
 		//全部オフ

@@ -88,7 +88,7 @@ namespace GAME
 		bool bSouha_air_d = IsNameAction ( U"剣剣撃走破_空中_ダッシュ" );
 
 		bool bSouha = bSouha_g || bSouha_air || bSouha_d || bSouha_air_d;
-		int addBalance = bSouha ? 0: 5000;
+		int addBalance = bSouha ? 0: 500;
 
 		//ゲージ増加
 		m_btlPrm.AddAccel ( 100 );

@@ -114,6 +114,7 @@ namespace GAME
 		m_ch_msg.emplace ( CHARA_GYAVADARUGA,	U"ギャバダルガ：\n牙が無ぇ奴に生きる資格はねぇ!!!!\n血の滾り！マグマより熱く!!");
 		m_ch_msg.emplace ( CHARA_FERARIA,		U"フェラリア：\nキミはフェラリアに勝てない　フェラリアは負けない\nあはは♪ざぁ～こざぁ～こ！　\n");
 		m_ch_msg.emplace ( CHARA_TSUKIHIBOSHI,	U"月日星：\n次の対象に移動する\n");
+		m_ch_msg.emplace ( CHARA_REINA,			U"レイナ：\n服がきつくなってきたな…また大きくなったか\nおい！仕立て屋を呼べ\n");
 
 
 		//終了タイマ

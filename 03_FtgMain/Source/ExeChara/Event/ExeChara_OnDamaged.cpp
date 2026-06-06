@@ -738,9 +738,11 @@ namespace GAME
 		//-------------------------------------------------
 		//特殊補正（今回の仮定ダメージが超えたとき）
 		//49.9% -> 45%補正
+		//ver7.0:  50%補正
 		int32 chainDamage = btlPrmOhter.GetChainDamage ();
 		float d_45 = 1.f;
-		if ( damage + chainDamage > 4500 )
+//		if ( damage + chainDamage > 4500 )
+		if ( damage + chainDamage > 5000 )
 		{
 			//相手のヒット数で補正増加
 			UINT hitnum = m_pOther.lock()->GetBtlPrm().GetChainHitNum ();
