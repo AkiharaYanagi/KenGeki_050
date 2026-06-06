@@ -233,6 +233,10 @@ namespace GAME
 
 		break;
 
+#if 0
+
+#endif // 0
+
 		case CHARA_REINA:
 			if ( IsNameAction ( U"ヴァンガーテEX") ) { return T; }
 			if ( IsNameAction ( U"ヴァンガーテEX1") ) { return T; }

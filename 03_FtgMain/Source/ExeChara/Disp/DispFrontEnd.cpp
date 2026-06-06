@@ -462,6 +462,7 @@ namespace GAME
 			}
 		}
 
+#if 0
 
 		//追加途中
 		if ( name == CHARA_NAME::CHARA_REINA )
@@ -469,6 +470,8 @@ namespace GAME
 			m_face->SetValid ( F );
 			m_name->SetValid ( F );
 		}
+
+#endif // 0
 
 
 

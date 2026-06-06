@@ -859,7 +859,7 @@ namespace GAME
 			if ( IsNameActionFrame ( U"投げ成立0", 0 ) )
 			{
 				TopByZ ();
-				SetPosEachOther ( VEC2 ( 100, 0 ) );	//位置同期
+				SetPosEachOther ( VEC2 ( 200, 0 ) );	//位置同期
 			}
 
 			if ( IsNameActionFrame ( U"ヴェンガンサ1", 0 ) )
