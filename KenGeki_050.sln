@@ -49,6 +49,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "04_Training", "04_Training\
 		{D6BBE622-4687-46AE-A210-711D52266B4F} = {D6BBE622-4687-46AE-A210-711D52266B4F}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "10_CharaData", "10_CharaData\10_CharaData.vcxproj", "{1F76CF90-32CC-4502-8E95-491F7F10EAAF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -85,6 +87,10 @@ Global
 		{967C4525-0A37-44A9-BA8F-CCBE7E30279F}.Debug|x64.Build.0 = Debug|x64
 		{967C4525-0A37-44A9-BA8F-CCBE7E30279F}.Release|x64.ActiveCfg = Release|x64
 		{967C4525-0A37-44A9-BA8F-CCBE7E30279F}.Release|x64.Build.0 = Release|x64
+		{1F76CF90-32CC-4502-8E95-491F7F10EAAF}.Debug|x64.ActiveCfg = Debug|x64
+		{1F76CF90-32CC-4502-8E95-491F7F10EAAF}.Debug|x64.Build.0 = Debug|x64
+		{1F76CF90-32CC-4502-8E95-491F7F10EAAF}.Release|x64.ActiveCfg = Release|x64
+		{1F76CF90-32CC-4502-8E95-491F7F10EAAF}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

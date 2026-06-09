@@ -78,7 +78,7 @@ namespace GAME
 
 
 //デバッグ表示切替
-#define G_DEBUG_FLAG	0
+#define G_DEBUG_FLAG	1
 
 
 
@@ -143,8 +143,8 @@ namespace GAME
 	//====================================================
 	//開始時　一時停止スタート　切替
 
-//	const bool g_bWAIT_START = T;
-	const bool g_bWAIT_START = F;
+	const bool g_bWAIT_START = T;
+//	const bool g_bWAIT_START = F;
 	//====================================================
 
 
