@@ -26,15 +26,21 @@ namespace GAME
 	// "SoundConst.h"
 	//using BGM_NAME = const char32_t *; 
 
-	BGM_NAME	 BGM_ID_TO_NAME [] =
+	//BGM_NAME	 BGM_ID_TO_NAME [] =
+	const std::array < BGM_NAME, BGM_Count::value > BGM_ID_TO_NAME = 
 	{
 		BGM_NONE,
-		BGM_GABA,
-		BGM_OUKA,
 		BGM_SAE,
+		BGM_OUKA,
 		BGM_RETSU,
+		BGM_GYAVA,
 		BGM_FERA,
 		BGM_TSUKI,
+		BGM_REINA,
+		BGM_HERO,
+		BGM_DOXT,
+		BGM_ENEMY0,
 	};
+
 }
 

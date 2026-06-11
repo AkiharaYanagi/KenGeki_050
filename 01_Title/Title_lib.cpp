@@ -232,13 +232,13 @@ namespace GAME
 			P_Param pPrm = GetpParam();
 			switch ( rnd )
 			{
-			case 0: pPrm->Set_BGM_ID ( BGM_ID_SAE  ); break;
-			case 1: pPrm->Set_BGM_ID ( BGM_ID_RETSU); break;
-			case 2: pPrm->Set_BGM_ID ( BGM_ID_OUKA ); break;
-			case 3: pPrm->Set_BGM_ID ( BGM_ID_GABA ); break;
-			case 4: pPrm->Set_BGM_ID ( BGM_ID_FERA ); break;
-			case 5: pPrm->Set_BGM_ID ( BGM_ID_TSUKI); break;
-			case 6: pPrm->Set_BGM_ID ( BGM_ID_GABA ); break;
+			case 0: pPrm->Set_BGM_ID ( BGM_ID::SAE  ); break;
+			case 1: pPrm->Set_BGM_ID ( BGM_ID::RETSU); break;
+			case 2: pPrm->Set_BGM_ID ( BGM_ID::OUKA ); break;
+			case 3: pPrm->Set_BGM_ID ( BGM_ID::GYAVA ); break;
+			case 4: pPrm->Set_BGM_ID ( BGM_ID::FERA ); break;
+			case 5: pPrm->Set_BGM_ID ( BGM_ID::TSUKI); break;
+			case 6: pPrm->Set_BGM_ID ( BGM_ID::GYAVA ); break;
 			}
 			SaveParam ();
 

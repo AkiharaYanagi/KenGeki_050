@@ -14,6 +14,7 @@
 #include "00_Core/Chara_TxSet.h"
 #include "00_Core/SelectArrow.h"
 #include "00_Core/BattleTime.h"
+#include "00_Core/BGM_Name.h"
 #include "00_Core/Scene_lib.h"
 #include "00_Core/DebugDisp.h"
 

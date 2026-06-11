@@ -134,7 +134,7 @@ namespace GAME
 		m_name2p = CHARA_OUKA;
 		m_color1p = CH_CLR_1;
 		m_color2p = CH_CLR_2;
-		m_bgm_id = BGM_ID_GABA;
+		m_bgm_id = BGM_ID::GYAVA;
 		m_stage_name = STAGE_YUUHINO_HARA;
 	}
 
@@ -217,13 +217,14 @@ namespace GAME
 	{
 		switch ( m_bgm_id  )
 		{
-		case BGM_ID_NONE:	m_bgm_id = BGM_ID_GABA; break;
-		case BGM_ID_GABA:	m_bgm_id = BGM_ID_OUKA; break;
-		case BGM_ID_OUKA:	m_bgm_id = BGM_ID_SAE ; break;
-		case BGM_ID_SAE :	m_bgm_id = BGM_ID_RETSU; break;
-		case BGM_ID_RETSU:	m_bgm_id = BGM_ID_FERA; break;
-		case BGM_ID_FERA:	m_bgm_id = BGM_ID_TSUKI; break;
-		case BGM_ID_TSUKI:	m_bgm_id = BGM_ID_NONE; break;
+		case BGM_ID::NONE:	m_bgm_id = BGM_ID::SAE; break;
+		case BGM_ID::SAE :	m_bgm_id = BGM_ID::OUKA; break;
+		case BGM_ID::OUKA:	m_bgm_id = BGM_ID::RETSU ; break;
+		case BGM_ID::RETSU:	m_bgm_id = BGM_ID::GYAVA; break;
+		case BGM_ID::GYAVA:	m_bgm_id = BGM_ID::FERA; break;
+		case BGM_ID::FERA:	m_bgm_id = BGM_ID::TSUKI; break;
+		case BGM_ID::TSUKI:	m_bgm_id = BGM_ID::REINA; break;
+		case BGM_ID::REINA:	m_bgm_id = BGM_ID::NONE; break;
 		}
 	}
 
@@ -231,13 +232,14 @@ namespace GAME
 	{
 		switch ( m_bgm_id  )
 		{
-		case BGM_ID_NONE:	m_bgm_id = BGM_ID_TSUKI; break;
-		case BGM_ID_GABA:	m_bgm_id = BGM_ID_NONE; break;
-		case BGM_ID_OUKA:	m_bgm_id = BGM_ID_GABA; break;
-		case BGM_ID_SAE:	m_bgm_id = BGM_ID_OUKA; break;
-		case BGM_ID_RETSU:	m_bgm_id = BGM_ID_SAE; break;
-		case BGM_ID_FERA:	m_bgm_id = BGM_ID_RETSU; break;
-		case BGM_ID_TSUKI:	m_bgm_id = BGM_ID_FERA; break;
+		case BGM_ID::NONE:	m_bgm_id = BGM_ID::REINA; break;
+		case BGM_ID::SAE:	m_bgm_id = BGM_ID::NONE; break;
+		case BGM_ID::OUKA:	m_bgm_id = BGM_ID::SAE; break;
+		case BGM_ID::RETSU:	m_bgm_id = BGM_ID::OUKA; break;
+		case BGM_ID::GYAVA:	m_bgm_id = BGM_ID::RETSU; break;
+		case BGM_ID::FERA:	m_bgm_id = BGM_ID::GYAVA; break;
+		case BGM_ID::TSUKI:	m_bgm_id = BGM_ID::FERA; break;
+		case BGM_ID::REINA:	m_bgm_id = BGM_ID::TSUKI; break;
 		}
 	}
 

@@ -13,6 +13,7 @@
 #include "00_Core/Scene_lib.h"
 #include "00_Core/Param.h"
 #include "00_Core/BattleTime.h"
+#include "00_Core/BGM_Name.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -72,8 +73,11 @@ namespace GAME
 		//タイマ
 		P_BattleTime		m_battleTime;
 
-		//BGM
+		//BGM名表示
+#if 0
 		P_Grp	m_bgmName;
+#endif // 0
+		P_BGM_Name		m_bgmName;
 
 		//保存用共通パラメータ
 		P_Param			m_pParam;

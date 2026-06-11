@@ -143,8 +143,8 @@ namespace GAME
 	//====================================================
 	//開始時　一時停止スタート　切替
 
-	const bool g_bWAIT_START = T;
-//	const bool g_bWAIT_START = F;
+//	const bool g_bWAIT_START = T;
+	const bool g_bWAIT_START = F;
 	//====================================================
 
 

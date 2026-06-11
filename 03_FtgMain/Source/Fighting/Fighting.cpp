@@ -24,7 +24,7 @@
 namespace GAME
 {
 	const float Fighting::BGM_X = 640 - (303 / 2);
-	const float Fighting::BGM_Y = 935;
+	const float Fighting::BGM_Y = 920;
 
 
 	Fighting::Fighting ()
@@ -90,18 +90,23 @@ namespace GAME
 
 		//------------------------------------------------
 		//BGM名
+#if 0
 		m_bgmName = std::make_shared < GameGraphic > ();
-		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_NoBGM.png" );
-		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_GYAVA.png" );
-		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Ouka.png" );
-		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Sae.png" );
-		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Retsudou.png" );
-		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_FERARIA.png" );
-		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_TSUKI.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_main_NoBGM.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_main_GYAVA.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_main_Ouka.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_main_Sae.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_main_Retsudou.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_main_FERARIA.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_main_TSUKI.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_main_REINA.png" );
 		m_bgmName->SetPos ( VEC2 ( BGM_X, BGM_Y ) );
 		m_bgmName->SetZ ( Z_BG - 0.01f );
 		AddpTask ( m_bgmName );
 		GRPLST_INSERT ( m_bgmName );
+#endif // 0
+		m_bgmName = std::make_shared < BGM_Name > ();
+		m_bgmName->SetPos ( VEC2 ( BGM_X, BGM_Y ) );
 
 #if 0
 		m_bgmName->SetValid ( F );		//初期値は非表示
@@ -167,7 +172,8 @@ namespace GAME
 		m_exeChara1->SetpFtgGrp ( m_pFtgGrp );
 		m_exeChara2->SetpFtgGrp ( m_pFtgGrp );
 
-		m_bgmName->SetIndexTexture ( m_pParam->GetGameSetting().GetBGM_ID () );
+		//m_bgmName->SetIndexTexture ( m_pParam->GetGameSetting().GetBGM_ID () );
+		m_bgmName->SetBGM ( m_pParam->GetGameSetting().GetBGM_ID () );
 
 		//デバッグ表示
 		m_mutualChara->SetpChara ( m_exeChara1, m_exeChara2 );
@@ -232,9 +238,10 @@ namespace GAME
 
 		//BGMなし以外は再生開始
 		BGM_ID bgm_id = m_pParam->Get_BGM_ID ();
-		if ( BGM_ID_NONE != bgm_id )
+		if ( BGM_ID::NONE != bgm_id )
 		{
-			AUD_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+			BGM_NAME bgm_name = BGM_ID_TO_NAME [ static_cast < size_t > ( bgm_id ) ];
+			AUD_PLAY_LOOP_BGM ( bgm_name );
 		}
 	}
 

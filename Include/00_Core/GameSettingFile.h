@@ -33,7 +33,7 @@ namespace GAME
 		CHARA_COLOR		m_color1p { CH_CLR_1 };
 		CHARA_COLOR		m_color2p { CH_CLR_2 };
 
-		BGM_ID			m_bgm_id { BGM_ID_GABA };			//BGM_ID
+		BGM_ID			m_bgm_id { BGM_ID::NONE };			//BGM_ID
 		STAGE_NAME		m_stage_name { STAGE_YUUHINO_HARA };	//STAGE_NAME
 
 

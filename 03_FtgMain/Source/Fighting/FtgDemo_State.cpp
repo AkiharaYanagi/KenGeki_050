@@ -120,7 +120,7 @@ namespace GAME
 		BGM_ID bgm_id = pParam->GetGameSetting().GetBGM_ID ();
 
 		//保存IDとゲーム管理IDは異なるので名前で検索
-		BGM_NAME bgm_name = BGM_ID_TO_NAME [ bgm_id ];
+		BGM_NAME bgm_name = BGM_ID_TO_NAME [ static_cast < size_t > ( bgm_id ) ];
 
 		//すでに再生中でなければ再生
 		if ( ! AUDIO()->IsPlayBGM( bgm_name ) )

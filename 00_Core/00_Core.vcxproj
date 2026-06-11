@@ -410,6 +410,7 @@
   <ItemGroup>
     <ClInclude Include="..\Include\00_Core\00_Core.h" />
     <ClInclude Include="..\Include\00_Core\BattleTime.h" />
+    <ClInclude Include="..\Include\00_Core\BGM_Name.h" />
     <ClInclude Include="..\Include\00_Core\Chara_TxSet.h" />
     <ClInclude Include="..\Include\00_Core\DebugDisp.h" />
     <ClInclude Include="..\Include\00_Core\FtgConst.h" />
@@ -434,6 +435,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Common\BattleTime.cpp" />
+    <ClCompile Include="Source\Common\BGM_Name.cpp" />
     <ClCompile Include="Source\Common\Chara_TxSet.cpp" />
     <ClCompile Include="Source\Common\Menu\Menu.cpp" />
     <ClCompile Include="Source\Common\Menu\PauseMenu.cpp" />

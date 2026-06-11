@@ -874,6 +874,9 @@
     <ClInclude Include="..\Include\00_Core\Menu\YesNo_Menu.h">
       <Filter>Common\Menu</Filter>
     </ClInclude>
+    <ClInclude Include="..\Include\00_Core\BGM_Name.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\Const\SoundConst.cpp">
@@ -923,6 +926,9 @@
     </ClCompile>
     <ClCompile Include="Source\Common\Menu\YesNo_Menu.cpp">
       <Filter>Common\Menu</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Common\BGM_Name.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

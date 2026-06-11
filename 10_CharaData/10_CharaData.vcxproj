@@ -406,6 +406,9 @@
   <ItemGroup>
     <ClInclude Include="..\Include\10_CharaData\10_CharaData.h" />
     <ClInclude Include="..\Include\10_CharaData\Chara.h" />
+    <ClInclude Include="..\Include\10_CharaData\Frame.h" />
+    <ClInclude Include="..\Include\10_CharaData\Frame_Param_Battle.h" />
+    <ClInclude Include="..\Include\10_CharaData\Frame_Param_Staging.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

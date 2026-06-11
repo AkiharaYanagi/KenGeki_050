@@ -1,27 +1,39 @@
 ﻿//=================================================================================================
 //
-//	Chara
+//	SoundGenerate
 //
 //=================================================================================================
 #pragma once
 
-
 //-------------------------------------------------------------------------------------------------
-//	ヘッダファイルのインクルード
+// ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-//ライブラリ利用
-#include "Define_Siv3D.h"
-
+#include "Generator.h"
 
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
 //-------------------------------------------------------------------------------------------------
-namespace CHARA
+namespace GAME
 {
-	class Chara
-	{
 
+	class SoundGenerate : public Generator
+	{
+	public:
+		SoundGenerate ();
+		SoundGenerate ( const SoundGenerate & rhs )	//コピー可能
+		{
+			(void)rhs;
+		}
+		~SoundGenerate ();
+
+		void Load ();
 	};
-}
+
+	using P_SndGnrt = std::shared_ptr < SoundGenerate >;
+	using AP_SndGnrt = s3d::Array < P_SndGnrt >;
+	using PAP_SndGnrt = std::shared_ptr < AP_SndGnrt >;
+
+
+}	//namespace GAME
 

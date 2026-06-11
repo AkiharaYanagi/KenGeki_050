@@ -97,7 +97,8 @@ namespace GAME
 		m_battleTime->ValidBG ( F );
 
 
-		//BGM
+		//BGM名表示
+#if 0
 		m_bgmName = MakepGrp ( U"Battle\\BGM_NAME_main_NoBGM.png", Z_EFF );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_GYAVA.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_Ouka.png" );
@@ -106,6 +107,9 @@ namespace GAME
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_FERARIA.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM_NAME_main_TSUKI.png" );
 		m_bgmName->SetPos ( 640 - 303.f/2, 2 );
+#endif // 0
+		m_bgmName = std::make_shared < BGM_Name > ();
+		m_bgmName->SetPos ( VEC2 ( 640 - 303.f/2, 2 ) );
 
 
 		//保存用共通パラメータ
@@ -183,7 +187,8 @@ namespace GAME
 		}
 
 		BGM_ID bgm_id = p->GetGameSetting().GetBGM_ID ();
-		m_bgmName->SetIndexTexture ( bgm_id );
+		//m_bgmName->SetIndexTexture ( bgm_id );
+		m_bgmName->SetBGM ( bgm_id );
 	}
 
 	void CharaSele::SwitchMode()
@@ -300,28 +305,32 @@ namespace GAME
 		{
 			GameSettingFile& stg = m_pParam->GetGameSetting();
 			stg.NextBGM ();
-			m_bgmName->SetIndexTexture ( stg.GetBGM_ID () );
+			//m_bgmName->SetIndexTexture ( stg.GetBGM_ID () );
+			m_bgmName->SetBGM ( stg.GetBGM_ID () );
 
 			//BGMなし以外は再生開始
 			AUD_STOP_ALL_BGM ();
 			BGM_ID bgm_id = m_pParam->Get_BGM_ID ();
-			if ( BGM_ID_NONE != bgm_id )
+			if ( BGM_ID::NONE != bgm_id )
 			{
-				AUD_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+				BGM_NAME bgm_name = BGM_ID_TO_NAME [ static_cast < size_t > ( bgm_id ) ];
+				AUD_PLAY_LOOP_BGM ( bgm_name );
 			}
 		}
 		if ( CFG_PUSH_KEY_12 ( PLY_BTN3 ) )
 		{
 			GameSettingFile& stg = m_pParam->GetGameSetting();
 			stg.PrevBGM ();
-			m_bgmName->SetIndexTexture ( stg.GetBGM_ID () );
+			//m_bgmName->SetIndexTexture ( stg.GetBGM_ID () );
+			m_bgmName->SetBGM ( stg.GetBGM_ID () );
 
 			//BGMなし以外は再生開始
 			AUD_STOP_ALL_BGM ();
 			BGM_ID bgm_id = m_pParam->Get_BGM_ID ();
-			if ( BGM_ID_NONE != bgm_id )
+			if ( BGM_ID::NONE != bgm_id )
 			{
-				AUD_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+				BGM_NAME bgm_name = BGM_ID_TO_NAME [ static_cast < size_t > ( bgm_id ) ];
+				AUD_PLAY_LOOP_BGM ( bgm_name );
 			}
 		}
 
