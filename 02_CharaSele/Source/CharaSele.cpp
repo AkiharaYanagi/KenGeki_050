@@ -279,6 +279,8 @@ namespace GAME
 		AUD_STOP_ALL_BGM();
 		AUD_PLAY_LOOP_BGM ( BGM_CharaSele );	//初期BGMはキャラセレBGM
 
+		m_bgmName->Load ();	//手動
+
 		Scene_lib::Load ();
 	}
 

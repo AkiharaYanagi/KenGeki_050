@@ -174,12 +174,14 @@ namespace GAME
 
 		//m_bgmName->SetIndexTexture ( m_pParam->GetGameSetting().GetBGM_ID () );
 		m_bgmName->SetBGM ( m_pParam->GetGameSetting().GetBGM_ID () );
+		m_bgmName->Load ();	//手動
 
 		//デバッグ表示
 		m_mutualChara->SetpChara ( m_exeChara1, m_exeChara2 );
 		m_mutualChara->SetpStrState ( m_strState );
 		m_strState->SetSize ( G_Font::SIZE_40 );
 		m_strState->SetPos ( VEC2 ( 640 - 110, 145 ) );
+
 
 		TASK_LST::Load ();
 	}
