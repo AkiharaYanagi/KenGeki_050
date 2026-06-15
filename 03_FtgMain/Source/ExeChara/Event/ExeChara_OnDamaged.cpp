@@ -325,13 +325,17 @@ namespace GAME
 		//ガード時
 		if ( bGuard )
 		{
-			//個別
-			bool bRai0 = pOther->IsNameAction ( U"雷電蹴_1" );
-			bool bKuuRai0 = pOther->IsNameAction ( U"空中雷電蹴_1" );
-			bool bKuuRai1 = pOther->IsNameAction ( U"空中雷電蹴_持続" );
-			if ( bRai0 || bKuuRai0 || bKuuRai1 )
+			//キャラ別特殊
+			//紗絵
+			if ( pOther->GetCharaName() == CHARA_SAE )
 			{
-				m_btlPrm.GetTmr_HitStop ()->Start ( stopTime );	//ヒットストップの設定
+				bool bRai0 = pOther->IsNameAction ( U"雷電蹴_1" );
+				bool bKuuRai0 = pOther->IsNameAction ( U"空中雷電蹴_1" );
+				bool bKuuRai1 = pOther->IsNameAction ( U"空中雷電蹴_持続" );
+				if ( bRai0 || bKuuRai0 || bKuuRai1 )
+				{
+					m_btlPrm.GetTmr_HitStop ()->Start ( stopTime );	//ヒットストップの設定
+				}
 			}
 
 			//レイナ

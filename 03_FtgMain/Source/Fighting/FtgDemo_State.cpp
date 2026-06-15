@@ -122,20 +122,27 @@ namespace GAME
 		//保存IDとゲーム管理IDは異なるので名前で検索
 		BGM_NAME bgm_name = BGM_ID_TO_NAME [ static_cast < size_t > ( bgm_id ) ];
 
-		//すでに再生中でなければ再生
-		if ( ! AUDIO()->IsPlayBGM( bgm_name ) )
+		//BGMなし以外は再生開始
+		bool bNone = (BGM_ID::NONE == bgm_id);
+		if ( ! bNone )
 		{
-			//全停止から再生
-			AUD_STOP_ALL_BGM ();
-			//ロード済チェックしてから再生
-			if ( ! s3d::AudioAsset::IsReady ( bgm_name ) )
+			//すでに再生中でなければ再生
+			if ( ! AUDIO()->IsPlayBGM( bgm_name ) )
 			{
-				s3d::AudioAsset::Wait ( bgm_name );
+				//全停止から再生
+				AUD_STOP_ALL_BGM ();
+				//ロード済チェックしてから再生
+				if ( ! s3d::AudioAsset::IsReady ( bgm_name ) )
+				{
+					s3d::AudioAsset::Wait ( bgm_name );
+				}
+				AUD_PLAY_LOOP_BGM ( bgm_name );
 			}
-			AUD_PLAY_LOOP_BGM ( bgm_name );
+
 		}
 
 
+		//デモ開始
 		m_grpGetReady->Start ();
 		m_timer->Start ();
 

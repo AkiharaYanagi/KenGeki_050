@@ -214,6 +214,8 @@ namespace GAME
 			int rnd = s3d::Random ( 0, N );
 			LPCUSTR vc_name = U"";
 
+			rnd = 2;
+
 			switch ( rnd )
 			{
 			case 0: vc_name = VC_00_SAE_TITLE_CALL; break;

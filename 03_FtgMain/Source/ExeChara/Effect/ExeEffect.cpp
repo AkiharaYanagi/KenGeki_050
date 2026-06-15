@@ -87,6 +87,10 @@ namespace GAME
 		{
 			m_dispEffect->Update_FullDisplay ( m_pScript, m_dirRight );
 		}
+		else if ( m_full_display_x )
+		{
+			m_dispEffect->Update_FullDisplay_X ( m_pScript, m_ptEffect, m_dirRight );
+		}
 		else
 		{
 			//表示更新

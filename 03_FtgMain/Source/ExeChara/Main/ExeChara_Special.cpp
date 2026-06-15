@@ -75,6 +75,7 @@ namespace GAME
 				//相手：連続ヒット関連リセット
 				pOther->m_btlPrm.ChainReset ();
 			}
+#if 0
 
 			//1p攻撃、2pやられ
 			if ( IsPlayerID( PLAYER_ID_2 ) )
@@ -86,6 +87,8 @@ namespace GAME
 
 				DBGOUT_WND_F( DBGOUT_7, U"{}連続ヒット途切れ、ガード開始 = {}"_fmt( hitNum, limit ) );
 			}
+
+#endif // 0
 		}
 
 		//-----------------------------------------------------
@@ -244,25 +247,26 @@ namespace GAME
 		//紗絵
 		if ( m_name == CHARA_SAE )
 		{
-			if ( IsNameAction ( U"投げ成立0" ) )
+			if ( IsNameActionFrame ( U"投げ成立0", 0 ) )
 			{
-				if ( m_pScript->Index.Is ( 0 ) )
+				TopByZ ();
+				SetPosEachOther ( VEC2 ( 250.f, 0 ) );
+			}
+
+			if ( IsNameActionFrame ( U"渦雷", 0 ) )
+			{
+				//ヒット時
+				if ( 0 < m_btlPrm.GetChainHitNum () )
 				{
-					TopByZ ();
-
-					//位置調整用
-					float bDir = m_btlPrm.GetDirRight () ? 1.f : -1.f;
-					VEC2 my_pos = GetPos ();
-					VEC2 pos_rev = { my_pos.x + ( bDir * 250 ), my_pos.y + 0 };
-
-					m_pOther.lock()->SetPos ( pos_rev );	//位置同期
+					//位置固定
+					SetPosEachOther ( VEC2 ( 100.f, -100.f ) );
 				}
 			}
 
+	#if 0
+			//カットイン
 			if ( IsNameAction ( U"超雷電蹴_発生" ) )
 			{
-	#if 0
-				//カットイン
 				if ( m_pScript->GetFrame () == 0 )
 				{
 					m_testCutIn->SetValid ( T );
@@ -271,13 +275,14 @@ namespace GAME
 				{
 					m_testCutIn->SetValid ( F );
 				}
-	#endif // 0
 
 				if ( m_pScript->Index.Is ( 1 ) )
 				{
+					//カットイン
 					m_pFtgGrp->SetOverDrive ( T );
 				}
 			}
+	#endif // 0
 
 			if ( IsNameAction ( U"超雷電蹴_持続" ) )
 			{
@@ -289,6 +294,15 @@ namespace GAME
 			{
 				//補正解除
 				m_btlPrm.SetReviseOverDrive ( 1.0f );
+
+				if ( m_pScript->Index.Is ( 0 ) )
+				{
+					//位置固定
+					TopByZ ();
+					SetPosEachOther ( VEC2 ( 200.f, 0 ) );
+					//地上ヒット
+					m_pOther.lock()->SetAction ( U"ダメージ大" );
+				}
 			}
 		}
 

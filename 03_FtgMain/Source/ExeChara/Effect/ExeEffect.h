@@ -64,6 +64,7 @@ namespace GAME
 
 		bool		m_immortal{F};		//相殺やヒットで終了しない
 		bool		m_full_display{F};	//画面全体描画(固定位置)
+		bool		m_full_display_x{F};	//画面全体描画　Xのみ(固定位置)
 		bool		m_out_display{F};	//画面外で消える	
 
 	public:
@@ -125,6 +126,7 @@ namespace GAME
 
 #endif // 0
 		GET_SET ( VEC2, GetPt, SetPt, m_ptEffect )	//位置
+		GET_SET ( VEC2, GetPtGnrt, SetPtGnrt, m_ptGnrt )	//エフェクト発生位置
 		GET_SET ( bool, GetOffset, SetOffset, m_offset )	//相殺
 		GET_SET ( bool, GetHit, SetHit, m_hit )				//ヒット
 		GET_SET ( bool, GetImmortal, SetImmortal, m_immortal )		//不滅
@@ -137,7 +139,10 @@ namespace GAME
 		void OffDispRect() { m_bDispRect = false; m_dispEffect->OffRect(); }
 
 
+		//---------------------------------------------------------------
+		//描画位置指定フラグ
 		void SetFullDisplay ( bool b ) { m_full_display = b; }
+		void SetFullDisplay_X ( bool b ) { m_full_display_x = b; }
 
 	private :
 		//xだけ向きを反映する

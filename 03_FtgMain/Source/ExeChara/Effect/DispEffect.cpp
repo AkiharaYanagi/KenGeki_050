@@ -155,6 +155,26 @@ namespace GAME
 
 	}
 
+	//画面全体表示 Xのみ
+	void DispEffect::Update_FullDisplay_X ( P_Frame pScript, VEC2 ptEf, bool dirRight )
+	{
+		//位置 (エフェクトのゲーム位置＋スクリプトの表示位置(*向き)＋キャラによる画面補正位置)
+		float x = dirRight ? 0 : (1280.f);
+		VEC2 vecPtBase = VEC2 ( x, ptEf.y );	//Xのみエフェクトのゲーム位置は、画面端とする
+
+		//表示に反映
+		m_grp->SetBase ( vecPtBase );	//Grp "Ef" Shdは基本位置指定をBaseで行う
+
+		//拡大(向き)
+		float fDir = dirRight ? (1.f) : (-1.f);
+		m_grp->SetScaling ( 1.f * fDir, 1.f );
+
+		//テクスチャIDの指定
+		UINT index = pScript->ImageIndex.Get();
+		m_grp->SetIndexTexture ( index );
+
+	}
+
 	void DispEffect::SetpCharaRect ( P_CharaRect pCharaRect )
 	{
 		m_dispRect->SetCharaRect ( pCharaRect );

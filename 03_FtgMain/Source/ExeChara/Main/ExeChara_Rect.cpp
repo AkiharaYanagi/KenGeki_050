@@ -50,21 +50,28 @@ namespace GAME
 		bool bHit = m_btlPrm.GetHitEst () || m_btlPrm.GetClang ();
 //		bool bHit = m_btlPrm.GetHitEst ();
 
-#if 0
 		//デバッグ表示あり
 		if ( m_btlPrm.GetPlayerID() == PLAYER_ID_1 )
 		{
 			DBGOUT_WND_F ( DBGOUT_4, U"bHit = {}"_fmt( bHit ? 1 : 0) );
 			P_Timer ptHitStop = m_btlPrm.GetTmr_HitStop ();
 			DBGOUT_WND_F ( DBGOUT_5, U"hitStop = {}"_fmt( ptHitStop->GetTime () ) );
-			UINT hitpitch = m_pAction->GetHitPitch ();
+			UINT hitpitch = m_pAction->HitPitch.Get ();
 			P_Timer ptHitPitch = m_btlPrm.GetTmr_HitPitch ();
 			DBGOUT_WND_F ( DBGOUT_6, U"hitPitch = {} / {}"_fmt( ptHitPitch->GetTime (), hitpitch ) );
-			UINT hitmax = m_pAction->GetHitNum ();
+			UINT hitmax = m_pAction->HitNum.Get ();
 			UINT hitnum = m_btlPrm.GetHitNum ();
 			DBGOUT_WND_F ( DBGOUT_7, U"hitnum = {} / {}"_fmt( hitnum, hitmax ) );
 		}
+#if 0
 #endif // 0
+
+
+
+
+		//@todo ヒットストップ中は攻撃枠を空にする(多段防止)
+		//　演出ストップで攻撃枠が発生しない
+
 
 
 		//--------------------------------------------------

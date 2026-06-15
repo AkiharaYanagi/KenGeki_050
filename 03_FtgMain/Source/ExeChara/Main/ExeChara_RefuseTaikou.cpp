@@ -101,6 +101,7 @@ namespace GAME
 			if ( IsNameAction ( U"投げ成立2") ) { return T; }
 			if ( IsNameAction ( U"投げ成立3") ) { return T; }
 			if ( IsNameAction ( U"投げ成立4") ) { return T; }
+			if ( IsNameAction ( U"渦雷") ) { return T; }
 			if ( IsNameAction ( U"万雷弱派生") ) { return T; }
 			if ( IsNameAction ( U"万雷弱派生_成立") ) { return T; }
 			if ( IsNameAction ( U"万雷弱派生_起き上がり") ) { return T; }
@@ -239,8 +240,13 @@ namespace GAME
 
 		case CHARA_REINA:
 			if ( IsNameAction ( U"ヴァンガーテEX") ) { return T; }
-			if ( IsNameAction ( U"ヴァンガーテEX1") ) { return T; }
-			if ( IsNameAction ( U"ヴァンガーテEX2") ) { return T; }
+			else if ( IsNameAction ( U"ヴァンガーテEX1") ) { return T; }
+			else if ( IsNameAction ( U"ヴァンガーテEX2") ) { return T; }
+			else if ( IsNameAction ( U"ヴェンガンサ") ) { return T; }
+			else if ( IsNameAction ( U"ヴェンガンサ1") ) { return T; }
+			else if ( IsNameAction ( U"ヴェンガンサ2") ) { return T; }
+			else if ( IsNameAction ( U"ヴェンガンサEX") ) { return T; }
+			else if ( IsNameAction ( U"ヴェンガンサEX1") ) { return T; }
 		break;
 
 		default: return F;

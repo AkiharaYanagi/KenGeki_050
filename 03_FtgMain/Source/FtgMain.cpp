@@ -113,6 +113,8 @@ namespace GAME
 		BGM_ID bgm_id = pParam->Get_BGM_ID ();
 		AUD_STOP_ALL_BGM ();
 		AUD_PLAY_LOOP_BGM ( BGM_ID_TO_NAME [ bgm_id ] );
+
+		//-> FtgStateに移行
 #endif // 0
 
 

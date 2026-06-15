@@ -860,6 +860,38 @@ namespace GAME
 	//相手ダメージ処理の後
 	void ExeChara::OnDamaged_After ()
 	{
+		P_ExeChara pOther = m_pOther.lock ();		//相手
+		bool bGuard = pOther->IsGuard ();
+
+
+		//ガード時
+		if ( bGuard )
+		{
+
+		}
+		//ヒット時
+		else
+		{
+#if 0
+
+			//キャラ別特殊
+			//紗絵
+			if ( GetCharaName() == CHARA_SAE )
+			{
+				if ( IsNameAction ( U"雷嵐ヒット" ) )
+				{
+					//位置固定
+					//SetPosEachOther ( VEC2 ( 200.f, 0 ) );
+
+					//地上ヒット
+					pOther->SetAction ( U"ダメージ大" );
+				}
+			}
+
+#endif // 0
+		}
+
+
 		//-----------------------------------------------------
 		//特殊アクションカテゴリ指定
 		if ( IsSpecial () || IsOverdrive () || IsThrow () )

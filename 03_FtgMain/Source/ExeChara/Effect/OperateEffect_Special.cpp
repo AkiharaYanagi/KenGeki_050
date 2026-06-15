@@ -141,6 +141,25 @@ namespace GAME
 			pExeEffect->SetShader ( F );
 
 		}
+
+
+		//レイナ特殊
+		{
+			bool b_V1 = pEffect->Name.Is ( U"ヴォルデーリャEf1" );
+			bool b_V2 = pEffect->Name.Is ( U"ヴォルデーリャEf2" );
+			if ( b_V1 || b_V2 )
+			{
+#if 0
+				//xのみ端にする
+				float x = dirRight ? 0 : (1280.f);
+
+				VEC2 pt = pExeEffect->GetPt ();
+				pExeEffect->SetPt ( VEC2 ( x, pt.y ) );
+#endif // 0
+				//xのみ端にする
+				pExeEffect->SetFullDisplay_X ( T );
+			}
+		}
 	}
 
 

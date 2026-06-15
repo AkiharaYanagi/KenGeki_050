@@ -403,6 +403,7 @@ namespace GAME
 				UINT32 bIndex = pFrm->Index.Get ();
 				if ( 3 < bIndex )
 				{
+					//距離別による移動量を設定
 					vel.x = m_reina_od_vx;
 				}
 			}
@@ -1008,6 +1009,16 @@ namespace GAME
 			if ( bA4 || baA4 )
 			{
 				hitstop  += 10;
+			}
+		}
+
+		//レイナ
+		if ( pExeCh->GetCharaName() == CHARA_TSUKIHIBOSHI )
+		{
+			bool bA = pExeCh->IsNameAction ( U"ヴォルデーリャ成立1" );
+			if ( bA  )
+			{
+				hitstop  = 0;
 			}
 		}
 

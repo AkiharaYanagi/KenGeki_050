@@ -353,23 +353,42 @@ namespace GAME
 
 		//-----------------------------------------------------
 		//特殊処理
-		bool b0 = IsNameAction ( U"乱舞超必殺技発生" );	//紗絵
-		bool b1 = IsNameAction ( U"波動必殺発生" );		//桜花
-		if ( b0 || b1 )
+		if ( m_name == CHARA_SAE )
 		{
-//			if ( m_pScript->GetFrame () == 0 )
+			bool b0 = IsNameAction ( U"乱舞超必殺技発生" );	//紗絵
+			if ( b0 )
 			{
-				//相手を地上ヒットにする
+	//			if ( m_pScript->GetFrame () == 0 )
+				{
+					//相手を地上ヒットにする
 
-				//高さ０
-				VEC2 pos = m_pOther.lock()->GetPos ();
-				m_pOther.lock()->SetPos ( VEC2 ( pos.x, GROUND_Y ) );
+					//高さ０
+					VEC2 pos = m_pOther.lock()->GetPos ();
+					m_pOther.lock()->SetPos ( VEC2 ( pos.x, GROUND_Y ) );
 
-				//相手の「相手の変更先アクション」を指定
-				nameAction = U"ダメージ大";
+					//相手の「相手の変更先アクション」を指定
+					nameAction = U"ダメージ大";
+				}
 			}
 		}
+		if ( m_name == CHARA_OUKA )
+		{
+			bool b1 = IsNameAction ( U"波動必殺発生" );		//桜花
+			if ( b1 )
+			{
+	//			if ( m_pScript->GetFrame () == 0 )
+				{
+					//相手を地上ヒットにする
 
+					//高さ０
+					VEC2 pos = m_pOther.lock()->GetPos ();
+					m_pOther.lock()->SetPos ( VEC2 ( pos.x, GROUND_Y ) );
+
+					//相手の「相手の変更先アクション」を指定
+					nameAction = U"ダメージ大";
+				}
+			}
+		}
 #if 0
 		//ギャバダルガ
 		if ( m_name == CHARA_GYAVADARUGA )
@@ -393,6 +412,21 @@ namespace GAME
 		{
 			bool b_tokudai = IsNameAction ( U"特大攻撃" );
 			if ( b_tokudai )
+			{
+				//空中ヒット時に通常やられにする
+				if ( m_pOther.lock()->IsFloat () )
+				{
+					nameAction = U"強制ダウン落下";
+				}
+			}
+		}
+
+		//レイナ
+		if ( m_name == CHARA_REINA )
+		{
+			bool b_M = IsNameAction ( U"中攻撃" );
+			bool b_Van = IsNameAction ( U"ヴァンガーテ" );
+			if ( b_M || b_Van )
 			{
 				//空中ヒット時に通常やられにする
 				if ( m_pOther.lock()->IsFloat () )
