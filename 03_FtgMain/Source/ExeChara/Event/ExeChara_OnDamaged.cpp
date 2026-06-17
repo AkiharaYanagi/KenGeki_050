@@ -237,8 +237,10 @@ namespace GAME
 		//相手の連続ヒットダメージ数
 		btlPrmOhter.AddChainDamage ( confirmed_damage );
 
+
+		//-------------------------------------------------
+		//リザルト用に保存 (相手の値)
 		int32 chnDmg = btlPrmOhter.GetChainDamage ();
-#if 0
 
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_2 )	//相手
 		{
@@ -247,9 +249,6 @@ namespace GAME
 			DBGOUT_WND_F ( DBGOUT_2, U"rev_od = {}"_fmt( rev_od ) );
 		}
 
-#endif // 0
-
-		//リザルト用に保存 (相手の値)
 		if ( pSelf->Is1P () )
 		{
 			m_pParam->GetPrmResult().UpdateIfMAX_DMG ( PLAYER_ID_2, chnDmg );

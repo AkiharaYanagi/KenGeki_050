@@ -13,11 +13,12 @@
 #include "Rect.h"
 
 #include "Chara_Const.h"
-#include "Route.h"
-#include "EffectGenerate.h"
-#include "Frame_Param_Battle.h"
-#include "Frame_Param_Staging.h"
-#include "SoundGenerate.h"
+#include "10_CharaData/Route.h"
+#include "10_CharaData/Frame_Param_Battle.h"
+#include "10_CharaData/Frame_Param_Staging.h"
+#include "10_CharaData/Generator.h"
+//#include "EffectGenerate.h"
+//#include "SoundGenerate.h"
 
 using namespace GAME;
 

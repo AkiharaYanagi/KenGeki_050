@@ -9,14 +9,16 @@
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "Define.h"
-#include "Branch.h"
+#include "Define_Siv3D.h"
+using namespace GAME;
+
+//#include "10_CharaData/Branch.h"
 
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
 //-------------------------------------------------------------------------------------------------
-namespace GAME
+namespace CHARA
 {
 
 	class Route
@@ -24,9 +26,9 @@ namespace GAME
 		A_UINT32	ma_IdBranch;	//ブランチIDリスト
 
 	public:
-		Route() {}
+		Route () = default;
 		Route(const Route& rhs) = delete;
-		~Route() {}
+		~Route () = default;
 
 		//Property
 		Prp_Str		Name;			//名前

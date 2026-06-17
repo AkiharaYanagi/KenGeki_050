@@ -794,5 +794,23 @@
     <ClInclude Include="..\Include\10_CharaData\Frame_Param_Staging.h" />
     <ClInclude Include="..\Include\10_CharaData\Frame.h" />
     <ClInclude Include="..\Include\10_CharaData\Frame_Param_Battle.h" />
+    <ClInclude Include="..\Include\10_CharaData\Branch.h" />
+    <ClInclude Include="..\Include\10_CharaData\Command.h" />
+    <ClInclude Include="..\Include\10_CharaData\Compend.h" />
+    <ClInclude Include="..\Include\10_CharaData\Route.h" />
+    <ClInclude Include="..\Include\10_CharaData\Sequence.h" />
+    <ClInclude Include="..\Include\10_CharaData\Chara_Const.h" />
+    <ClInclude Include="..\Include\10_CharaData\Generator.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Chara.cpp" />
+    <ClCompile Include="Command.cpp" />
+    <ClCompile Include="Compend.cpp" />
+    <ClCompile Include="Frame.cpp" />
+    <ClCompile Include="Frame_Param_Battle.cpp" />
+    <ClCompile Include="Frame_Param_Staging.cpp" />
+    <ClCompile Include="Route.cpp" />
+    <ClCompile Include="Sequence.cpp" />
+    <ClCompile Include="Branch.cpp" />
   </ItemGroup>
 </Project>

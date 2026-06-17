@@ -1,31 +1,46 @@
 ﻿//=================================================================================================
 //
-//	Chara
+//	Sequence ソースファイル
 //
 //=================================================================================================
-#pragma once
-
 
 //-------------------------------------------------------------------------------------------------
-//	ヘッダファイルのインクルード
+// ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-//ライブラリ利用
-#include "Define_Siv3D.h"
-
-
+#include "Sequence.h"
 
 //-------------------------------------------------------------------------------------------------
-// 宣言
+// 定義
 //-------------------------------------------------------------------------------------------------
-namespace CHARA
+namespace GAME
 {
-	class Chara
-	{
-	public:
-		Chara ();
-		Chara ( const Chara & rhs ) = delete;
-		~Chara ();
 
-	};
-}
+	Sequence::Sequence ()
+	{
+		m_papFrame = std::make_shared < AP_Frame > ();
+	}
+
+	Sequence::~Sequence ()
+	{
+		Rele();
+	}
+
+	void Sequence::Rele ()
+	{
+		for ( P_Frame p : *m_papFrame) { p->Rele (); }
+		m_papFrame->clear ();
+	}
+
+	void Sequence::AddaFrame ( UP_AP_Frame paFrm )
+	{
+		size_t size = paFrm->size ();
+		m_papFrame->clear ();
+		m_papFrame->resize ( size );
+		for ( size_t i = 0; i < size; ++ i )
+		{
+			(*m_papFrame) [ i ] = (*paFrm) [ i ];
+		}
+	}
+
+}	//namespace GAME
 

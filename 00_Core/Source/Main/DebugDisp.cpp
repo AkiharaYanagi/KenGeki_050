@@ -79,7 +79,7 @@ namespace GAME
 
 
 //デバッグ表示切替
-#define G_DEBUG_FLAG	0
+#define G_DEBUG_FLAG	1
 
 
 

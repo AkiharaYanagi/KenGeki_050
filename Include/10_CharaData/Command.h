@@ -10,15 +10,15 @@
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-//#include "Game.h"
 #include "Define_Siv3D.h"
 #include "GameKeyCommand.h"
+using namespace GAME;
 
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
 //-------------------------------------------------------------------------------------------------
-namespace GAME
+namespace CHARA
 {
 	//定数
 	enum Command_Const
@@ -46,11 +46,9 @@ namespace GAME
 
 		//キー配列
 		void AddGameKeyCmd ( GameKeyCommand gkc ) { ma_Gkc.push_back(gkc); }
-//		void SetaGameKeyCmd ( GameKeyCommand gkca[], UINT32 size );
 		void SetaGameKeyCmd ( const A_GKCMD & aGkc );
 
 		//比較 (記録上のGameKeyからコマンド判定用のGameKeyCommandでの比較)
-//		bool Compare ( const V_GAME_KEY & vecGameKey, bool dirRight );
 		bool Compare ( const A_GK & aGk, bool dirRight );
 	};
 
