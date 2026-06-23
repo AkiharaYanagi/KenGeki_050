@@ -1,6 +1,6 @@
 ﻿//=================================================================================================
 //
-//	EfKouAtsu ヘッダファイル
+//	テスト
 //
 //=================================================================================================
 #pragma once
@@ -9,45 +9,28 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
-#include "00_Core/GameConst.h"
-#include "00_Core/FtgConst.h"
-#include "../ExeChara/BtlParam.h"
-
 
 //-------------------------------------------------------------------------------------------------
 // 宣言
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	//剣撃抗圧 エフェクト
-	class EfKouAtsu : public GrpEf
+
+	class Test	: public TASK_VEC
 	{
-#if 0
-
-		VEC2		m_scalingStart { 0.1f, 0.1f };
-		VEC2		m_scaling { 1.f, 1.f };
-		VEC2		m_vStart { 0.f, 0.f };
-		VEC2		m_v { 0.f, 0.f };
-		VEC2		m_a { 0.f, 0.f };
-
-#endif // 0
-
-		Timer		m_pchTimer;	//ピッチタイマ
+		P_Grp		m_bg;
 
 	public:
-		EfKouAtsu ();
-		EfKouAtsu ( const EfKouAtsu & rhs ) = delete;
-		~EfKouAtsu ();
+		Test ();
+		Test ( const Test & rhs ) = delete;
+		~Test ();
 
-		void Init ();
+		void Load ();
 		void Move ();
-
-		void On ( const BtlParam & btlPrm );
 	};
 
-	using P_EfKouAtsu = std::shared_ptr < EfKouAtsu >;
+	using P_Test = std::shared_ptr < Test >;
 
 
 }	//namespace GAME
-
 

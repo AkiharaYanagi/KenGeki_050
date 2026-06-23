@@ -128,6 +128,12 @@
     <Filter Include="Resource Files\engine\font\min">
       <UniqueIdentifier>{1b103960-f11a-4515-b4f1-f59333ce00d9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Chara">
+      <UniqueIdentifier>{959cdfca-ead2-4fd3-a2c3-c6256f0a41ee}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="IO">
+      <UniqueIdentifier>{9c7d376f-18d4-4c33-a9da-6f4d3b664020}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="App\icon.ico">
@@ -790,27 +796,91 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Include\10_CharaData\10_CharaData.h" />
-    <ClInclude Include="..\Include\10_CharaData\Chara.h" />
-    <ClInclude Include="..\Include\10_CharaData\Frame_Param_Staging.h" />
-    <ClInclude Include="..\Include\10_CharaData\Frame.h" />
-    <ClInclude Include="..\Include\10_CharaData\Frame_Param_Battle.h" />
-    <ClInclude Include="..\Include\10_CharaData\Branch.h" />
-    <ClInclude Include="..\Include\10_CharaData\Command.h" />
-    <ClInclude Include="..\Include\10_CharaData\Compend.h" />
-    <ClInclude Include="..\Include\10_CharaData\Route.h" />
-    <ClInclude Include="..\Include\10_CharaData\Sequence.h" />
-    <ClInclude Include="..\Include\10_CharaData\Chara_Const.h" />
-    <ClInclude Include="..\Include\10_CharaData\Generator.h" />
+    <ClInclude Include="..\Include\10_CharaData\IOCharaDefine.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\10_CharaData\LoadChara.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\10_CharaData\LoadChara_Func.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\10_CharaData\Chara.h">
+      <Filter>Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\10_CharaData\Branch.h">
+      <Filter>Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\10_CharaData\Chara_Const.h">
+      <Filter>Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\10_CharaData\Command.h">
+      <Filter>Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\10_CharaData\Compend.h">
+      <Filter>Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\10_CharaData\EffectGenerate.h">
+      <Filter>Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\10_CharaData\Frame.h">
+      <Filter>Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\10_CharaData\Frame_Param_Battle.h">
+      <Filter>Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\10_CharaData\Frame_Param_Staging.h">
+      <Filter>Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\10_CharaData\Route.h">
+      <Filter>Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\10_CharaData\Sequence.h">
+      <Filter>Chara</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\10_CharaData\LoadChara_Utl.h">
+      <Filter>IO</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Include\10_CharaData\Generator.h">
+      <Filter>Chara</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Chara.cpp" />
-    <ClCompile Include="Command.cpp" />
-    <ClCompile Include="Compend.cpp" />
-    <ClCompile Include="Frame.cpp" />
-    <ClCompile Include="Frame_Param_Battle.cpp" />
-    <ClCompile Include="Frame_Param_Staging.cpp" />
-    <ClCompile Include="Route.cpp" />
-    <ClCompile Include="Sequence.cpp" />
-    <ClCompile Include="Branch.cpp" />
+    <ClCompile Include="Chara\Branch.cpp">
+      <Filter>Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\Chara.cpp">
+      <Filter>Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\Command.cpp">
+      <Filter>Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\Compend.cpp">
+      <Filter>Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\Frame.cpp">
+      <Filter>Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\Frame_Param_Battle.cpp">
+      <Filter>Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\Frame_Param_Staging.cpp">
+      <Filter>Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\Route.cpp">
+      <Filter>Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="Chara\Sequence.cpp">
+      <Filter>Chara</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\LoadChara.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\LoadChara_Func.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
+    <ClCompile Include="IO\LoadChara_Utl.cpp">
+      <Filter>IO</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

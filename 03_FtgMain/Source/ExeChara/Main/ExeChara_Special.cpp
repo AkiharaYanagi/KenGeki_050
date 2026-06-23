@@ -308,13 +308,14 @@ namespace GAME
 
 		//-----------------------------------------------------
 		//桜花
-		if ( m_name == CHARA_OUKA )
+		else if ( m_name == CHARA_OUKA )
 		{
 			if ( IsNameAction ( U"投げ成立0" ) )
 			{
 				if ( m_pScript->Index.Is ( 0 ) )
 				{
 					TopByZ ();
+#if 0
 
 					//位置調整用
 					float bDir = m_btlPrm.GetDirRight () ? 1.f : -1.f;
@@ -322,6 +323,9 @@ namespace GAME
 					VEC2 pos_rev = { my_pos.x + ( bDir * 250 ), my_pos.y + 0 };
 
 					m_pOther.lock()->SetPos ( pos_rev );	//位置同期
+
+#endif // 0
+					SetPosEachOther ( VEC2 ( 250.f, 0 ) );
 				}
 			}
 
@@ -345,7 +349,7 @@ namespace GAME
 
 		//-----------------------------------------------------
 		//烈堂
-		if ( m_name == CHARA_RETSUDOU )
+		else if ( m_name == CHARA_RETSUDOU )
 		{
 			if ( IsNameAction ( U"投げ成立0" ) )
 			{
@@ -366,7 +370,7 @@ namespace GAME
 
 		//-----------------------------------------------------
 		//ギャバ
-		if ( m_name == CHARA_GYAVADARUGA )
+		else if ( m_name == CHARA_GYAVADARUGA )
 		{
 			if ( IsNameAction ( U"立ち" ) )
 			{
@@ -468,31 +472,19 @@ namespace GAME
 			bool b_ex0 = IsNameAction ( U"竜巻EX0" );
 			bool b_ex1 = IsNameAction ( U"竜巻EX1" );
 			bool b_ex2 = IsNameAction ( U"竜巻EX2" );
+
+
+			if ( b_ex0 )
+			{
+				//位置ロック
+				if ( m_pScript->Index.Is ( 0 ) )
+				{
+					SetPosEachOther ( VEC2 ( 250.f, 0 ) );
+				}
+			}
+
 			if ( b_ex0 || b_ex1 || b_ex2 )
 			{
-#if 0
-
-				//EX時乗算カラー変更
-				if ( m_frame == 0 )
-				{
-					m_dispChara->SetColor ( 0xffffff00 );
-				}
-				if ( m_frame % 2 == 0 )
-				{
-					//m_dispChara->TurnShadow ( T );
-				}
-				else
-				{
-					m_dispChara->SetColor ( 0xffffffff );
-				}
-
-				//最終スクリプト
-				if ( m_pAction->IsEndScript ( m_frame ) )
-				{
-					m_dispChara->SetColor ( 0xffffffff );
-				}
-
-#endif // 0
 				//スタミナ回復制限
 				//最初
 				if ( m_frame == 0 )
@@ -660,8 +652,19 @@ namespace GAME
 		}
 		//-----------------------------------------------------
 		//フェラリア
-		if ( m_name == CHARA_FERARIA )
+		else if ( m_name == CHARA_FERARIA )
 		{
+			//飛び道具
+			bool b4L = IsNameAction ( U"4弱" );
+			bool b4M = IsNameAction ( U"4中" );
+			bool b4H = IsNameAction ( U"4強" );
+
+			//アクセルゲージを０に向かう方に
+			int acl = m_btlPrm.GetAccel ();
+			if ( b4L ) { if ( 0 < acl ) { m_btlPrm.AddAccel ( -100 ); } }
+			if ( b4M ) { if ( 0 < acl ) { m_btlPrm.AddAccel ( -150 ); } }
+			if ( b4H ) { if ( 0 < acl ) { m_btlPrm.AddAccel ( -200 ); } }
+
 			if ( IsNameAction ( U"投げ成立0" ) )
 			{
 				if ( m_pScript->Index.Is ( 0 ) )
@@ -709,7 +712,7 @@ namespace GAME
 
 		//-----------------------------------------------------
 		//月日星
-		if ( m_name == CHARA_TSUKIHIBOSHI )
+		else if ( m_name == CHARA_TSUKIHIBOSHI )
 		{
 			if ( IsNameAction ( U"投げ成立0" ) )
 			{
@@ -868,7 +871,7 @@ namespace GAME
 
 		//-----------------------------------------------------
 		//レイナ
-		if ( m_name == CHARA_REINA )
+		else if ( m_name == CHARA_REINA )
 		{
 			if ( IsNameActionFrame ( U"投げ成立0", 0 ) )
 			{

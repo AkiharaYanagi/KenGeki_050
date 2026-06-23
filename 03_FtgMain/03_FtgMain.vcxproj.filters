@@ -824,7 +824,6 @@
   <ItemGroup>
     <ClInclude Include="..\Include\03_FtgMain\03_FtgMain.h" />
     <ClInclude Include="..\Include\03_FtgMain\FtgMain.h" />
-    <ClInclude Include="Source\FtgConst.h" />
     <ClInclude Include="Source\Mutual\Collision.h">
       <Filter>Mutual</Filter>
     </ClInclude>

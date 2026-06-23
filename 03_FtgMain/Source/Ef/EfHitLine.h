@@ -10,7 +10,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
 //#include "../../90_GameMain/GameConst.h"
-#include "../FtgConst.h"
+#include "00_Core/FtgConst.h"
 #include "../ExeChara/BtlParam.h"
 
 

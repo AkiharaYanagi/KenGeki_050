@@ -10,7 +10,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "Define_Siv3D.h"
 
-//#include "Script.h"
+#include "Chara_Const.h"
 #include "Frame.h"
 
 
@@ -18,7 +18,7 @@
 //-------------------------------------------------------------------------------------------------
 // 宣言
 //-------------------------------------------------------------------------------------------------
-namespace GAME
+namespace CHARA
 {
 	using Prp_ACT_CTG = Property < ACTION_CATEGORY >;
 	using Prp_ACT_PST = Property < ACTION_POSTURE >;
@@ -160,6 +160,7 @@ namespace GAME
 	using PAP_Sqc = std::shared_ptr < AP_Sqc >;
 	using UP_AP_Sqc = std::unique_ptr < AP_Sqc >;
 
-}	//namespace GAME
+
+}	//namespace CHARA
 
 

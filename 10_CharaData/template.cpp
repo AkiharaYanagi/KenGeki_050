@@ -1,46 +1,41 @@
 ﻿//=================================================================================================
 //
-//	Sequence ソースファイル
+//	テスト
 //
 //=================================================================================================
 
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "Sequence.h"
+#include "test.h"
 
 //-------------------------------------------------------------------------------------------------
 // 定義
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-
-	Sequence::Sequence ()
+	Test::Test ()
 	{
-		m_papFrame = std::make_shared < AP_Frame > ();
+		m_bg = make_shared < GameGraphic > ();
+		m_bg->AddTexture_FromArchive ( _T ( "bg_test_960_540.png" ) );
+		AddpTask ( m_bg );
+		GRPLST_INSERT ( m_bg );
 	}
 
-	Sequence::~Sequence ()
+	Test::~Test ()
 	{
-		Rele();
 	}
 
-	void Sequence::Rele ()
+	void Test::Load ()
 	{
-		for ( P_Frame p : *m_papFrame) { p->Rele (); }
-		m_papFrame->clear ();
+		TASK_VEC::Load ();
 	}
 
-	void Sequence::AddaFrame ( UP_AP_Frame paFrm )
+	void Test::Move ()
 	{
-		size_t size = paFrm->size ();
-		m_papFrame->clear ();
-		m_papFrame->resize ( size );
-		for ( size_t i = 0; i < size; ++ i )
-		{
-			(*m_papFrame) [ i ] = (*paFrm) [ i ];
-		}
+		TASK_VEC::Move ();
 	}
+
 
 }	//namespace GAME
 

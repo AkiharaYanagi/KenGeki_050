@@ -111,10 +111,17 @@ namespace GAME
 
 		case CHARA_RETSUDOU:
 			if ( IsNameAction ( U"投げ成立") ) { return T; }
+			if ( IsNameAction ( U"暁EX") ) { return T; }
 
 		break;
 
 		case CHARA_GYAVADARUGA:
+			if ( IsNameAction ( U"竜巻弱1") )
+			{
+				uint32 i = m_pScript->Index.Get();
+				if ( 0 <= i && i <= 18 )
+				{ return T; }
+			}
 
 			if ( IsNameAction ( U"大攻撃") ) { return T; }
 			if ( IsNameAction ( U"大攻撃2") ) { return T; }
@@ -143,15 +150,15 @@ namespace GAME
 			if ( IsNameAction ( U"空中必殺技着地") ) { return T; }
 			if ( IsNameAction ( U"空中必殺技成立") ) { return T; }
 
+			if ( IsNameAction ( U"中攻撃") )
+			{
+				uint32 i = m_pScript->Index.Get();
+				if ( 0 <= i && i <= 18 )
+				{ return T; }
+			}
 #if 0
 			//通常技の初段を対抗不可に
 			if ( IsNameAction ( U"小攻撃") )
-			{
-				uint32 i = m_pScript->Index.Get();
-				if ( 3 <= i && i <= 8 )
-				{ return T; }
-			}
-			if ( IsNameAction ( U"中攻撃") )
 			{
 				uint32 i = m_pScript->Index.Get();
 				if ( 3 <= i && i <= 8 )
@@ -239,14 +246,15 @@ namespace GAME
 #endif // 0
 
 		case CHARA_REINA:
+			if ( IsNameAction ( U"ヴィバーロ空中") ) { return T; }
 			if ( IsNameAction ( U"ヴァンガーテEX") ) { return T; }
-			else if ( IsNameAction ( U"ヴァンガーテEX1") ) { return T; }
-			else if ( IsNameAction ( U"ヴァンガーテEX2") ) { return T; }
-			else if ( IsNameAction ( U"ヴェンガンサ") ) { return T; }
-			else if ( IsNameAction ( U"ヴェンガンサ1") ) { return T; }
-			else if ( IsNameAction ( U"ヴェンガンサ2") ) { return T; }
-			else if ( IsNameAction ( U"ヴェンガンサEX") ) { return T; }
-			else if ( IsNameAction ( U"ヴェンガンサEX1") ) { return T; }
+			if ( IsNameAction ( U"ヴァンガーテEX1") ) { return T; }
+			if ( IsNameAction ( U"ヴァンガーテEX2") ) { return T; }
+			if ( IsNameAction ( U"ヴェンガンサ") ) { return T; }
+			if ( IsNameAction ( U"ヴェンガンサ1") ) { return T; }
+			if ( IsNameAction ( U"ヴェンガンサ2") ) { return T; }
+			if ( IsNameAction ( U"ヴェンガンサEX") ) { return T; }
+			if ( IsNameAction ( U"ヴェンガンサEX1") ) { return T; }
 		break;
 
 		default: return F;

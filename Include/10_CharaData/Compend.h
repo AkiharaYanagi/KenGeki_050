@@ -16,7 +16,7 @@
 //-------------------------------------------------------------------------------------------------
 // 宣言
 //-------------------------------------------------------------------------------------------------
-namespace GAME
+namespace CHARA
 {
 
 	class Compend
@@ -61,5 +61,5 @@ namespace GAME
 	using P_CCompend = std::shared_ptr < Compend >;
 
 
-}	//namespace GAME
+}	//namespace CHARA
 

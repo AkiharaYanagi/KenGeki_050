@@ -41,8 +41,6 @@ namespace GAME
 
 		//.scp
 		void _Load_scp ( const s3d::String & filename,  Chara & chara );
-
-
 	};
 
 

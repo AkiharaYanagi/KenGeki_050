@@ -9,7 +9,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
-#include "../FtgConst.h"	
+#include "00_Core/FtgConst.h"
 #include "../Mutual/MutualChara.h"
 #include "FtgDemo_State.h"
 

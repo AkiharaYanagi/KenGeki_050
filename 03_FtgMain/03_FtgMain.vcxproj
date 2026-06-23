@@ -446,7 +446,6 @@
     <ClInclude Include="Source\Fighting\FtgGrp.h" />
     <ClInclude Include="Source\Fighting\Round.h" />
     <ClInclude Include="Source\Fighting\WallBreak.h" />
-    <ClInclude Include="Source\FtgConst.h" />
     <ClInclude Include="Source\Mutual\Collision.h" />
     <ClInclude Include="Source\Mutual\Decision.h" />
     <ClInclude Include="Source\Mutual\MutualChara.h" />

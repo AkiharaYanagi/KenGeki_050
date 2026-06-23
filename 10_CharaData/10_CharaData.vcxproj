@@ -412,68 +412,31 @@
     <ClInclude Include="..\Include\10_CharaData\Chara_Const.h" />
     <ClInclude Include="..\Include\10_CharaData\Command.h" />
     <ClInclude Include="..\Include\10_CharaData\Compend.h" />
+    <ClInclude Include="..\Include\10_CharaData\EffectGenerate.h" />
     <ClInclude Include="..\Include\10_CharaData\Frame.h" />
     <ClInclude Include="..\Include\10_CharaData\Frame_Param_Battle.h" />
     <ClInclude Include="..\Include\10_CharaData\Frame_Param_Staging.h" />
     <ClInclude Include="..\Include\10_CharaData\Generator.h" />
+    <ClInclude Include="..\Include\10_CharaData\IOCharaDefine.h" />
+    <ClInclude Include="..\Include\10_CharaData\LoadChara.h" />
+    <ClInclude Include="..\Include\10_CharaData\LoadChara_Func.h" />
+    <ClInclude Include="..\Include\10_CharaData\LoadChara_Utl.h" />
     <ClInclude Include="..\Include\10_CharaData\Route.h" />
     <ClInclude Include="..\Include\10_CharaData\Sequence.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Branch.cpp">
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ForcedIncludeFiles>
-    </ClCompile>
-    <ClCompile Include="Chara.cpp">
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ForcedIncludeFiles>
-    </ClCompile>
-    <ClCompile Include="Command.cpp">
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ForcedIncludeFiles>
-    </ClCompile>
-    <ClCompile Include="Compend.cpp">
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ForcedIncludeFiles>
-    </ClCompile>
-    <ClCompile Include="Frame.cpp">
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ForcedIncludeFiles>
-    </ClCompile>
-    <ClCompile Include="Frame_Param_Battle.cpp">
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ForcedIncludeFiles>
-    </ClCompile>
-    <ClCompile Include="Frame_Param_Staging.cpp">
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ForcedIncludeFiles>
-    </ClCompile>
-    <ClCompile Include="Route.cpp">
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ForcedIncludeFiles>
-    </ClCompile>
-    <ClCompile Include="Sequence.cpp">
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-      </ForcedIncludeFiles>
-      <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-      </ForcedIncludeFiles>
-    </ClCompile>
+    <ClCompile Include="Chara\Branch.cpp" />
+    <ClCompile Include="Chara\Chara.cpp" />
+    <ClCompile Include="Chara\Command.cpp" />
+    <ClCompile Include="Chara\Compend.cpp" />
+    <ClCompile Include="Chara\Frame.cpp" />
+    <ClCompile Include="Chara\Frame_Param_Battle.cpp" />
+    <ClCompile Include="Chara\Frame_Param_Staging.cpp" />
+    <ClCompile Include="Chara\Route.cpp" />
+    <ClCompile Include="Chara\Sequence.cpp" />
+    <ClCompile Include="IO\LoadChara.cpp" />
+    <ClCompile Include="IO\LoadChara_Func.cpp" />
+    <ClCompile Include="IO\LoadChara_Utl.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

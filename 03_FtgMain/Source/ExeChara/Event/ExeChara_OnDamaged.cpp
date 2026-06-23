@@ -271,23 +271,29 @@ namespace GAME
 		P_Sqc pAct = pOther->GetpAction();
 		P_Frame pScp = pOther->GetpScript();
 		UINT stopTime = HITSTOP_TIME;
-
 		int warp = pScp->Get_FP_B().Warp_E.Get();
+
+		//@info
+		//m_btlPrm.IsHitStop ();
+		//	最後のIsLast()はFalse
+		//	-> stopTimeを0にすると止まらないどころか、フレーム移行が発生せず停止してしまう
+		//	stopTimeを1以上にする
 
 		//マイナス処理
 		if (warp < 0)
 		{
-			//(int)足しても０以下の場合、(uint)最低値０にする
-			if (warp + HITSTOP_TIME <= 0)
+			//(int)足しても１以下の場合、(uint)最低値１にする
+			//計算前に先にチェック
+			if ( warp + (int)HITSTOP_TIME <= 1 )
 			{
-				stopTime = 0;
+				stopTime = 1;
 			}
 			else
 			{
 				stopTime += warp;	//マイナスを加算
 			}
 		}
-		else if( warp != 0 )
+		else //それ以外は加算常処理
 		{
 			stopTime += warp;
 		}
@@ -350,6 +356,21 @@ namespace GAME
 		else
 		{
 			m_btlPrm.GetTmr_HitStop ()->Start ( stopTime );	//ヒットストップの設定
+			
+#if 0
+
+			//キャラ別特殊
+			//烈堂
+			if ( pOther->GetCharaName() == CHARA_RETSUDOU )
+			{
+				bool b = pOther->IsNameAction ( U"暁EX" );
+				if ( b )
+				{
+					btlPrmOhter.GetTmr_HitStop ()->Start ( 5 );	//ヒットストップの設定
+				}
+			}
+
+#endif // 0
 		}
 
 
@@ -836,23 +857,30 @@ namespace GAME
 		P_Sqc pAct = pOther->GetpAction();
 		P_Frame pScp = pOther->GetpScript();
 		UINT stopTime = HITSTOP_TIME;
-
 		int warp = pScp->Get_FP_B().Warp_E.Get();
+
+		//@info
+		//m_btlPrm.IsHitStop ();
+		//	最後のIsLast()はFalse
+		//	-> stopTimeを0にすると止まらないどころか、フレーム移行が発生せず停止してしまう
+		//	stopTimeを1以上にする
+
 
 		//マイナス処理
 		if (warp < 0)
 		{
-			//(int)足しても０以下の場合、(uint)最低値０にする
-			if (warp + HITSTOP_TIME <= 0)
+			//(int)足しても１以下の場合、(uint)最低値１にする
+			//計算前に先にチェック
+			if ( warp + (int)HITSTOP_TIME <= 1 )
 			{
-				stopTime = 0;
+				stopTime = 1;
 			}
 			else
 			{
 				stopTime += warp;	//マイナスを加算
 			}
 		}
-		else if( warp != 0 )
+		else //それ以外は加算常処理
 		{
 			stopTime += warp;
 		}
@@ -891,8 +919,9 @@ namespace GAME
 			//通常
 			m_btlPrm.GetTmr_HitStop ()->Start ( stopTime );	//ヒットストップの設定
 		}
-
-
+		 
+		 
+		
 		//-------------------------------------------------
 		//その他　効果
 		// スクリプトが進まないヒットストップ中も見るのでフラグでチェックする

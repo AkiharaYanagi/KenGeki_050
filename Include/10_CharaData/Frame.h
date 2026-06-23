@@ -13,11 +13,11 @@
 #include "Rect.h"
 
 #include "Chara_Const.h"
-#include "10_CharaData/Route.h"
-#include "10_CharaData/Frame_Param_Battle.h"
-#include "10_CharaData/Frame_Param_Staging.h"
-#include "10_CharaData/Generator.h"
-//#include "EffectGenerate.h"
+#include "Route.h"
+#include "Frame_Param_Battle.h"
+#include "Frame_Param_Staging.h"
+#include "EffectGenerate.h"
+#include "Generator.h"
 //#include "SoundGenerate.h"
 
 using namespace GAME;
@@ -41,7 +41,7 @@ namespace CHARA
 		A_UINT32	ma_RouteID;		//ルートIDリスト
 
 		//Staging Generator
-		//PAP_EfGnrt	m_papEfGnrt;	//Efジェネレートリスト
+		PAP_EfGnrt	m_papEfGnrt;	//Efジェネレートリスト
 		A_Gnrt		ma_EF;			//EF(0-99)共通 (100-)固有
 		A_Gnrt		ma_SE;			//SE(0-99)共通 (100-)固有
 		A_Gnrt		ma_VC;			//VC(0-99)共通 (100-)固有
@@ -71,6 +71,13 @@ namespace CHARA
 		void SetRouteID ( UPA_UINT32 up_aryUint, UINT32 size );
 		const A_UINT32 & GetcaRouteID () const { return ma_RouteID; }
 		A_UINT32 & GetaRouteID () { return ma_RouteID; }
+
+
+		//EfGnrtリスト
+		PAP_EfGnrt GetpapEfGnrt () const { return m_papEfGnrt; }
+
+		//EfGnrtリストに追加
+		void AddpEfGnrt ( P_EfGnrt pEfGnrt ) { m_papEfGnrt->push_back ( pEfGnrt ); }
 
 
 		//接触枠, 攻撃枠, 当り枠, 相殺枠

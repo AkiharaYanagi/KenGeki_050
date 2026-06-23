@@ -8,7 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Round.h"
-#include "../FtgConst.h"	
+#include "00_Core/FtgConst.h"
 #include "03_FtgMain/G_Ftg.h"
 
 

@@ -1,50 +1,46 @@
 ﻿//=================================================================================================
 //
-//	EfClangSng ヘッダファイル
+//	Sequence ソースファイル
 //
 //=================================================================================================
-#pragma once
 
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "Game.h"
-//#include "../../90_GameMain/GameConst.h"
-#include "00_Core/FtgConst.h"
-
+#include "10_CharaData/Sequence.h"
 
 //-------------------------------------------------------------------------------------------------
-// 宣言
+// 定義
 //-------------------------------------------------------------------------------------------------
-namespace GAME
+namespace CHARA
 {
-	//相殺時エフェクト
-	class EfClangSng : public TASK_VEC
+
+	Sequence::Sequence ()
 	{
-		P_GrpEf		m_thunder0;
-		P_GrpEf		m_circle;
-		P_GrpEf		m_impact;
-		double		m_r { 0 };
+		m_papFrame = std::make_shared < AP_Frame > ();
+	}
 
-	public:
-		EfClangSng ();
-		EfClangSng ( const EfClangSng & rhs ) = delete;
-		~EfClangSng ();
+	Sequence::~Sequence ()
+	{
+		Rele();
+	}
 
-		void Load ();
-		void Move ();
+	void Sequence::Rele ()
+	{
+		for ( P_Frame p : *m_papFrame) { p->Rele (); }
+		m_papFrame->clear ();
+	}
 
-		void On ( VEC2 center );
+	void Sequence::AddaFrame ( UP_AP_Frame paFrm )
+	{
+		size_t size = paFrm->size ();
+		m_papFrame->clear ();
+		m_papFrame->resize ( size );
+		for ( size_t i = 0; i < size; ++ i )
+		{
+			(*m_papFrame) [ i ] = (*paFrm) [ i ];
+		}
+	}
 
-	private:
-		void SetScale ( P_Grp pGrp, const VEC2 & v );
-
-		void Load_Tx ();
-	};
-
-	using P_EfClangSng = std::shared_ptr < EfClangSng >;
-
-
-}	//namespace GAME
-
+}	//namespace CHARA
 

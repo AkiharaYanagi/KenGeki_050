@@ -11,7 +11,7 @@
 #include "Game.h"
 #include "00_Core/GameConst.h"
 #include "00_Core/Param.h"
-#include "../FtgConst.h"
+#include "00_Core/FtgConst.h"
 #include "Timer.h"
 #include "TimerSlow.h"
 

@@ -987,6 +987,21 @@ namespace GAME
 				hitstop += 10;
 			}
 		}
+		//烈堂
+		if ( pExeCh->GetCharaName () == CHARA_RETSUDOU )
+		{
+			if ( m_pSequence->Name.Is ( U"暁EX" ) )
+			{
+				if ( pExeCh->GetpScript ()->Index.Is ( 12 ) )
+				{
+					hitstop = 30;
+				}
+				else
+				{
+					hitstop = 2;
+				}
+			}
+		}
 		//ギャバダルガ
 		if ( pExeCh->GetCharaName () == CHARA_GYAVADARUGA )
 		{

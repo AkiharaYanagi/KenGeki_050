@@ -8,7 +8,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "03_FtgMain/Fighting.h"
-#include "../FtgConst.h"	
+#include "00_Core/FtgConst.h"
 #include "03_FtgMain/G_Ftg.h"
 
 #include "BG.h"
