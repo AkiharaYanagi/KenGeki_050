@@ -299,27 +299,16 @@ namespace GAME
 	void ExeChara::OnEfDamaged ()
 	{
 		m_OnDamaged.OnEfDamaged ();
-
-
-
-		//特殊処理
-		//相手側
-		if ( m_pOther.lock()->m_name == CHARA_FERARIA )
-		{
-			if ( IsNameAction ( U"投げ成立0" ) )
-			{
-			}
-		}
-
-		m_btlPrm.DecisionWhiteDamage ();
 	}
 
 
 	//相手ダメージ処理の後
 	void ExeChara::OnDamaged_After ()
 	{
+#if 0
+
 		P_ExeChara pOther = m_pOther.lock ();		//相手
-		bool bGuard = pOther->IsGuard ();
+		bool bGuard = IsGuard ();
 
 
 		//ガード時
@@ -330,34 +319,19 @@ namespace GAME
 		//ヒット時
 		else
 		{
-#if 0
-
-			//キャラ別特殊
-			//紗絵
-			if ( GetCharaName() == CHARA_SAE )
+			//-----------------------------------------------------
+			//必殺・超必殺時に相手の白ダメージ確定
+			//特殊アクションカテゴリ指定
+			if ( IsSpecial () || IsOverdrive () || IsThrow () )
 			{
-				if ( IsNameAction ( U"雷嵐ヒット" ) )
-				{
-					//位置固定
-					//SetPosEachOther ( VEC2 ( 200.f, 0 ) );
-
-					//地上ヒット
-					pOther->SetAction ( U"ダメージ大" );
-				}
+				//ver 0.13 投げを追加
+				m_pOther.lock()->m_btlPrm.DecisionWhiteDamage ();
 			}
+		}
+
 
 #endif // 0
-		}
 
-
-		//-----------------------------------------------------
-		//特殊アクションカテゴリ指定
-		if ( IsSpecial () || IsOverdrive () || IsThrow () )
-		{
-			//必殺・超必殺時に相手の白ダメージ確定
-			//ver 0.13 投げを追加
-			m_pOther.lock()->m_btlPrm.DecisionWhiteDamage ();
-		}
 
 	}
 

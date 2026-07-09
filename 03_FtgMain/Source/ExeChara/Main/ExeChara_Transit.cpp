@@ -431,7 +431,7 @@ namespace GAME
 				//空中ヒット時に通常やられにする
 				if ( m_pOther.lock()->IsFloat () )
 				{
-					nameAction = U"強制ダウン落下";
+					nameAction = U"吹き飛びダウン(追打なし)";
 				}
 			}
 		}

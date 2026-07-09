@@ -20,7 +20,7 @@
 namespace GAME
 {
 	//クラス内定数
-	const int BtlParam::RecoveryWhiteDamage_Time = 1;
+	const int BtlParam::RecoveryWhiteDamage_Time = 360;
 	const int BtlParam::RecoveryWhiteDamage = 4;
 	const int BtlParam::RecoveryRedDamage_Time = 10;
 
@@ -526,25 +526,32 @@ namespace GAME
 
 		//-------------------------------------------------
 		//ライフ関連
-		// 
+
 		//白ダメージ回復
-		
 		if ( 0 < m_white_damage ) 
 		{
 			//タイマ
-			if ( ! m_tmrWhiteDamage->IsActive () )
+			if ( m_tmrWhiteDamage->IsActive () )
 			{
-				m_tmrWhiteDamage->Start ( RecoveryWhiteDamage_Time );
+				//稼働中は待機
 			}
-
-			if ( m_tmrWhiteDamage->IsLast () )
+			else
 			{
+				//通常時、白ダメージ回復開始
 				m_white_damage -= RecoveryWhiteDamage;
 				m_life += RecoveryWhiteDamage;
 			}
-
-			if ( m_white_damage < 0 ) { m_white_damage = 0; }
 		}
+		else if ( m_white_damage < 0 )
+		{
+			m_white_damage = 0; 
+		}
+
+		DBGOUT_WND_F ( DBGOUT_3, U"m_tmrWhiteDamage = {}/{}"_fmt (
+			m_tmrWhiteDamage->GetTime()
+		,	m_tmrWhiteDamage->GetTargetTime() )
+		);
+
 
 		//赤ダメージ
 		if (0 < m_red_damage)
@@ -859,6 +866,10 @@ namespace GAME
 			m_life = LIFE_MAX;
 			m_white_damage = 0;
 		}
+		
+		//回復開始タイマ開始
+		m_tmrWhiteDamage->Start ( RecoveryWhiteDamage_Time );
+				
 
 		//--------------------------------------------
 		//赤ダメージに蓄積

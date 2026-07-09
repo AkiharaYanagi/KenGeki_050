@@ -25,6 +25,8 @@ namespace GAME
 
 	G_Ftg::G_Ftg ()
 	{
+		m_tmrOffsetCount = std::make_shared < Timer > ();
+
 		Init ();
 	}
 
@@ -161,6 +163,22 @@ namespace GAME
 
 		//通常時
 		RevisedCamera ( pos1p, pos2p );
+
+
+		//相殺補正
+		m_tmrOffsetCount->Move ();
+		if ( m_tmrOffsetCount->IsLast () )
+		{
+			m_offsetCount -= 1;
+			if ( m_offsetCount <= 0 ) { m_offsetCount = 0; }
+			else
+			{
+				m_tmrOffsetCount->Start ( OFFSET_COUNT_TIME );	//もう一度スタート
+			}
+		}
+	
+		//補正
+		DBGOUT_WND_F ( DBGOUT_3, U"OffsetCount = {}"_fmt ( m_offsetCount ) );
 	}
 
 

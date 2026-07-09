@@ -209,8 +209,13 @@ namespace GAME
 		}
 #endif // 0
 
+		//相殺数による補正
+		int32 ofcnt = G_Ftg::inst ()->GetOffsetCount ();
+		float of = 1.f + ( 0.1f * ( float ) ofcnt );
+
+
 		//最終確定補正値
-		btlPrmOhter.SetCnfmRvs ( d_revise * throwRvs * rev_od * g * d_45 );
+		btlPrmOhter.SetCnfmRvs ( d_revise * throwRvs * rev_od * g * d_45 * of );
 
 		//-------------------------------------------------
 
@@ -346,6 +351,10 @@ namespace GAME
 			//レイナ
 			if ( pOther->GetCharaName() == CHARA_REINA )
 			{
+				if ( pOther->IsNameAction ( U"ヴァンガーテ" ) )
+				{
+					m_btlPrm.GetTmr_HitStop ()->Start ( stopTime );	//ヒットストップの設定
+				}
 				if ( pOther->IsNameAction ( U"大攻撃" ) )
 				{
 					m_btlPrm.GetTmr_HitStop ()->Start ( 7 );	//ヒットストップの設定
@@ -356,21 +365,26 @@ namespace GAME
 		else
 		{
 			m_btlPrm.GetTmr_HitStop ()->Start ( stopTime );	//ヒットストップの設定
-			
-#if 0
+
 
 			//キャラ別特殊
-			//烈堂
-			if ( pOther->GetCharaName() == CHARA_RETSUDOU )
+			//ギャバ
+			if ( pOther->GetCharaName() == CHARA_GYAVADARUGA )
 			{
-				bool b = pOther->IsNameAction ( U"暁EX" );
-				if ( b )
+				if ( pOther->IsNameAction ( U"竜巻EX1" ) )
 				{
-					btlPrmOhter.GetTmr_HitStop ()->Start ( 5 );	//ヒットストップの設定
+					//位置ロック
+					pOther->SetPosEachOther ( VEC2 ( 250.f, 0 ) );
 				}
 			}
 
-#endif // 0
+			//-----------------------------------------------------
+			//必殺・超必殺時に相手の白ダメージ確定
+			//特殊アクションカテゴリ指定
+			if ( pOther->IsSpecial () || pOther->IsOverdrive () || pOther->IsThrow () )
+			{
+				pSelf->DecisionWhiteDamage ();
+			}
 		}
 
 
@@ -909,8 +923,22 @@ namespace GAME
 			P_Sequence pEf = pOther->GetpExEf ()->GetpEffect();
 
 			//個別
-			bool bRose = pEf->Name.Is ( U"Rose" );
-			if ( bRose )
+			if ( pEf->Name.Is ( U"4L_Shot" ) )
+			{
+				pSelf->GetrBtlPrm().AddBalance ( -1000 );
+				return;
+			}
+			if ( pEf->Name.Is ( U"4M_Shot" ) )
+			{
+				return;
+			}
+			if ( pEf->Name.Is ( U"4H_Shot" ) )
+			{
+				pSelf->DecisionWhiteDamage ();
+				return;
+			}
+
+			if ( pEf->Name.Is ( U"Rose" ) )
 			{
 				m_pOther.lock ()->SetAction ( U"ヴォルデーリャ成立1" );
 				return;

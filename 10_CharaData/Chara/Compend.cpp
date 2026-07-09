@@ -17,8 +17,8 @@ namespace CHARA
 {
 	Compend::Compend()
 	{
-		mpap_Tx = std::make_shared < AP_Tx > ();
 		mpap_Sqc = std::make_shared < AP_Sqc > ();
+		//mpap_Tx = std::make_shared < AP_Tx > ();
 	}
 
 	Compend::~Compend()
@@ -56,13 +56,6 @@ namespace CHARA
 		UINT32 index = 0;
 		for ( P_Sqc pSqc : * mpap_Sqc )
 		{
-#if 0
-			s3d::String actionName = p->Name.Get (); 
-			if ( 0 == name.compare ( actionName ) )
-			{
-				return index;
-			}
-#endif // 0
 			if ( pSqc->Name.Is ( name ) )
 			{
 				return index;

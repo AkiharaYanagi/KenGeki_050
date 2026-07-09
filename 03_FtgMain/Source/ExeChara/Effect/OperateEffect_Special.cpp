@@ -159,6 +159,10 @@ namespace GAME
 				//xのみ端にする
 				pExeEffect->SetFullDisplay_X ( T );
 			}
+
+			if ( pEffect->Name.Is ( U"ヴニベルゾEf0" )  )
+			{
+			}
 		}
 	}
 

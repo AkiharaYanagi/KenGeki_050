@@ -64,6 +64,11 @@ namespace GAME
 		//ｙ方向スクロール
 		bool	m_bScrollY { F };
 
+		//相殺回数補正
+		int32	m_offsetCount { 0 };
+		P_Timer	m_tmrOffsetCount;	//相殺回数補正タイマ
+		const int32 OFFSET_COUNT_TIME { 60 };	//相殺回数補正タイマの時間(フレーム)
+
 	public:
 		//初期化
 		void Init ();
@@ -94,13 +99,17 @@ namespace GAME
 		float GetEdgeLeft () const { return m_edge_L; }
 		float GetEdgeRight () const { return m_edge_R; }
 
-#if 0
-#endif // 0
 		//システム表示
 		GET_SET ( bool, GetSysDisp, SetSysDisp, m_sysDisp )
 
 		//ｙ方向スクロール
 		GET_SET ( bool, GetScrollY, SetScrollY, m_bScrollY )
+
+
+		//相殺回数補正
+		int32 GetOffsetCount () const { return m_offsetCount; }
+		void SetOffsetCount ( int32 n ){ m_offsetCount = n; }
+		void AddOffsetCount ( int32 n ) { m_offsetCount += n; m_tmrOffsetCount->Start ( OFFSET_COUNT_TIME ); }
 
 	private:
 		//カメラの画面端における補正位置

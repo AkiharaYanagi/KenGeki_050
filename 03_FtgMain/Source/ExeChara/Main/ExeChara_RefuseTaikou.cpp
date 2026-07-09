@@ -88,7 +88,14 @@ namespace GAME
 
 		case CHARA_OUKA:
 
+			if ( IsNameAction ( U"空中竜巻") ) { return T; }
+			if ( IsNameAction ( U"空中竜巻落下") ) { return T; }
+			if ( IsNameAction ( U"空中竜巻着地") ) { return T; }
 			//EX
+			if ( IsNameAction ( U"鶍の嘴EX") ) { return T; }
+			if ( IsNameAction ( U"鶍の嘴EX1") ) { return T; }
+			if ( IsNameAction ( U"鶍の嘴EX2") ) { return T; }
+			if ( IsNameAction ( U"鶍の嘴EX3") ) { return T; }
 			if ( IsNameAction ( U"空中昇竜発生") ) { return T; }
 			if ( IsNameAction ( U"空中昇竜落下") ) { return T; }
 			if ( IsNameAction ( U"空中昇竜着地") ) { return T; }
@@ -138,6 +145,18 @@ namespace GAME
 		break;
 
 		case CHARA_FERARIA:
+			if ( IsNameAction ( U"ジャンプ小") || IsNameAction ( U"空中ダッシュ小攻撃") )
+			{
+				uint32 i = m_pScript->Index.Get();
+				if ( 0 <= i && i <= 12 )
+				{ return T; }
+			}
+			if ( IsNameAction ( U"ジャンプ大") || IsNameAction ( U"空中ダッシュ大攻撃") )
+			{
+				uint32 i = m_pScript->Index.Get();
+				if ( 0 <= i && i <= 11 )
+				{ return T; }
+			}
 			if ( IsNameAction ( U"カキャ・ムルチャ上昇") ) { return T; }
 			if ( IsNameAction ( U"カキャ・ムルチャEX上昇") ) { return T; }
 		break;

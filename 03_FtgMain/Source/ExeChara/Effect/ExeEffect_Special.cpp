@@ -106,7 +106,7 @@ namespace GAME
 			if (90 < m_count) { m_end = T; }
 		}
 		
-		if (m_pEffect->Name.Is(U"4H_Shot"))
+		else if ( m_pEffect->Name.Is(U"4H_Shot") )
 		{
 			if ( m_hit )
 			{
@@ -117,6 +117,8 @@ namespace GAME
 
 		//======================================================================
 		//月日星
+#if 0
+
 		if ( m_pEffect->Name.Is( U"OD0" ) )
 		{
 			if ( m_pScript->Index.Is( 0 ) )
@@ -126,8 +128,25 @@ namespace GAME
 			}
 		}
 
+#endif // 0
+
+		//======================================================================
+
+		//======================================================================
+		//レイナ
+#if 0
+		if ( m_pEffect->Name.Is( U"ヴニベルゾEf0" ) )
+		{
+			//角度
+			float rad = m_pEfGnrt->Rotate.Get();
+			P_Grp pGrp = m_dispEffect->GetpGrp ();
+			pGrp->SetRadian ( rad );
+		}
+#endif // 0
+
 		//======================================================================
 		//Enemy_0
+#if 0
 		if ( m_pEffect->Name.Is ( U"Laser_m" ) )
 		{
 			static float w = 1.f;
@@ -138,6 +157,7 @@ namespace GAME
 				m_dispEffect->SetW ( w = 0 );
 			}
 		}
+#endif // 0
 		//======================================================================
 	}
 

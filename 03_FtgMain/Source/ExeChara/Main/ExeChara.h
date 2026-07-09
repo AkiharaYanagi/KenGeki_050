@@ -480,6 +480,7 @@ namespace GAME
 		V_UINT32	m_vOfstCncl;		//相殺キャンセルリスト(地上)
 		V_UINT32	m_vOfstCncl_Air;	//相殺キャンセルリスト(空中)
 		void MakeOfstCnclList ();	//相殺キャンセルリスト生成
+		void MakeCharaSpecial ();	//キャラ別特殊データをロード後に事前生成
 
 	public:
 		//アクション指定(Stateから指定)
@@ -509,10 +510,10 @@ namespace GAME
 		void SetParamFromScript ();	//スクリプトからパラメータを反映する
 		void SpecialAction ();		//特殊アクション指定
 
+	public:
 		//投げなどで、相手との位置をロックする
 		void SetPosEachOther ( VEC2 pos );
 
-	public:
 		//------------------------------------------------
 		//アクション体勢
 		bool Is_AP_Stand () const { return m_pAction->Posture.Is ( AP_STAND ); }

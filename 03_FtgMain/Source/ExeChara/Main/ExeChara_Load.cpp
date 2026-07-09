@@ -76,8 +76,12 @@ namespace GAME
 		m_btlPrm.SetpChara ( m_pChara );
 		m_btlPrm.SetwpExeChara ( shared_from_this (), m_pOther );
 
+		//--------------------------------------------
 		//相殺キャンセルリストを先に作成しておく
 		MakeOfstCnclList ();
+
+		//キャラ別特殊データをロード後に事前生成
+		MakeCharaSpecial ();
 
 		//--------------------------------------------
 		//エフェクト生成ベクタの生成
@@ -347,6 +351,33 @@ namespace GAME
 				++ i_air;
 			}
 		}
+	}
+
+
+	//キャラ別特殊データをロード後に事前生成
+	void ExeChara::MakeCharaSpecial ()
+	{
+#if 0
+
+		//レイナ
+		if ( m_name == CHARA_REINA )
+		{
+			{
+				P_Sqc pSqc = m_pChara->GetBehavior ().GetpSqc ( U"ヴニベルソ0" );
+				P_Frame pFrm = pSqc->GetpScript ( 10 );
+				P_EfGnrt pEfGnrt = pFrm->GetpapEfGnrt ()->at ( 0 );
+				pEfGnrt->Rotate_center = VEC2( );
+				pEfGnrt->Rotate = D3DX_PI;
+			}
+			{
+				P_Sqc pSqc = m_pChara->GetBehavior ().GetpSqc ( U"ヴニベルソ1" );
+				P_Frame pFrm = pSqc->GetpScript ( 1 );
+				P_EfGnrt pEfGnrt = pFrm->GetpapEfGnrt ()->at ( 0 );
+				pEfGnrt->Rotate = D3DX_PI;
+			}
+		}
+
+#endif // 0
 	}
 
 

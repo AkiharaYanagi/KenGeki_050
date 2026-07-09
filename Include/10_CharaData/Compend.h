@@ -10,7 +10,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "Define_Siv3D.h"
 #include "Sequence.h"
-//#include "Atlas/Atlas.h"
+#include "Atlas/Atlas.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -21,17 +21,18 @@ namespace CHARA
 
 	class Compend
 	{
-		PAP_Tx		mpap_Tx;		//イメージ テクスチャ配列
 		PAP_Sqc		mpap_Sqc;		//シークエンス配列
 
 		PAP_Adi		mpap_VC;		//ボイス
 		PAP_Adi		mpap_SE;		//SE
 
-		//const Atlas &	m_atlas;		//アトラス参照
+
+		P_Atlas		m_atlas;		//アトラス参照
+		//PAP_Tx	mpap_Tx;		//イメージ テクスチャ配列
 
 	public:
 		Compend ();
-		Compend( const Compend& rhs ) = delete;
+		Compend ( const Compend & rhs ) = delete;
 		~Compend ();
 
 
@@ -43,19 +44,21 @@ namespace CHARA
 		bool ExistSqc ( const s3d::String & name ) const;
 
 		//シークエンス参照を取得
-		P_Sqc & GetpSqc ( UINT32 index ) { return mpap_Sqc->at ( index ); }
-		P_Sqc & GetpSqc ( const s3d::String & name ) { return GetpSqc ( GetSqcID ( name ) ); }
+		P_Sqc& GetpSqc ( UINT32 index ) { return mpap_Sqc->at ( index ); }
+		P_Sqc& GetpSqc ( const s3d::String & name ) { return GetpSqc ( GetSqcID ( name ) ); }
 
 		//---------------------------------------------------------------------
 		//名前からアクションIDを取得する(無いときはNO_ACTION(0x7FFF0001)を返す)
 		UINT32 GetSqcID ( const s3d::String & name ) const;
 
+
+		//---------------------------------------------------------------------
 		//テクスチャ配列の設定
-		void SetpapTx_Main ( PAP_Tx paptx ) { mpap_Tx = paptx; }
-		PAP_Tx GetpapTx () { return mpap_Tx; }
+		//void SetpapTx_Main ( PAP_Tx paptx ) { mpap_Tx = paptx; }
+		//PAP_Tx GetpapTx () { return mpap_Tx; }
 
 		//アトラスの設定
-		//void SetcrAtlas ( const Atlas & atlas ) { m_atlas = atlas; }
+		void SetpAtlas ( P_Atlas pAtlas ) { m_atlas = pAtlas; }
 	};
 
 	using P_CCompend = std::shared_ptr < Compend >;

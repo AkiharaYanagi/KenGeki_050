@@ -102,6 +102,7 @@ namespace GAME
 		P_Timer		m_tmrTrainingGuard;	//トレモ：連続ヒット切れガード成立
 		P_Timer		m_tmrThrowInv;		//やられ後投げ無敵タイマ
 
+
 		UINT	m_blackOut { 0 };		//暗転
 		UINT	m_scpStop { 0 };		//スクリプトからの停止
 		bool	m_whiteOut { F };		//白転

@@ -310,21 +310,16 @@ namespace GAME
 		//桜花
 		else if ( m_name == CHARA_OUKA )
 		{
+			if ( IsNameActionFrame ( U"波動必殺追加1", 0 ) )
+			{
+				SetPosEachOther ( VEC2 ( 100.f, 0 ) );
+			}
+
 			if ( IsNameAction ( U"投げ成立0" ) )
 			{
 				if ( m_pScript->Index.Is ( 0 ) )
 				{
 					TopByZ ();
-#if 0
-
-					//位置調整用
-					float bDir = m_btlPrm.GetDirRight () ? 1.f : -1.f;
-					VEC2 my_pos = GetPos ();
-					VEC2 pos_rev = { my_pos.x + ( bDir * 250 ), my_pos.y + 0 };
-
-					m_pOther.lock()->SetPos ( pos_rev );	//位置同期
-
-#endif // 0
 					SetPosEachOther ( VEC2 ( 250.f, 0 ) );
 				}
 			}
@@ -473,6 +468,7 @@ namespace GAME
 			bool b_ex1 = IsNameAction ( U"竜巻EX1" );
 			bool b_ex2 = IsNameAction ( U"竜巻EX2" );
 
+#if 0
 
 			if ( b_ex0 )
 			{
@@ -482,6 +478,8 @@ namespace GAME
 					SetPosEachOther ( VEC2 ( 250.f, 0 ) );
 				}
 			}
+#endif // 0
+
 
 			if ( b_ex0 || b_ex1 || b_ex2 )
 			{
@@ -655,15 +653,21 @@ namespace GAME
 		else if ( m_name == CHARA_FERARIA )
 		{
 			//飛び道具
-			bool b4L = IsNameAction ( U"4弱" );
-			bool b4M = IsNameAction ( U"4中" );
-			bool b4H = IsNameAction ( U"4強" );
-
 			//アクセルゲージを０に向かう方に
 			int acl = m_btlPrm.GetAccel ();
-			if ( b4L ) { if ( 0 < acl ) { m_btlPrm.AddAccel ( -100 ); } }
-			if ( b4M ) { if ( 0 < acl ) { m_btlPrm.AddAccel ( -150 ); } }
-			if ( b4H ) { if ( 0 < acl ) { m_btlPrm.AddAccel ( -200 ); } }
+			if ( IsNameActionFrame ( U"4弱", 0 ) )
+			{
+				if ( 0 < acl ) { m_btlPrm.AddAccel ( -100 ); } 
+			}
+			if ( IsNameActionFrame ( U"4中", 0 ) )
+			{
+				if ( 0 < acl ) { m_btlPrm.AddAccel ( -150 ); } 
+			}
+			if ( IsNameActionFrame ( U"4強", 0 ) )
+			{
+				if ( 0 < acl ) { m_btlPrm.AddAccel ( -200 ); } 
+			}
+
 
 			if ( IsNameAction ( U"投げ成立0" ) )
 			{

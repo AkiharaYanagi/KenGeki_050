@@ -354,6 +354,9 @@ namespace GAME
 			//記録
 			m_pParam->GetPrmResult().AddOffset ( 1 );
 
+			//補正
+			G_Ftg::inst ()->AddOffsetCount ( 1 );
+
 #if 0
 			m_efSpark->On ( center );
 //			m_efParticle->On ( center );
