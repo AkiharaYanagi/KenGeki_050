@@ -305,7 +305,7 @@ namespace GAME
 	//相手ダメージ処理の後
 	void ExeChara::OnDamaged_After ()
 	{
-#if 0
+		//DirectDamage時に必要
 
 		P_ExeChara pOther = m_pOther.lock ();		//相手
 		bool bGuard = IsGuard ();
@@ -330,6 +330,7 @@ namespace GAME
 		}
 
 
+#if 0
 #endif // 0
 
 

@@ -7,12 +7,12 @@
 //-------------------------------------------------------------------------------------------------
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
-#include "10_CharaData/Frame.h"
+#include "Frame.h"
 
 //-------------------------------------------------------------------------------------------------
 // 定義
 //-------------------------------------------------------------------------------------------------
-namespace CHARA
+namespace GAME
 {
 
 	Frame::Frame()
@@ -92,13 +92,13 @@ namespace CHARA
 
 
 	//対象が存在するかどうか
-	bool Frame::EF_Exist ( const s3d::String & name ) { return AGnrt_Exist ( ma_EF, name ); }
+	//bool Frame::EF_Exist ( const s3d::String & name ) { return AGnrt_Exist ( ma_EF, name ); }
 	bool Frame::SE_Exist ( const s3d::String & name ) { return AGnrt_Exist ( ma_SE, name ); }
 	bool Frame::VC_Exist ( const s3d::String & name ) { return AGnrt_Exist ( ma_VC, name ); }
 
 
 	//空欄かどうかチェックする
-	bool Frame::EF_Blank () const { return AGnrt_Blank ( ma_EF ); }
+	//bool Frame::EF_Blank () const { return AGnrt_Blank ( ma_EF ); }
 	bool Frame::SE_Blank () const { return AGnrt_Blank ( ma_SE ); }
 	bool Frame::VC_Blank () const { return AGnrt_Blank ( ma_VC ); }
 

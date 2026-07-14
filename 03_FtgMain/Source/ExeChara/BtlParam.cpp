@@ -766,11 +766,21 @@ namespace GAME
 #endif // 0
 		if ( m_pExeChara.lock()->IsDamaged () )
 		{
+			//持続になったフレームで振り向いてしまう
 			//空中吹き飛び時　ループを防ぐ
 			if ( m_pSequence->Name.Is ( U"手前に大きく吹き飛びダウン持続")	) {	return F; }
+			else if ( m_pSequence->Name.Is ( U"吹き飛びダウン持続")	) {	return F; }
+			else if ( m_pSequence->Name.Is ( U"吹き飛びダウン(追打なし)持続")	) {	return F; }
+			else if ( m_pSequence->Name.Is ( U"大吹き飛びダウン持続")	) {	return F; }
+			else if ( m_pSequence->Name.Is ( U"横吹き飛びダウン持続")	) {	return F; }
+			else if ( m_pSequence->Name.Is ( U"横吹き飛びダウンすべり")	) {	return F; }
+			else if ( m_pSequence->Name.Is ( U"真横吹き飛び(追打)_持続")	) {	return F; }
+			else if ( m_pSequence->Name.Is ( U"垂直吹き飛びダウン持続")	) {	return F; }
+			else if ( m_pSequence->Name.Is ( U"垂直吹き飛び(追打)_持続")	) {	return F; }
+			
+			//初回のみT
 			if ( m_pFrame->Index.Is ( 0 ) )
 			{
-				//初回のみT
 				return T;
 			}
 		} 

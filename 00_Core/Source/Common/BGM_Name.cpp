@@ -19,8 +19,8 @@ namespace GAME
 	{
 		//BGM名
 		m_bgmName = std::make_shared < GameGraphic > ();
-		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_NoBGM.png" );
-		//m_bgmName->AddTexture_FromArchive ( U"1_1_transparent.png" );
+		//m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_NoBGM.png" );
+		m_bgmName->AddTexture_FromArchive ( U"1_1_transparent.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_SAE.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_OUKA.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_RETSU.png" );

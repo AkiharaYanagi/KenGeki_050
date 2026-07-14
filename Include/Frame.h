@@ -93,12 +93,12 @@ namespace GAME
 		A_Gnrt & GetaVC () { return ma_VC; }
 
 		bool AGnrt_Exist ( const A_Gnrt & aGnrt, const s3d::String & name ) const;
-		bool EF_Exist ( const s3d::String & name );
+		//bool EF_Exist ( const s3d::String & name );
 		bool SE_Exist ( const s3d::String & name );
 		bool VC_Exist ( const s3d::String & name );
 
 		bool AGnrt_Blank ( const A_Gnrt & aGnrt ) const;
-		bool EF_Blank () const; 
+		//bool EF_Blank () const; 
 		bool SE_Blank () const; 
 		bool VC_Blank () const; 
 
