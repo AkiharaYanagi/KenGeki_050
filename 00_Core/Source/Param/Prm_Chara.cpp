@@ -48,7 +48,7 @@ namespace GAME
 	constexpr char32_t CHARA_IMG2_FERA []	= U"Chara\\Ferallia_2p_bhv.lz4";
 	constexpr char32_t CHARA_GNS_FERA []	= U"Chara\\Ferallia_gns.lz4";
 
-	constexpr char32_t CHARA_SCP_TUKI []	= U"Chara\\Tsukihibosi.scp";
+	constexpr char32_t CHARA_SCP_TUKI []		= U"Chara\\Tsukihibosi.scp";
 	constexpr char32_t CHARA_IMG1_TUKI []	= U"Chara\\Tsukihibosi_1p_bhv.lz4";
 	constexpr char32_t CHARA_IMG2_TUKI []	= U"Chara\\Tsukihibosi_2p_bhv.lz4";
 	constexpr char32_t CHARA_GNS_TUKI []	= U"Chara\\Tsukihibosi_gns.lz4";
@@ -57,7 +57,22 @@ namespace GAME
 	constexpr char32_t CHARA_IMG1_REINA []	= U"Chara\\Reina_1p_bhv.lz4";
 	constexpr char32_t CHARA_IMG2_REINA []	= U"Chara\\Reina_2p_bhv.lz4";
 	constexpr char32_t CHARA_GNS_REINA []	= U"Chara\\Reina_gns.lz4";
+
+
+	constexpr char32_t CHARA_ATLS1_OUKA []	= U"Chara\\Ouka_1p_bhv.atls";
+	constexpr char32_t CHARA_ATLS2_OUKA []	= U"Chara\\Ouka_2p_bhv.atls";
+	constexpr char32_t CHARA_ATLS1_SAE []	= U"Chara\\Sae_1p_bhv.atls";
+	constexpr char32_t CHARA_ATLS2_SAE []	= U"Chara\\Sae_2p_bhv.atls";
+	constexpr char32_t CHARA_ATLS1_RETSU []	= U"Chara\\Retsudou_1p_bhv.atls";
+	constexpr char32_t CHARA_ATLS2_RETSU []	= U"Chara\\Retsudou_2p_bhv.atls";
+	constexpr char32_t CHARA_ATLS1_GYAVA []	= U"Chara\\Gabadaruga_1p_bhv.atls";
+	constexpr char32_t CHARA_ATLS2_GYAVA []	= U"Chara\\Gabadaruga_2p_bhv.atls";
+	constexpr char32_t CHARA_ATLS1_FERA []	= U"Chara\\Ferallia_1p_bhv.atls";
+	constexpr char32_t CHARA_ATLS2_FERA []	= U"Chara\\Ferallia_2p_bhv.atls";
+	constexpr char32_t CHARA_ATLS1_TUKI []	= U"Chara\\Tsukihibosi_1p_bhv.atls";
+	constexpr char32_t CHARA_ATLS2_TUKI []	= U"Chara\\Tsukihibosi_2p_bhv.atls";
 	constexpr char32_t CHARA_ATLS1_REINA []	= U"Chara\\Reina_1p_bhv.atls";
+	constexpr char32_t CHARA_ATLS2_REINA []	= U"Chara\\Reina_2p_bhv.atls";
 
 
 	//Chara_Color_File_Name
@@ -119,12 +134,6 @@ namespace GAME
 		m_papTx_clr1 = lif.LoadLz4_Bhv ( m_filename_img_1p );
 
 		//2p
-#if 0
-		//test
-		m_papTx_clr2 = m_papTx_clr1;
-
-#endif // 0
-		
 		//1p2p同じファイル名のとき既存データ利用
 		s3d::String clr1 ( m_filename_img_1p );
 		s3d::String clr2 ( m_filename_img_2p );
@@ -167,9 +176,11 @@ namespace GAME
 		PRINT_F_S( U"OK" );
 
 
+		LoadImgFile lif;
+#if 0
+
 		PRINT_F_S( U"カラー" );
 		//カラー別
-		LoadImgFile lif;
 		if ( CH_CLR_1 == clr )
 		{
 			if ( nullptr == m_papTx_clr1 )
@@ -189,6 +200,35 @@ namespace GAME
 		}
 		PRINT_F_S( U"OK" );
 
+#endif // 0
+
+
+		//---------------------------------------------------
+		//test アトラス
+		PRINT_F_S( U"アトラス" );
+
+		//カラー別
+		//既に読込済みなら飛ばす
+		if ( CH_CLR_1 == clr )
+		{
+			if ( m_atlas_clr1 == nullptr )
+			{
+				m_atlas_clr1 = LoadAtlasFilePng ( m_filename_atls_1p );
+			}
+			m_pChara->GetBehavior ().SetpAtlas ( m_atlas_clr1 );
+		}
+		else if ( CH_CLR_2 == clr )
+		{
+			if ( m_atlas_clr2 == nullptr )
+			{
+				m_atlas_clr2 = LoadAtlasFilePng ( m_filename_atls_2p );
+			}
+			m_pChara->GetBehavior ().SetpAtlas ( m_atlas_clr2 );
+		}
+		PRINT_F_S( U"OK" );
+	
+
+		//---------------------------------------------------
 
 		PRINT_F_S( U"エフェクト" );
 		//共通エフェクト
@@ -222,10 +262,18 @@ namespace GAME
 		m_Ouka.SetFileName	( CHARA_SCP_OUKA , CHARA_IMG1_OUKA , CHARA_IMG2_OUKA , CHARA_GNS_OUKA  );
 		m_Sae.SetFileName	( CHARA_SCP_SAE  , CHARA_IMG1_SAE  , CHARA_IMG2_SAE  , CHARA_GNS_SAE   );
 		m_Retsu.SetFileName ( CHARA_SCP_RETSU, CHARA_IMG1_RETSU, CHARA_IMG2_RETSU, CHARA_GNS_RETSU );
-		m_Gaba.SetFileName	( CHARA_SCP_GABA , CHARA_IMG1_GABA , CHARA_IMG2_GABA , CHARA_GNS_GABA  );
+		m_Gyava.SetFileName	( CHARA_SCP_GABA , CHARA_IMG1_GABA , CHARA_IMG2_GABA , CHARA_GNS_GABA  );
 		m_Fera.SetFileName	( CHARA_SCP_FERA , CHARA_IMG1_FERA , CHARA_IMG2_FERA , CHARA_GNS_FERA  );
 		m_Tsuki.SetFileName ( CHARA_SCP_TUKI , CHARA_IMG1_TUKI , CHARA_IMG2_TUKI , CHARA_GNS_TUKI  );
 		m_Reina.SetFileName ( CHARA_SCP_REINA, CHARA_IMG1_REINA, CHARA_IMG2_REINA, CHARA_GNS_REINA );
+
+		m_Ouka.SetStrAtls ( CHARA_ATLS1_OUKA, CHARA_ATLS2_OUKA );
+		m_Sae.SetStrAtls ( CHARA_ATLS1_SAE, CHARA_ATLS2_SAE );
+		m_Retsu.SetStrAtls ( CHARA_ATLS1_RETSU, CHARA_ATLS2_RETSU );
+		m_Gyava.SetStrAtls ( CHARA_ATLS1_GYAVA, CHARA_ATLS2_GYAVA );
+		m_Fera.SetStrAtls ( CHARA_ATLS1_FERA, CHARA_ATLS2_FERA );
+		m_Tsuki.SetStrAtls ( CHARA_ATLS1_TUKI, CHARA_ATLS2_TUKI );
+		m_Reina.SetStrAtls ( CHARA_ATLS1_REINA, CHARA_ATLS2_REINA );
 	}
 
 #if 0
@@ -299,7 +347,7 @@ namespace GAME
 		PRINT_F_S ( U"End Prm_Chara_all::_Load_Retu" );
 
 		PRINT_F_S ( U"Start Prm_Chara_all::_Load_m_Gaba" );
-		m_Gaba.Load ();
+		m_Gyava.Load ();
 		PRINT_F_S ( U"End Prm_Chara_all::_Load_m_Gaba" );
 
 		PRINT_F_S ( U"Start Prm_Chara_all::_Load_m_Fera" );
@@ -326,7 +374,7 @@ namespace GAME
 		pThis->m_Ouka.Load ();
 		pThis->m_Sae.Load ();
 		pThis->m_Retsu.Load ();
-		pThis->m_Gaba.Load ();
+		pThis->m_Gyava.Load ();
 		pThis->m_Fera.Load ();
 		pThis->m_Tsuki.Load ();
 		pThis->m_Reina.Load ();
@@ -357,7 +405,7 @@ namespace GAME
 	void Prm_Chara_all::_Load_Gaba ( Prm_Chara_all * pThis )
 	{
 		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Gaba" );
-		pThis->m_Gaba.Load ();
+		pThis->m_Gyava.Load ();
 		PRINT_F_S ( U"End Prm_Chara_all::_Load_Gaba" );
 	}
 
@@ -409,7 +457,7 @@ namespace GAME
 		case CHARA_GYAVADARUGA:
 			PRINT_F_S ( U"GetpChara ( CHARA_GABADARUGA, CLR_{} )"_fmt((int32)clr) );
 			if ( m_asyncLoad_Gaba.isValid () ) { m_asyncLoad_Gaba.wait (); }
-			return m_Gaba.GetpChara ( clr );
+			return m_Gyava.GetpChara ( clr );
 
 		case CHARA_FERARIA:
 			PRINT_F_S ( U"GetpChara ( CHARA_FERARIA, CLR_{} )"_fmt((int32)clr) );

@@ -31,10 +31,6 @@ namespace GAME
 		PAP_Tx		m_papTx_clr1 { nullptr };
 		PAP_Tx		m_papTx_clr2 { nullptr };
 
-		//atlas
-		Atlas		m_atlas_clr1;
-		//Atlas		m_atlas_clr2;
-
 		//共通エフェクト
 		PAP_Tx		m_papTx_gns { nullptr };
 
@@ -47,6 +43,15 @@ namespace GAME
 
 		//エフェクトイメージファイル名
 		LPCUSTR		m_filename_gns { U"" };
+
+
+		//アトラスファイル名
+		LPCUSTR	m_filename_atls_1p { U"" };	
+		LPCUSTR	m_filename_atls_2p { U"" };	
+
+		//atlas
+		P_Atlas		m_atlas_clr1 { nullptr };
+		P_Atlas		m_atlas_clr2 { nullptr };
 
 	public:
 		Prm_Chara ();
@@ -73,6 +78,14 @@ namespace GAME
 		//エフェクトイメージファイル名を設定
 		void SetStrGns ( LPCUSTR pStr ) { m_filename_gns = pStr; }
 
+		//アトラスファイル名を設定
+		void SetStrAtls_1p ( LPCUSTR pStr ) { m_filename_atls_1p = pStr; }
+		void SetStrAtls_2p ( LPCUSTR pStr ) { m_filename_atls_2p = pStr; }
+		void SetStrAtls ( LPCUSTR pStr1p, LPCUSTR pStr2p )
+		{
+			m_filename_atls_1p = pStr1p; 
+			m_filename_atls_2p = pStr2p; 
+		}
 	};
 
 
@@ -100,7 +113,7 @@ namespace GAME
 		Prm_Chara		m_Ouka;
 		Prm_Chara		m_Sae;
 		Prm_Chara		m_Retsu;
-		Prm_Chara		m_Gaba;
+		Prm_Chara		m_Gyava;
 		Prm_Chara		m_Fera;
 		Prm_Chara		m_Tsuki;
 		Prm_Chara		m_Reina;

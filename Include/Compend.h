@@ -27,7 +27,7 @@ namespace GAME
 		PAP_Adi		mpap_VC;		//ボイス
 		PAP_Adi		mpap_SE;		//SE
 
-		//const Atlas &	m_atlas;		//アトラス参照
+		P_Atlas		m_atlas { nullptr };		//アトラス参照
 
 	public:
 		Compend ();
@@ -55,7 +55,8 @@ namespace GAME
 		PAP_Tx GetpapTx () { return mpap_Tx; }
 
 		//アトラスの設定
-		//void SetcrAtlas ( const Atlas & atlas ) { m_atlas = atlas; }
+		void SetpAtlas ( P_Atlas pAtlas ) { m_atlas = pAtlas; }
+		P_Atlas GetpAtlas () const { return m_atlas; }
 	};
 
 	using P_CCompend = std::shared_ptr < Compend >;

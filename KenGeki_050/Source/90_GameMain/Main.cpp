@@ -99,6 +99,25 @@ void Load ()
 	//-------------------------------------
 	//ゲームシステムにゲームメインオブジェクトを追加
 	gameSystem.SetpGameMain ( std::move ( gameMain ) );
+
+
+#if 0
+
+	//---------------------------------------------------
+	//test
+	// 
+	//スクリプト　
+	PRINT_F_S( U"スクリプト" );
+	P_Chara pChara = std::make_shared < Chara > ();	//キャラデータ実体
+	LoadCharaBin_s3d lcb;
+	lcb.Load ( U"Test/Test_Sae.scp", * pChara);
+	PRINT_F_S( U"OK" );
+	
+	//Atlas
+	P_Atlas pAtlas = LoadpAtlasImg ( U"Test/Sae_bhv.atls" );
+
+
+#endif // 0
 }
 
 
@@ -163,6 +182,8 @@ void Move ()
 // 描画
 void Draw ()
 {
+	s3d::ClearPrint ();
+	s3d::Profiler::GetStat ().print ();
 	gameSystem.Draw ();
 }
 

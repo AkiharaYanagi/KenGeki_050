@@ -19,11 +19,22 @@ namespace GAME
 
 	DispMainImage::DispMainImage ()
 	{
+#if 0
 		//キャラメイングラフィック
 		m_mainGraphic = std::make_shared < GameGraphic > ();
+
 		m_mainGraphic->SetZ ( Z_CH );
 		AddpTask ( m_mainGraphic );
 		GRPLST_INSERT ( m_mainGraphic );
+
+#endif // 0
+
+
+		//atlas
+		m_grpAtlas = std::make_shared < GrpAtlas> ();
+		AddpTask ( m_grpAtlas );
+		GRPLST_INSERT ( m_grpAtlas );
+
 
 		//影
 		m_grpShadow = std::make_shared < GameGraphic > ();
@@ -40,6 +51,7 @@ namespace GAME
 
 	void DispMainImage::SetpChara ( P_Chara pChara )
 	{
+#if 0
 		//キャラのメインテクスチャアレイを設置
 		//mpap_Tx = pChara->GetBehavior().GetpapTx ();
 		PAP_Tx pap_Tx = pChara->GetBehavior().GetpapTx ();
@@ -49,6 +61,12 @@ namespace GAME
 		{
 			m_mainGraphic->AddpTexture ( ptx );
 		}
+#endif // 0
+
+
+		//キャラのメインアトラスを設置
+		m_grpAtlas->SetpAtlas ( pChara->GetBehavior ().GetpAtlas () );
+
 	}
 
 	//メインイメージの更新
@@ -93,6 +111,9 @@ namespace GAME
 
 		m_mainGraphic->SetRotationCenter ( center );
 #endif // 0
+		
+
+#if 0
 
 		//表示に反映
 		m_mainGraphic->SetPos ( vecImg );
@@ -101,6 +122,23 @@ namespace GAME
 
 //		m_mainGraphic->SetpTexture ( pTexture );
 		m_mainGraphic->SetIndexTexture ( index );
+
+#endif // 0
+
+
+		//---------------------------------------------------------
+		//atlas
+
+		//VEC2 vecImgAtlas = vecImg + VEC2 ( -200, -10 );
+		m_grpAtlas->In ();
+		//m_grpAtlas->SetPos ( vecImgAtlas );
+		m_grpAtlas->SetPos ( vecImg );
+		m_grpAtlas->SetScaling ( 1.f * fDir, 1.f );
+		m_grpAtlas->SetIndexTexture ( index );
+
+#if 0
+#endif // 0
+
 
 		//---------------------------------------------------------
 		//影
@@ -116,20 +154,23 @@ namespace GAME
 	//影化
 	void DispMainImage::TurnShadow ( bool b )
 	{
-		m_mainGraphic->SetColor ( b ? 0xff000000 : 0xffffffff );
+		//m_mainGraphic->SetColor ( b ? 0xff000000 : 0xffffffff );
+		m_grpAtlas->SetColor ( b ? 0xff000000 : 0xffffffff );
 	}
 
-		//乗算カラー指定
+	//乗算カラー指定
 	void DispMainImage::SetColor ( uint32 clr )
 	{
-		m_mainGraphic->SetColor ( clr );
+		//m_mainGraphic->SetColor ( clr );
+		m_grpAtlas->SetColor ( clr );
 	}
 
 
 	//メイングラフィックを同一Z値で先頭にする
 	void DispMainImage::TopByZ ()
 	{
-		GrpLst::Inst()->TopByZ ( m_mainGraphic );
+		//GrpLst::Inst()->TopByZ ( m_mainGraphic );
+		GrpLst::Inst()->TopByZ ( m_grpAtlas );
 	}
 
 
