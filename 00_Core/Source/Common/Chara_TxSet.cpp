@@ -115,8 +115,8 @@ namespace GAME
 		(*m_gridTxCutIn)[CH_CLR_2][CHARA_FERARIA] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Fera_2p.png" );
 		(*m_gridTxCutIn)[CH_CLR_1][CHARA_TSUKIHIBOSHI] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Tsuki_1p.png" );
 		(*m_gridTxCutIn)[CH_CLR_2][CHARA_TSUKIHIBOSHI] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Tsuki_2p.png" );
-		(*m_gridTxCutIn)[CH_CLR_1][CHARA_REINA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
-		(*m_gridTxCutIn)[CH_CLR_2][CHARA_REINA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxCutIn)[CH_CLR_1][CHARA_REINA] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Reina_1p.png" );
+		(*m_gridTxCutIn)[CH_CLR_2][CHARA_REINA] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Reina_2p.png" );
 		(*m_gridTxCutIn)[CH_CLR_1][CHARA_KISHI] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxCutIn)[CH_CLR_2][CHARA_KISHI] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxCutIn)[CH_CLR_1][CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );

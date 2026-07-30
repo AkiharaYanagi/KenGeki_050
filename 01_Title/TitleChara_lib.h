@@ -49,6 +49,7 @@ namespace GAME
 			{ CHARA_GYAVADARUGA	, -200.f },
 			{ CHARA_FERARIA		, -80.f },
 			{ CHARA_TSUKIHIBOSHI, -170.f },
+			{ CHARA_REINA		, -60.f },
 		};
 
 		float		m_revX1 { 0 };

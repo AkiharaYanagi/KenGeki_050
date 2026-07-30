@@ -20,15 +20,20 @@ namespace GAME
 {
 	class DispEffect : public TASK_VEC
 	{
+#if 0
 		//P_Grp			m_grp;			//グラフィック表示
 		P_GrpEf			m_grp;			//グラフィック表示
 		PAP_Tx			mpap_EfTx;		//エフェクトイメージのテクスチャリスト
-		P_DispRect		m_dispRect;		//エフェクト枠表示
+#endif // 0
+		P_GrpAtlas	m_grpAtlas;		//エフェクトグラフィック
+
+		P_DispRect	m_dispRect;		//エフェクト枠表示
 
 		float		m_w { 1.f };		//幅
 
 	public:
-		DispEffect ( PAP_Tx papEfTx, float z );
+		//DispEffect ( PAP_Tx papEfTx, float z );
+		DispEffect ( float z );
 		DispEffect ( const DispEffect & rhs ) = delete;
 		~DispEffect ();
 
@@ -37,7 +42,7 @@ namespace GAME
 
 
 		//有効フラグ設定
-		void SetValid ( bool b ) { m_grp->SetValid ( b ); }
+		void SetValid ( bool b ) { m_grpAtlas->SetValid ( b ); }
 
 		//更新
 		void Update ( P_Frame pScript, VEC2 ptEf, bool dirRight );
@@ -58,12 +63,14 @@ namespace GAME
 //		void OffRect () {}
 		void OffRect () { m_dispRect->OffRect (); }
 
-		P_Grp GetpGrp () { return m_grp; }
+
 		//P_GrpEfShd GetpGrp () { return m_grp; }
+		//P_Grp GetpGrp () { return m_grp; }
+		P_GrpAtlas GetpGrp () { return m_grpAtlas; }
 
 		void SetW ( float w ) { m_w = w; }
 
-		void SetShader ( bool b ) { m_grp->SetShader ( b ); }
+		void SetShader ( bool b ) { m_grpAtlas->SetShader ( b ); }
 	};
 
 	using P_DispEffect = std::shared_ptr < DispEffect >;

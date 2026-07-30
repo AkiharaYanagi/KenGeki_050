@@ -41,7 +41,7 @@ namespace GAME
 		m_charaRect = std::make_shared < CharaRect > ();
 
 		//表示
-		m_dispEffect = std::make_shared < DispEffect > ( pChara->GetGarnish().GetpapTx(), pEfGnrt->Z.Get() );
+		m_dispEffect = std::make_shared < DispEffect > ( pEfGnrt->Z.Get() );
 		m_dispEffect->SetpChara ( pChara );
 		AddpTask ( m_dispEffect );
 		m_dispEffect->SetpCharaRect ( m_charaRect );

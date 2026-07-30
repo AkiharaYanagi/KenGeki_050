@@ -11,6 +11,7 @@
 #include "GameMain.h"
 #include "CharaData.h"
 #include "00_Core/DebugDisp.h"
+#include "LoadImgFile.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -61,6 +62,42 @@ void Load ()
 	//-------------------------------------
 	//タイトル
 	Window::SetTitle ( U"剣撃クロスゾーン" );
+
+
+
+
+	//test
+#if 0
+
+
+	//Siv3D時間計測
+	s3d::Stopwatch sw;
+
+	//-----------------------------------------------
+	Print << U"Gabadaruga_1p_bhv.lz4";
+	sw.restart ();
+	LoadImgFile lif;
+	PAP_Tx paptx = lif.LoadLz4_Bhv ( U"Chara\\Gabadaruga_1p_bhv.lz4" );
+	Print << U"bhv.lz4:" << sw.msF () << U"[ms]";
+	//-----------------------------------------------
+	Print << U"Gabadaruga_bhv_png.atls";
+	sw.restart ();
+	P_Atlas pAtls_png = LoadAtlasFilePng ( U"Chara\\Gabadaruga_bhv_png.atls" );
+	Print << U"Page size = " << pAtls_png->GetnPage ();
+	Print << U"Meta size = " << pAtls_png->GetMetaSize ();
+	Print << U"png.atls:" << sw.msF () << U"[ms]";
+	//-----------------------------------------------
+	Print << U"Gabadaruga_bhv_img.atls";
+	sw.restart ();
+	P_Atlas pAtls_img = LoadAtlasFile ( U"Chara\\Gabadaruga_bhv_img.atls" );
+	Print << U"img.atls:" << sw.msF () << U"[ms]";
+	//-----------------------------------------------
+
+
+#endif // 0
+
+
+
 
 	//-------------------------------------
 	//デバッグ用コマンドプロンプト表示
@@ -182,8 +219,12 @@ void Move ()
 // 描画
 void Draw ()
 {
+#if 0
+	//各値使用量　デバッグ表示
 	s3d::ClearPrint ();
 	s3d::Profiler::GetStat ().print ();
+
+#endif // 0
 	gameSystem.Draw ();
 }
 

@@ -58,24 +58,6 @@ namespace GAME
 		CHARA_NAME name2p = stg.GetCharaName2p ();
 		CHARA_COLOR clr2p = stg.GetCharaColor2p ();
 		SetChara ( name1p, clr1p, name2p, clr2p );
-
-#if 0
-
-		CHARA_NAME name1p = stg.GetCharaName1p ();
-		CHARA_COLOR clr1p = stg.GetCharaColor1p ();
-		P_Tx ptx1p = p->GetpChara_TxSet()->GetpTx_CutIn ( name1p, clr1p );
-		m_chara_1p->AssignpTexture ( ptx1p );
-		m_revX1 = m_posAdjustMap.at ( name1p );
-		m_x1 = START_X_1P + m_revX1;
-
-		CHARA_NAME name2p = stg.GetCharaName2p ();
-		CHARA_COLOR clr2p = stg.GetCharaColor2p ();
-		P_Tx ptx2p = p->GetpChara_TxSet()->GetpTx_CutIn ( name2p, clr2p );
-		m_chara_2p->AssignpTexture ( ptx2p );
-		m_revX2 = m_posAdjustMap.at ( name2p );
-		m_x2 = START_X_2P - m_revX2;
-
-#endif // 0
 	}
 
 	void TitleChara::Load ()
@@ -229,7 +211,7 @@ namespace GAME
 		//タイトルカットイン対象のキャラのみ
 		CHARA_NAME name = CHARA_OUKA;
 
-		switch ( s3d::Random ( 0, 5 ) )
+		switch ( s3d::Random ( 0, 6 ) )
 		{
 		case 0: name = CHARA_OUKA; break;
 		case 1: name = CHARA_SAE; break;
@@ -237,6 +219,7 @@ namespace GAME
 		case 3: name = CHARA_GYAVADARUGA; break;
 		case 4: name = CHARA_FERARIA; break;
 		case 5: name = CHARA_TSUKIHIBOSHI; break;
+		case 6: name = CHARA_REINA; break;
 		default: break;
 		}
 

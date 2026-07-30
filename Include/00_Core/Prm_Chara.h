@@ -24,9 +24,13 @@ namespace GAME
 	//キャラ個別データ
 	class Prm_Chara
 	{
-		//ポインタのみ
+		//キャラポインタ
 		P_Chara		m_pChara { nullptr };
 
+		//スクリプトファイル名
+		LPCUSTR		m_filename_scp { U"" };
+
+#if 0
 		//キャラカラー
 		PAP_Tx		m_papTx_clr1 { nullptr };
 		PAP_Tx		m_papTx_clr2 { nullptr };
@@ -34,24 +38,24 @@ namespace GAME
 		//共通エフェクト
 		PAP_Tx		m_papTx_gns { nullptr };
 
-		//スクリプトファイル名
-		LPCUSTR		m_filename_scp { U"" };
-
 		//イメージファイル名
 		LPCUSTR		m_filename_img_1p { U"" };
 		LPCUSTR		m_filename_img_2p { U"" };
 
 		//エフェクトイメージファイル名
 		LPCUSTR		m_filename_gns { U"" };
+#endif // 0
 
 
 		//アトラスファイル名
-		LPCUSTR	m_filename_atls_1p { U"" };	
-		LPCUSTR	m_filename_atls_2p { U"" };	
+		LPCUSTR		m_filename_atls_1p { U"" };	
+		LPCUSTR		m_filename_atls_2p { U"" };	
+		LPCUSTR		m_filename_atls_ef { U"" };	
 
 		//atlas
 		P_Atlas		m_atlas_clr1 { nullptr };
 		P_Atlas		m_atlas_clr2 { nullptr };
+		P_Atlas		m_atlas_ef   { nullptr };
 
 	public:
 		Prm_Chara ();
@@ -65,11 +69,10 @@ namespace GAME
 		P_Chara GetpChara ( CHARA_COLOR clr );
 
 
-		//すべてのファイル名設定
-		void SetFileName ( LPCUSTR SCP, LPCUSTR IMG1, LPCUSTR IMG2, LPCUSTR GNS );
-
 		//スクリプトファイル名を設定
 		void SetStrScp ( LPCUSTR pStr ) { m_filename_scp = pStr; }
+
+#if 0
 
 		//イメージファイル名を設定
 		void SetStrImg_1p ( LPCUSTR pStr ) { m_filename_img_1p = pStr; }
@@ -78,13 +81,20 @@ namespace GAME
 		//エフェクトイメージファイル名を設定
 		void SetStrGns ( LPCUSTR pStr ) { m_filename_gns = pStr; }
 
+		//すべてのファイル名設定
+		void SetFileName ( LPCUSTR SCP, LPCUSTR IMG1, LPCUSTR IMG2, LPCUSTR GNS );
+
+#endif // 0
+
 		//アトラスファイル名を設定
 		void SetStrAtls_1p ( LPCUSTR pStr ) { m_filename_atls_1p = pStr; }
 		void SetStrAtls_2p ( LPCUSTR pStr ) { m_filename_atls_2p = pStr; }
-		void SetStrAtls ( LPCUSTR pStr1p, LPCUSTR pStr2p )
+		void SetStrAtls_ef ( LPCUSTR pStr ) { m_filename_atls_ef = pStr; }
+		void SetStrAtls ( LPCUSTR pStr1p, LPCUSTR pStr2p, LPCUSTR pStref )
 		{
 			m_filename_atls_1p = pStr1p; 
 			m_filename_atls_2p = pStr2p; 
+			m_filename_atls_ef = pStref; 
 		}
 	};
 

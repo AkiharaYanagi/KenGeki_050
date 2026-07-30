@@ -14,9 +14,10 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	DispEffect::DispEffect ( PAP_Tx papEfTx , float z ) 
-		: mpap_EfTx ( papEfTx )
+	DispEffect::DispEffect ( float z ) 
 	{
+#if 0
+
 //		//メイングラフィック
 //		m_grp = std::make_shared < GameGraphic > ();
 		m_grp = std::make_shared < GrpEf > ();
@@ -32,6 +33,15 @@ namespace GAME
 		m_grp->On ();
 		m_grp->SetShader ( T );
 
+#endif // 0
+
+		//atlas
+		m_grpAtlas = std::make_shared < GrpAtlas > ();
+		m_grpAtlas->SetZ ( z );	//初期位置
+		AddpTask ( m_grpAtlas );
+		GRPLST_INSERT ( m_grpAtlas );
+		
+
 
 		//枠表示
 		m_dispRect = std::make_shared < DispRect > ();
@@ -41,12 +51,13 @@ namespace GAME
 	DispEffect::~DispEffect ()
 	{
 		//終了時にグラフィックタスクを外す
-		GRPLST_REMOVE ( m_grp );
-
+		//GRPLST_REMOVE ( m_grp );
+		GRPLST_REMOVE ( m_grpAtlas );
 	}
 
 	void DispEffect::SetpChara(P_Chara pChara)
 	{
+#if 0
 		//キャラのエフェクトテクスチャアレイを設置
 		mpap_EfTx = pChara->GetGarnish().GetpapTx ();
 
@@ -55,6 +66,10 @@ namespace GAME
 		{
 			m_grp->AddpTexture ( ptx );
 		}
+#endif // 0
+
+		//キャラのEFアトラスを設置
+		m_grpAtlas->SetpAtlas ( pChara->GetGarnish ().GetpAtlas () );
 	}
 
 
@@ -69,28 +84,12 @@ namespace GAME
 //		VEC2 imgPos = VEC2( tempImgPos.x, tempImgPos.y );
 		VEC2 vecEfImg = ptEf + imgPos + G_BASE_POS ();
 
-#if 0
-		//2pのみ
-		DBGOUT_WND_F ( DBGOUT_9,
-			U"({},{}) = ({},{})+({},{})+({}, {})"_fmt(
-				vecEfImg.x,
-				vecEfImg.y,
-				ptEf.x,
-				ptEf.y,
-				imgPos.x,
-				imgPos.y,
-				G_BASE_POS().x,
-				G_BASE_POS().y )
-			);
-#endif // 0
 
 #if 0
 		//回転
 		float rad = D3DX_PI * 0.01f * pScript->m_prmStaging.Rotate;
 		m_grp->SetRadian ( rad * fDir );
-#endif // 0
 
-#if 0
 		//スクリプトからの指定がなければテクスチャの中心
 		VEC2 center { 0, 0 };
 		if ( center != pScript->m_prmStaging.Rotate_center )
@@ -108,29 +107,29 @@ namespace GAME
 		m_grp->SetScalingCenter ( center );
 #endif // 0
 
+
 		//テクスチャの指定
 		UINT index = pScript->ImageIndex.Get();
 
-		//表示に反映
 
+
+		//---------------------------------------------------------
+		//表示に反映
+#if 0
+		m_grp->SetScaling ( 1.f * fDir, 1.f );		//拡大(向き)
 //		m_grp->SetPos ( vecEfImg );
 		m_grp->SetBase ( vecEfImg );	//Grp "Ef" Shdは基本位置指定をBaseで行う
-
-		//拡大(向き)
-//		m_grp->SetScaling ( m_w * fDir, 1.f );
-		m_grp->SetScaling ( 1.f * fDir, 1.f );
-
-#if 0
-
-		VEC2 scaling = pScript->m_prmStaging.Scaling;
-		m_grp->SetScaling ( scaling );
-		VEC2 revised = m_grp->GetRevised ();
-		m_grp->SetRevised ( revised + scaling * 0.5f );
+		m_grp->SetIndexTexture ( index );	//テクスチャID
 #endif // 0
 
-		//テクスチャID
-		m_grp->SetIndexTexture ( index );
+		//atlas
+		m_grpAtlas->In ();
+		m_grpAtlas->SetPos ( vecEfImg );
+		m_grpAtlas->SetScaling ( 1.f * fDir, 1.f );
+		m_grpAtlas->SetIndexTexture ( index );
 
+
+		//-------------------------------------
 		//枠
 		m_dispRect->Update ();
 	}
@@ -143,6 +142,8 @@ namespace GAME
 		float fDir = dirRight ? (1.f) : (-1.f);
 		VEC2 vecEfImg = VEC2 ( 0, 0 );
 
+#if 0
+
 		//表示に反映
 		m_grp->SetBase ( vecEfImg );	//Grp "Ef" Shdは基本位置指定をBaseで行う
 
@@ -153,6 +154,14 @@ namespace GAME
 		UINT index = pScript->ImageIndex.Get();
 		m_grp->SetIndexTexture ( index );
 
+#endif // 0
+		UINT index = pScript->ImageIndex.Get();
+		//atlas
+		m_grpAtlas->In ();
+		m_grpAtlas->SetPos ( vecEfImg );
+		m_grpAtlas->SetScaling ( 1.f * fDir, 1.f );
+		m_grpAtlas->SetIndexTexture ( index );
+
 	}
 
 	//画面全体表示 Xのみ
@@ -161,6 +170,8 @@ namespace GAME
 		//位置 (エフェクトのゲーム位置＋スクリプトの表示位置(*向き)＋キャラによる画面補正位置)
 		float x = dirRight ? 0 : (1280.f);
 		VEC2 vecPtBase = VEC2 ( x, ptEf.y );	//Xのみエフェクトのゲーム位置は、画面端とする
+
+#if 0
 
 		//表示に反映
 		m_grp->SetBase ( vecPtBase );	//Grp "Ef" Shdは基本位置指定をBaseで行う
@@ -172,6 +183,15 @@ namespace GAME
 		//テクスチャIDの指定
 		UINT index = pScript->ImageIndex.Get();
 		m_grp->SetIndexTexture ( index );
+
+#endif // 0
+		float fDir = dirRight ? (1.f) : (-1.f);
+		UINT index = pScript->ImageIndex.Get();
+		//atlas
+		m_grpAtlas->In ();
+		m_grpAtlas->SetPos ( vecPtBase );
+		m_grpAtlas->SetScaling ( 1.f * fDir, 1.f );
+		m_grpAtlas->SetIndexTexture ( index );
 
 	}
 

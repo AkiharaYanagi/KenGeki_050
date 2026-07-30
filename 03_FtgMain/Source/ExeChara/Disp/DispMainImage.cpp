@@ -31,7 +31,7 @@ namespace GAME
 
 
 		//atlas
-		m_grpAtlas = std::make_shared < GrpAtlas> ();
+		m_grpAtlas = std::make_shared < GrpAtlas > ();
 		AddpTask ( m_grpAtlas );
 		GRPLST_INSERT ( m_grpAtlas );
 

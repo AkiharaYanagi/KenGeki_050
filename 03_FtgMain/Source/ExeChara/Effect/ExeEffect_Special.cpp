@@ -95,7 +95,7 @@ namespace GAME
 			//方向調整
 			if ( ! m_dirRight ) { rad += D3DX_PI; }
 
-			P_Grp pGrp = m_dispEffect->GetpGrp ();
+			P_GrpAtlas pGrp = m_dispEffect->GetpGrp ();
 			pGrp->SetRadian ( rad );
 
 
