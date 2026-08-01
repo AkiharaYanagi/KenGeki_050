@@ -247,12 +247,16 @@ namespace GAME
 		//リザルト用に保存 (相手の値)
 		int32 chnDmg = btlPrmOhter.GetChainDamage ();
 
+#if 0
+
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_2 )	//相手
 		{
-			DBGOUT_WND_F ( DBGOUT_0, U"ダメージ = {}"_fmt( damage ) );
-			DBGOUT_WND_F ( DBGOUT_1, U"連続ヒットダメージ = {}"_fmt( chnDmg ) );
-			DBGOUT_WND_F ( DBGOUT_2, U"rev_od = {}"_fmt( rev_od ) );
+			//DBGOUT_WND_F ( DBGOUT_0, U"ダメージ = {}"_fmt( damage ) );
+			//DBGOUT_WND_F ( DBGOUT_1, U"連続ヒットダメージ = {}"_fmt( chnDmg ) );
+			//DBGOUT_WND_F ( DBGOUT_2, U"rev_od = {}"_fmt( rev_od ) );
 		}
+
+#endif // 0
 
 		if ( pSelf->Is1P () )
 		{
@@ -564,11 +568,11 @@ namespace GAME
 
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
 		{
-			DBGOUT_WND_F ( DBGOUT_5, U"p1 std {},crc {}"_fmt ( bStandGurad, bCrouchGurad ) );
+			//DBGOUT_WND_F ( DBGOUT_5, U"p1 std {},crc {}"_fmt ( bStandGurad, bCrouchGurad ) );
 		}
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_2 )
 		{
-			DBGOUT_WND_F ( DBGOUT_6, U"p1 std {},crc {}"_fmt ( bStandGurad, bCrouchGurad ) );
+			//DBGOUT_WND_F ( DBGOUT_6, U"p1 std {},crc {}"_fmt ( bStandGurad, bCrouchGurad ) );
 		}
 
 #endif // 0
@@ -841,9 +845,9 @@ namespace GAME
 
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_2 )	//相手
 		{
-			DBGOUT_WND_F ( DBGOUT_0, U"ダメージ = {}"_fmt( damage ) );
-			DBGOUT_WND_F ( DBGOUT_1, U"連続ヒットダメージ = {}"_fmt( chnDmg ) );
-			DBGOUT_WND_F ( DBGOUT_2, U"rev_od = {}"_fmt( rev_od ) );
+			//DBGOUT_WND_F ( DBGOUT_0, U"ダメージ = {}"_fmt( damage ) );
+			//DBGOUT_WND_F ( DBGOUT_1, U"連続ヒットダメージ = {}"_fmt( chnDmg ) );
+			//DBGOUT_WND_F ( DBGOUT_2, U"rev_od = {}"_fmt( rev_od ) );
 		}
 
 #endif // 0

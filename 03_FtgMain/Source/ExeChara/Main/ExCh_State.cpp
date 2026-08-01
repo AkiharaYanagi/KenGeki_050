@@ -117,15 +117,44 @@ namespace GAME
 		pExe->Init ();
 		//アクション・スクリプト初期化
 		pExe->SetAction ( U"立ち" );
+
+
+
+		m_time.clear ();
+		m_ave.clear ();
+		for ( int i = 0; i < 10; ++i )
+		{
+			m_time.push_back ( 0 );
+			m_ave.push_back ( 0 );
+		}
+
 	}
 
 	void CHST_Main::PreScriptMove ()
 	{
 		P_ExeChara pExe = GetwpExeChara ().lock ();
+		PLAYER_ID pid = pExe->GetBtlPrm().GetPlayerID ();
+		m_sw.restart ();
+
+
+		//P_ExeChara pExe = GetwpExeChara ().lock ();
 		pExe->Input ();				//入力		
 
 
+		m_time [ 1 ] += m_sw.msF ();
+		if ( m_count == 60 ) { m_ave[1] = m_time [ 1 ] / 60.0; }
+		DBGOUT_WND_F ( DBGOUT_1, U"{:2.4f}[ms] pExe->Input ();"_fmt( m_ave[1] ) );
+		m_sw.restart ();
+
+
 		pExe->PreMove_Effect ();	//エフェクト動作
+
+	
+		m_time [ 2 ] += m_sw.msF ();
+		if ( m_count == 60 ) { m_ave[2] = m_time [ 2 ] / 60.0; }
+		DBGOUT_WND_F ( DBGOUT_2, U"{:2.4f}[ms] pExe->PreMove_Effect ();"_fmt( m_ave[2] ) );
+		m_sw.restart ();
+
 
 		//ヒットストップ時は以降を飛ばす
 		if ( pExe->IsHitStop () )
@@ -134,10 +163,50 @@ namespace GAME
 		}
 
 		pExe->TransitAction ();		//アクション遷移
+
+	
+		m_time [ 3 ] += m_sw.msF ();
+		if ( m_count == 60 ) { m_ave[3] = m_time [ 3 ] / 60.0; }
+		DBGOUT_WND_F ( DBGOUT_3, U"{:2.4f}[ms] pExe->TransitAction ();"_fmt( m_ave[3] ) );
+		m_sw.restart ();
+
+
+
 		pExe->CalcPos ();			//位置計算
+
+	
+		m_time [ 4 ] += m_sw.msF ();
+		if ( m_count == 60 ) { m_ave[4] = m_time [ 4 ] / 60.0; }
+		DBGOUT_WND_F ( DBGOUT_4, U"{:2.4f}[ms] pExe->CalcPos ();"_fmt( m_ave[4] ) );
+		m_sw.restart ();
+
+
+
 		pExe->SetCollisionRect ();	//接触枠設定
+
+	
+		m_time [ 5 ] += m_sw.msF ();
+		if ( m_count == 60 ) { m_ave[5] = m_time [ 5 ] / 60.0; }
+		DBGOUT_WND_F ( DBGOUT_5, U"{:2.4f}[ms] pExe->SetCollisionRect ();"_fmt( m_ave[5] ) );
+		m_sw.restart ();
+
+
+
+
 //		pExe->OverEfPart ();		//EfPart重なり
+
+
+
+
 		pExe->Generate_Effect ();	//エフェクト生成
+
+
+	
+		m_time [ 6 ] += m_sw.msF ();
+		if ( m_count == 60 ) { m_ave[6] = m_time [ 6 ] / 60.0; }
+		DBGOUT_WND_F ( DBGOUT_6, U"{:2.4f}[ms] pExe->Generate_Effect ();"_fmt( m_ave[6] ) );
+		m_sw.restart ();
+
 	}
 
 	void CHST_Main::RectMove ()
@@ -150,19 +219,62 @@ namespace GAME
 	{
 		P_ExeChara pExe = GetwpExeChara ().lock ();
 
+	
+		m_time [ 7 ] += m_sw.msF ();
+		if ( m_count >= 60 ) { m_ave[7] = m_time [ 7 ] / 60.0; }
+		DBGOUT_WND_F ( DBGOUT_7, U"{:2.4f} [ms] CHST_Main::PostScriptMove ()"_fmt( m_ave[7] ) );
+		m_sw.restart ();
+
+
+
+
 		//追加
 		pExe->BtlPrm_Move_Input();					//バトルパラメータの入力処理
-
 		pExe->PostMove_Effect ();	//エフェクト動作
 		pExe->CheckLife ();			//ライフ判定
+
+
+		m_time [ 0 ] += m_sw.msF ();
+		if ( m_count == 60 ) 
+		{ 
+			m_ave[0] = m_time [ 0 ] / 60.0;
+		}
+		DBGOUT_WND_F ( DBGOUT_0, U"{:2.4f}[ms] pExe->UpdateGraphic ();"_fmt( m_ave[0]));
+		m_sw.restart ();
+
+
 		pExe->UpdateGraphic ();		//グラフィックの更新
 		pExe->SoundPlay ();			//音の再生
 //		pExe->SE_Play ();			//SEの再生
 //		pExe->VC_Play ();			//VCの再生
+	
+
+		m_time [ 8 ] += m_sw.msF ();
+		if ( m_count >= 60 ) { m_ave[8] = m_time [ 8 ] / 60.0; }
+		DBGOUT_WND_F ( DBGOUT_8, U"{:2.4f}[ms] pExe->PostMove_Effect ();"_fmt( m_ave[8] ) );
+		m_sw.restart ();
+
 
 		pExe->MoveTimer ();			//タイマ稼働
 		pExe->SetFirstSE ( F );		//SE再生フラグ
 		pExe->SetFirstVC ( F );		//VC再生フラグ
+	
+
+		m_time [ 9 ] += m_sw.msF ();
+		if ( m_count >= 60 ) { m_ave[9] = m_time [ 9 ] / 60.0; }
+		DBGOUT_WND_F ( DBGOUT_9, U"{:2.4f}[ms] pExe->MoveTimer ();"_fmt( m_ave[9] ) );
+		m_sw.restart ();
+
+		//カウント
+		if ( m_count >= 60 )
+		{
+			m_count = 0;
+			for ( int i = 0; i < 10; ++i )
+			{
+				m_time [ i ] = 0;
+			}
+		}
+		++ m_count;
 	}
 
 	void CHST_Main::NextScript ()

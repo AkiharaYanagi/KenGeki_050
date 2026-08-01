@@ -461,15 +461,15 @@ namespace GAME
 		float ar1 = m_btlPrm.GetAccRecoil ();
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
 		{
-			DBGOUT_WND_F ( DBGOUT_0, U"剣撃対抗 = {}"_fmt( bt ? 1 : 0 ) );
-			DBGOUT_WND_F ( DBGOUT_1, U"計算前：accRecoil = {:.3f}"_fmt( ar0 ) );
-			DBGOUT_WND_F ( DBGOUT_2, U"計算後：accRecoil = {:.3f}"_fmt( ar1 ) );
+			//DBGOUT_WND_F ( DBGOUT_0, U"剣撃対抗 = {}"_fmt( bt ? 1 : 0 ) );
+			//DBGOUT_WND_F ( DBGOUT_1, U"計算前：accRecoil = {:.3f}"_fmt( ar0 ) );
+			//DBGOUT_WND_F ( DBGOUT_2, U"計算後：accRecoil = {:.3f}"_fmt( ar1 ) );
 		}
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_2 )
 		{
-			DBGOUT_WND_F ( DBGOUT_3, U"剣撃対抗 = {}"_fmt( bt ? 1 : 0 ) );
-			DBGOUT_WND_F ( DBGOUT_4, U"計算前：accRecoil = {:.3f}"_fmt( ar0 ) );
-			DBGOUT_WND_F ( DBGOUT_5, U"計算後：accRecoil = {:.3f}"_fmt( ar1 ) );
+			//DBGOUT_WND_F ( DBGOUT_3, U"剣撃対抗 = {}"_fmt( bt ? 1 : 0 ) );
+			//DBGOUT_WND_F ( DBGOUT_4, U"計算前：accRecoil = {:.3f}"_fmt( ar0 ) );
+			//DBGOUT_WND_F ( DBGOUT_5, U"計算後：accRecoil = {:.3f}"_fmt( ar1 ) );
 		}
 #endif // 0
 	}

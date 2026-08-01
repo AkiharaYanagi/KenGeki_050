@@ -318,7 +318,7 @@ namespace GAME
 		if ( Is1P () )
 		{
 	//		UINT frame = GetpScript()->GetFrame ();
-			DBGOUT_WND_F ( DBGOUT_1, U"TransitAction: m_frame = {}"_fmt( m_frame ) );
+			//DBGOUT_WND_F ( DBGOUT_1, U"TransitAction: m_frame = {}"_fmt( m_frame ) );
 		}
 
 #endif // 0
@@ -332,7 +332,7 @@ namespace GAME
 		if ( Is1P () )
 		{
 	//		UINT frame = GetpScript()->GetFrame ();
-			DBGOUT_WND_F ( DBGOUT_2, U"TransitAction: m_frame = {}"_fmt( m_frame ) );
+			//DBGOUT_WND_F ( DBGOUT_2, U"TransitAction: m_frame = {}"_fmt( m_frame ) );
 		}
 
 #endif // 0
@@ -373,8 +373,8 @@ namespace GAME
 		{
 			VEC2 vel = m_btlPrm.GetVel ();
 			VEC2 acc = m_btlPrm.GetAcc ();
-			DBGOUT_WND_F ( DBGOUT_0, U"1p_vel = {},{}"_fmt( vel.x, vel.y ) );
-			DBGOUT_WND_F ( DBGOUT_1, U"1p_acc = {},{}"_fmt( acc.x, acc.y ) );
+			//DBGOUT_WND_F ( DBGOUT_0, U"1p_vel = {},{}"_fmt( vel.x, vel.y ) );
+			//DBGOUT_WND_F ( DBGOUT_1, U"1p_acc = {},{}"_fmt( acc.x, acc.y ) );
 		}
 
 #endif // 0

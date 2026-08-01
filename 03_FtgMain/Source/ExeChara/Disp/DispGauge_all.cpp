@@ -326,7 +326,7 @@ inline double mapRange
 			m_accel_value->SetpPolygon ( m_accel_mask );
 
 #if 0
-			DBGOUT_WND_F ( DBGOUT_6, U"accel {}, x={}, y={}"_fmt( accel, x, y ) );
+			//DBGOUT_WND_F ( DBGOUT_6, U"accel {}, x={}, y={}"_fmt( accel, x, y ) );
 #endif // 0
 		}
 		else if ( PLAYER_ID_2 == m_playerID )

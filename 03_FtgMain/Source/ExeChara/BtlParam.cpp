@@ -233,7 +233,7 @@ namespace GAME
 			//DBGOUT_WND_F ( DBGOUT_3, U"TaikouNG = {}"_fmt(m_tmrTaikouNG->GetTime() ) );
 			bool bActive = m_tmrThrowInv->IsActive ();
 			UINT time = m_tmrThrowInv->GetTime ();
-			DBGOUT_WND_F ( DBGOUT_3, U"ThrowInv = {},{}"_fmt( bActive ? 1:0, time ) );
+			//DBGOUT_WND_F ( DBGOUT_3, U"ThrowInv = {},{}"_fmt( bActive ? 1:0, time ) );
 		}
 
 #endif // 0
@@ -369,10 +369,14 @@ namespace GAME
 		//------------------------
 		// 被・剣撃対抗 時　水平補正
 		P_Timer pTmrTK_On = m_pOther.lock ()->GetrBtlPrm().GetTmr_TaikouOn ();
+
+#if 0
 		if ( PLAYER_ID_1 == m_playerID )
 		{
-			DBGOUT_WND_F ( DBGOUT_2, U"m_tmrTaikouOn = {}"_fmt ( pTmrTK_On->GetTime() ) );
+			//DBGOUT_WND_F ( DBGOUT_2, U"m_tmrTaikouOn = {}"_fmt ( pTmrTK_On->GetTime() ) );
 		}
+#endif // 0
+
 		if ( pTmrTK_On->IsActive () )
 		{
 				//ダッシュ時特殊処理
@@ -547,10 +551,14 @@ namespace GAME
 			m_white_damage = 0; 
 		}
 
-		DBGOUT_WND_F ( DBGOUT_3, U"m_tmrWhiteDamage = {}/{}"_fmt (
-			m_tmrWhiteDamage->GetTime()
-		,	m_tmrWhiteDamage->GetTargetTime() )
-		);
+#if 0
+
+		//DBGOUT_WND_F ( DBGOUT_3, U"m_tmrWhiteDamage = {}/{}"_fmt (
+		//	m_tmrWhiteDamage->GetTime()
+		//,	m_tmrWhiteDamage->GetTargetTime() )
+		//);
+
+#endif // 0
 
 
 		//赤ダメージ
@@ -590,12 +598,10 @@ namespace GAME
 	void BtlParam::Move_Input ()
 	{
 #if 0
-
 		if ( PLAYER_ID_1 == m_playerID )
 		{
-			DBGOUT_WND_F ( DBGOUT_2, U"mn_AirDash = {}"_fmt ( mn_AirDash ) );
+			//DBGOUT_WND_F ( DBGOUT_2, U"mn_AirDash = {}"_fmt ( mn_AirDash ) );
 		}
-
 #endif // 0
 	}
 
@@ -636,11 +642,11 @@ namespace GAME
 
 		if ( GetPlayerID () == PLAYER_ID_1 )
 		{
-			DBGOUT_WND_F ( DBGOUT_0, U"1p_pos = {},{}"_fmt( pos.x, pos.y ) );
+			//DBGOUT_WND_F ( DBGOUT_0, U"1p_pos = {},{}"_fmt( pos.x, pos.y ) );
 		}
 		else
 		{
-			DBGOUT_WND_F ( DBGOUT_1, U"2p_pos = {},{}"_fmt( pos.x, pos.y ) );
+			//DBGOUT_WND_F ( DBGOUT_1, U"2p_pos = {},{}"_fmt( pos.x, pos.y ) );
 		}
 
 #endif // 0
@@ -956,11 +962,11 @@ namespace GAME
 
 			if ( GetPlayerID () == PLAYER_ID_1 )
 			{
-				DBGOUT_WND_F ( DBGOUT_5, U"p1:recoil_i {} = {} * {}"_fmt ( recoil_dir, dir, abs ) );
+				//DBGOUT_WND_F ( DBGOUT_5, U"p1:recoil_i {} = {} * {}"_fmt ( recoil_dir, dir, abs ) );
 			}
 			if ( GetPlayerID () == PLAYER_ID_2 )
 			{
-				DBGOUT_WND_F ( DBGOUT_6, U"p2:recoil_i {} = {} * {}"_fmt ( recoil_dir, dir, abs ) );
+				//DBGOUT_WND_F ( DBGOUT_6, U"p2:recoil_i {} = {} * {}"_fmt ( recoil_dir, dir, abs ) );
 			}
 
 #endif // 0

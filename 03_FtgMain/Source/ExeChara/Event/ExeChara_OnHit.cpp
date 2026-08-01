@@ -195,9 +195,9 @@ namespace GAME
 #if 0
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
 		{
-			DBGOUT_WND_F ( DBGOUT_0, U"pre_rcl = {}"_fmt ( pre_rcl ) );
-			DBGOUT_WND_F ( DBGOUT_1, U"rev = {}"_fmt ( d_revise ) );
-			DBGOUT_WND_F ( DBGOUT_2, U"recoil_i = {}"_fmt ( recoil_i ) );
+			//DBGOUT_WND_F ( DBGOUT_0, U"pre_rcl = {}"_fmt ( pre_rcl ) );
+			//DBGOUT_WND_F ( DBGOUT_1, U"rev = {}"_fmt ( d_revise ) );
+			//DBGOUT_WND_F ( DBGOUT_2, U"recoil_i = {}"_fmt ( recoil_i ) );
 		}
 #endif // 0
 
@@ -225,11 +225,11 @@ namespace GAME
 #if 0
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
 		{
-			DBGOUT_WND_F ( DBGOUT_5, U"p1:recoil_i {} = {} * {}"_fmt ( recoil_dir, dir, abs ) );
+			//DBGOUT_WND_F ( DBGOUT_5, U"p1:recoil_i {} = {} * {}"_fmt ( recoil_dir, dir, abs ) );
 		}
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_2 )
 		{
-			DBGOUT_WND_F ( DBGOUT_6, U"p2:recoil_i {} = {} * {}"_fmt ( recoil_dir, dir, abs ) );
+			//DBGOUT_WND_F ( DBGOUT_6, U"p2:recoil_i {} = {} * {}"_fmt ( recoil_dir, dir, abs ) );
 		}
 #endif // 0
 

@@ -177,8 +177,10 @@ namespace GAME
 			}
 		}
 	
+#if 0
 		//補正
-		DBGOUT_WND_F ( DBGOUT_3, U"OffsetCount = {}"_fmt ( m_offsetCount ) );
+		//DBGOUT_WND_F ( DBGOUT_3, U"OffsetCount = {}"_fmt ( m_offsetCount ) );
+#endif // 0
 	}
 
 

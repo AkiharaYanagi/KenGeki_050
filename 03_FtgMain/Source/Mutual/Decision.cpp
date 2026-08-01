@@ -427,7 +427,9 @@ namespace GAME
 			m_efHit->On ();		//ヒットエフェクト
 			m_efHit->Start_Rnd ( hit_center_1p, 16, 50 );		//ヒットエフェクト
 		}
-		DBGOUT_WND_F ( DBGOUT_8, U"center({},{})"_fmt( hit_center_2p.x, hit_center_2p.y ) );
+#if 0
+		//DBGOUT_WND_F ( DBGOUT_8, U"center({},{})"_fmt( hit_center_2p.x, hit_center_2p.y ) );
+#endif // 0
 
 
 

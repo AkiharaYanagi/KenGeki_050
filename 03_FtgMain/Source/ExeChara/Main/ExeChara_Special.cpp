@@ -85,7 +85,7 @@ namespace GAME
 				UINT limit = 60 - time;
 				if ( time == 0 ) { limit = 0; }
 
-				DBGOUT_WND_F( DBGOUT_7, U"{}連続ヒット途切れ、ガード開始 = {}"_fmt( hitNum, limit ) );
+				//DBGOUT_WND_F( DBGOUT_7, U"{}連続ヒット途切れ、ガード開始 = {}"_fmt( hitNum, limit ) );
 			}
 
 #endif // 0

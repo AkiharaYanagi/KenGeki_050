@@ -107,10 +107,12 @@ namespace GAME
 		m_pCharaInput->MakeTransitIDList ( *m_pChara, m_pScript, m_btlPrm.GetDirRight () );
 		const V_UINT32 & vCompID = m_pCharaInput->GetvCompID ();
 
+#if 0
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
 		{
-			DBGOUT_WND_F ( DBGOUT_9, U"vCompID.size = {}"_fmt( vCompID.size() ) );
+			//DBGOUT_WND_F ( DBGOUT_9, U"vCompID.size = {}"_fmt( vCompID.size() ) );
 		}
+#endif // 0
 
 		uint32 transitID = (uint32)NO_COMPLETE;
 		for ( UINT id : vCompID )
@@ -607,9 +609,9 @@ namespace GAME
 			float edge_L = G_FTG()->GetEdgeLeft () + (float)FIELD_EDGE + 50;
 			float edge_R = -50 - (float)FIELD_EDGE + G_FTG()->GetEdgeRight ();
 			float x = m_btlPrm.GetPos().x;
-			DBGOUT_WND_F ( DBGOUT_0, U"edge_R = {}, 2p_x = {}, edge_R = {}"_fmt( edge_L, x, edge_R ) );
+			//DBGOUT_WND_F ( DBGOUT_0, U"edge_R = {}, 2p_x = {}, edge_R = {}"_fmt( edge_L, x, edge_R ) );
 			float base_x = G_FTG()->GetPosMutualBase().x;
-			DBGOUT_WND_F ( DBGOUT_1, U"base_x = {}"_fmt( base_x ) );
+			//DBGOUT_WND_F ( DBGOUT_1, U"base_x = {}"_fmt( base_x ) );
 		}
 #endif // 0
 

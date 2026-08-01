@@ -329,7 +329,7 @@ namespace GAME
 		int POINT = (1280 - 2048) / 2;	//切り替えポイント
 
 
-		DBGOUT_WND_F( DBGOUT_9, U"G_BASE_POS.y = {}"_fmt( y ) );
+		//DBGOUT_WND_F( DBGOUT_9, U"G_BASE_POS.y = {}"_fmt( y ) );
 
 		//Left
 		if ( disp_bg_x < POINT )

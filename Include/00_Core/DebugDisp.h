@@ -34,7 +34,7 @@ extern const bool g_bDEBUG_DISP;
 	//DBGOUT_WND_F は　ExeChara中で用いると２P側で上書きされる
 //		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
 	{
-		DBGOUT_WND_F ( DBGOUT_6, U"OperateEffect::m_bGenerate{}"_fmt( m_bGenerate ) );
+		//DBGOUT_WND_F ( DBGOUT_6, U"OperateEffect::m_bGenerate{}"_fmt( m_bGenerate ) );
 	}
 #endif // 0
 //====================================================

@@ -142,8 +142,8 @@ namespace GAME
 
 #if 0
 
-			DBGOUT_WND_F ( DBGOUT_0, U"theta0 = {}"_fmt( m_angle0 ) );
-			DBGOUT_WND_F ( DBGOUT_1, U"theta1 = {}"_fmt( m_angle1 ) );
+			//DBGOUT_WND_F ( DBGOUT_0, U"theta0 = {}"_fmt( m_angle0 ) );
+			//DBGOUT_WND_F ( DBGOUT_1, U"theta1 = {}"_fmt( m_angle1 ) );
 
 #endif // 0
 		}

@@ -145,12 +145,16 @@ namespace GAME
 	//スクリプト処理 後 エフェクト全体の動作
 	void OperateEffect::PostMove ( BtlParam & btlPrm )
 	{
+#if 0
+
 		//DBGOUT_WND_F は　ExeChara中で用いると２P側で上書きされる
 		if (PLAYER_ID_1 == btlPrm.GetPlayerID())
 		{
 			size_t grp_size = GrpLst::Inst()->GetNumList();
-			DBGOUT_WND_F ( DBGOUT_8, U"GRPLST->size() = {}"_fmt( grp_size ) );
+			//DBGOUT_WND_F ( DBGOUT_8, U"GRPLST->size() = {}"_fmt( grp_size ) );
 		}
+
+#endif // 0
 
 
 		//各エフェクトの動作
