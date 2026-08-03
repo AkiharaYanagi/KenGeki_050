@@ -30,23 +30,6 @@ namespace GAME
 		//スクリプトファイル名
 		LPCUSTR		m_filename_scp { U"" };
 
-#if 0
-		//キャラカラー
-		PAP_Tx		m_papTx_clr1 { nullptr };
-		PAP_Tx		m_papTx_clr2 { nullptr };
-
-		//共通エフェクト
-		PAP_Tx		m_papTx_gns { nullptr };
-
-		//イメージファイル名
-		LPCUSTR		m_filename_img_1p { U"" };
-		LPCUSTR		m_filename_img_2p { U"" };
-
-		//エフェクトイメージファイル名
-		LPCUSTR		m_filename_gns { U"" };
-#endif // 0
-
-
 		//アトラスファイル名
 		LPCUSTR		m_filename_atls_1p { U"" };	
 		LPCUSTR		m_filename_atls_2p { U"" };	
@@ -58,9 +41,9 @@ namespace GAME
 		P_Atlas		m_atlas_ef   { nullptr };
 
 	public:
-		Prm_Chara ();
-		Prm_Chara ( const Prm_Chara & rhs );	//コピー可能
-		~Prm_Chara ();
+		Prm_Chara () = default;
+		Prm_Chara ( const Prm_Chara & rhs ) = delete;	//コピー不可
+		~Prm_Chara () = default;
 
 		//すべて読込
 		void Load ();
@@ -71,20 +54,6 @@ namespace GAME
 
 		//スクリプトファイル名を設定
 		void SetStrScp ( LPCUSTR pStr ) { m_filename_scp = pStr; }
-
-#if 0
-
-		//イメージファイル名を設定
-		void SetStrImg_1p ( LPCUSTR pStr ) { m_filename_img_1p = pStr; }
-		void SetStrImg_2p ( LPCUSTR pStr ) { m_filename_img_2p = pStr; }
-
-		//エフェクトイメージファイル名を設定
-		void SetStrGns ( LPCUSTR pStr ) { m_filename_gns = pStr; }
-
-		//すべてのファイル名設定
-		void SetFileName ( LPCUSTR SCP, LPCUSTR IMG1, LPCUSTR IMG2, LPCUSTR GNS );
-
-#endif // 0
 
 		//アトラスファイル名を設定
 		void SetStrAtls_1p ( LPCUSTR pStr ) { m_filename_atls_1p = pStr; }
@@ -111,6 +80,7 @@ namespace GAME
 		s3d::AsyncTask < void >	m_asyncLoad_Fera;
 		s3d::AsyncTask < void >	m_asyncLoad_Tuki;
 		s3d::AsyncTask < void >	m_asyncLoad_Rein;
+		s3d::AsyncTask < void >	m_asyncLoad_Eiyu;
 
 		//終了ミューテックス
 		std::mutex				m_mutex;
@@ -127,11 +97,11 @@ namespace GAME
 		Prm_Chara		m_Fera;
 		Prm_Chara		m_Tsuki;
 		Prm_Chara		m_Reina;
+		Prm_Chara		m_Eiyuu;
 
 
 	public:
 		Prm_Chara_all ();
-		//Prm_Chara_all ( const Prm_Chara_all & rhs );	//コピー可能
 		Prm_Chara_all ( const Prm_Chara_all & rhs ) = delete;	//コピー不可
 		~Prm_Chara_all ();
 
@@ -154,6 +124,7 @@ namespace GAME
 		static void _Load_Fera ( Prm_Chara_all * pThis );
 		static void _Load_Tuki ( Prm_Chara_all * pThis );
 		static void _Load_Rein ( Prm_Chara_all * pThis );
+		static void _Load_Eiyu ( Prm_Chara_all * pThis );
 	};
 
 

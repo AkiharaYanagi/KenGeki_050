@@ -37,7 +37,7 @@ namespace GAME
 		BGM_FERA,
 		BGM_TSUKI,
 		BGM_REINA,
-		BGM_HERO,
+		BGM_EIYUU,
 		BGM_DOXT,
 		BGM_ENEMY0,
 	};

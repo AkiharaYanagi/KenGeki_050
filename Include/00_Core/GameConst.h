@@ -30,7 +30,7 @@ namespace GAME
 		CHARA_FERARIA,		//フェラリア
 		CHARA_TSUKIHIBOSHI,	//月日星
 		CHARA_REINA,		//レイナ
-		CHARA_KISHI,		//忘れられた英雄
+		CHARA_EIYUU,		//忘れられた英雄
 		CHARA_DOXTUKA,		//ドッカードボル
 		CHARA_ENEMY_ZERO,	//エネミーゼロ
 //		CHARA_RANDUM,

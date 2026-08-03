@@ -39,10 +39,7 @@ namespace GAME
 
 		void SetBGM ( BGM_ID bgm )
 		{
-			if ( bgm < BGM_ID::HERO )
-			{
-				m_bgmName->SetIndexTexture ( static_cast < int32 > ( bgm ) );
-			}
+			m_bgmName->SetIndexTexture ( static_cast < int32 > ( bgm ) );
 		}
 
 		//定数

@@ -30,7 +30,7 @@ namespace GAME
 	constexpr char32_t BGM_FERA []		= U"04_BGM_FERA.wav";
 	constexpr char32_t BGM_TSUKI []		= U"05_BGM_TSUKI.wav";
 	constexpr char32_t BGM_REINA []		= U"06_BGM_REINA.wav";
-	constexpr char32_t BGM_HERO []		= U"07_BGM_HERO.wav";
+	constexpr char32_t BGM_EIYUU []		= U"07_BGM_EIYUU.wav";
 	constexpr char32_t BGM_DOXT []		= U"08_BGM_DOXT.wav";
 	constexpr char32_t BGM_ENEMY0 []	= U"09_BGM_ENEMY0.wav";
 	constexpr char32_t BGM_Title []		= U"10_BGM_Title.wav";
@@ -49,7 +49,7 @@ namespace GAME
 		FERA,
 		TSUKI,
 		REINA,
-		HERO,
+		EIYUU,
 		DOXT,
 		ENEMY0,
 		Count,

@@ -56,8 +56,8 @@ namespace GAME
 		(*m_gridTxFullBody)[CH_CLR_2][CHARA_TSUKIHIBOSHI] = TxUtl::MakeTx_FromArchive ( U"FullBody\\Stand_Tsuki_2p.png" );
 		(*m_gridTxFullBody)[CH_CLR_1][CHARA_REINA] = TxUtl::MakeTx_FromArchive ( U"FullBody\\Stand_Reina.png" );
 		(*m_gridTxFullBody)[CH_CLR_2][CHARA_REINA] = TxUtl::MakeTx_FromArchive ( U"FullBody\\Stand_Reina_2p.png" );
-		(*m_gridTxFullBody)[CH_CLR_1][CHARA_KISHI] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
-		(*m_gridTxFullBody)[CH_CLR_2][CHARA_KISHI] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxFullBody)[CH_CLR_1][CHARA_EIYUU] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxFullBody)[CH_CLR_2][CHARA_EIYUU] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxFullBody)[CH_CLR_1][CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxFullBody)[CH_CLR_2][CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxFullBody)[CH_CLR_1][CHARA_ENEMY_ZERO] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
@@ -80,8 +80,8 @@ namespace GAME
 		(*m_gridTxStand)[CH_CLR_2][CHARA_TSUKIHIBOSHI] = TxUtl::MakeTx_FromArchive ( U"Stand\\t2.png" );
 		(*m_gridTxStand)[CH_CLR_1][CHARA_REINA] = TxUtl::MakeTx_FromArchive ( U"Stand\\rn1.png" );
 		(*m_gridTxStand)[CH_CLR_2][CHARA_REINA] = TxUtl::MakeTx_FromArchive ( U"Stand\\rn2.png" );
-		(*m_gridTxStand)[CH_CLR_1][CHARA_KISHI] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
-		(*m_gridTxStand)[CH_CLR_2][CHARA_KISHI] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxStand)[CH_CLR_1][CHARA_EIYUU] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxStand)[CH_CLR_2][CHARA_EIYUU] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxStand)[CH_CLR_1][CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxStand)[CH_CLR_2][CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxStand)[CH_CLR_1][CHARA_ENEMY_ZERO] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
@@ -97,7 +97,7 @@ namespace GAME
 		(*m_aryTxName)[CHARA_FERARIA] = TxUtl::MakeTx_FromArchive		( U"CharaSele\\Name\\CharaSele_Name_FERA.png" );
 		(*m_aryTxName)[CHARA_TSUKIHIBOSHI] = TxUtl::MakeTx_FromArchive	( U"CharaSele\\Name\\CharaSele_Name_TSUKI.png" );
 		(*m_aryTxName)[CHARA_REINA] = TxUtl::MakeTx_FromArchive			( U"CharaSele\\Name\\CharaSele_Name_REINA.png" );
-		(*m_aryTxName)[CHARA_KISHI] = TxUtl::MakeTx_FromArchive			( U"dummy.png" );
+		(*m_aryTxName)[CHARA_EIYUU] = TxUtl::MakeTx_FromArchive			( U"dummy.png" );
 		(*m_aryTxName)[CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive		( U"dummy.png" );
 		(*m_aryTxName)[CHARA_ENEMY_ZERO] = TxUtl::MakeTx_FromArchive	( U"dummy.png" );
 
@@ -117,8 +117,8 @@ namespace GAME
 		(*m_gridTxCutIn)[CH_CLR_2][CHARA_TSUKIHIBOSHI] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Tsuki_2p.png" );
 		(*m_gridTxCutIn)[CH_CLR_1][CHARA_REINA] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Reina_1p.png" );
 		(*m_gridTxCutIn)[CH_CLR_2][CHARA_REINA] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_Reina_2p.png" );
-		(*m_gridTxCutIn)[CH_CLR_1][CHARA_KISHI] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
-		(*m_gridTxCutIn)[CH_CLR_2][CHARA_KISHI] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxCutIn)[CH_CLR_1][CHARA_EIYUU] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
+		(*m_gridTxCutIn)[CH_CLR_2][CHARA_EIYUU] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxCutIn)[CH_CLR_1][CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxCutIn)[CH_CLR_2][CHARA_DOXTUKA] = TxUtl::MakeTx_FromArchive ( U"dummy.png" );
 		(*m_gridTxCutIn)[CH_CLR_1][CHARA_ENEMY_ZERO] = TxUtl::MakeTx_FromArchive ( U"CutIn\\CutIn_FeraU_1p.png" );
