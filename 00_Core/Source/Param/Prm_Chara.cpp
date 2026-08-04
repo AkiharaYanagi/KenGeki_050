@@ -58,10 +58,10 @@ namespace GAME
 	constexpr char32_t CHARA_SCP_REINA []	= U"Chara\\Reina.scp";
 	constexpr char32_t CHARA_ATLS_EF_REINA []	= U"Chara\\Reina_gns.atls";
 
-	constexpr char32_t CHARA_ATLS2_EIYUU []	= U"Chara\\Reina_2p_bhv.atls";
-	constexpr char32_t CHARA_ATLS1_EIYUU []	= U"Chara\\Reina_1p_bhv.atls";
-	constexpr char32_t CHARA_SCP_EIYUU []	= U"Chara\\Reina.scp";
-	constexpr char32_t CHARA_ATLS_EF_EIYUU []	= U"Chara\\Reina_gns.atls";
+	constexpr char32_t CHARA_ATLS2_EIYUU []	= U"Chara\\Eiyuu_2p_bhv.atls";
+	constexpr char32_t CHARA_ATLS1_EIYUU []	= U"Chara\\Eiyuu_1p_bhv.atls";
+	constexpr char32_t CHARA_SCP_EIYUU []	= U"Chara\\Eiyuu.scp";
+	constexpr char32_t CHARA_ATLS_EF_EIYUU []	= U"Chara\\Eiyuu_gns.atls";
 
 
 
@@ -169,6 +169,7 @@ namespace GAME
 		m_Fera.SetStrScp	( CHARA_SCP_FERA );
 		m_Tsuki.SetStrScp ( CHARA_SCP_TUKI );
 		m_Reina.SetStrScp ( CHARA_SCP_REINA );
+		m_Eiyuu.SetStrScp ( CHARA_SCP_EIYUU );
 
 		m_Ouka.SetStrAtls ( CHARA_ATLS1_OUKA, CHARA_ATLS2_OUKA, CHARA_ATLS_EF_OUKA );
 		m_Sae.SetStrAtls ( CHARA_ATLS1_SAE, CHARA_ATLS2_SAE, CHARA_ATLS_EF_SAE );
@@ -177,6 +178,7 @@ namespace GAME
 		m_Fera.SetStrAtls ( CHARA_ATLS1_FERA, CHARA_ATLS2_FERA, CHARA_ATLS_EF_FERA );
 		m_Tsuki.SetStrAtls ( CHARA_ATLS1_TUKI, CHARA_ATLS2_TUKI, CHARA_ATLS_EF_TUKI );
 		m_Reina.SetStrAtls ( CHARA_ATLS1_REINA, CHARA_ATLS2_REINA, CHARA_ATLS_EF_REINA );
+		m_Eiyuu.SetStrAtls ( CHARA_ATLS1_EIYUU, CHARA_ATLS2_EIYUU, CHARA_ATLS_EF_EIYUU );
 	}
 
 
@@ -196,6 +198,9 @@ namespace GAME
 		if ( m_asyncLoad_Retu.isValid () ) { m_asyncLoad_Retu.wait (); }
 		if ( m_asyncLoad_Gaba.isValid () ) { m_asyncLoad_Gaba.wait (); }
 		if ( m_asyncLoad_Fera.isValid () ) { m_asyncLoad_Fera.wait (); }
+		if ( m_asyncLoad_Tuki.isValid () ) { m_asyncLoad_Tuki.wait (); }
+		if ( m_asyncLoad_Rein.isValid () ) { m_asyncLoad_Rein.wait (); }
+		if ( m_asyncLoad_Eiyu.isValid () ) { m_asyncLoad_Eiyu.wait (); }
 	}
 
 
