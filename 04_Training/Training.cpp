@@ -111,6 +111,11 @@ namespace GAME
 				s3d::AudioAsset::Wait ( bgm_name );
 			}
 
+			if ( ! AUDIO()->IsStreamingBGM ( bgm_name ) )
+			{
+				s3d::AudioAsset::Wait ( bgm_name );
+			}
+
 			AUD_PLAY_LOOP_BGM ( bgm_name );
 		}
 

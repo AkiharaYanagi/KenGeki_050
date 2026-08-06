@@ -22,6 +22,8 @@ namespace GAME
 	//------------------------------------------
 
 	//BGMファイル名
+#if 0
+
 	constexpr char32_t BGM_NONE []		= U"BGM_NONE";
 	constexpr char32_t BGM_SAE []		= U"00_BGM_SAE.wav";
 	constexpr char32_t BGM_OUKA []		= U"01_BGM_OUKA.wav";
@@ -36,6 +38,36 @@ namespace GAME
 	constexpr char32_t BGM_Title []		= U"10_BGM_Title.wav";
 	constexpr char32_t BGM_CharaSele []	= U"11_BGM_CharaSele.wav";
 	constexpr char32_t BGM_Result []	= U"12_BGM_Result.wav";
+
+	constexpr char32_t BGM_NONE []		= U"BGM_NONE";
+	constexpr char32_t BGM_SAE []		= U"00_BGM_SAE.opus";
+	constexpr char32_t BGM_OUKA []		= U"01_BGM_OUKA.opus";
+	constexpr char32_t BGM_RETSU []		= U"02_BGM_RETSU.opus";
+	constexpr char32_t BGM_GYAVA []		= U"03_BGM_GYAVA.opus";
+	constexpr char32_t BGM_FERA []		= U"04_BGM_FERA.opus";
+	constexpr char32_t BGM_TSUKI []		= U"05_BGM_TSUKI.opus";
+	constexpr char32_t BGM_REINA []		= U"06_BGM_REINA.opus";
+	constexpr char32_t BGM_EIYUU []		= U"07_BGM_EIYUU.opus";
+	constexpr char32_t BGM_DOXT []		= U"08_BGM_DOXT.opus";
+	constexpr char32_t BGM_ENEMY0 []	= U"09_BGM_ENEMY0.opus";
+	constexpr char32_t BGM_Title []		= U"10_BGM_Title.opus";
+	constexpr char32_t BGM_CharaSele []	= U"11_BGM_CharaSele.opus";
+	constexpr char32_t BGM_Result []	= U"12_BGM_Result.opus";
+#endif // 0
+	constexpr char32_t BGM_NONE []		= U"BGM_NONE";
+	constexpr char32_t BGM_SAE []		= U"00_BGM_SAE.ogg";
+	constexpr char32_t BGM_OUKA []		= U"01_BGM_OUKA.ogg";
+	constexpr char32_t BGM_RETSU []		= U"02_BGM_RETSU.ogg";
+	constexpr char32_t BGM_GYAVA []		= U"03_BGM_GYAVA.ogg";
+	constexpr char32_t BGM_FERA []		= U"04_BGM_FERA.ogg";
+	constexpr char32_t BGM_TSUKI []		= U"05_BGM_TSUKI.ogg";
+	constexpr char32_t BGM_REINA []		= U"06_BGM_REINA.ogg";
+	constexpr char32_t BGM_EIYUU []		= U"07_BGM_EIYUU.ogg";
+	constexpr char32_t BGM_DOXT []		= U"08_BGM_DOXT.ogg";
+	constexpr char32_t BGM_ENEMY0 []	= U"09_BGM_ENEMY0.ogg";
+	constexpr char32_t BGM_Title []		= U"10_BGM_Title.ogg";
+	constexpr char32_t BGM_CharaSele []	= U"11_BGM_CharaSele.ogg";
+	constexpr char32_t BGM_Result []	= U"12_BGM_Result.ogg";
 
 
 	//ID
