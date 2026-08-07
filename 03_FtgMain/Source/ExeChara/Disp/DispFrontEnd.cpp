@@ -278,6 +278,8 @@ namespace GAME
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Tsuki_2p.png" );
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Reina_1p.png" );
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Reina_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Eiyuu_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Eiyuu_2p.png" );
 			m_face->SetScaling ( -1, 1 );
 
 			m_name->SetPos ( POS_NAME_1P );
@@ -288,6 +290,7 @@ namespace GAME
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Fera.png" );
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Tsuki.png" );
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Reina.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Eiyuu.png" );
 
 			//-----------------------------------------------------------------
 
@@ -314,6 +317,8 @@ namespace GAME
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Tsuki_2p.png" );
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Reina_1p.png" );
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Reina_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Eiyuu_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Eiyuu_2p.png" );
 
 			m_name->SetPos ( POS_NAME_2P );
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Ouka.png" );
@@ -323,6 +328,7 @@ namespace GAME
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Fera.png" );
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Tsuki.png" );
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Reina.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Eiyuu.png" );
 
 			//-----------------------------------------------------------------
 			m_grp_Cst_Player1P2P->SetPos ( POS_PL_CP_2P );
@@ -446,6 +452,7 @@ namespace GAME
 			case CHARA_NAME::CHARA_FERARIA:		fc =  8; nm = 4; break;
 			case CHARA_NAME::CHARA_TSUKIHIBOSHI:fc = 10; nm = 5; break;
 			case CHARA_NAME::CHARA_REINA:		fc = 12; nm = 6; break;
+			case CHARA_NAME::CHARA_EIYUU:		fc = 14; nm = 7; break;
 			}
 		}
 		else if ( CHARA_COLOR::CH_CLR_2 == clr )
@@ -459,6 +466,7 @@ namespace GAME
 			case CHARA_NAME::CHARA_FERARIA:		fc =  9; nm = 4; break;
 			case CHARA_NAME::CHARA_TSUKIHIBOSHI:fc = 11; nm = 5; break;
 			case CHARA_NAME::CHARA_REINA:		fc = 13; nm = 6; break;
+			case CHARA_NAME::CHARA_EIYUU:		fc = 15; nm = 7; break;
 			}
 		}
 

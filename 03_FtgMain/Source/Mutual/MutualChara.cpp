@@ -110,6 +110,7 @@ namespace GAME
 		//◆スクリプト後処理(グラフィック位置など)
 		m_exeChara1->PostScriptMove ();
 		m_exeChara2->PostScriptMove ();
+
 		//---------------------------------------------------
 		SaveParam();		//シーン共通パラメータ記録
 	}

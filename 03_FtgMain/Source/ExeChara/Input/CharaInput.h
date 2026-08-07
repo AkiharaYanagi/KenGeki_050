@@ -27,7 +27,12 @@ namespace GAME
 		bool				m_cpu;			//CPUフラグ
 
 		//コマンドが完成したIDを優先順に保存したリスト
-		V_UINT32			m_vCompID;		
+		A_UINT32			m_aCompID;		
+
+
+		//test
+		StopWatch		m_sw;
+
 
 	public:
 		CharaInput ();
@@ -36,6 +41,9 @@ namespace GAME
 
 		//プレイヤーID
 		void SetPlayer ( PLAYER_ID id ) { m_playerID = id; }
+
+		//キャラデータ（ブランチ最大値）
+		void SetChara  ( const Chara & ch );
 
 		//読込
 		virtual void Load () {}
@@ -59,18 +67,19 @@ namespace GAME
 		//戻値：enum { NO_COMPLETE (0xFFFFFFFF) } 不成立
 		virtual UINT GetTransitID ( const Chara & ch, P_Frame pFrm, bool dirRight );
 
-		//成立リストを生成する
+		//成立リストを生成する(指定フレームにおけるコマンドによるブランチ全て)
 		virtual void MakeTransitIDList ( const Chara & ch, P_Frame pFrm, bool dirRight );
+		//成立リストを生成する(特定条件のブランチリスト)
 		virtual void MakeTransitIDList ( const Chara & ch, V_UINT32 vBrc, bool dirRight );
  
 		//キーの保存
 		void SetGameKey ( V_GAME_KEY & vKey );
 
 		//優先リストの先頭を取得する
-		UINT GetCompID ();
+		uint32_t GetCompID ();
 
 		//優先リストの参照を得る
-		const std::vector < UINT > & GetvCompID () const { return m_vCompID; }
+		const A_UINT32 & GetvCompID () const { return m_aCompID; }
 
 
 		//直接キー取得

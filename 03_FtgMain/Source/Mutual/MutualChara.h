@@ -41,6 +41,7 @@ namespace GAME
 		//勝者
 		WINNER	m_winner { WINNER::WINNER_DRAW };
 
+
 	public:
 		MutualChara ();
 		MutualChara ( const MutualChara & rhs ) = delete;

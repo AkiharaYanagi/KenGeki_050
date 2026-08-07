@@ -134,10 +134,10 @@ namespace GAME
 		// コマンドによる分岐
 		//コマンドが完成したIDを優先順に保存したリスト
 		m_pCharaInput->MakeTransitIDList ( *m_pChara, m_pScript, m_btlPrm.GetDirRight () );
-		const std::vector < UINT > & vCompID = m_pCharaInput->GetvCompID ();
+		const A_UINT32 & vCompID = m_pCharaInput->GetvCompID ();
 
-		uint32 transitID = (uint32)NO_COMPLETE;
-		for ( UINT id : vCompID )
+		uint32_t transitID = (uint32_t)NO_COMPLETE;
+		for ( uint32_t id : vCompID )
 		{
 			//遷移先チェック
 			P_Sequence pAct = m_pChara->GetpAction ( id );

@@ -120,12 +120,7 @@ namespace GAME
 	//バトル　メイン状態
 	class CHST_Main : public ExeChara_State
 	{
-		//Siv3D時間計測
-		s3d::Stopwatch		m_sw;
-
-		s3d::Array < double >	m_time;
-		s3d::Array < double >	m_ave;
-		uint32_t				m_count { 0 };
+		StopWatch		m_sw;
 
 	public:
 		s3d::String GetName () const { return U"BattleMain"; }

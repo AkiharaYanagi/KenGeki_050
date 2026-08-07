@@ -25,7 +25,6 @@ namespace GAME
 	void ExeChara::TransitAction ()
 	{
 		assert ( nullptr != m_pAction && nullptr != m_pScript );
-
 #if 0
 
 		//-----------------------------------------------------
@@ -45,7 +44,6 @@ namespace GAME
 		// 特殊条件による分岐
 		TranditAction_Special ();
 
-
 		//-----------------------------------------------------
 		//現在スクリプトが現在アクションにおける最終フレーム ならば
 		if ( m_pAction->IsOverScript ( m_frame ) )
@@ -53,7 +51,6 @@ namespace GAME
 			EndAction ();	//アクション終了処理
 			//次アクション m_frame = 0に遷移
 		}
-
 
 
 		//-----------------------------------------------------
@@ -100,12 +97,17 @@ namespace GAME
 	//アクション移項（コマンドに関する処理）
 	bool ExeChara::TranditAction_Command ()
 	{
+
+
+		//m_sw.ReStart ();	//test
+
+
 		//-----------------------------------------------------
 		// コマンドによる分岐
 		
 		//コマンドが完成したIDを優先順に保存したリスト
 		m_pCharaInput->MakeTransitIDList ( *m_pChara, m_pScript, m_btlPrm.GetDirRight () );
-		const V_UINT32 & vCompID = m_pCharaInput->GetvCompID ();
+		const A_UINT32 & vCompID = m_pCharaInput->GetvCompID ();
 
 #if 0
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
@@ -114,8 +116,14 @@ namespace GAME
 		}
 #endif // 0
 
-		uint32 transitID = (uint32)NO_COMPLETE;
-		for ( UINT id : vCompID )
+
+
+		//m_sw.Disp ( DBGOUT_0, U"MakeTransitIDList ();" );
+
+
+
+		uint32_t transitID = (uint32_t)NO_COMPLETE;
+		for ( uint32_t id : vCompID )
 		{
 			//遷移先チェック
 			P_Sequence pAct = m_pChara->GetBehavior().GetpSqc ( id );
@@ -132,6 +140,11 @@ namespace GAME
 		}
 		
 
+
+		//m_sw.Disp ( DBGOUT_1, U"相殺キャンセルチェック ();" );
+
+
+
 		//相殺キャンセルチェック
 		if ( m_btlPrm.GetTmr_OfstCncl()->IsActive () )
 		{
@@ -146,9 +159,9 @@ namespace GAME
 
 				//コマンドが完成したIDを優先順に保存したリスト
 				m_pCharaInput->MakeTransitIDList ( *m_pChara, m_vOfstCncl_Air, bDir );
-				const V_UINT32 & vCompID_Offset = m_pCharaInput->GetvCompID ();
+				const A_UINT32 & vCompID_Offset = m_pCharaInput->GetvCompID ();
 
-				for ( UINT id : vCompID_Offset )
+				for ( uint32_t id : vCompID_Offset )
 				{
 					//遷移先チェック
 					P_Sequence pAct = m_pChara->GetBehavior().GetpSqc ( id );
@@ -169,9 +182,9 @@ namespace GAME
 			{
 				//コマンドが完成したIDを優先順に保存したリスト
 				m_pCharaInput->MakeTransitIDList ( *m_pChara, m_vOfstCncl, bDir );
-				const V_UINT32 & vCompID_Offset = m_pCharaInput->GetvCompID ();
+				const A_UINT32 & vCompID_Offset = m_pCharaInput->GetvCompID ();
 
-				for ( UINT id : vCompID_Offset )
+				for ( uint32_t id : vCompID_Offset )
 				{
 					//遷移先チェック
 					P_Sequence pAct = m_pChara->GetBehavior().GetpSqc ( id );
@@ -190,7 +203,6 @@ namespace GAME
 			}
 
 		}
-
 
 		//トレモ・受身オンのとき優先
 		if ( m_pParam->GetPrmResult ().m_prp_Ukemi.Get () )
@@ -231,6 +243,13 @@ namespace GAME
 			//終了
 			return T;
 		}
+
+
+
+
+		//m_sw.Disp ( DBGOUT_2, U"その他 ();" );
+		//m_sw.Count ();
+
 
 		return F;
 	}

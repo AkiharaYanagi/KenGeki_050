@@ -26,12 +26,70 @@ namespace GAME
 			GameKey gameKey;
 			m_vGameKey.push_back ( gameKey );
 		}
+
+		//コマンドが完成したIDを優先順に保存したリスト
+		//全チェックした最大値ではなく固定値を使用、オーバーした場合は以下を記録しない
+		m_aCompID.reserve ( 256 );
+
+
+		//test
+		m_sw.Start ();
+
 	}
 
 	//デストラクタ
 	CharaInput::~CharaInput ()
 	{
 	}
+
+
+	//キャラデータ（ブランチ最大値）
+	void CharaInput::SetChara ( const Chara & ch )
+	{
+		( void ) ch;
+#if 0
+
+		//キャラの持つルート,ブランチ,コマンドの参照
+		const Compend & cmpd = ch.GetcBehavior ();
+		const AP_Rut vpRoute = ch.GetvpRoute ();
+		const AP_Brc vpBranch = ch.GetvpBranch ();
+		const AP_Cmd vpCommand = ch.GetvpCommand ();
+		
+		//キャラ毎によるブランチの最大値でReserveする
+		uint32_t maxBranch = 0;
+
+
+		//シークエンス
+		//スクリプト
+
+
+		//スクリプトの持つルートリスト
+		for ( UINT indexRoute : pFrm->GetcaRouteID () )
+		{
+			//ルートの取得
+			P_Rut pRut = apRoute [ indexRoute ];
+			const A_UINT32 vBranchID = apRoute [ indexRoute ]->GetcaIDBranch ();
+
+			//対象のブランチリスト
+			for ( uint32_t indexBranch : vBranchID )
+			{
+				//ブランチの取得
+				P_Brc pBrc = apBranch [ indexBranch ];
+
+				//コマンド分岐以外は飛ばす
+				if ( BRC_CMD != pBrc->Condition.Get() ) { continue; }
+
+				++ maxBranch;
+			}
+		}
+
+		//成立した１つのIDではなく、成立したIDを優先順位で保存したリストを返す
+		m_aCompID.clear ();
+		m_aCompID.reserve ( maxBranch );	//最大値でReserveする
+
+#endif // 0
+	}
+
 
 	//更新
 	void CharaInput::Update ( bool dirRight )
@@ -163,9 +221,9 @@ namespace GAME
 
 	//------------------------------------------------------------------------------------
 	//ルートリストをチェックして各種ブランチのコマンドが達成されていたら
-	//遷移先のアクションIDを返す
+	//遷移先のアクションIDの１つだけを優先順で返す
 	//戻値：enum { NO_COMPLETE (0xFFFFFFFF) } 不成立
-	UINT CharaInput::GetTransitID ( const Chara & ch, P_Frame pFrm, bool dirRight )
+	uint32_t CharaInput::GetTransitID ( const Chara & ch, P_Frame pFrm, bool dirRight )
 	{
 		//キャラの持つルート,ブランチ,コマンドの参照
 		const AP_Rut vpRoute = ch.GetvpRoute ();
@@ -173,12 +231,12 @@ namespace GAME
 		const AP_Cmd vpCommand = ch.GetvpCommand ();
 		
 		//スクリプトの持つルートリスト
-		for ( UINT indexRoute : pFrm->GetaRouteID () )
+		for ( uint32_t indexRoute : pFrm->GetaRouteID () )
 		{
-			const V_UINT32 vBranchID = vpRoute[indexRoute]->GetaIDBranch ();
+			const A_UINT32 vBranchID = vpRoute[indexRoute]->GetaIDBranch ();
 
 			//対象のブランチリスト
-			for ( UINT indexBranch : vBranchID )
+			for ( uint32_t indexBranch : vBranchID )
 			{
 				//コマンド分岐以外は飛ばす
 				if ( BRC_CMD != vpBranch[indexBranch]->Condition.Get() ) { continue; }
@@ -200,63 +258,105 @@ namespace GAME
 	}
 
 	
-	//成立リストを生成する
+	//成立リストを生成する(指定フレームにおけるコマンドによるブランチ全て)
 	void CharaInput::MakeTransitIDList ( const Chara & ch, P_Frame pFrm, bool dirRight )
 	{
-		//成立した１つのIDではなく、成立したIDを優先順位で保存したリストを返す
-		m_vCompID.clear ();
-
 		//キャラの持つルート,ブランチ,コマンドの参照
-		const AP_Rut vpRoute = ch.GetvpRoute ();
-		const AP_Brc vpBranch = ch.GetvpBranch ();
-		const AP_Cmd vpCommand = ch.GetvpCommand ();
+		const AP_Rut apRoute = ch.GetvpRoute ();
+		const AP_Brc apBranch = ch.GetvpBranch ();
+		const AP_Cmd apCommand = ch.GetvpCommand ();
+
+
+		uint32_t maxBranch = static_cast < uint32_t > ( m_aCompID.capacity () );
+		m_aCompID.clear ();	//capacityは残る
+
+
+		uint32_t check_num = 0;
+
+
+
+
+		m_sw.ReStart ();	//test
+
+
 
 		//スクリプトの持つルートリスト
 		for ( UINT indexRoute : pFrm->GetcaRouteID () )
 		{
 			//ルートの取得
-			P_Rut pRut = vpRoute [ indexRoute ];
-			const V_UINT32 vBranchID = vpRoute [ indexRoute ]->GetcaIDBranch ();
+			P_Rut pRut = apRoute [ indexRoute ];
+			const V_UINT32 vBranchID = apRoute [ indexRoute ]->GetcaIDBranch ();
 
 			//対象のブランチリスト
 			for ( UINT indexBranch : vBranchID )
 			{
 				//ブランチの取得
-				P_Brc pBrc = vpBranch [ indexBranch ];
+				P_Brc pBrc = apBranch [ indexBranch ];
 
 				//コマンド分岐以外は飛ばす
 				if ( BRC_CMD != pBrc->Condition.Get() ) { continue; }
 
 				//コマンドの取得
-				UINT indexCommand = vpBranch [ indexBranch ]->IndexCommand.Get();
-				P_Cmd pCmd = vpCommand [ indexCommand ];
+				UINT indexCommand = apBranch [ indexBranch ]->IndexCommand.Get();
+				P_Cmd pCmd = apCommand [ indexCommand ];
+
+
+
+				//@info Compare ()がタイムネック
+
+
 
 				//対象コマンドが成立していたら
 				if ( pCmd->Compare ( m_vGameKey, dirRight ) )
 				{
 					//遷移先アクションIDを登録する
-					UINT id = vpBranch [ indexBranch ]->IndexSequence.Get();
-					m_vCompID.push_back ( id );
+					uint32_t id = apBranch [ indexBranch ]->IndexSequence.Get();
+
+					if ( id >= maxBranch )
+					{
+						return;
+						//assert ( F );	//エラー
+					}
+
+					//reserve分はpush_back()でも再確保しない
+					m_aCompID.push_back ( id );
 				}
+
+
+				++ check_num;
 			}
 #if 0
 			MakeTransitIDList ( ch, vBranchID, dirRight );
 #endif // 0
 		}
+
+
+
+
+		m_sw.Disp ( DBGOUT_0, U"m_aCompID.clear ();" );
+
+
+		DBGOUT_WND_F ( DBGOUT_1, U"comp_num = {}"_fmt( m_aCompID.size() ) );
+		DBGOUT_WND_F ( DBGOUT_2, U"check_num = {}"_fmt( check_num ) );
+		m_sw.Count ();
+
+
+
 	}
 	
 	
-	//成立リストを生成する
+	//成立リストを生成する(特定条件のブランチリスト)
 	//引数：キャラ参照, 特定条件のブランチIDリスト, 向き
 	void CharaInput::MakeTransitIDList ( const Chara & ch, V_UINT32 vBrc, bool dirRight )
 	{
-		//成立した１つのIDではなく、成立したIDを優先順位で保存したリストを返す
-		m_vCompID.clear ();
-
 		//キャラの持つルート,ブランチ,コマンドの参照
 		const AP_Rut vpRoute = ch.GetvpRoute ();
 		const AP_Brc vpBranch = ch.GetvpBranch ();
 		const AP_Cmd vpCommand = ch.GetvpCommand ();
+
+		//成立した１つのIDではなく、成立したIDを優先順位で保存したリストを返す
+		uint32_t maxBranch = static_cast < uint32_t > ( m_aCompID.capacity () );
+		m_aCompID.clear ();
 
 
 		//対象のブランチリスト
@@ -278,20 +378,27 @@ namespace GAME
 			{
 				//遷移先アクションIDを登録する
 				UINT id = vpBranch [ indexBranch ]->IndexSequence.Get();
-				m_vCompID.push_back ( id );
+
+				if ( id >= maxBranch )
+				{
+					return;
+					//エラー
+					//assert ( F );
+				}
+				m_aCompID.push_back ( id );
 			}
 		}
 	}
 
 
 	//優先リストの先頭を取得する
-	UINT CharaInput::GetCompID ()
+	uint32_t CharaInput::GetCompID ()
 	{
-		if ( m_vCompID.size() > 0 )
+		if ( m_aCompID.size() > 0 )
 		{
-			return m_vCompID [ 0 ];
+			return m_aCompID [ 0 ];
 		}
-		return (UINT)NO_COMPLETE;
+		return (uint32_t)NO_COMPLETE;
 	}
 
 	void CharaInput::SetGameKey ( V_GAME_KEY & vKey )

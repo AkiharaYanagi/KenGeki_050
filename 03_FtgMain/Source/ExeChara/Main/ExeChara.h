@@ -126,14 +126,9 @@ namespace GAME
 		ExeChara_OnHit		m_OnHit { m_btlPrm };
 		ExeChara_OnDamaged	m_OnDamaged { m_btlPrm };
 
-#if 0
 
-		//テスト
-		//カットイン
-		P_Grp		m_testCutIn;
-
-#endif // 0
-
+		//test
+		StopWatch		m_sw;
 
 
 	public:
@@ -154,7 +149,7 @@ namespace GAME
 		//初期化
 		void LoadCharaData ();
 		//void LoadCharaData_test ();
-		void LoadInput ();
+		void LoadInput ( P_Param pParam );
 		//===========================================================
 
 	public:

@@ -873,6 +873,7 @@ namespace GAME
 			//----------------------------------------------------
 		}
 
+
 		//-----------------------------------------------------
 		//レイナ
 		else if ( m_name == CHARA_REINA )
@@ -939,6 +940,26 @@ namespace GAME
 				if ( 27 < i && i < 37 ) 
 				{
 					SetPosEachOther ( VEC2 ( 150.f - (i-27) * 50, 0 ) );	//位置同期
+				}
+			}
+		}
+
+
+		//-----------------------------------------------------
+		//英雄
+		else if ( m_name == CHARA_EIYUU )
+		{
+			if ( IsNameActionFrame ( U"投げ発生", 0 ) )
+			{
+				if ( pOther->IsNameAction ( U"英雄_後ろ向きやられ" ) )
+				{
+					//確定以内
+					uint32 frame = pOther->GetpScript()->Index.Get();
+					if ( frame < 36 )
+					{
+						pOther->TopByZ ();
+						SetAction ( U"相手後ろ向き時投げ" );
+					}
 				}
 			}
 		}

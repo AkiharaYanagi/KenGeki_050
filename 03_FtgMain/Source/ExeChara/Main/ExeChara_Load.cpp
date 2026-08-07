@@ -32,7 +32,7 @@ namespace GAME
 		m_dispChara->ParamInit ( pParam );
 
 		//入力 (プレイヤモードによる分岐)
-		LoadInput ();
+		LoadInput ( pParam );
 
 		//バトルパラメータ
 		m_btlPrm.ParamInit ( pParam );
@@ -57,6 +57,10 @@ namespace GAME
 	//読込
 	void ExeChara::Load ()
 	{
+		//test
+		m_sw.Start ();
+
+
 		//--------------------------------------------
 		//m_pCharaのデータ読込
 		LoadCharaData ();
@@ -249,7 +253,7 @@ namespace GAME
 	}
 
 
-	void ExeChara::LoadInput ()
+	void ExeChara::LoadInput ( P_Param pParam )
 	{
 		//キャラ入力(プレイヤー, CPU, Network)
 		//初期化
@@ -270,7 +274,6 @@ namespace GAME
 		m_pNewCPUInput->SetLevel ( level );
 
 
-
 		//設定ファイルからモードを取得
 		GameSettingFile stg = m_pParam->GetGameSetting ();
 		m_playerMode = stg.GetPlayerMode ( m_btlPrm.GetPlayerID () );
@@ -286,6 +289,14 @@ namespace GAME
 		}
 
 //		m_pCharaInput = m_pPlayerInput;
+		
+
+#if 0
+		//キャラデータ
+		P_Chara pChara = pParam->GetpChara ( m_name, GetPlayerID () );
+		m_pCharaInput->SetChara ( pChara );
+#endif // 0
+		(void)pParam;
 	}
 
 

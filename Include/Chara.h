@@ -97,7 +97,10 @@ namespace GAME
 		void Clear ();
 
 
+		const Compend & GetcBehavior () { return behavior; }
 		Compend & GetBehavior () { return behavior; }
+
+		const Compend & GetcGarnish  () { return garnish; }
 		Compend & GetGarnish  () { return garnish; }
 
 #if 0

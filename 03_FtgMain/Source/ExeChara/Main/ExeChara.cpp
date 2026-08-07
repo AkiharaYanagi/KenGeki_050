@@ -358,10 +358,14 @@ namespace GAME
 	//スクリプトからパラメータに反映する
 	void ExeChara::SetParamFromScript ()
 	{
+#if 0
+
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
 		{
 			DBGOUT_WND_F ( DBGOUT_8, U"y = {}"_fmt( m_btlPrm.GetPos().y ) );
 		}
+
+#endif // 0
 
 		//------------------------------------------------
 		//アクションとスクリプトをバトルパラメータに渡す
