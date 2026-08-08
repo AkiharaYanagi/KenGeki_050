@@ -78,6 +78,12 @@ namespace GAME
 		float fDir = dirRight ? ( 1.f ) : ( -1.f );		//向き
 //		float fDir = ( 1.f );		//向き
 
+		//表示のみ反転
+		if ( m_reverse )
+		{
+			fDir *= -1.f;
+		}
+
 		//位置
 		VEC2 posScript = pScript->Pos.Get();
 		float bx = G_BASE_POS ().x;	//基準位置

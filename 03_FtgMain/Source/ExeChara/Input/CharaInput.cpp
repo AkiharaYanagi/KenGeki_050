@@ -302,7 +302,10 @@ namespace GAME
 
 
 
+				//=====================================
+				// ◆◆◆　高速化
 				//@info Compare ()がタイムネック
+				//=====================================
 
 
 
@@ -332,13 +335,16 @@ namespace GAME
 
 
 
+#if 0
 
-		m_sw.Disp ( DBGOUT_0, U"m_aCompID.clear ();" );
+		m_sw.Disp ( DBGOUT_0, U"pCmd->Compare ( m_vGameKey, dirRight )" );
 
 
 		DBGOUT_WND_F ( DBGOUT_1, U"comp_num = {}"_fmt( m_aCompID.size() ) );
 		DBGOUT_WND_F ( DBGOUT_2, U"check_num = {}"_fmt( check_num ) );
 		m_sw.Count ();
+
+#endif // 0
 
 
 

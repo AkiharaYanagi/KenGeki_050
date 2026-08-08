@@ -123,13 +123,12 @@ namespace GAME
 
 
 #if 0
-
 		//色変更
 		void SetColor ( _CLR clr ) { m_mainImage->SetColor ( clr ); }
-
-		//影化
-		void TurnShadow ( bool b ) { m_mainImage->TurnShadow ( b ); }
 #endif // 0
+
+		//反転
+		void Reverse ( bool b ) { m_mainImage->Reverse ( b ); }
 
 		//影化
 		void TurnShadow ( bool b ) { m_mainImage->TurnShadow ( b ); }

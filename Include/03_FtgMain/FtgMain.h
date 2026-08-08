@@ -40,6 +40,12 @@ namespace GAME
 #endif // 0
 
 
+		//test
+		StopWatch		m_sw;
+
+
+
+
 	public:
 		FtgMain ();
 		FtgMain ( const FtgMain & rhs ) = delete;

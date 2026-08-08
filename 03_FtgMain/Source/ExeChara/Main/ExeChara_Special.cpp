@@ -962,6 +962,11 @@ namespace GAME
 					}
 				}
 			}
+			else if ( IsNameActionFrame ( U"投げ成立0", 0 ) )
+			{
+				TopByZ ();
+				SetPosEachOther ( VEC2 ( 250, 0 ) );	//位置同期
+			}
 		}
 
 
@@ -980,6 +985,18 @@ namespace GAME
 			}
 		}
 
+		//英雄
+		bool bBack0 = IsNameAction ( U"英雄_後ろ向きやられ" );
+		bool bBack1 = IsNameAction ( U"英雄_後投げやられ" );
+		if ( bBack0 || bBack1 )
+		{
+			//X反転表示
+			m_dispChara->Reverse ( T );
+		}
+		else
+		{
+			m_dispChara->Reverse ( F );
+		}
 
 		//-----------------------------------------------------
 		if ( IsNameAction ( U"勝利" ) )

@@ -118,12 +118,21 @@ namespace GAME
 #endif // 0
 
 
+		m_sw.Start ();
+
+
+
 		Scene_lib::Load ();
 	}
 
 
 	void FtgMain::Move ()
 	{
+
+
+		m_sw.ReStart ();
+
+
 #if 0
 		//NowLoading終了
 		if ( m_rectLoad->GetFadeTimer () == 0 )
@@ -182,8 +191,16 @@ namespace GAME
 		}
 
 
+		m_sw.Disp ( DBGOUT_0, U"FtgMain::Move();" );
+
+
+
 		//通常動作
 		Scene_lib::Move ();
+
+
+		m_sw.Disp ( DBGOUT_1, U"Scene_lib::Move();" );
+		m_sw.Count ();
 
 	}
 

@@ -31,6 +31,8 @@ namespace GAME
 
 		P_GrpAtlas	m_grpAtlas;
 
+		bool		m_reverse { F };	//反転フラグ(表示のみ)
+
 		P_Grp		m_grpShadow;	//影
 
 	public:
@@ -50,6 +52,9 @@ namespace GAME
 			(void)clr;
 		//	m_mainGraphic->SetColor ( clr );
 		}
+
+		//反転
+		void Reverse ( bool b ) { m_reverse = b; }
 
 		//影化
 		void TurnShadow ( bool b );
