@@ -191,7 +191,7 @@ namespace GAME
 		}
 
 
-		m_sw.Disp ( DBGOUT_0, U"FtgMain::Move();" );
+		//m_sw.Disp ( DBGOUT_0, U"FtgMain::Move();" );
 
 
 
@@ -199,7 +199,7 @@ namespace GAME
 		Scene_lib::Move ();
 
 
-		m_sw.Disp ( DBGOUT_1, U"Scene_lib::Move();" );
+		//m_sw.Disp ( DBGOUT_1, U"Scene_lib::Move();" );
 		m_sw.Count ();
 
 	}

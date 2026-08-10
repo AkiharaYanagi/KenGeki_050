@@ -93,7 +93,11 @@ namespace GAME
 //		float x = bx + ptChara.x + posScript.x;	//->ScalingCenterの指定により位置補正は無し
 		float y = by + ptChara.y + posScript.y;
 //		float y =  0 + ptChara.y + posScript.y;
-		VEC2 vecImg = VEC2 ( x, y );
+		
+		//VEC2 vecImg = VEC2 ( x, y );
+
+		//整数化しておく　テクスチャの描画位置は整数でないとアトラスのスキマが見える
+		VEC2 vecImg = VEC2 ( static_cast < int > ( x ), static_cast < int > ( y ) );
 
 		//IDチェックはスクリプト作成時、ロード時に行う
 		UINT index = pScript->ImageIndex.Get();

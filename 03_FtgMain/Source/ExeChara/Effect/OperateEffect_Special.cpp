@@ -61,6 +61,8 @@ namespace GAME
 		else if ( pEffect->Name.Is ( U"2MEfb" ) ) { pExeEffect->SetShader ( F ); }
 		else if ( pEffect->Name.Is ( U"2HEf" ) ) { pExeEffect->SetShader ( F ); }
 
+		//それ以外は基本オン
+		else { pExeEffect->SetShader ( T ); }
 
 		//全部オフ
 		//pExeEffect->SetShader ( F );

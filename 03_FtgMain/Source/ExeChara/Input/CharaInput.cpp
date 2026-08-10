@@ -340,8 +340,8 @@ namespace GAME
 		m_sw.Disp ( DBGOUT_0, U"pCmd->Compare ( m_vGameKey, dirRight )" );
 
 
-		DBGOUT_WND_F ( DBGOUT_1, U"comp_num = {}"_fmt( m_aCompID.size() ) );
-		DBGOUT_WND_F ( DBGOUT_2, U"check_num = {}"_fmt( check_num ) );
+		//DBGOUT_WND_F ( DBGOUT_1, U"comp_num = {}"_fmt( m_aCompID.size() ) );
+		//DBGOUT_WND_F ( DBGOUT_2, U"check_num = {}"_fmt( check_num ) );
 		m_sw.Count ();
 
 #endif // 0

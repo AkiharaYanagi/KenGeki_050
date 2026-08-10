@@ -21,9 +21,11 @@ namespace GAME
 
 	//====================================================
 	//バージョン表記
-	s3d::String g_VERSION = U"ver 0.73";
+	s3d::String g_VERSION = U"ver 0.74";
 
 #if 0
+//	ver 0.74	2026/08/  ( ) 大幅修正
+//	ver 0.73	2026/07/12(日) 不具合修正
 //	ver 0.72	2026/07/11(土) レイナ2Pカラー＋その他色々
 //	ver 0.71	2026/06/13(土) 主にレイナの調整＋その他色々
 //	ver 0.70	2026/06/07(日) 新キャラクター「レイナ」追加
@@ -93,7 +95,8 @@ namespace GAME
 	const bool g_bCMDPRMPT_DISP = T;
 
 	//タイトル画面で全キャラ読込
-	const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
+	//const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
+	const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
 
 	//カーソル位置のモニタの中心から開始
 	const bool g_bSTART_CURSOR_POS = T;
