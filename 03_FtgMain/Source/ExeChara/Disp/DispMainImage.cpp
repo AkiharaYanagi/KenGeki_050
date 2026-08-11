@@ -97,7 +97,9 @@ namespace GAME
 		//VEC2 vecImg = VEC2 ( x, y );
 
 		//整数化しておく　テクスチャの描画位置は整数でないとアトラスのスキマが見える
-		VEC2 vecImg = VEC2 ( static_cast < int > ( x ), static_cast < int > ( y ) );
+		int fx = static_cast < int > ( x );
+		int fy = static_cast < int > ( y );
+		VEC2 vecImg = VEC2 ( fx, fy  );
 
 		//IDチェックはスクリプト作成時、ロード時に行う
 		UINT index = pScript->ImageIndex.Get();
