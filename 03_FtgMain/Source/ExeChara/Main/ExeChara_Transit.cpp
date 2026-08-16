@@ -374,6 +374,10 @@ namespace GAME
 
 		//-----------------------------------------------------
 		//特殊処理
+
+		//キャラ別
+
+		//紗絵
 		if ( m_name == CHARA_SAE )
 		{
 			bool b0 = IsNameAction ( U"乱舞超必殺技発生" );	//紗絵
@@ -392,7 +396,9 @@ namespace GAME
 				}
 			}
 		}
-		if ( m_name == CHARA_OUKA )
+
+		//桜花
+		else if ( m_name == CHARA_OUKA )
 		{
 			bool b1 = IsNameAction ( U"波動必殺発生" );		//桜花
 			if ( b1 )
@@ -412,7 +418,7 @@ namespace GAME
 		}
 #if 0
 		//ギャバダルガ
-		if ( m_name == CHARA_GYAVADARUGA )
+		else if ( m_name == CHARA_GYAVADARUGA )
 		{
 			bool b_A_H = IsNameAction ( U"ジャンプ大" );
 			bool b_AD_H = IsNameAction ( U"空中ダッシュ大攻撃" );
@@ -428,13 +434,27 @@ namespace GAME
 		}
 #endif // 0
 
+		//フェラリア
+		else if ( m_name == CHARA_FERARIA )
+		{
+			bool b_tokudai = IsNameAction ( U"空中2強" );
+			if ( b_tokudai )
+			{
+				//空中ヒット時 
+				if ( m_pOther.lock()->IsFloat () )
+				{
+					nameAction = U"強制ダウン落下";
+				}
+			}
+		}
+
 		//月日星
-		if ( m_name == CHARA_TSUKIHIBOSHI )
+		else if ( m_name == CHARA_TSUKIHIBOSHI )
 		{
 			bool b_tokudai = IsNameAction ( U"特大攻撃" );
 			if ( b_tokudai )
 			{
-				//空中ヒット時に通常やられにする
+				//空中ヒット時 
 				if ( m_pOther.lock()->IsFloat () )
 				{
 					nameAction = U"強制ダウン落下";
@@ -443,19 +463,20 @@ namespace GAME
 		}
 
 		//レイナ
-		if ( m_name == CHARA_REINA )
+		else if ( m_name == CHARA_REINA )
 		{
 			bool b_M = IsNameAction ( U"中攻撃" );
 			bool b_Van = IsNameAction ( U"ヴァンガーテ" );
 			if ( b_M || b_Van )
 			{
-				//空中ヒット時に通常やられにする
+				//空中ヒット時 
 				if ( m_pOther.lock()->IsFloat () )
 				{
 					nameAction = U"吹き飛びダウン(追打なし)";
 				}
 			}
 		}
+
 
 		//-----------------------------------------------------
 		//全キャラ

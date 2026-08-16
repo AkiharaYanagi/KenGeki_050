@@ -274,12 +274,27 @@ namespace GAME
 		m_plrActor_1p->SetwpOther ( m_plrActor_2p );
 		m_plrActor_2p->SetwpOther ( m_plrActor_1p );
 
+		//--------------------------------------------------------------
 
 		//SOUND
 		AUD_STOP_ALL_BGM();
 		AUD_PLAY_LOOP_BGM ( BGM_CharaSele );	//初期BGMはキャラセレBGM
 
-		m_bgmName->Load ();	//手動
+		//--------------------------------------------------------------
+		//BGM
+		//選択だけランダム（再生なし）
+		GameSettingFile& stg = m_pParam->GetGameSetting();
+		stg.SetBGM_Rnd ();
+		BGM_ID bgm_id = stg.GetBGM_ID ();
+
+		m_bgmName->Load ();	//曲名表示は手動でLoad()
+		m_bgmName->SetBGM ( bgm_id );	//表示
+
+		//--------------------------------------------------------------
+		//背景ランダム
+		m_stage->Rand ();
+
+		//--------------------------------------------------------------
 
 		Scene_lib::Load ();
 	}
@@ -307,7 +322,6 @@ namespace GAME
 		{
 			GameSettingFile& stg = m_pParam->GetGameSetting();
 			stg.NextBGM ();
-			//m_bgmName->SetIndexTexture ( stg.GetBGM_ID () );
 			m_bgmName->SetBGM ( stg.GetBGM_ID () );
 
 			//BGMなし以外は再生開始
@@ -323,7 +337,6 @@ namespace GAME
 		{
 			GameSettingFile& stg = m_pParam->GetGameSetting();
 			stg.PrevBGM ();
-			//m_bgmName->SetIndexTexture ( stg.GetBGM_ID () );
 			m_bgmName->SetBGM ( stg.GetBGM_ID () );
 
 			//BGMなし以外は再生開始

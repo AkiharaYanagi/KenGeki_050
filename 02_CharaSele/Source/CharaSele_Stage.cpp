@@ -91,6 +91,22 @@ namespace GAME
 		m_pParam->GetGameSetting ().SetStage_Name ( stageName );
 	}
 
+	void CharaSele_Stage::Rand ()
+	{
+		STAGE_NAME stageName = m_pParam->GetGameSetting().GetStage_Name ();
+
+		int startID = static_cast < int > ( STAGE_NAME::STAGE_ASAHINO_HARA );
+		int endID = static_cast < int > ( STAGE_NAME::STAGE_TAISHOU_NINGT );
+		int i = s3d::Random ( startID, endID );
+		stageName = static_cast < STAGE_NAME > ( i );
+
+		//表示の更新
+		m_bg->SetIndexTexture ( GetStageIndex ( stageName ) );
+
+		//値の保存
+		m_pParam->GetGameSetting ().SetStage_Name ( stageName );
+	}
+
 
 }	//namespace GAME
 

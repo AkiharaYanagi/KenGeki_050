@@ -39,6 +39,9 @@ namespace GAME
 		void Next ();
 		void Prev ();
 
+		//ランダム
+		void Rand ();
+
 		uint32_t GetStageIndex ( STAGE_NAME stageName ) const
 		{
 			return static_cast < uint32_t > ( stageName );

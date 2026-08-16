@@ -253,6 +253,7 @@ namespace GAME
 				SetPosEachOther ( VEC2 ( 250.f, 0 ) );
 			}
 
+#if 0
 			if ( IsNameActionFrame ( U"渦雷", 0 ) )
 			{
 				//ヒット時
@@ -262,6 +263,7 @@ namespace GAME
 					SetPosEachOther ( VEC2 ( 100.f, -100.f ) );
 				}
 			}
+#endif	//0
 
 	#if 0
 			//カットイン

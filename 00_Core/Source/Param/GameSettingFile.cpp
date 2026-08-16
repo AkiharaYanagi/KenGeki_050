@@ -205,11 +205,15 @@ namespace GAME
 		m_color2p = static_cast < CHARA_COLOR > ( s3d::Random ( 0, 1 ) );
 	}
 
-	//BGM
+
+	//ランダム設定(NONEだけ弾く)
 	void GameSettingFile::SetBGM_Rnd ()
 	{
 		//NONEだけ弾く
-		int i = s3d::Random ( 1, 5 );
+		int startID = static_cast < int > ( BGM_ID::SAE );
+		int endID = static_cast < int > ( BGM_ID::REINA );
+
+		int i = s3d::Random ( startID, endID );
 		m_bgm_id = static_cast < BGM_ID > ( i );
 	}
 
