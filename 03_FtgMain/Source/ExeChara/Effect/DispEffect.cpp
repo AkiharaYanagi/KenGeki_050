@@ -87,7 +87,7 @@ namespace GAME
 		//整数化しておく　テクスチャの描画位置は整数でないとアトラスのスキマが見える
 		int fx = static_cast < int > ( vecEfImg.x );
 		int fy = static_cast < int > ( vecEfImg.y );
-		vecEfImg = VEC2 ( fx, fy  );
+		vecEfImg = VEC2 ( (float)fx, (float)fy  );
 
 #if 0
 		//回転

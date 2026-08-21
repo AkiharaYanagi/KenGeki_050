@@ -452,7 +452,8 @@ namespace GAME
 		else if ( m_name == CHARA_TSUKIHIBOSHI )
 		{
 			bool b_tokudai = IsNameAction ( U"特大攻撃" );
-			if ( b_tokudai )
+			bool b_combo_tokudai = IsNameAction ( U"コンボ特大攻撃" );
+			if ( b_tokudai || b_combo_tokudai )
 			{
 				//空中ヒット時 
 				if ( m_pOther.lock()->IsFloat () )

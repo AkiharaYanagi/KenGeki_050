@@ -42,3 +42,9 @@ SE_40_大剣で斬る.wav
 SE_41_斬撃ズシャア.wav
 SE_42_大キック.wav
 SE_43_強キック.wav
+SE_44_エリアル締め.wav
+SE_45_Explode.wav
+SE_47_ギャバダルガ着地音.wav
+SE_48_歌舞伎締め.wav
+SE_49_神楽音.wav
+SE_50_Space.wav

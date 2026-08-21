@@ -178,16 +178,22 @@ namespace GAME
 			m_fighting->TrainingRestart ();
 		}
 #endif // 0
-		//デモ リスタート
+		//デモ Win_1p
 		if ( WND_UTL::AscKey ( 'i' ) )
 		{
 			m_fighting->Test_Win_1p ();
 		}
 
-		//デモ リスタート[
+		//デモ Win_2p
 		if ( WND_UTL::AscKey ( 'o' ) )
 		{
 			m_fighting->Test_Win_2p ();
+		}
+
+		//デモ リスタート[
+		if ( WND_UTL::AscKey ( 'p' ) )
+		{
+			m_fighting->DemoRestart ();
 		}
 
 

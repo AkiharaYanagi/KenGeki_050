@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <Ctrl_Settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <LastDirectory>F:\Projects\KenGeki_020\KenGeki_020\App\Data</LastDirectory>
-  <LastFilepath>F:\Projects\KenGeki_020\KenGeki_020\App\Data\Tsukihibosi.dat</LastFilepath>
+  <LastDirectory>D:\Products\◆ Game_\Game_KenGeki\Chara\Enemy0\Test_Base</LastDirectory>
+  <LastFilepath>D:\Products\◆ Game_\Game_KenGeki\Chara\Enemy0\Test_Base\base.dat</LastFilepath>
   <File_ActionList>ActionList.txt</File_ActionList>
   <Dir_ImageListAct>C:\Users\MYCOM\Desktop\Tsuki - コピー</Dir_ImageListAct>
   <File_EffectList>EffectList.txt</File_EffectList>
