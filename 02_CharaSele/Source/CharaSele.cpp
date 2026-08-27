@@ -10,6 +10,7 @@
 #include "02_CharaSele/CharaSele.h"
 #include "00_Core/SeConst.h"
 #include "00_Core/SoundConst.h"
+#include "00_Core/VoiceConst.h"
 
 #include "State/CharaSele_Player_Actor.h"
 #include "Menu/CharaSele_Menu.h"
@@ -95,6 +96,8 @@ namespace GAME
 		m_battleTime->SetPos_Digit ( VEC2 { 16 + (1280 * 0.5f) - (128 / 2), 15 } );
 		m_battleTime->SetZ ( Z_SYS );
 		m_battleTime->ValidBG ( F );
+		m_battleTime->SetCountDown ( F );
+
 
 
 		//BGM名表示
@@ -397,6 +400,25 @@ namespace GAME
 				//フェード開始
 				m_fade_toFighting->Reset ();
 				m_fade_toFighting->StartBlackOut ( 8 );
+
+				//ステージ選択ボイス再生
+				STAGE_NAME stageName = m_pParam->GetGameSetting().GetStage_Name ();
+				LPCUSTR vc_name = U"";
+				switch ( stageName )
+				{
+				case STAGE_ASAHINO_HARA:	vc_name = VC_91_11_STAGE_SSK_D;		break;
+				case STAGE_YUUHINO_HARA:	vc_name = VC_91_12_STAGE_SSK_E;		break;
+				case STAGE_YORUNO_HARA :	vc_name = VC_91_13_STAGE_SSK_N;		break;
+				case STAGE_SCHOOL_MORNING:	vc_name = VC_91_21_STAGE_RDG_N;		break;
+				case STAGE_SCHOOL_NOON:		vc_name = VC_91_22_STAGE_RDG_D;		break;
+				case STAGE_SCHOOL_NIGHT:	vc_name = VC_91_23_STAGE_RDG_E;		break;
+				case STAGE_TAISHOU_MORNING:	vc_name = VC_91_31_STAGE_TKS_D;		break;
+				case STAGE_TAISHOU_NOON:	vc_name = VC_91_32_STAGE_TKS_M;		break;
+				case STAGE_TAISHOU_NINGT:	vc_name = VC_91_33_STAGE_TKS_N;		break;
+				}
+				s3d::AudioAsset::Wait ( vc_name );
+				AUD_PLAY_ONESHOT_VC ( vc_name );
+
 			}
 		}
 

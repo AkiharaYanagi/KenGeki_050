@@ -21,7 +21,7 @@ namespace GAME
 
 	//====================================================
 	//バージョン表記
-	s3d::String g_VERSION = U"ver 0.75";
+	s3d::String g_VERSION = U"ver_0.76_beta";
 
 #if 0
 //	ver 0.75	2026/08/14(金) 緊急修正
@@ -96,8 +96,8 @@ namespace GAME
 	const bool g_bCMDPRMPT_DISP = T;
 
 	//タイトル画面で全キャラ読込
-	const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
-	//const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
+	//const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
+	const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
 
 	//カーソル位置のモニタの中心から開始
 	const bool g_bSTART_CURSOR_POS = T;

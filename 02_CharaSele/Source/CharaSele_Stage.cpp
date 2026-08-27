@@ -9,6 +9,7 @@
 //-------------------------------------------------------------------------------------------------
 #include "CharaSele_Stage.h"
 
+
 //-------------------------------------------------------------------------------------------------
 // 定義
 //-------------------------------------------------------------------------------------------------
@@ -61,8 +62,10 @@ namespace GAME
 		case STAGE_TAISHOU_NINGT:	stageName = STAGE_ASAHINO_HARA;		break;
 		}
 
+
 		//表示の更新
 		m_bg->SetIndexTexture ( GetStageIndex ( stageName ) );
+
 
 		//値の保存
 		m_pParam->GetGameSetting ().SetStage_Name ( stageName );

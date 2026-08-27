@@ -65,8 +65,11 @@ namespace GAME
 	FTG_DM_Greeting::FTG_DM_Greeting ()
 	{
 		m_timer = std::make_shared < Timer > ();
-//		m_timer->SetTargetTime ( 180 );
-		m_timer->SetTargetTime ( 260 );	//エネミーゼロ用
+
+
+		m_timer->SetTargetTime ( 180 );
+//		m_timer->SetTargetTime ( 260 );	//エネミーゼロ用
+
 
 		m_name.assign ( U"FTG_DM_Greeting" );
 	}

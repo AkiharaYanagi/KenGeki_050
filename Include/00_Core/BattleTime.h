@@ -23,10 +23,12 @@ namespace GAME
 		P_Grp		m_time_bg;			//背景
 		P_Grp		m_battle_time;		//共通テクスチャ
 		P_Ob		m_battle_time_01;	//1の桁
-		P_Ob		m_battle_time_02;	//10の桁
+		P_Ob		m_battle_time_10;	//10の桁
 		int			m_time { START_TIME };	// 3600 ～ 0 [F] ( 60 ～ 0[Sec] )
 
 		int			m_startTime { 0 };	//リセット時の開始時間
+
+		bool		m_bCountDown { T };	//カウントダウンするかどうか
 
 	public:
 		BattleTime ();
@@ -59,6 +61,9 @@ namespace GAME
 		void SetPos_Digit ( VEC2 pos );
 		void SetZ ( float z );
 		void ValidBG ( bool b ) { m_time_bg->SetValid ( b ); }
+
+
+		void SetCountDown ( bool b ) { m_bCountDown = b; }
 
 	private:
 		static const int START_TIME;

@@ -10,6 +10,7 @@
 #include "00_Core/BattleTime.h"
 //#include "../FtgConst.h"	
 //#include "../../GameMain/G_Ftg.h"	
+#include "00_Core/VoiceConst.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -20,6 +21,7 @@ namespace GAME
 //	const int BattleTime::START_TIME = 5940 - 1;	//99秒
 	const int BattleTime::START_TIME = 3600;	//60秒
 //	const int BattleTime::START_TIME = 1800;	//30秒
+//	const int BattleTime::START_TIME = 1200;	//テスト用20秒
 //	const int BattleTime::START_TIME = 359;		//テスト用5秒
 //	const int BattleTime::START_TIME = 179;		//テスト用3秒
 
@@ -54,16 +56,16 @@ namespace GAME
 		GRPLST_INSERT ( m_battle_time );
 
 		m_battle_time_01 = std::make_shared < GameObject > ();
-		m_battle_time_02 = std::make_shared < GameObject > ();
+		m_battle_time_10 = std::make_shared < GameObject > ();
 		m_battle_time->ClearObject ();
 		m_battle_time->AddpObject ( m_battle_time_01 );
-		m_battle_time->AddpObject ( m_battle_time_02 );
+		m_battle_time->AddpObject ( m_battle_time_10 );
 
 		float bx = 16 + (1280 * 0.5f) - (128 / 2);
 //		float by = 50;
 		float by = 15;
 		m_battle_time_01->SetPos ( VEC2 ( bx + 34,	by ) );
-		m_battle_time_02->SetPos ( VEC2 ( bx,		by ) );
+		m_battle_time_10->SetPos ( VEC2 ( bx,		by ) );
 
 
 		m_startTime = START_TIME;
@@ -91,17 +93,47 @@ namespace GAME
 		if ( ! m_active )
 		{
 			m_battle_time_01->SetColor ( 0xfffff0f0 );
-			m_battle_time_02->SetColor ( 0xfffff0f0 );
+			m_battle_time_10->SetColor ( 0xfffff0f0 );
 			TASK_VEC::Move (); return;
 		}
 		else
 		{
 			m_battle_time_01->SetColor ( 0xffffffff );
-			m_battle_time_02->SetColor ( 0xffffffff );
+			m_battle_time_10->SetColor ( 0xffffffff );
 		}
 
 		//時間表示
 		DispTime ();
+
+
+		//カウントダウンしない場合はここで終了
+		if ( m_bCountDown )
+		{
+			//ボイス
+			LPCUSTR vc_name = U"";
+			switch ( m_time )
+			{
+			case 780: vc_name = VC92_CNTDN_OOZUME; break;
+			case 660: vc_name = VC92_CNTDN_10; break;
+			case 600: vc_name = VC92_CNTDN_9; break;
+			case 540: vc_name = VC92_CNTDN_8; break;
+			case 480: vc_name = VC92_CNTDN_7; break;
+			case 420: vc_name = VC92_CNTDN_6; break;
+			case 360: vc_name = VC92_CNTDN_5; break;
+			case 300: vc_name = VC92_CNTDN_4; break;
+			case 240: vc_name = VC92_CNTDN_3; break;
+			case 180: vc_name = VC92_CNTDN_2; break;
+			case 120: vc_name = VC92_CNTDN_1; break;
+			case  60: vc_name = VC92_CNTDN_END; break;
+			}
+
+			if ( vc_name != U"" )
+			{
+				s3d::AudioAsset::Wait ( vc_name );
+				AUD_PLAY_ONESHOT_VC ( vc_name );
+			}
+		}
+
 
 		//範囲
 //		if ( m_time <= 0 ) { m_time = 3660; }
@@ -134,7 +166,7 @@ namespace GAME
 		m_startTime = 0;
 		m_time = 0;
 		m_battle_time_01->SetIndexTexture ( 0 );
-		m_battle_time_02->SetIndexTexture ( 0 );
+		m_battle_time_10->SetIndexTexture ( 0 );
 		m_active = F;
 	}
 
@@ -150,7 +182,7 @@ namespace GAME
 		int index_02 = second / 10 % 10;	//2桁目
 
 		m_battle_time_01->SetIndexTexture ( index_01 );
-		m_battle_time_02->SetIndexTexture ( index_02 );
+		m_battle_time_10->SetIndexTexture ( index_02 );
 
 	}
 
@@ -158,7 +190,7 @@ namespace GAME
 	{
 		m_time_bg->SetValid ( T );
 		m_battle_time_01->SetValid ( T );
-		m_battle_time_02->SetValid ( T );
+		m_battle_time_10->SetValid ( T );
 		m_battle_time->SetValid ( T );
 	}
 
@@ -166,7 +198,7 @@ namespace GAME
 	{
 		m_time_bg->SetValid ( F );
 		m_battle_time_01->SetValid ( F );
-		m_battle_time_02->SetValid ( F );
+		m_battle_time_10->SetValid ( F );
 		m_battle_time->SetValid ( F );
 	}
 
@@ -178,7 +210,7 @@ namespace GAME
 		int index_02 = second / 10 % 10;	//2桁目
 
 		m_battle_time_01->SetIndexTexture ( index_01 );
-		m_battle_time_02->SetIndexTexture ( index_02 );
+		m_battle_time_10->SetIndexTexture ( index_02 );
 
 	}
 
@@ -213,7 +245,7 @@ namespace GAME
 //		float bx = 16 + (1280 * 0.5f) - (128 / 2);
 //		float by = 15;
 		m_battle_time_01->SetPos ( VEC2 ( pos.x + 34,	pos.y ) );
-		m_battle_time_02->SetPos ( VEC2 ( pos.x,		pos.y ) );
+		m_battle_time_10->SetPos ( VEC2 ( pos.x,		pos.y ) );
 	}
 
 	void BattleTime::SetZ ( float z )
