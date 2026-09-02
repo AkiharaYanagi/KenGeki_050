@@ -61,13 +61,7 @@ namespace GAME
 		m_strVer = std::make_shared < GrpStr > ();
 		m_strVer->SetPos ( 1280/2 - 40, 934 );
 		m_strVer->SetZ ( Z_MENU - 0.001f );
-
-		//std::ostringstream oss;
-		//oss << "beta " << __DATE__ << " " << __TIME__;
-		//m_strVer->SetStr ( Unicode::FromUTF8 ( oss.str().c_str() ) );
-		//m_strVer->SetStr ( Ver );
 		m_strVer->SetStr ( g_VERSION );
-
 		AddpTask ( m_strVer );
 		GRPLST_INSERT ( m_strVer );
 
@@ -273,22 +267,8 @@ namespace GAME
 		}
 
 		//----------------------------------
-		//入力はデモ時以外のみ
-		if ( ! m_demo->IsDemo () )
-		{
-			//入力
-			Input ();
-		}
-
-		//----------------------------------
-		//言語切替
-		if ( WND_UTL::AscKey ( 'L' ) )
-		{
-			m_lang = ( m_lang + 1 ) % 2;
-			//0:日本語, 1:英語
-			m_logo->SetIndexTexture ( m_lang );
-			m_inst->SetIndexTexture ( m_lang );
-		}
+		//入力
+		Input ();
 
 
 		//----------------------------------
@@ -298,6 +278,15 @@ namespace GAME
 
 	void Title_lib::Input ()
 	{
+		//----------------------------------------------------------
+		//デモモード中は入力を受け付けない(デモ切替のみ)
+		if ( m_demo->IsDemo () ) { return; }
+
+		//----------------------------------------------------------
+		//フェードアウト中は入力を受け付けない
+		if ( m_fade_out->IsActive () ) { return; }
+		if ( m_plus_wait > 0  ) { return; }
+
 		//----------------------------------------------------------
 		//選択
 		if ( CFG_PUSH_KEY_12 ( PLY_LEFT ) )
@@ -319,6 +308,16 @@ namespace GAME
 
 			//フェードアウト開始
 			m_fade_out->StartBlackOut ( FADE_OUT_T );
+		}
+
+		//----------------------------------
+		//言語切替
+		if ( WND_UTL::AscKey ( 'L' ) )
+		{
+			m_lang = ( m_lang + 1 ) % 2;
+			//0:日本語, 1:英語
+			m_logo->SetIndexTexture ( m_lang );
+			m_inst->SetIndexTexture ( m_lang );
 		}
 	}
 

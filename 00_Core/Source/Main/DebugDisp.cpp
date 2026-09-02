@@ -96,8 +96,8 @@ namespace GAME
 	const bool g_bCMDPRMPT_DISP = T;
 
 	//タイトル画面で全キャラ読込
-	//const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
-	const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
+	const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
+	//const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
 
 	//カーソル位置のモニタの中心から開始
 	const bool g_bSTART_CURSOR_POS = T;

@@ -92,7 +92,8 @@ namespace GAME
 			if ( m_btlPrm.GetMana () >= mana )
 			{
 				//必要量があれば消費して遷移する
-				m_btlPrm.AddMana ( - MANA_MAX / 2 );
+				//m_btlPrm.AddMana ( - MANA_MAX / 2 );
+				m_btlPrm.AddMana ( - mana );
 			}
 			else //足りないとき遷移しない
 			{

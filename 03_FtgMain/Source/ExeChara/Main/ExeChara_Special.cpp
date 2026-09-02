@@ -110,21 +110,39 @@ namespace GAME
 		}
 
 		//-----------------------------------------------------
+		//前歩き時
+		if ( IsNameAction ( U"前歩き" ) )
+		{
+			if ( m_name == CHARA_REINA )
+			{
+				m_btlPrm.AddBalance ( 20 );	//剣撃ゲージプラス
+				m_btlPrm.AddMana ( 20 );	//超必殺プラス
+			}
+			else
+			{
+				m_btlPrm.AddBalance ( 10 );	//剣撃ゲージプラス
+				m_btlPrm.AddMana ( 10 );	//超必殺プラス
+			}
+		}
+
+		//-----------------------------------------------------
 		//ダッシュ時
 		if ( IsNameAction ( U"前ダッシュ" ) )
 		{
 			//ゲージ
-#if 0
-			int balance = m_btlPrm.GetBalance ();
-			if ( 20 < balance )
+			//@info
+			//スクリプト側で指定すると、「消費して発動チェックが入り、足りないと移行しない」
+
+			if ( m_name == CHARA_REINA )
 			{
-//				m_btlPrm.AddBalance ( -10 );	//スタミナマイナス
-				m_btlPrm.AddBalance ( 10 );	//剣撃ゲージプラス
-				m_btlPrm.AddMana ( 30 );	//超必殺プラス
+				m_btlPrm.AddBalance ( 8 );	//剣撃ゲージプラス
+				m_btlPrm.AddMana ( 8 );	//超必殺プラス
 			}
-#endif // 0
-			m_btlPrm.AddBalance ( 10 );	//剣撃ゲージプラス
-			m_btlPrm.AddMana ( 10 );	//超必殺プラス
+			else
+			{
+				m_btlPrm.AddBalance ( 10 );	//剣撃ゲージプラス
+				m_btlPrm.AddMana ( 10 );	//超必殺プラス
+			}
 		}
 
 		//-----------------------------------------------------

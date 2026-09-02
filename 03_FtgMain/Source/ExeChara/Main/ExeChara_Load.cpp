@@ -325,7 +325,8 @@ namespace GAME
 			bool b2 = pRut->Name.Is ( U"地上超必殺技" );
 			bool b3 = pRut->Name.Is ( U"投げ発生" );
 			bool b4 = pRut->Name.Is ( U"相殺専用技" );
-			if ( b0 || b1 || b2 || b3 || b4 )
+			bool b5 = pRut->Name.Is ( U"ジャンプ" );
+			if ( b0 || b1 || b2 || b3 || b4 || b5 )
 			{
 				const V_UINT32 vBrc = pRut->GetcaIDBranch ();
 
