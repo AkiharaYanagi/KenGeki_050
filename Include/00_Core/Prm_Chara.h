@@ -81,6 +81,8 @@ namespace GAME
 		s3d::AsyncTask < void >	m_asyncLoad_Tuki;
 		s3d::AsyncTask < void >	m_asyncLoad_Rein;
 		s3d::AsyncTask < void >	m_asyncLoad_Eiyu;
+		//s3d::AsyncTask < void >	m_asyncLoad_Doxt;
+		s3d::AsyncTask < void >	m_asyncLoad_Enm0;
 
 		//終了ミューテックス
 		std::mutex				m_mutex;
@@ -98,6 +100,8 @@ namespace GAME
 		Prm_Chara		m_Tsuki;
 		Prm_Chara		m_Reina;
 		Prm_Chara		m_Eiyuu;
+		//Prm_Chara		m_Dox;
+		Prm_Chara		m_E0;
 
 
 	public:
@@ -125,6 +129,8 @@ namespace GAME
 		static void _Load_Tuki ( Prm_Chara_all * pThis );
 		static void _Load_Rein ( Prm_Chara_all * pThis );
 		static void _Load_Eiyu ( Prm_Chara_all * pThis );
+		static void _Load_Doxt ( Prm_Chara_all * pThis );
+		static void _Load_Enm0 ( Prm_Chara_all * pThis );
 	};
 
 

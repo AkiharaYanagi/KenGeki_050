@@ -990,6 +990,17 @@ namespace GAME
 		}
 
 
+		//-----------------------------------------------------
+		//エネミーゼロ
+		else if ( m_name == CHARA_ENEMY_ZERO )
+		{
+			if ( IsNameActionFrame ( U"超必殺技A0", 3 ) )
+			{
+				pOther->GetrBtlPrm().SetScpStop ( 60 );
+			}
+		}
+
+
 
 		//-----------------------------------------------------
 		//全キャラ

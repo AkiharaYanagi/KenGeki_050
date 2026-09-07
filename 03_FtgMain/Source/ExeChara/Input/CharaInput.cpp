@@ -337,7 +337,7 @@ namespace GAME
 
 #if 0
 
-		m_sw.Disp ( DBGOUT_0, U"pCmd->Compare ( m_vGameKey, dirRight )" );
+		//m_sw.Disp ( DBGOUT_0, U"pCmd->Compare ( m_vGameKey, dirRight )" );
 
 
 		//DBGOUT_WND_F ( DBGOUT_1, U"comp_num = {}"_fmt( m_aCompID.size() ) );

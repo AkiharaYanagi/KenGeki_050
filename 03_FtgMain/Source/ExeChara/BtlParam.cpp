@@ -486,16 +486,44 @@ namespace GAME
 		float wall_R = G_FTG()->GetWallRight () - (float)FIELD_EDGE;
 
 		//壁より先には移動しない
+		bool bWall_L = F;
+		bool bWall_R = F;
+
 		//左壁
 		if ( m_posChara.x < wall_L )
 		{
 			m_posChara.x = wall_L;
+			bWall_L = T;
 		}
 		//右壁
 		if ( wall_R < m_posChara.x )
 		{
 			m_posChara.x = wall_R;
+			bWall_R = T;
 		}
+
+
+		//1p2pの差が画面表示以上を超えたときは自分の位置を戻す
+		float p1x = m_posChara.x;
+		float p2x = m_pOther.lock ()->GetPos ().x;
+
+		//差の絶対値
+		float diff = std::abs ( p1x - p2x );
+
+		if ( diff > GAME_WINDOW_WIDTH - FIELD_EDGE * 2 )
+		{
+			if ( PLAYER_ID_1 == m_playerID )
+			{
+				pSelf->BackPtX ();	//互いに位置を戻す
+			}
+			else if ( PLAYER_ID_2 == m_playerID )
+			{
+				pSelf->BackPtX ();
+			}
+		}
+
+		DBGOUT_WND_F( DBGOUT_0, U"diff = {}"_fmt( diff ) );
+
 
 
 		//------------------------------------------------
@@ -729,6 +757,26 @@ namespace GAME
 
 		float x = iPos.x + 10 * ( dirBack ? -1.f : 1.f );
 		float y = iPos.y;
+
+
+		//画面端方向には移動しない
+		//---------------
+		//画面端 (キャラ移動補正)
+		float wall_L = (float)FIELD_EDGE + G_FTG()->GetWallLeft ();
+		float wall_R = G_FTG()->GetWallRight () - (float)FIELD_EDGE;
+		//左壁
+		if ( x < wall_L )
+		{
+			x = wall_L;
+		}
+		//右壁
+		if ( wall_R < x )
+		{
+			x = wall_R;
+		}
+		//---------------
+
+
 		SetPos ( VEC2 ( x, y ) );
 	}
 

@@ -132,7 +132,7 @@ namespace GAME
 		float period = D3DX_PI_TWICE / m_arrow_frq;
 		float wrappedTime = fmod ( m_arrow_time, period );
 		float dx = m_arrow_w * sin ( m_arrow_frq * wrappedTime );
-		DBGOUT_WND_F ( DBGOUT_2, U"arrow_x = {}"_fmt( dx ) );
+		//DBGOUT_WND_F ( DBGOUT_2, U"arrow_x = {}"_fmt( dx ) );
 
 		VEC2 pos0;
 		pos0.x = m_aryBasePos [ 0 ].x - dx;

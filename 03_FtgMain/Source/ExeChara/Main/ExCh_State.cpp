@@ -119,7 +119,7 @@ namespace GAME
 		pExe->SetAction ( U"立ち" );
 
 
-		m_sw.Start ();
+		//m_sw.Start ();
 
 	}
 
@@ -129,7 +129,7 @@ namespace GAME
 		//PLAYER_ID pid = pExe->GetBtlPrm().GetPlayerID ();
 
 
-		m_sw.ReStart ();
+		//m_sw.ReStart ();
 
 
 		pExe->Input ();				//入力		
@@ -193,7 +193,7 @@ namespace GAME
 
 	
 
-		m_sw.Disp ( DBGOUT_5, U"CHST_Main::PostScriptMove ()" );
+		//m_sw.Disp ( DBGOUT_5, U"CHST_Main::PostScriptMove ()" );
 
 
 
@@ -203,14 +203,14 @@ namespace GAME
 		pExe->PostMove_Effect ();	//エフェクト動作
 
 
-		m_sw.Disp ( DBGOUT_6, U"pExe->PostMove_Effect ();" );
+		//m_sw.Disp ( DBGOUT_6, U"pExe->PostMove_Effect ();" );
 
 
 		pExe->CheckLife ();			//ライフ判定
 
 
 
-		m_sw.Disp ( DBGOUT_7, U"pExe->CheckLife ();" );
+		//m_sw.Disp ( DBGOUT_7, U"pExe->CheckLife ();" );
 
 
 
@@ -221,7 +221,7 @@ namespace GAME
 	
 
 
-		m_sw.Disp ( DBGOUT_8, U"pExe->UpdateGraphic ();" );
+		//m_sw.Disp ( DBGOUT_8, U"pExe->UpdateGraphic ();" );
 
 
 
@@ -230,9 +230,9 @@ namespace GAME
 		pExe->SetFirstVC ( F );		//VC再生フラグ
 	
 
-		m_sw.Disp ( DBGOUT_9, U"pExe->MoveTimer ();" );
+		//m_sw.Disp ( DBGOUT_9, U"pExe->MoveTimer ();" );
 
-		m_sw.Count ();
+		//m_sw.Count ();
 
 
 	}

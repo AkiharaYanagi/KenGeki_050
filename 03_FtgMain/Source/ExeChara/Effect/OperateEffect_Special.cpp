@@ -60,6 +60,10 @@ namespace GAME
 		else if ( pEffect->Name.Is ( U"2MEfa" ) ) { pExeEffect->SetShader ( F ); }
 		else if ( pEffect->Name.Is ( U"2MEfb" ) ) { pExeEffect->SetShader ( F ); }
 		else if ( pEffect->Name.Is ( U"2HEf" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"ビーム" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"礫0" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"礫1" ) ) { pExeEffect->SetShader ( F ); }
+		else if ( pEffect->Name.Is ( U"礫2" ) ) { pExeEffect->SetShader ( F ); }
 
 		//それ以外は基本オン
 		else { pExeEffect->SetShader ( T ); }
@@ -99,6 +103,12 @@ namespace GAME
 		if ( pEffect->Name.Is ( U"4H_Shot" ) )
 		{
 			//pExeEffect->GetpEfGnrt()->Loop.Set ( 0 );
+			pExeEffect->SetImmortal ( T );
+		}
+
+		//E0
+		if ( pEffect->Name.Is ( U"ビーム" ) )
+		{
 			pExeEffect->SetImmortal ( T );
 		}
 

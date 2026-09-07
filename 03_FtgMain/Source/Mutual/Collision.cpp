@@ -91,16 +91,30 @@ namespace GAME
 		m_pExeChara1p->LookOther ();
 		m_pExeChara2p->LookOther ();
 
+
+
+		//@info 
+		//距離制限(画面端同士)はBtlParamに移行
+#if 0
 		//距離制限(画面端同士)
 		float p1x = m_pExeChara1p->GetPos ().x;
 		float p2x = m_pExeChara2p->GetPos ().x;
 
+
+
+		bool bLeft = F;
+		bool bRight = F;
+
+
+		//1p2pの差が画面表示以上を超えたときは互いに位置を戻す
 		//画面左側
 		// || P1 << P2			||
 		if ( p2x - p1x > GAME_WINDOW_WIDTH - FIELD_EDGE * 2 )
 		{
 			m_pExeChara1p->BackPtX ();	//互いに位置を戻す
 			m_pExeChara2p->BackPtX ();
+
+			bLeft = T;
 		}
 		//画面右側
 		// ||			P2 << P1 ||
@@ -108,8 +122,16 @@ namespace GAME
 		{
 			m_pExeChara1p->BackPtX ();	//互いに位置を戻す
 			m_pExeChara2p->BackPtX ();
+
+			bRight = T;
 		}
 
+
+
+		BtlParam btlPrm = m_pExeChara1p->GetBtlPrm();
+		DBGOUT_WND_F( DBGOUT_0, U"P1.x = {}, P2.x = {}"_fmt( p1x, p2x ) );
+		DBGOUT_WND_F( DBGOUT_1, U"bLeft = {}, bRight = {}"_fmt( bLeft, bRight ) );
+#endif // 0
 	}
 
 

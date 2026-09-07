@@ -347,7 +347,7 @@ namespace GAME
 		if ( Is1P () )
 		{
 	//		UINT frame = GetpScript()->GetFrame ();
-			DBGOUT_WND_F ( DBGOUT_3, U"TransitAction: m_frame = {}"_fmt( m_frame ) );
+			//DBGOUT_WND_F ( DBGOUT_3, U"TransitAction: m_frame = {}"_fmt( m_frame ) );
 		}
 
 #endif // 0
@@ -362,7 +362,7 @@ namespace GAME
 
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
 		{
-			DBGOUT_WND_F ( DBGOUT_8, U"y = {}"_fmt( m_btlPrm.GetPos().y ) );
+			//DBGOUT_WND_F ( DBGOUT_8, U"y = {}"_fmt( m_btlPrm.GetPos().y ) );
 		}
 
 #endif // 0
@@ -459,7 +459,13 @@ namespace GAME
 					b = bA1 || baA1|| bB1;
 				}
 
-				if ( b )
+				bool bE0_A0 = F;
+				if ( m_name == CHARA_ENEMY_ZERO )
+				{
+					bE0_A0 = IsNameAction ( U"超必殺技A0" );
+				}
+
+				if ( b || bE0_A0 )
 				{
 					//相手のみ
 					
@@ -469,7 +475,7 @@ namespace GAME
 					//相手にも時間を指定する
 					m_pOther.lock ()->m_btlPrm.SetScpStop ( scpStop );
 
-					//互いに時間停止ステートにシフト
+					//相手のみ時間停止ステートにシフト
 					//ShiftScpStop ();
 					m_pOther.lock ()->ShiftScpStop ();
 				}

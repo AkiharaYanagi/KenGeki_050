@@ -120,7 +120,7 @@ namespace GAME
 	//バトル　メイン状態
 	class CHST_Main : public ExeChara_State
 	{
-		StopWatch		m_sw;
+		//StopWatch		m_sw;
 
 	public:
 		s3d::String GetName () const { return U"BattleMain"; }

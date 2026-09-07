@@ -53,15 +53,25 @@ namespace GAME
 	constexpr char32_t CHARA_ATLS2_TUKI []	= U"Chara\\Tsukihibosi_2p_bhv.atls";
 	constexpr char32_t CHARA_ATLS_EF_TUKI []	= U"Chara\\Tsukihibosi_gns.atls";
 
+	constexpr char32_t CHARA_SCP_REINA []	= U"Chara\\Reina.scp";
 	constexpr char32_t CHARA_ATLS2_REINA []	= U"Chara\\Reina_2p_bhv.atls";
 	constexpr char32_t CHARA_ATLS1_REINA []	= U"Chara\\Reina_1p_bhv.atls";
-	constexpr char32_t CHARA_SCP_REINA []	= U"Chara\\Reina.scp";
 	constexpr char32_t CHARA_ATLS_EF_REINA []	= U"Chara\\Reina_gns.atls";
 
+	constexpr char32_t CHARA_SCP_EIYUU []	= U"Chara\\Eiyuu.scp";
 	constexpr char32_t CHARA_ATLS2_EIYUU []	= U"Chara\\Eiyuu_2p_bhv.atls";
 	constexpr char32_t CHARA_ATLS1_EIYUU []	= U"Chara\\Eiyuu_1p_bhv.atls";
-	constexpr char32_t CHARA_SCP_EIYUU []	= U"Chara\\Eiyuu.scp";
 	constexpr char32_t CHARA_ATLS_EF_EIYUU []	= U"Chara\\Eiyuu_gns.atls";
+
+	constexpr char32_t CHARA_SCP_DOXT []	= U"Chara\\Doxtuka.scp";
+	constexpr char32_t CHARA_ATLS2_DOXT []	= U"Chara\\Doxtuka_2p_bhv.atls";
+	constexpr char32_t CHARA_ATLS1_DOXT []	= U"Chara\\Doxtuka_1p_bhv.atls";
+	constexpr char32_t CHARA_ATLS_EF_DOXT []= U"Chara\\Doxtuka_gns.atls";
+
+	constexpr char32_t CHARA_SCP_E0 []		= U"Chara\\EnemyZERO.scp";
+	constexpr char32_t CHARA_ATLS2_E0 []	= U"Chara\\EnemyZERO_2p_bhv.atls";
+	constexpr char32_t CHARA_ATLS1_E0 []	= U"Chara\\EnemyZERO_1p_bhv.atls";
+	constexpr char32_t CHARA_ATLS_EF_E0 []	= U"Chara\\EnemyZERO_gns.atls";
 
 
 
@@ -170,6 +180,8 @@ namespace GAME
 		m_Tsuki.SetStrScp ( CHARA_SCP_TUKI );
 		m_Reina.SetStrScp ( CHARA_SCP_REINA );
 		m_Eiyuu.SetStrScp ( CHARA_SCP_EIYUU );
+		//m_Dox.SetStrScp ( CHARA_SCP_DOXT );
+		m_E0.SetStrScp ( CHARA_SCP_E0 );
 
 		m_Ouka.SetStrAtls ( CHARA_ATLS1_OUKA, CHARA_ATLS2_OUKA, CHARA_ATLS_EF_OUKA );
 		m_Sae.SetStrAtls ( CHARA_ATLS1_SAE, CHARA_ATLS2_SAE, CHARA_ATLS_EF_SAE );
@@ -179,6 +191,8 @@ namespace GAME
 		m_Tsuki.SetStrAtls ( CHARA_ATLS1_TUKI, CHARA_ATLS2_TUKI, CHARA_ATLS_EF_TUKI );
 		m_Reina.SetStrAtls ( CHARA_ATLS1_REINA, CHARA_ATLS2_REINA, CHARA_ATLS_EF_REINA );
 		m_Eiyuu.SetStrAtls ( CHARA_ATLS1_EIYUU, CHARA_ATLS2_EIYUU, CHARA_ATLS_EF_EIYUU );
+		//m_Dox.SetStrAtls ( CHARA_ATLS1_DOXT, CHARA_ATLS2_DOXT, CHARA_ATLS_EF_DOXT );
+		m_E0.SetStrAtls ( CHARA_ATLS1_E0, CHARA_ATLS2_E0, CHARA_ATLS_EF_E0 );
 	}
 
 
@@ -201,6 +215,8 @@ namespace GAME
 		if ( m_asyncLoad_Tuki.isValid () ) { m_asyncLoad_Tuki.wait (); }
 		if ( m_asyncLoad_Rein.isValid () ) { m_asyncLoad_Rein.wait (); }
 		if ( m_asyncLoad_Eiyu.isValid () ) { m_asyncLoad_Eiyu.wait (); }
+		//if ( m_asyncLoad_Doxt.isValid () ) { m_asyncLoad_Doxt.wait (); }
+		if ( m_asyncLoad_Enm0.isValid () ) { m_asyncLoad_Enm0.wait (); }
 	}
 
 
@@ -216,6 +232,9 @@ namespace GAME
 		m_asyncLoad_Fera = s3d::Async ( _Load_Fera, this );
 		m_asyncLoad_Fera = s3d::Async ( _Load_Tuki, this );
 		m_asyncLoad_Rein = s3d::Async ( _Load_Rein, this );
+		m_asyncLoad_Eiyu = s3d::Async ( _Load_Rein, this );
+		//m_asyncLoad_Doxt = s3d::Async ( _Load_Rein, this );
+		m_asyncLoad_Enm0 = s3d::Async ( _Load_Rein, this );
 	}
 
 	//すべて読込(同期処理)
@@ -333,6 +352,20 @@ namespace GAME
 		PRINT_F_S ( U"End Prm_Chara_all::_Load_Eiyuu" );
 	}
 
+	void Prm_Chara_all::_Load_Doxt ( Prm_Chara_all * pThis )
+	{
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Doxt" );
+		//pThis->m_Dox.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Doxt" );
+	}
+
+	void Prm_Chara_all::_Load_Enm0 ( Prm_Chara_all * pThis )
+	{
+		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Enm0" );
+		pThis->m_E0.Load ();
+		PRINT_F_S ( U"End Prm_Chara_all::_Load_Enm0" );
+	}
+
 
 	//キャラ名とカラーからデータポインタを取得
 	P_Chara Prm_Chara_all::GetpChara ( CHARA_NAME name, CHARA_COLOR clr )
@@ -381,6 +414,17 @@ namespace GAME
 			PRINT_F_S ( U"GetpChara ( CHARA_EIYUU, CLR_{} )"_fmt((int32)clr) );
 			if ( m_asyncLoad_Eiyu.isValid () ) { m_asyncLoad_Eiyu.wait (); }
 			return m_Eiyuu.GetpChara ( clr );
+
+		case CHARA_DOXTUKA:
+			PRINT_F_S ( U"GetpChara ( CHARA_DOXTUKA, CLR_{} )"_fmt((int32)clr) );
+			//if ( m_asyncLoad_Doxt.isValid () ) { m_asyncLoad_Doxt.wait (); }
+			//return m_Dox.GetpChara ( clr );
+			return m_Eiyuu.GetpChara ( clr );
+
+		case CHARA_ENEMY_ZERO:
+			PRINT_F_S ( U"GetpChara ( CHARA_ENEMY_ZERO, CLR_{} )"_fmt((int32)clr) );
+			if ( m_asyncLoad_Enm0.isValid () ) { m_asyncLoad_Enm0.wait (); }
+			return m_E0.GetpChara ( clr );
 		}
 
 		return m_Ouka.GetpChara ( clr );
