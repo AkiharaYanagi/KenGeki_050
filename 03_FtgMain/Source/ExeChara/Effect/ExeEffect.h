@@ -67,6 +67,8 @@ namespace GAME
 		bool		m_full_display_x{F};	//画面全体描画　Xのみ(固定位置)
 		bool		m_out_display{F};	//画面外で消える	
 
+		bool		m_hitStop { F };	//ヒットストップ
+
 	public:
 		ExeEffect ( P_Sequence pEffect, P_Chara pChara, P_EfGnrt pEfGnrt, VEC2 ptChara, bool dirRight );
 		ExeEffect ( const ExeEffect & rhs ) = delete;
@@ -107,7 +109,7 @@ namespace GAME
 			m_dispEffect->SetValid ( false );
 		}
 
-		void PreScriptMove ();
+		void PreScriptMove ( BtlParam & btlprm );
 		void PostScriptMove ( BtlParam & btlprm );
 		void SynchroScript ( VEC2 ptChara );
 
@@ -131,6 +133,7 @@ namespace GAME
 		GET_SET ( bool, GetHit, SetHit, m_hit )				//ヒット
 		GET_SET ( bool, GetImmortal, SetImmortal, m_immortal )		//不滅
 		GET_SET ( bool, GetOutDisplay, SetOutDisplay, m_out_display )	//画面外で消える
+		GET_SET ( bool, GetHitStop, SetHitStop, m_hitStop )	//ヒットストップ
 
 
 		//---------------------------------------------------------------

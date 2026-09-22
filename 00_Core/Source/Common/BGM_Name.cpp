@@ -28,6 +28,8 @@ namespace GAME
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_TSUKI.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_REINA.png" );
 		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_HERO.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_DOXTUKA.png" );
+		m_bgmName->AddTexture_FromArchive ( U"Battle\\BGM\\BGM_NAME_ENEMY_0.png" );
 
 		GRPLST_INSERT ( m_bgmName );
 

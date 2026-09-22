@@ -124,6 +124,10 @@ namespace GAME
 		//ヒット数２桁目
 		m_grpHitNum->AddObject ();
 
+		//ヒット数3桁目
+		m_grpHitNum->AddObject ();
+
+		//"Hit"
 		m_grpStrHit = std::make_shared < GameGraphic > ();
 		m_grpStrHit->AddTexture_FromArchive ( U"hit\\Geki.png" );
 		m_grpStrHit->SetZ ( Z_EFB + 0.01f );
@@ -280,6 +284,10 @@ namespace GAME
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Reina_2p.png" );
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Eiyuu_1p.png" );
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Eiyuu_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Doxtuka_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Doxtuka_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_E0_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_E0_2p.png" );
 			m_face->SetScaling ( -1, 1 );
 
 			m_name->SetPos ( POS_NAME_1P );
@@ -291,6 +299,8 @@ namespace GAME
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Tsuki.png" );
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Reina.png" );
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Eiyuu.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Doxtuka.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_E0.png" );
 
 			//-----------------------------------------------------------------
 
@@ -319,6 +329,10 @@ namespace GAME
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Reina_2p.png" );
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Eiyuu_1p.png" );
 			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Eiyuu_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Doxtuka_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_Doxtuka_2p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_E0_1p.png" );
+			m_face->AddTexture_FromArchive ( U"Battle\\Face\\gauge_face_E0_2p.png" );
 
 			m_name->SetPos ( POS_NAME_2P );
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Ouka.png" );
@@ -329,6 +343,8 @@ namespace GAME
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Tsuki.png" );
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Reina.png" );
 			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Eiyuu.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_Doxtuka.png" );
+			m_name->AddTexture_FromArchive ( U"Battle\\Name\\gauge_name_E0.png" );
 
 			//-----------------------------------------------------------------
 			m_grp_Cst_Player1P2P->SetPos ( POS_PL_CP_2P );
@@ -347,7 +363,9 @@ namespace GAME
 
 
 		//ヒット数
-		P_Ob pOb = m_grpHitNum->GetpObject ( 1 );
+		P_Ob pOb1 = m_grpHitNum->GetpObject ( 1 );
+		P_Ob pOb2 = m_grpHitNum->GetpObject ( 2 );
+
 		if ( PLAYER_ID_1 == playerID )
 		{
 			m_grpHitNum->SetPos ( VEC2 ( 100, 200 ) );
@@ -357,7 +375,8 @@ namespace GAME
 			m_strRevise->SetPos ( VEC2 ( DMG_X, DMG_Y - 30 ) );
 			m_strRevise->SetStr ( U"P1_Revise" );
 			
-			pOb->SetPos ( VEC2 ( 0, 200 ) );
+			pOb1->SetPos ( VEC2 ( 0, 200 ) );
+			pOb2->SetPos ( VEC2 ( -100, 200 ) );
 
 #if 0
 
@@ -378,7 +397,8 @@ namespace GAME
 			m_strRevise->SetPos ( VEC2 (  WINDOW_WIDTH - 250, DMG_Y - 30 ) );
 			m_strRevise->SetStr ( U"P2_Revise" );
 
-			pOb->SetPos ( VEC2 (  WINDOW_WIDTH - 384 - 200, 200 ) );
+			pOb1->SetPos ( VEC2 (  WINDOW_WIDTH - 384 - 200, 200 ) );
+			pOb2->SetPos ( VEC2 (  WINDOW_WIDTH - 384 - 300, 200 ) );
 
 #if 0
 
@@ -453,6 +473,8 @@ namespace GAME
 			case CHARA_NAME::CHARA_TSUKIHIBOSHI:fc = 10; nm = 5; break;
 			case CHARA_NAME::CHARA_REINA:		fc = 12; nm = 6; break;
 			case CHARA_NAME::CHARA_EIYUU:		fc = 14; nm = 7; break;
+			case CHARA_NAME::CHARA_DOXTUKA:		fc = 16; nm = 8; break;
+			case CHARA_NAME::CHARA_ENEMY_ZERO:	fc = 18; nm = 9; break;
 			}
 		}
 		else if ( CHARA_COLOR::CH_CLR_2 == clr )
@@ -467,21 +489,10 @@ namespace GAME
 			case CHARA_NAME::CHARA_TSUKIHIBOSHI:fc = 11; nm = 5; break;
 			case CHARA_NAME::CHARA_REINA:		fc = 13; nm = 6; break;
 			case CHARA_NAME::CHARA_EIYUU:		fc = 15; nm = 7; break;
+			case CHARA_NAME::CHARA_DOXTUKA:		fc = 17; nm = 8; break;
+			case CHARA_NAME::CHARA_ENEMY_ZERO:	fc = 19; nm = 9; break;
 			}
 		}
-
-#if 0
-
-		//追加途中
-		if ( name == CHARA_NAME::CHARA_REINA )
-		{
-			m_face->SetValid ( F );
-			m_name->SetValid ( F );
-		}
-
-#endif // 0
-
-
 
 		m_face->SetIndexTexture ( fc );
 		m_name->SetIndexTexture ( nm );
@@ -601,42 +612,53 @@ namespace GAME
 	{
 		int n = btlPrm.GetChainHitNum ();
 
-		if ( n < 0 || 100 <= n ) { return; }
-
-		int n1 = n % 10;	//1桁目
-		int n2 = (n / 10) % 10;	//2桁目
-		P_Ob pOb = m_grpHitNum->GetpObject ( 1 );
-
-		m_grpHitNum->SetIndexTexture ( n1 );
+		//0-99までの範囲
+		if ( n < 0 || 1000 <= n ) { return; }
 
 
-		//test
-		// 
-		//1hit以上で表示
+		P_Ob pOb1 = m_grpHitNum->GetpObject ( 1 );	//2桁目
+		P_Ob pOb2 = m_grpHitNum->GetpObject ( 2 );	//3桁目
+
+
+		//0hitで非表示
 		if ( n < 1 )
-
-		//2hit以上で表示
-//		if ( n < 2 )
 		{
+			//非表示
 			m_grpHitNum->SetValid ( F );
 			m_grpStrHit->SetValid ( F );
 			m_strDmg->SetValid ( F );
 			m_strRevise->SetValid ( F );
 		}
+		//1hit以上で表示
 		else
 		{
-			m_grpHitNum->SetValid ( T );
+			//"Hit"
 			m_grpStrHit->SetValid ( T );
-			//桁数
-			if ( n < 10 )
+
+			//数字
+			m_grpHitNum->SetValid ( T );
+
+			int n1 = n % 10;	//1桁目
+			m_grpHitNum->SetIndexTexture ( n1 );
+			pOb1->SetValid ( F );	//一旦オフ
+			pOb2->SetValid ( F );	//
+
+			if ( 9 < n )
 			{
-				pOb->SetValid ( F );
+				int n2 = (n / 10) % 10;	//2桁目
+				pOb1->SetIndexTexture ( n2 );
+				pOb1->SetValid ( T );
 			}
-			else
+
+			if ( 99 < n )
 			{
-				pOb->SetIndexTexture ( n2 );
-				pOb->SetValid ( T );
+				int n3 = (n / 100) % 10;	//3桁目
+				pOb2->SetIndexTexture ( n3 );
+				pOb2->SetValid ( T );
 			}
+
+
+			//ダメージ、補正表示　追記で、１hit以上で表示
 			m_strDmg->SetValid ( T );
 			m_strRevise->SetValid ( T );
 		}

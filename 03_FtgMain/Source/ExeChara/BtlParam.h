@@ -305,6 +305,11 @@ namespace GAME
 
 		bool Is1P () const { return PLAYER_ID_1 == GetPlayerID(); }
 		bool Is2P () const { return PLAYER_ID_2 == GetPlayerID(); }
+
+		//投げなど相手の位置をしていするとき、慣性をオフ
+		void InertialOff ();
+
+
 	private:
 		//タイマ生成
 		P_Timer MakeTimer () { return MakeTimer ( 0 ); }

@@ -522,7 +522,7 @@ namespace GAME
 			}
 		}
 
-		DBGOUT_WND_F( DBGOUT_0, U"diff = {}"_fmt( diff ) );
+		//DBGOUT_WND_F( DBGOUT_0, U"diff = {}"_fmt( diff ) );
 
 
 
@@ -660,6 +660,18 @@ namespace GAME
 			if ( inertial.y > 0 ) { inertial.y = 0; }
 		}
 	}
+
+	//投げなど相手の位置をしていするとき、慣性をオフ
+	void BtlParam::InertialOff ()
+	{
+		m_inertial = VEC2 ( 0, 0 );
+		m_dashInertial = VEC2 ( 0, 0 ); 
+		m_vel = VEC2 ( 0, 0 );
+		m_acc = VEC2 ( 0, 0 );
+		m_vg = 0;
+	}
+
+
 
 	//着地
 	void BtlParam::Landing ()
@@ -980,7 +992,7 @@ namespace GAME
 	//相殺時共通
 	void BtlParam::OnOffset_Common ()
 	{
-		m_clang = T;		//打合発生フラグ
+		m_clang = T;		//打合発生フラグ (終了はアクション終了時処理中)
 		m_tmrHitstop->Start ( OFFSET_TIME );		//ヒットストップの設定
 		HitPitchWaitStart ( OFFSET_TIME );
 
@@ -1103,12 +1115,22 @@ namespace GAME
 		}
 
 		//レイナ
-		if ( pExeCh->GetCharaName() == CHARA_TSUKIHIBOSHI )
+		if ( pExeCh->GetCharaName() == CHARA_REINA )
 		{
 			bool bA = pExeCh->IsNameAction ( U"ヴォルデーリャ成立1" );
-			if ( bA  )
+			if ( bA )
 			{
-				hitstop  = 0;
+				hitstop  = 1;
+			}
+		}
+
+		//E0
+		if ( pExeCh->GetCharaName() == CHARA_ENEMY_ZERO )
+		{
+			bool bA = pExeCh->IsNameAction ( U"超必殺技A1" );
+			if ( bA )
+			{
+				hitstop  = 2;
 			}
 		}
 

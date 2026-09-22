@@ -50,6 +50,10 @@ namespace GAME
 		m_vel_resetPos = 40.f;
 
 		m_bScrollY = F;
+
+		//相殺回数補正
+		m_offsetCount = 0;
+		m_tmrOffsetCount->Reset ();
 	}
 
 

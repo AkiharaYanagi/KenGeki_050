@@ -116,8 +116,27 @@ namespace GAME
 	}
 
 
-	void ExeEffect::PreScriptMove ()
+	void ExeEffect::PreScriptMove ( BtlParam & btlPrm )
 	{
+
+		//ヒットストップを行う場合
+		if ( m_hitStop )
+		{
+			//IsHitStop()は最後だけ外しているので直接取得する
+			//bool bHitStop = btlPrm.GetTmr_HitStop()->IsActive ();
+			bool bHitStop = btlPrm.IsHitStop ();
+			
+			//相殺時のみ
+			bool bOfs1p = btlPrm.GetClang ();
+
+			//相殺かつヒットストップ時は何もしない
+			if ( bHitStop && bOfs1p )
+			{
+				return;
+			}
+		}
+
+
 		//スクリプトを取得
 		m_pScript = m_pEffect->GetpScript ( m_frame );
 

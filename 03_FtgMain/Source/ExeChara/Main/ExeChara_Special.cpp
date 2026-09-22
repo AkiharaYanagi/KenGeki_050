@@ -115,8 +115,8 @@ namespace GAME
 		{
 			if ( m_name == CHARA_REINA )
 			{
-				m_btlPrm.AddBalance ( 20 );	//剣撃ゲージプラス
-				m_btlPrm.AddMana ( 20 );	//超必殺プラス
+				m_btlPrm.AddBalance ( 30 );	//剣撃ゲージプラス
+				m_btlPrm.AddMana ( 30 );	//超必殺プラス
 			}
 			else
 			{
@@ -260,6 +260,12 @@ namespace GAME
 				m_btlPrm.SetReviseOverDrive ( rev * 0.5f );
 			}
 		}
+
+
+
+		//キャラ別をswitch, 関数で分岐・整理
+
+
 
 		//-----------------------------------------------------
 		//紗絵
@@ -925,12 +931,14 @@ namespace GAME
 
 					m_btlPrm.SetReinaOdVx ( vel );
 				}
+				//超必殺技補正
+				m_btlPrm.SetReviseOverDrive ( 1.f );
 			}
 
-			if ( IsNameActionFrame ( U"ヴォルデーリャ成立2", 0 ) )
+			if ( IsNameAction ( U"ヴォルデーリャ成立2" ) )
 			{
-				//超必殺技補正解除
-				m_btlPrm.SetReviseOverDrive ( 1.0f );
+				//超必殺技補正
+				m_btlPrm.SetReviseOverDrive ( 1.f );
 			}
 
 			bool bni0 = IsNameAction ( U"ヴニベルソ0" );
@@ -997,6 +1005,12 @@ namespace GAME
 			if ( IsNameActionFrame ( U"超必殺技A0", 3 ) )
 			{
 				pOther->GetrBtlPrm().SetScpStop ( 60 );
+			}
+
+			if ( IsNameAction ( U"超必殺技A1" ) )
+			{
+				//超必殺技補正解除
+				m_btlPrm.SetReviseOverDrive ( 1.0f );
 			}
 		}
 

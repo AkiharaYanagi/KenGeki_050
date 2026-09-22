@@ -106,12 +106,6 @@ namespace GAME
 			pExeEffect->SetImmortal ( T );
 		}
 
-		//E0
-		if ( pEffect->Name.Is ( U"ビーム" ) )
-		{
-			pExeEffect->SetImmortal ( T );
-		}
-
 
 		//特殊
 		if ( pEffect->Name.Is ( U"4M_Shot" ) )
@@ -176,6 +170,28 @@ namespace GAME
 			{
 			}
 		}
+
+
+		//E0
+		{
+			if ( pEffect->Name.Is ( U"ビーム" ) )
+			{
+				pExeEffect->SetImmortal ( T );
+			}
+
+			//ヒットストップ
+			bool bBeam = pEffect->Name.Is ( U"ビーム" );
+			bool bReki0 = pEffect->Name.Is ( U"礫0" );
+			bool bReki1 = pEffect->Name.Is ( U"礫1" );
+			bool bReki2 = pEffect->Name.Is ( U"礫2" );
+
+			if ( bBeam || bReki0 || bReki1 || bReki2 )
+			{
+				pExeEffect->SetHitStop ( T );
+			}
+		}
+
+
 	}
 
 

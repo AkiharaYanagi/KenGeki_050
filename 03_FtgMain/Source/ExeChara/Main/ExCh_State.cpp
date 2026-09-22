@@ -133,10 +133,28 @@ namespace GAME
 
 
 		pExe->Input ();				//入力		
-		pExe->PreMove_Effect ();	//エフェクト動作
 
 
 		//m_sw.Disp ( DBGOUT_0, U"pExe->PreMove_Effect ();" );
+
+
+		if ( pExe->Is1P () )
+		{
+			P_ExeChara pOther = pExe->GetwpOther().lock();
+
+			//IsHitStop()は最後だけ外しているので直接取得する
+			bool bHs1p = pExe->GetrBtlPrm ().GetTmr_HitStop()->IsActive ();
+			bool bHs2p = pOther->GetrBtlPrm ().GetTmr_HitStop()->IsActive ();
+			
+			DBGOUT_WND_F( DBGOUT_0, U"bHs1p = {}, bHs2p = {}"_fmt( bHs1p, bHs2p ) );
+
+			bool bOfs1p = pExe->GetrBtlPrm ().GetClang ();
+			bool bOfs2p = pOther->GetrBtlPrm ().GetClang ();
+			
+			DBGOUT_WND_F( DBGOUT_1, U"bOfs1p = {}, bOfs2p = {}"_fmt( bOfs1p, bOfs2p ) );
+		}
+
+		pExe->PreMove_Effect ();	//エフェクト動作
 
 
 
@@ -145,6 +163,7 @@ namespace GAME
 		{
 			return;
 		}
+
 
 		pExe->TransitAction ();		//アクション遷移
 

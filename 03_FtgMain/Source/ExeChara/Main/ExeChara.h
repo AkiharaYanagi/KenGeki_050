@@ -193,6 +193,7 @@ namespace GAME
 		//------------------------------------------------------------
 		//相手を設定
 		void SetpOther ( WP_ExeChara p );
+		WP_ExeChara GetwpOther () const { return m_pOther; }
 
 		//全体画像処理を設定
 		void SetpFtgGrp ( P_FtgGrp p );
@@ -617,6 +618,8 @@ namespace GAME
 
 		//背景変更
 		void StartAerial () { m_pFtgGrp->StartAerial (); };
+
+		//
 
 	};
 

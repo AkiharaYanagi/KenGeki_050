@@ -135,10 +135,9 @@ namespace GAME
 	void OperateEffect::PreMove ( P_Frame pScp, BtlParam & btlPrm )
 	{
 		(void)pScp;
-		(void)btlPrm;
 
 		//各エフェクトの動作
-		for ( auto p : * m_plpExeEffect ) { p->PreScriptMove (); }
+		for ( auto p : * m_plpExeEffect ) { p->PreScriptMove ( btlPrm ); }
 	}
 
 

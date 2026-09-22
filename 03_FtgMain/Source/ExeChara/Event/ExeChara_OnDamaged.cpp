@@ -213,6 +213,44 @@ namespace GAME
 		int32 ofcnt = G_Ftg::inst ()->GetOffsetCount ();
 		float of = 1.f + ( 0.1f * ( float ) ofcnt );
 
+		//-------------------------------------------------
+		//キャラ別
+		if ( pOther->GetCharaName() == CHARA_REINA )
+		{
+			bool V1 = pOther->IsNameAction ( U"ヴォルデーリャ成立1" );
+			bool V2 = pOther->IsNameAction ( U"ヴォルデーリャ成立2" );
+			if ( V1 || V2 )
+			{
+				//連続技時
+				if ( chain > 3 )
+				{
+					rev_od = 0.5f;	//超必殺技補正
+				}
+
+				//投げ補正 緩やかに
+				if ( throwRvs < 1.f )
+				{
+					rev_od = 1.f;	//超必殺技補正
+					throwRvs = 1.f;
+				}
+				else
+				{
+					throwRvs = 1.f;
+				}
+				btlPrmOhter.SetReviseThrow ( throwRvs );
+			}
+		}
+
+		if ( pOther->GetCharaName() == CHARA_ENEMY_ZERO )
+		{
+			if ( pOther->IsNameAction ( U"超必殺技A1" ) )
+			{
+				d_revise = 1.f;	//連続ヒット補正無し
+				d_45 = 1.f;	//4500補正無し
+			}
+		}
+
+		//-------------------------------------------------
 
 		//最終確定補正値
 		btlPrmOhter.SetCnfmRvs ( d_revise * throwRvs * rev_od * g * d_45 * of );
@@ -368,8 +406,6 @@ namespace GAME
 		//ガード時以外(ヒット時)
 		else
 		{
-			m_btlPrm.GetTmr_HitStop ()->Start ( stopTime );	//ヒットストップの設定
-
 
 			//キャラ別特殊
 			//ギャバ
@@ -381,6 +417,19 @@ namespace GAME
 					pOther->SetPosEachOther ( VEC2 ( 250.f, 0 ) );
 				}
 			}
+
+			//E0
+			if ( pOther->GetCharaName() == CHARA_ENEMY_ZERO )
+			{
+				if ( pOther->IsNameAction ( U"超必殺技A1" ) )
+				{
+					//ヒットストップ
+					stopTime = 2;
+				}
+			}
+
+			//ヒットストップ
+			m_btlPrm.GetTmr_HitStop ()->Start ( stopTime );	//ヒットストップの設定
 
 			//-----------------------------------------------------
 			//必殺・超必殺時に相手の白ダメージ確定
@@ -515,6 +564,9 @@ namespace GAME
 		bool bLvr4 = pChInp->IsLvr4 ();	// 後	方向が入力されているとき
 		bool bLvr1 = pChInp->IsLvr1 ();	// 後下	方向が入力されているとき
 		bool bLvr3 = pChInp->IsLvr3 ();	// 前下	方向が入力されているとき
+
+		//bLvr3 = F;
+
 		bool bLvr13 = bLvr1 || bLvr3;	// 1 or 3 入力
 
 		bool bLvr6 = pChInp->IsLvr6 ();	// 前	方向が入力されているとき
