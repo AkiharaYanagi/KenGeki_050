@@ -215,7 +215,42 @@ namespace GAME
 
 		//-------------------------------------------------
 		//キャラ別
-		if ( pOther->GetCharaName() == CHARA_REINA )
+		if ( pOther->GetCharaName() == CHARA_GYAVADARUGA )
+		{
+			//連続技時
+			bool V1 = pOther->IsNameAction ( U"超必殺技AA1" );
+			bool V2 = pOther->IsNameAction ( U"超必殺技AA2" );
+			bool V3 = pOther->IsNameAction ( U"超必殺技AA3" );
+			if ( V1 )
+			{
+				if ( chain > 3 )
+				{
+					float f = 1.f - ( chain - 3 ) * 0.1f;
+					if ( f < 0.5f ) { f = 0.5f; }
+					rev_od = f;	//超必殺技補正
+				}
+			}
+			if ( V2 )
+			{
+				if ( chain > 5 )
+				{
+					float f = 1.f - ( chain - 3 ) * 0.1f;
+					if ( f < 0.5f ) { f = 0.5f; }
+					rev_od = f;	//超必殺技補正
+				}
+			}
+			if ( V3 )
+			{
+				if ( chain > 6 )
+				{
+					float f = 1.f - ( chain - 3 ) * 0.1f;
+					if ( f < 0.5f ) { f = 0.5f; }
+					rev_od = f;	//超必殺技補正
+				}
+			}
+		}
+
+		else if ( pOther->GetCharaName() == CHARA_REINA )
 		{
 			bool V1 = pOther->IsNameAction ( U"ヴォルデーリャ成立1" );
 			bool V2 = pOther->IsNameAction ( U"ヴォルデーリャ成立2" );
@@ -241,7 +276,7 @@ namespace GAME
 			}
 		}
 
-		if ( pOther->GetCharaName() == CHARA_ENEMY_ZERO )
+		else if ( pOther->GetCharaName() == CHARA_ENEMY_ZERO )
 		{
 			if ( pOther->IsNameAction ( U"超必殺技A1" ) )
 			{

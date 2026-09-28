@@ -321,12 +321,14 @@ namespace GAME
 		for ( P_Rut pRut : vpRoute )
 		{
 			bool b0 = pRut->Name.Is ( U"地上通常技" );
+			bool b_S = pRut->Name.Is ( U"特大攻撃" );
+			bool b_T = pRut->Name.Is ( U"地上特殊技" );
 			bool b1 = pRut->Name.Is ( U"地上必殺技" );
 			bool b2 = pRut->Name.Is ( U"地上超必殺技" );
 			bool b3 = pRut->Name.Is ( U"投げ発生" );
 			bool b4 = pRut->Name.Is ( U"相殺専用技" );
 			bool b5 = pRut->Name.Is ( U"ジャンプ" );
-			if ( b0 || b1 || b2 || b3 || b4 || b5 )
+			if ( b0 || b1 || b2 || b3 || b4 || b5 || b_S || b_T )
 			{
 				const V_UINT32 vBrc = pRut->GetcaIDBranch ();
 

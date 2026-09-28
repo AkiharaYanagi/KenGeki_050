@@ -34,7 +34,7 @@ namespace GAME
 
 		//-----------------------------------------------------
 		// コマンドによる分岐
-		if ( TranditAction_Command () )
+		if ( TransitAction_Command () )
 		{
 			//分岐が成立していたら以降はチェックしない
 			return;
@@ -42,7 +42,7 @@ namespace GAME
 
 		//-----------------------------------------------------
 		// 特殊条件による分岐
-		TranditAction_Special ();
+		TransitAction_Special ();
 
 		//-----------------------------------------------------
 		//現在スクリプトが現在アクションにおける最終フレーム ならば
@@ -95,56 +95,45 @@ namespace GAME
 	}
 
 	//アクション移項（コマンドに関する処理）
-	bool ExeChara::TranditAction_Command ()
+	bool ExeChara::TransitAction_Command ()
 	{
-
-
-		//m_sw.ReStart ();	//test
-
-
 		//-----------------------------------------------------
 		// コマンドによる分岐
 		
-		//コマンドが完成したIDを優先順に保存したリスト
-		m_pCharaInput->MakeTransitIDList ( *m_pChara, m_pScript, m_btlPrm.GetDirRight () );
-		const A_UINT32 & vCompID = m_pCharaInput->GetvCompID ();
-
-#if 0
-		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_1 )
-		{
-			//DBGOUT_WND_F ( DBGOUT_9, U"vCompID.size = {}"_fmt( vCompID.size() ) );
-		}
-#endif // 0
-
-
-
-		//m_sw.Disp ( DBGOUT_0, U"MakeTransitIDList ();" );
-
-
-
 		uint32_t transitID = (uint32_t)NO_COMPLETE;
-		for ( uint32_t id : vCompID )
-		{
-			//遷移先チェック
-			P_Sequence pAct = m_pChara->GetBehavior().GetpSqc ( id );
 
-			//特殊アクション 除外 指定　：　不可能なら次をチェック
-			if ( ! TranditAction_Exclusion ( pAct ) )
-			{
-				continue;
-			}
 
-			//可能なら遷移先に指定して終了
-			transitID = id;
-			break;
-		}
+		//条件が厳しい方を先にチェック
+		
+		//相殺キャンセルチェック
+		transitID = GetTransitActionID_OfstCncl ();
 		
 
+		//該当無しのときのみ引き続きチェック
+		if ( transitID == (uint32_t)NO_COMPLETE )
+		{
+			//通常キャンセル
+	#if 0
+			for ( uint32_t id : vCompID )
+			{
+				//遷移先チェック
+				P_Sequence pAct = m_pChara->GetBehavior().GetpSqc ( id );
 
-		//m_sw.Disp ( DBGOUT_1, U"相殺キャンセルチェック ();" );
+				//特殊アクション 除外 指定　：　不可能なら次をチェック
+				if ( ! TransitAction_Exclusion ( pAct ) )
+				{
+					continue;
+				}
 
+				//可能なら遷移先に指定して終了
+				transitID = id;
+				break;
+			}
+	#endif // 0
+			transitID = GetTransitActionID ();
+		}
 
-
+#if 0
 		//相殺キャンセルチェック
 		if ( m_btlPrm.GetTmr_OfstCncl()->IsActive () )
 		{
@@ -167,7 +156,7 @@ namespace GAME
 					P_Sequence pAct = m_pChara->GetBehavior().GetpSqc ( id );
 
 					//特殊アクション 除外 指定　：　不可能なら次をチェック
-					if ( ! TranditAction_Exclusion ( pAct ) )
+					if ( ! TransitAction_Exclusion ( pAct ) )
 					{
 						continue;
 					}
@@ -190,7 +179,7 @@ namespace GAME
 					P_Sequence pAct = m_pChara->GetBehavior().GetpSqc ( id );
 
 					//特殊アクション 除外 指定　：　不可能なら次をチェック
-					if ( ! TranditAction_Exclusion ( pAct ) )
+					if ( ! TransitAction_Exclusion ( pAct ) )
 					{
 						continue;
 					}
@@ -199,10 +188,11 @@ namespace GAME
 					transitID = id;
 					break;
 				}
-
 			}
-
 		}
+#endif // 0
+
+
 
 		//トレモ・受身オンのとき優先
 		if ( m_pParam->GetPrmResult ().m_prp_Ukemi.Get () )
@@ -244,14 +234,106 @@ namespace GAME
 			return T;
 		}
 
-
-
-
-		//m_sw.Disp ( DBGOUT_2, U"その他 ();" );
-		//m_sw.Count ();
-
-
 		return F;
+	}
+
+
+	//アクション移行チェック
+	uint32_t ExeChara::GetTransitActionID ()
+	{
+		//コマンドが完成したIDを優先順に保存したリスト
+		m_pCharaInput->MakeTransitIDList ( *m_pChara, m_pScript, m_btlPrm.GetDirRight () );
+		const A_UINT32 & vCompID = m_pCharaInput->GetvCompID ();
+
+		for ( uint32_t id : vCompID )
+		{
+			//遷移先チェック
+			P_Sequence pAct = m_pChara->GetBehavior().GetpSqc ( id );
+
+			//特殊アクション 除外 指定　：　不可能なら次をチェック
+			if ( ! TransitAction_Exclusion ( pAct ) )
+			{
+				continue;
+			}
+
+			//可能なら遷移先に指定して終了
+			//transitID = id;
+			//break;
+			return id;
+		}
+
+		//該当無し
+		return (uint32_t)NO_COMPLETE;
+	}
+
+
+	//相殺キャンセルのときのアクション移行チェック
+	uint32_t ExeChara::GetTransitActionID_OfstCncl ()
+	{
+		//相殺キャンセルではないとき
+		if ( ! m_btlPrm.GetTmr_OfstCncl()->IsActive () )
+		{
+			//返す
+			return (uint32_t)NO_COMPLETE;
+		}
+
+		//---------------------------------------
+		//相殺キャンセル可能のとき
+
+
+		//位置が基準より上だったら
+		bool bAir = IsJump () || IsFloat ();	//アクションもしくは位置
+		bool bDir = m_btlPrm.GetDirRight ();	//向き
+
+		//空中判定
+		if ( bAir )
+		{
+			//空中は空中技のみ可能
+
+			//コマンドが完成したIDを優先順に保存したリスト
+			m_pCharaInput->MakeTransitIDList ( *m_pChara, m_vOfstCncl_Air, bDir );
+			const A_UINT32 & vCompID_Offset = m_pCharaInput->GetvCompID ();
+
+			for ( uint32_t id : vCompID_Offset )
+			{
+				//遷移先チェック
+				P_Sequence pAct = m_pChara->GetBehavior().GetpSqc ( id );
+
+				//特殊アクション 除外 指定　：　不可能なら次をチェック
+				if ( ! TransitAction_Exclusion ( pAct ) )
+				{
+					continue;
+				}
+
+				//可能なら遷移先に指定して終了
+				return id;
+			}
+		}
+		//地上
+		else
+		{
+			//コマンドが完成したIDを優先順に保存したリスト
+			m_pCharaInput->MakeTransitIDList ( *m_pChara, m_vOfstCncl, bDir );
+			const A_UINT32 & vCompID_Offset = m_pCharaInput->GetvCompID ();
+
+			for ( uint32_t id : vCompID_Offset )
+			{
+				//遷移先チェック
+				P_Sequence pAct = m_pChara->GetBehavior().GetpSqc ( id );
+
+				//特殊アクション 除外 指定　：　不可能なら次をチェック
+				if ( ! TransitAction_Exclusion ( pAct ) )
+				{
+					continue;
+				}
+
+				//可能なら遷移先に指定して終了
+				return id;
+			}
+		}
+
+		//該当無し
+		return (uint32_t)NO_COMPLETE;
 	}
 
 
@@ -642,7 +724,7 @@ namespace GAME
 
 	//-------------------------------------------------------------------------------------------------
 	// 特殊条件による分岐
-	void ExeChara::TranditAction_Special ()
+	void ExeChara::TransitAction_Special ()
 	{
 #if 0
 		if ( m_btlPrm.GetPlayerID () == PLAYER_ID_2 )
@@ -733,6 +815,23 @@ namespace GAME
 		//各種状態の終了
 		m_btlPrm.EndAction ();
 		m_frame = 0;
+	}
+
+	//-------------------------------------------------------------------------------------------------
+
+	void ExeChara::StopMove ()
+	{
+		m_btlPrm.SetVel ( VEC2 ( 0, 0 ) );
+		m_btlPrm.SetAcc ( VEC2 ( 0, 0 ) );
+	}
+
+	bool ExeChara::IsDown_Start () const
+	{
+		bool b0 = IsNameAction ( U"敗北ダウン浮き" );
+		bool b1 = IsNameAction ( U"敗北ダウン落下" );
+		bool b2 = IsNameAction ( U"敗北ダウンバウンド" );
+		bool b3 = IsNameAction ( U"敗北ダウン" );
+		return b0 || b1 || b2 || b3;
 	}
 
 }	//namespace GAME

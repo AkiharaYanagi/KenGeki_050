@@ -623,6 +623,23 @@ namespace GAME
 		return bThrI || bThrE;
 	}
 
+	//終了のための待機状態かどうか
+	bool ExeChara::IsWinnerWait () const
+	{
+		bool bStand = IsStand ();
+
+		//地上判定
+		float pos_y = m_btlPrm.GetPos ().y;
+		bool bGround = ( (int32_t)pos_y == (int32_t)PLAYER_BASE_Y );
+
+		return bStand && bGround;
+	}
+
+
+
+
+
+
 	//アクション移行(条件チェック) 存在したらT
 	bool ExeChara::Have_TransitAction_Condition ( BRANCH_CONDITION brc_cnd ) const
 	{

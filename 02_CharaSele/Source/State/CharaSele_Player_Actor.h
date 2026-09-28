@@ -104,6 +104,7 @@ namespace GAME
 
 		//----------------------------------------------------------------
 		//操作
+		void RndmChara ();
 		void PrevChara ();
 		void NextChara ();
 		void AssignChara ();

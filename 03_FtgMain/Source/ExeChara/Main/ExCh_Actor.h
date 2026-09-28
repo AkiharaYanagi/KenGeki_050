@@ -86,6 +86,7 @@ namespace GAME
 		bool IsTimeUp () const { return mp_state == m_TimeUp; }
 		bool IsTimeUpWait () const { return mp_state == m_TimeUpWait; }
 		bool IsEndWait () const { return mp_state == m_EndWait; }
+		bool IsDown () const { return mp_state == m_Down; }
 
 		//==========================================================
 		//MutualCharaから呼ばれる主な関数

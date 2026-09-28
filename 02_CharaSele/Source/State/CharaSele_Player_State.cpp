@@ -75,6 +75,13 @@ namespace GAME
 			mwp_Actor.lock ()->Decide ();
 		}
 
+		//--------------------------------------------------------
+		//ボタン6でランダムキャラ選択
+		if ( CFG_PUSH_KEY_PL ( input_id, PLY_BTN6 ) )
+		{
+			mwp_Actor.lock ()->RndmChara ();
+		}
+
 
 		//1pが操作する2p側のみ
 		PLAYER_ID m_id = mwp_Actor.lock ()->GetPlayerID ();

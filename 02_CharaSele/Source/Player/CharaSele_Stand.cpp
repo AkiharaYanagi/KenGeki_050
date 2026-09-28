@@ -80,6 +80,39 @@ namespace GAME
 	}
 
 
+	void CharaSele_Stand::Rndm_Chara ()
+	{
+		//ランダム選択
+		int32_t tempIndex = s3d::Random ( 0, CH_NUM - 1 );
+		if ( m_selectedIndex == tempIndex )
+		{
+			//同じなら次のキャラにする
+			if ( CH_NUM <= m_selectedIndex + 1 )
+			{
+				m_selectedIndex = 0;
+			}
+			else
+			{
+				++ m_selectedIndex;
+			}
+		}
+		else
+		{
+			m_selectedIndex = tempIndex;
+		}
+
+		//カラーもランダム
+		CHARA_COLOR clr = static_cast < CHARA_COLOR > ( s3d::Random ( 0, 1 ) );
+		GameSettingFile & stg = m_pParam->GetGameSetting ();
+		stg.SetCharaColor ( m_id, clr );
+
+		//パラメータに保存
+		CHARA_NAME name = static_cast < CHARA_NAME > ( m_selectedIndex );
+		m_pParam->GetGameSetting().SetCharaName ( m_id, name );
+		Assign ();
+	}
+
+
 	void CharaSele_Stand::Next_Chara ()
 	{
 		if ( CH_NUM <= m_selectedIndex + 1 )

@@ -586,5 +586,16 @@ namespace GAME
 	void Fighting::Test_Win_1p () { m_exeChara2->Test_Lose();}
 	void Fighting::Test_Win_2p () { m_exeChara1->Test_Lose();}
 
+
+
+	void Fighting::SetbTraining ( bool b )
+	{
+		m_bTraining = b; 
+		m_exeChara1->SetbTraining ( b );
+		m_exeChara2->SetbTraining ( b );
+	}
+
+
+
 }	//namespace GAME
 

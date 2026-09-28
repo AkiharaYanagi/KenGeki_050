@@ -28,7 +28,7 @@ namespace GAME
 		P_Param			m_pParam;
 
 		P_ChSl_ChGrp	m_chGrp;	//キャラグラフィック
-		int				m_selectedIndex{0};	//選択インデックス
+		int32_t			m_selectedIndex{0};	//選択インデックス
 
 	public:
 		CharaSele_Stand ();
@@ -46,6 +46,7 @@ namespace GAME
 		}
 		void SetpParam ( P_Param p );
 
+		void Rndm_Chara ();	//ランダム選択
 		void Next_Chara ();
 		void Prev_Chara ();
 

@@ -333,6 +333,8 @@ namespace GAME
 		bool IsState_EndWait () { return m_pActor->IsEndWait (); }
 
 		void StartDown		() { m_pActor->StartDown (); }
+		bool IsDown_Start () const;
+		bool IsDown () { return m_pActor->IsDown (); }
 		bool IsDown_Calm () { return IsNameAction ( U"敗北ダウン" ); }
 		void StartWinner	() { m_pActor->StartWinner (); }
 
@@ -445,6 +447,10 @@ namespace GAME
 
 		//-------------------------------------------------
 		//システム
+	private:
+		bool m_bTraining { F };	//入力表示フラグ
+	public:
+		void SetbTraining ( bool b ) { m_bTraining = b; }
 
 		//トレーニングモード初期化
 		void TrainingInit ();
@@ -491,20 +497,38 @@ namespace GAME
 		s3d::String Check_TransitAction_Condition_str ( P_Frame pFrm, BRANCH_CONDITION CONDITION ) const;	
 
 //		bool TranditAction_Command_Special ();	//アクション移項（コマンドに関する処理）限定
-		void TranditAction_Special ();	//特殊条件移行
+		void TransitAction_Special ();	//特殊条件移行
 
 		//アクションの移項
 		void TransitAction_Condition_I ( BRANCH_CONDITION CONDITION, bool forced );	//条件をチェックして移行
 		void TransitAction_Condition_E ( BRANCH_CONDITION CONDITION, bool forced );	//条件をチェックして移行
 	private:
-		bool TranditAction_Command ();	//アクション移項（コマンドに関する処理）
-		bool TranditAction_Exclusion ( P_Sequence pNextAct );	//特定アクションの除外
+		bool TransitAction_Command ();	//アクション移項（コマンドに関する処理）
+		bool TransitAction_Exclusion ( P_Sequence pNextAct );	//特定アクションの除外
+		uint32_t GetTransitActionID ();	//リストからIDを取得
+		uint32_t GetTransitActionID_OfstCncl ();	//リストからIDを取得
+
 		void EndAction ();	//アクション移項時、前アクションの最後の処理
+		void StopMove ();	//移動停止
+		void InertialOff () { m_btlPrm.InertialOff (); }	//慣性を含めた移動停止
 
 		//スクリプト処理
 		void ExeScript ();	//スクリプト通常処理
 		void SetParamFromScript ();	//スクリプトからパラメータを反映する
 		void SpecialAction ();		//特殊アクション指定
+
+		//特殊アクションの分岐
+		void SpAct_Common	( const P_ExeChara & pOther );	//共通
+		void SpAct_Sae		( const P_ExeChara & pOther );
+		void SpAct_Ouka		( const P_ExeChara & pOther );
+		void SpAct_Retsu	( const P_ExeChara & pOther );
+		void SpAct_Gava		( const P_ExeChara & pOther );
+		void SpAct_Fera		( const P_ExeChara & pOther );
+		void SpAct_Tsuki	( const P_ExeChara & pOther );
+		void SpAct_Reina	( const P_ExeChara & pOther );
+		void SpAct_Eiyuu	( const P_ExeChara & pOther );
+		void SpAct_Doxtua	( const P_ExeChara & pOther );
+		void SpAct_E0		( const P_ExeChara & pOther );
 
 	public:
 		//投げなどで、相手との位置をロックする
@@ -560,7 +584,8 @@ namespace GAME
 		bool IsThrowCheck () const;
 
 		//終了のための待機状態かどうか
-		bool IsWait () { return IsStand (); }
+		bool IsWait () const { return IsStand (); }
+		bool IsWinnerWait () const;
 
 		bool Have_TransitAction_Condition ( BRANCH_CONDITION BRC_CND ) const;
 #if 0

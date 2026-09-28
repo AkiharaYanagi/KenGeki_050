@@ -631,6 +631,19 @@ namespace GAME
 			//DBGOUT_WND_F ( DBGOUT_2, U"mn_AirDash = {}"_fmt ( mn_AirDash ) );
 		}
 #endif // 0
+
+		if ( PLAYER_ID_1 == m_playerID )
+		{
+			//毎回のチェック
+			UINT TrowInv = GetTmr_ThrowInv ()->GetTime ();
+			DBGOUT_WND_F ( DBGOUT_3, U"投げ無敵:{}"_fmt ( TrowInv ) );
+
+			UINT OfstCncl = GetTmr_OfstCncl ()->GetTime ();
+			DBGOUT_WND_F ( DBGOUT_4, U"相殺キャンセル:{}"_fmt ( OfstCncl ) );
+		}
+
+
+
 	}
 
 
@@ -669,6 +682,12 @@ namespace GAME
 		m_vel = VEC2 ( 0, 0 );
 		m_acc = VEC2 ( 0, 0 );
 		m_vg = 0;
+	}
+
+	void BtlParam::StopMove ()
+	{
+		m_vel = VEC2 ( 0, 0 );
+		m_acc = VEC2 ( 0, 0 );
 	}
 
 
@@ -801,6 +820,13 @@ namespace GAME
 			return; 
 		}
 
+		//強制振り向き
+		LookOther_forced ();
+	}
+	
+	//相手の方向を向く(強制)
+	void BtlParam::LookOther_forced ()
+	{
 		//相手と位置xが同じ場合は向き持続
 		VEC2 iPos = GetPos ();
 		VEC2 ePos = m_pOther.lock ()->GetPos ();

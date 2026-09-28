@@ -73,6 +73,16 @@ namespace GAME
 		//開始状態
 //		Start ();
 		m_active = F;
+
+
+		//カウントダウン強調
+		m_countdown = std::make_shared < GameGraphic > ();
+		m_countdown->AddTexture_FromArchive ( U"time\\time_limit_0.png" );
+		m_countdown->AddTexture_FromArchive ( U"time\\time_limit_1.png" );
+		m_countdown->SetPos ( VEC2 ( ( 1280 / 2 ) - ( 600 / 2 ), 0 ) );
+		m_countdown->SetValid ( F );
+		AddpTask ( m_countdown );
+		GRPLST_INSERT ( m_countdown );
 	}
 
 	BattleTime::~BattleTime ()
@@ -94,10 +104,13 @@ namespace GAME
 		{
 			m_battle_time_01->SetColor ( 0xfffff0f0 );
 			m_battle_time_10->SetColor ( 0xfffff0f0 );
+			m_countdown->SetValid ( F );
+			//通常動作後に返して終了
 			TASK_VEC::Move (); return;
 		}
 		else
 		{
+			//稼働時は以下続行
 			m_battle_time_01->SetColor ( 0xffffffff );
 			m_battle_time_10->SetColor ( 0xffffffff );
 		}
@@ -127,11 +140,35 @@ namespace GAME
 			case  60: vc_name = VC92_CNTDN_END; break;
 			}
 
-			if ( vc_name != U"" )
+			//いずれかに該当する場合は再生
+			bool bPlay = std::u32string_view ( vc_name ) != U"";
+			if ( bPlay )
 			{
 				s3d::AudioAsset::Wait ( vc_name );
 				AUD_PLAY_ONESHOT_VC ( vc_name );
 			}
+
+
+			//強調点滅
+			if ( 60 < m_time && m_time < 660 )
+			{
+				//表示オン
+				m_countdown->SetValid ( T );
+
+				if ( ++ m_pitch > 2 )
+				{
+					m_pitch = 0;
+
+					//点滅
+					m_blink = m_blink ? 0 : 1;  
+					m_countdown->SetIndexTexture ( m_blink );
+				}
+			}
+			else
+			{
+				m_countdown->SetValid ( F );
+			}
+
 		}
 
 

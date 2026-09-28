@@ -35,7 +35,7 @@ namespace GAME
 		P_Grp		m_life_white_value;	//白体力
 		P_Grp		m_life_red_value;	//赤体力
 
-		P_Grp		m_stamina_value;	//剣撃
+		P_Grp		m_kengeki_value;	//剣撃
 		P_Grp		m_hissatsu_value;	//必殺
 		P_Grp		m_accel_value;		//アクセル
 
@@ -46,7 +46,7 @@ namespace GAME
 		float		m_omega { 0 }; 
 
 		P_Grp		m_kengeki_split;	//剣撃ゲージ分割線
-
+		P_Grp		m_kengeki_hide;		//剣撃ゲージ隠し
 
 		//-----------------------------------------------------
 		enum DISP_FE_CONST

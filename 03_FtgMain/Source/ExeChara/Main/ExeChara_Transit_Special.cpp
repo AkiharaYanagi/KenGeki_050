@@ -23,7 +23,7 @@ namespace GAME
 	// 
 	//アクション移項（コマンドに関する処理）
 	//引数：	pNext 次のアクション
-	bool ExeChara::TranditAction_Exclusion ( P_Sequence pNextAct )
+	bool ExeChara::TransitAction_Exclusion ( P_Sequence pNextAct )
 	{
 		//------------------------------------------
 		//空中ダッシュ回数による遷移不可処理
@@ -88,6 +88,20 @@ namespace GAME
 		int mana = pNextAct->Mana.Get ();
 		if ( mana != 0 )
 		{
+			//@info
+			//通常キャンセルと相殺キャンセルで2回来てる
+
+
+			//相殺キャンセル中は超必殺技マナ半額
+			if ( m_btlPrm.GetTmr_OfstCncl()->IsActive () )
+			{
+				if ( pNextAct->Category.Is ( AC_OVERDRIVE ) )
+				{
+					mana /= 2;
+				}
+			}
+
+
 			//マナ消費
 			if ( m_btlPrm.GetMana () >= mana )
 			{

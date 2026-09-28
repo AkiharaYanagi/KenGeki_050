@@ -307,6 +307,33 @@ namespace GAME
 		//全体操作
 		Input ();
 
+		Scene_lib::Move ();
+	}
+
+
+	//全体操作
+	void CharaSele::Input ()
+	{
+		//操作は1p2p共通、どのタイミングでも
+	
+		//--------------------------------------------------------
+		//BackSpaceでタイトルに戻る (ESCは直接終了)
+		//コントローラ(7:リセットボタン)でも戻る
+		if ( ! m_fade_toTitle->IsActive () )
+		{
+			bool bBackSpace = WND_UTL::AscKey ( VK_BACK );
+			bool bCtrlReset = CFG_PUSH_KEY_12 ( PLAYER_INPUT::PLY_BTN7 );
+			if ( bBackSpace || bCtrlReset )
+			{
+				AUD_PLAY_ONESHOT_SE ( SE_select_Cancel );
+
+				//フェード開始
+				m_fade_toTitle->StartBlackOut ( 8 );
+			}
+		}
+
+
+		//--------------------------------------------------------
 		//ステージ選択
 		if ( CFG_PUSH_KEY_12 ( PLY_BTN4 ) )
 		{
@@ -320,6 +347,7 @@ namespace GAME
 		}
 
 
+		//--------------------------------------------------------
 		//BGM選択
 		if ( CFG_PUSH_KEY_12 ( PLY_BTN2 ) )
 		{
@@ -349,28 +377,6 @@ namespace GAME
 			{
 				BGM_NAME bgm_name = BGM_ID_TO_NAME [ static_cast < size_t > ( bgm_id ) ];
 				AUD_PLAY_LOOP_BGM ( bgm_name );
-			}
-		}
-
-		Scene_lib::Move ();
-	}
-
-
-	//全体操作
-	void CharaSele::Input ()
-	{
-		//BackSpaceでタイトルに戻る (ESCは直接終了)
-		//コントローラ(7:リセットボタン)でも戻る
-		if ( ! m_fade_toTitle->IsActive () )
-		{
-			bool bBackSpace = WND_UTL::AscKey ( VK_BACK );
-			bool bCtrlReset = CFG_PUSH_KEY_12 ( PLAYER_INPUT::PLY_BTN7 );
-			if ( bBackSpace || bCtrlReset )
-			{
-				AUD_PLAY_ONESHOT_SE ( SE_select_Cancel );
-
-				//フェード開始
-				m_fade_toTitle->StartBlackOut ( 8 );
 			}
 		}
 	}

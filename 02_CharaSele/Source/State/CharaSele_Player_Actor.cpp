@@ -316,6 +316,22 @@ namespace GAME
 
 
 	//----------------------------------------------------------------
+	void CharaSele_Player_Actor::RndmChara ()
+	{
+		//キャラ選択・前
+		m_ch_stand->Rndm_Chara ();
+		AssignChara ();
+
+		//移動してから
+		//相手が決定済み、同キャラなら残りのカラー
+		if ( Is_Other_Decided_SameChara () )
+		{
+			//違うカラーで直接更新
+			m_ch_stand->Assign_Color ( Another_Color () );	//更新
+			AssignColor ();
+		}
+	}
+
 	void CharaSele_Player_Actor::PrevChara ()
 	{
 		//キャラ選択・前
@@ -330,7 +346,6 @@ namespace GAME
 			m_ch_stand->Assign_Color ( Another_Color () );	//更新
 			AssignColor ();
 		}
-
 	}
 
 	void CharaSele_Player_Actor::NextChara ()
@@ -347,7 +362,6 @@ namespace GAME
 			m_ch_stand->Assign_Color ( Another_Color () );	//更新
 			AssignColor ();
 		}
-
 	}
 
 	void CharaSele_Player_Actor::AssignChara ()

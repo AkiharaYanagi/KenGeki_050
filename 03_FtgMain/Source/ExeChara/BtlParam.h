@@ -297,6 +297,7 @@ namespace GAME
 		void BackMoveX ();	//重なり時後ろずらし（重なりが解消されるまで戻す）
 		void LookOther ();	//相手の方向を向く
 		bool IsLookOther ();
+		void LookOther_forced ();	//相手の方向を向く(強制)
 
 		void DecisionWhiteDamage ();	//白ダメージ確定
 		void ChainReset ();	//連続ヒット関連リセット
@@ -308,6 +309,9 @@ namespace GAME
 
 		//投げなど相手の位置をしていするとき、慣性をオフ
 		void InertialOff ();
+
+		//移動を停止
+		void StopMove ();
 
 
 	private:

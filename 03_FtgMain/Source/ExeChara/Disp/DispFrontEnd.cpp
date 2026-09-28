@@ -140,7 +140,8 @@ namespace GAME
 		m_strDmg = std::make_shared < GrpStr > ();
 		m_strDmg->SetSize ( G_Font::SIZE_30 );
 		//m_strDmg->SetZ ( Z_SYS - 0.01f );
-		m_strDmg->SetZ ( Z_EFB + 0.01f );
+		//m_strDmg->SetZ ( Z_EFB + 0.01f );
+		m_strDmg->SetZ ( Z_EFF - 0.01f );
 		m_strDmg->SetValid ( F );
 		AddpTask ( m_strDmg );
 		GRPLST_INSERT ( m_strDmg );

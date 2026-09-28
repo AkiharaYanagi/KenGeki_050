@@ -103,7 +103,7 @@ namespace GAME
 		void SetDemoSkip () { m_demoSkip = T; }
 
 		//トレーニングモード
-		void SetbTraining ( bool b ) { m_bTraining = b; }
+		void SetbTraining ( bool b );
 		bool GetbTraining () const { return m_bTraining; }
 
 		//トレーニング用リスタート

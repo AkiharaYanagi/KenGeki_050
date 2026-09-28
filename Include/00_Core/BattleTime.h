@@ -29,6 +29,9 @@ namespace GAME
 		int			m_startTime { 0 };	//リセット時の開始時間
 
 		bool		m_bCountDown { T };	//カウントダウンするかどうか
+		P_Grp		m_countdown;		//カウントダウン表示
+		uint32_t	m_blink { 0 };		//点滅	
+		uint32_t	m_pitch { 0 };		//間隔	
 
 	public:
 		BattleTime ();

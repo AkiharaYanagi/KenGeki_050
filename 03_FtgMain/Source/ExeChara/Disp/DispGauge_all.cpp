@@ -43,9 +43,11 @@ inline double mapRange
 		m_life_red_value = MakepGrp (); 	//ライフゲージ 赤
 		m_life_white_value = MakepGrp ();	//ライフゲージ 白
 		m_life_value = MakepGrp ();			//ライフゲージ 緑
-		m_stamina_value = MakepGrp ();		//剣撃ゲージ
+		m_kengeki_value = MakepGrp ();		//剣撃ゲージ
 		m_hissatsu_value = MakepGrp ();		//必殺ゲージ
 		m_accel_value = MakepGrp ();		//アクセルゲージ
+
+		m_kengeki_hide = MakepGrp ();		//剣撃ゲージ隠し
 
 		//必殺マーク
 		m_hissatsu_mark = MakepGrp ();	//必殺円形
@@ -150,9 +152,16 @@ inline double mapRange
 #endif // 0
 			s3d::Array < s3d::Vec2 > aryVec_stamina{ {179, 86}, {489 , 86}, {499, 102}, {189, 102} };
 			P_Plgn m_stamina_mask = std::make_shared < s3d::Polygon > ( aryVec_stamina );
-			m_stamina_value->SetPosInMask ( VEC2 (189, 86) );
-			m_stamina_value->SetpPolygon ( m_stamina_mask );
-			m_stamina_value->AddTexture_FromArchive_mrr ( U"Battle\\stumina_value.png" );
+			m_kengeki_value->SetPosInMask ( VEC2 (189, 86) );
+			m_kengeki_value->SetpPolygon ( m_stamina_mask );
+			m_kengeki_value->AddTexture_FromArchive_mrr ( U"Battle\\stumina_value.png" );
+
+
+			s3d::Array < s3d::Vec2 > aryVec_kengeki{ {179, 86}, {489 , 86}, {499, 102}, {189, 102} };
+			P_Plgn m_kengeki_mask = std::make_shared < s3d::Polygon > ( aryVec_kengeki );
+			m_kengeki_hide->SetPosInMask ( VEC2 (189, 86) );
+			m_kengeki_hide->SetpPolygon ( m_kengeki_mask );
+			m_kengeki_hide->AddTexture_FromArchive_mrr ( U"Battle\\kengeki_hide.png" );
 
 
 			//-----------------------------------------------------------------
@@ -197,9 +206,17 @@ inline double mapRange
 			//const VEC2 DispFrontEnd_all::POS_STAMINA_VALUE_2P ( WND_CNT + 141, 86 );
 			s3d::Array < s3d::Vec2 > aryVec_stamina{ {791, 86}, {791 + 299 , 86}, {781 + 299, 102}, {781, 102} };
 			P_Plgn m_stamina_mask = std::make_shared < s3d::Polygon > ( aryVec_stamina );
-			m_stamina_value->SetPosInMask ( VEC2 (781, 86) );
-			m_stamina_value->SetpPolygon ( m_stamina_mask );
-			m_stamina_value->AddTexture_FromArchive ( U"Battle\\stumina_value.png" );
+			m_kengeki_value->SetPosInMask ( VEC2 (781, 86) );
+			m_kengeki_value->SetpPolygon ( m_stamina_mask );
+			m_kengeki_value->AddTexture_FromArchive ( U"Battle\\stumina_value.png" );
+
+
+			s3d::Array < s3d::Vec2 > aryVec_kengeki{ {791, 86}, {791 + 299 , 86}, {781 + 299, 102}, {781, 102} };
+			P_Plgn m_kengeki_mask = std::make_shared < s3d::Polygon > ( aryVec_kengeki );
+			m_kengeki_hide->SetPosInMask ( VEC2 (781, 86) );
+			m_kengeki_hide->SetpPolygon ( m_kengeki_mask );
+			m_kengeki_hide->AddTexture_FromArchive ( U"Battle\\kengeki_hide.png" );
+
 
 			//-----------------------------------------------------------------
 			//超必殺技ゲージ
@@ -254,19 +271,34 @@ inline double mapRange
 
 		//剣撃ゲージ
 		int32 stamina = btlPrm.GetBalance() ;
-		//（ 最大幅 * 値 / 最大値 ）
-		float width_stamina = 299.f * stamina /(float)BALANCE_MAX;
+		//（ 理論最大幅 * 現在値 / 理論最大値 ）
+		double width_stamina = 299.f * stamina /(double)BALANCE_MAX;
 
+		//現在最大値
+		int32 balanceMax = btlPrm.GetBalanceMax ();
+		double width_hide = 299.f * ( ( (double)BALANCE_MAX - balanceMax ) / (double)BALANCE_MAX );
+
+		//プレイヤー側別
 		if ( PLAYER_ID_1 == m_playerID )
 		{
 			double x0 = 640 - 141 - 10 - width_stamina;
 			double x1 = 640 - 141 - 10;
 			double x2 = 640 - 141;
 			double x3 = 640 - 141 - width_stamina;
+			
 			//剣撃ゲージ
 			s3d::Array < s3d::Vec2 > aryVec_stamina{ {x0, 86}, {x1, 86}, {x2, 102}, {x3, 102} };
 			P_Plgn m_stamina_mask = std::make_shared < s3d::Polygon > ( aryVec_stamina );
-			m_stamina_value->SetpPolygon ( m_stamina_mask );
+			m_kengeki_value->SetpPolygon ( m_stamina_mask );
+
+			//剣撃ゲージ隠し
+			double hx0 = 640 - 141 - 10 - 299;	//179
+			double hx1 = hx0 + width_hide;
+			double hx3 = 640 - 141 - 299;		//189
+			double hx2 = hx3 + width_hide;
+			s3d::Array < s3d::Vec2 > aryVec_hide { {hx0, 86}, {hx1, 86}, {hx2, 102}, {hx3, 102} };
+			P_Plgn m_hide_mask = std::make_shared < s3d::Polygon > ( aryVec_hide );
+			m_kengeki_hide->SetpPolygon ( m_hide_mask );
 		}
 		else if ( PLAYER_ID_2 == m_playerID )
 		{
@@ -274,7 +306,16 @@ inline double mapRange
 			double x2 = 781 + width_stamina;
 			s3d::Array < s3d::Vec2 > aryVec_stamina{ {791, 86}, {x1, 86}, {x2, 102}, {781, 102} };
 			P_Plgn m_stamina_mask = std::make_shared < s3d::Polygon > ( aryVec_stamina );
-			m_stamina_value->SetpPolygon ( m_stamina_mask );
+			m_kengeki_value->SetpPolygon ( m_stamina_mask );
+
+			//剣撃ゲージ隠し
+			double hx0 = 791 + 299 - width_hide;
+			double hx1 = 791 + 299;
+			double hx2 = 781 + 299;
+			double hx3 = 781 + 299 - width_hide;
+			s3d::Array < s3d::Vec2 > aryVec_hide { {hx0, 86}, {hx1, 86}, {hx2, 102}, {hx3, 102} };
+			P_Plgn m_hide_mask = std::make_shared < s3d::Polygon > ( aryVec_hide );
+			m_kengeki_hide->SetpPolygon ( m_hide_mask );
 		}
 
 

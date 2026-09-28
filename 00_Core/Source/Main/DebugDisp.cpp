@@ -21,7 +21,7 @@ namespace GAME
 
 	//====================================================
 	//バージョン表記
-	s3d::String g_VERSION = U"ver_0.76_beta";
+	s3d::String g_VERSION = U"ver_0.76";
 
 #if 0
 //	ver 0.75	2026/08/14(金) 緊急修正
