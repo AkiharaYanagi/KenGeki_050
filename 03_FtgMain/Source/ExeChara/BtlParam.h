@@ -65,6 +65,8 @@ namespace GAME
 		int		m_mana { 0 };			//マナ(超必殺)
 		int		m_accel { 0 };			//アクセル ( -500 ~ +1000 )
 
+		int		m_brake { 0 };			//ブレイク ( 0 ~ +10000 )
+
 		int		m_balance_max { 0 };	//バランスゲージ変動上限
 		int		m_white_damage { 0 };	//白ダメージ(回復分)
 		P_Timer		m_tmrWhiteDamage;	//白ダメージタイマ

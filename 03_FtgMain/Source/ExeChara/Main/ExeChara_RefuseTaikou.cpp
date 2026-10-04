@@ -141,6 +141,7 @@ namespace GAME
 			if ( IsNameAction ( U"昇竜投げ着地") ) { return T; }
 			if ( IsNameAction ( U"半回転投げ") ) { return T; }
 			if ( IsNameAction ( U"半回転投げ成立") ) { return T; }
+			if ( IsNameAction ( U"バルカンレイブEX") ) { return T; }
 
 		break;
 

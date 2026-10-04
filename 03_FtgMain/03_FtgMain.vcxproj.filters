@@ -893,9 +893,6 @@
     <ClInclude Include="Source\ExeChara\Rect\CharaRect.h">
       <Filter>ExeChara\Rect</Filter>
     </ClInclude>
-    <ClInclude Include="Source\ExeChara\Disp\DispAccel.h">
-      <Filter>ExeChara\Disp</Filter>
-    </ClInclude>
     <ClInclude Include="Source\ExeChara\Disp\DispChara.h">
       <Filter>ExeChara\Disp</Filter>
     </ClInclude>
@@ -954,6 +951,9 @@
       <Filter>Fighting</Filter>
     </ClInclude>
     <ClInclude Include="..\Include\03_FtgMain\G_Ftg.h" />
+    <ClInclude Include="Source\ExeChara\Disp\DispBreak.h">
+      <Filter>ExeChara\Disp</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\FtgMain.cpp" />
@@ -1056,9 +1056,6 @@
     <ClCompile Include="Source\ExeChara\Rect\CharaRect.cpp">
       <Filter>ExeChara\Rect</Filter>
     </ClCompile>
-    <ClCompile Include="Source\ExeChara\Disp\DispAccel.cpp">
-      <Filter>ExeChara\Disp</Filter>
-    </ClCompile>
     <ClCompile Include="Source\ExeChara\Disp\DispChara.cpp">
       <Filter>ExeChara\Disp</Filter>
     </ClCompile>
@@ -1117,5 +1114,8 @@
       <Filter>ExeChara\Input</Filter>
     </ClCompile>
     <ClCompile Include="Source\G_Ftg.cpp" />
+    <ClCompile Include="Source\ExeChara\Disp\DispBreak.cpp">
+      <Filter>ExeChara\Disp</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

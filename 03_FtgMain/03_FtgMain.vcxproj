@@ -416,7 +416,7 @@
     <ClInclude Include="Source\Ef\EfSouha.h" />
     <ClInclude Include="Source\Ef\EfString.h" />
     <ClInclude Include="Source\ExeChara\BtlParam.h" />
-    <ClInclude Include="Source\ExeChara\Disp\DispAccel.h" />
+    <ClInclude Include="Source\ExeChara\Disp\DispBreak.h" />
     <ClInclude Include="Source\ExeChara\Disp\DispChara.h" />
     <ClInclude Include="Source\ExeChara\Disp\DispChara_Const.h" />
     <ClInclude Include="Source\ExeChara\Disp\DispFrontEnd.h" />
@@ -460,7 +460,7 @@
     <ClCompile Include="Source\Ef\EfSouha.cpp" />
     <ClCompile Include="Source\Ef\EfString.cpp" />
     <ClCompile Include="Source\ExeChara\BtlParam.cpp" />
-    <ClCompile Include="Source\ExeChara\Disp\DispAccel.cpp" />
+    <ClCompile Include="Source\ExeChara\Disp\DispBreak.cpp" />
     <ClCompile Include="Source\ExeChara\Disp\DispChara.cpp" />
     <ClCompile Include="Source\ExeChara\Disp\DispFrontEnd.cpp" />
     <ClCompile Include="Source\ExeChara\Disp\DispGauge_all.cpp" />

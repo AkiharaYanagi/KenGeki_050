@@ -29,8 +29,7 @@
 #include "DispFrontEnd.h"
 #include "DispGauge_all.h"
 
-
-
+#include "DispBreak.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -44,6 +43,7 @@ namespace GAME
 		P_DispInput		m_dispInput;	//入力表示
 		P_DispRect		m_dispRect;		//枠
 
+		P_DispBreak		m_dispBreak;	//ブレイクゲージ
 
 
 		//移行中

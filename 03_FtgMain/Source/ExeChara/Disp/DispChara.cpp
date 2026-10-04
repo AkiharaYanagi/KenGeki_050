@@ -43,6 +43,10 @@ namespace GAME
 		m_gauge_all = std::make_shared < DispGauge_all > ();
 		AddpTask ( m_gauge_all );
 
+
+		//ブレイクゲージ
+		m_dispBreak = std::make_shared < DispBreak > ();
+		AddpTask ( m_dispBreak );
 	}
 
 
