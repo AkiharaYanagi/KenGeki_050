@@ -20,9 +20,9 @@
 namespace GAME
 {
 	//クラス内定数
-	const int BtlParam::RecoveryWhiteDamage_Time = 360;
-	const int BtlParam::RecoveryWhiteDamage = 4;
-	const int BtlParam::RecoveryRedDamage_Time = 10;
+	const int32_t BtlParam::RecoveryWhiteDamage_Time = 360;
+	const int32_t BtlParam::RecoveryWhiteDamage = 4;
+	const int32_t BtlParam::RecoveryRedDamage_Time = 10;
 
 
 	BtlParam::BtlParam ()
@@ -168,6 +168,7 @@ namespace GAME
 		m_balance_max = BALANCE_START;
 		m_mana = MANA_START;
 		m_accel = ACCEL_START;
+		m_break = BREAK_START;
 		m_white_damage = 0;
 		m_red_damage = 0;
 		m_recovering_stamina = T;
@@ -610,13 +611,21 @@ namespace GAME
 		}
 
 		//アクセル値が他ゲージに影響
-		int balance_recovery = 1 * m_accel / 100;
+		int32_t balance_recovery = 1 * m_accel / 100;
 
 
 		//通常スタミナ値回復
 		if ( m_recovering_stamina )
 		{
 			AddBalance ( balance_recovery );
+		}
+
+		//ブレイクゲージ
+		const int32_t BREAK_RECOVERY = 100;	//回復値[/F]
+		if ( m_break < BREAK_MAX )
+		{
+			m_break += BREAK_RECOVERY;
+			if ( BREAK_MAX < m_break ) { m_break = BREAK_MAX; }
 		}
 	}
 
@@ -887,7 +896,7 @@ namespace GAME
 
 	//------------------------------------------------------------------------
 	//ゲージ類
-	void BtlParam::AddLife ( int n )
+	void BtlParam::AddLife ( int32_t n )
 	{
 		m_life += n;
 		if ( m_life < 0 ) { m_life = 0; }
@@ -895,28 +904,28 @@ namespace GAME
 	}
 
 	//加算後、最大最小値でチェック
-	void BtlParam::AddBalance ( int n )
+	void BtlParam::AddBalance ( int32_t n )
 	{
 		m_balance += n;
 		if ( m_balance < 0 ) { m_balance = 1; }
 		if ( m_balance_max < m_balance ) { m_balance = m_balance_max; }
 	}
 
-	void BtlParam::AddMana ( int n )
+	void BtlParam::AddMana ( int32_t n )
 	{
 		m_mana += n;
 		if ( m_mana < 0 ) { m_mana = 1; }
 		if ( MANA_MAX < m_mana ) { m_mana = MANA_MAX; }
 	}
 
-	void BtlParam::AddAccel ( int n )
+	void BtlParam::AddAccel ( int32_t n )
 	{
 		m_accel += n;
 		if ( m_accel < ACCEL_MIN ) { m_accel = ACCEL_MIN; }
 		if ( ACCEL_MAX < m_accel ) { m_accel = ACCEL_MAX; }
 	}
 
-	void BtlParam::DirZeroAccel ( int n )
+	void BtlParam::DirZeroAccel ( int32_t n )
 	{
 		//方向
 		if ( m_accel < 0 )
@@ -931,6 +940,13 @@ namespace GAME
 		}
 	}
 
+	void BtlParam::AddBreak ( int32_t n )
+	{
+		m_break += n;
+		if ( m_break < BREAK_MIN ) { m_break = BREAK_MIN; }
+		if ( BREAK_MAX < m_break ) { m_break = BREAK_MAX; }
+	}
+
 
 	//-------------------------------------------------------------------
 	// イベント
@@ -940,7 +956,7 @@ namespace GAME
 	// ダメージ確定後
 	//くらい状態・ダメージ処理
 	//==========================================
-	void BtlParam::OnDamage ( int damage )
+	void BtlParam::OnDamage ( int32_t damage )
 	{
 		//--------------------------------------------
 		// ＜！＞　方向に注意
@@ -1023,7 +1039,7 @@ namespace GAME
 		HitPitchWaitStart ( OFFSET_TIME );
 
 		//-------------------------------------------------
-		//ノックバック処理		// 値は (float) = (int)1/10
+		//ノックバック処理		// 値は (float) = (int32_t)1/10
 		float recoil_i = 0.1f * m_pFrame->Get_FP_B().Recoil_I.Get();
 #if 0
 		SetAccRecoil ( recoil_i );
@@ -1199,9 +1215,9 @@ namespace GAME
 	void BtlParam::CalcBalance ( P_Frame pFrm )
 	{
 		//バランス処理
-		int sb = pFrm->Get_FP_B().Balance_I.Get();
+		int32_t sb = pFrm->Get_FP_B().Balance_I.Get();
 #if 0
-		int b = GetBalance ();
+		int32_t b = GetBalance ();
 		b -= sb;
 		SetBalance ( b );
 #endif // 0

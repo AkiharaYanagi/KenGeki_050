@@ -60,20 +60,20 @@ namespace GAME
 
 		float	m_hitDrop { 0 };		//空中ヒット時落下補正
 
-		int		m_life { 0 };			//ライフ
-		int		m_balance { 0 };		//バランス(行動)
-		int		m_mana { 0 };			//マナ(超必殺)
-		int		m_accel { 0 };			//アクセル ( -500 ~ +1000 )
+		int32_t		m_life { 0 };		//ライフ
+		int32_t		m_balance { 0 };	//バランス(行動)
+		int32_t		m_mana { 0 };		//マナ(超必殺)
+		int32_t		m_accel { 0 };		//アクセル ( -500 ~ +1000 )
 
-		int		m_brake { 0 };			//ブレイク ( 0 ~ +10000 )
+		int32_t		m_break { 0 };		//ブレイク ( -10000 ~ +10000 )
 
-		int		m_balance_max { 0 };	//バランスゲージ変動上限
-		int		m_white_damage { 0 };	//白ダメージ(回復分)
-		P_Timer		m_tmrWhiteDamage;	//白ダメージタイマ
-		int		m_red_damage { 0 };		//赤ダメージ(ダメージ表示)
+		int32_t		m_balance_max { 0 };	//バランスゲージ変動上限
+		int32_t		m_white_damage { 0 };	//白ダメージ(回復分)
+		P_Timer		m_tmrWhiteDamage;		//白ダメージタイマ
+		int32_t		m_red_damage { 0 };		//赤ダメージ(ダメージ表示)
 		bool	m_recovering_stamina { T };	//スタミナ回復制限
 
-		int		m_power { 0 };			//実効攻撃値
+		int32_t		m_power { 0 };			//実効攻撃値
 		bool	m_damaged { F };		//くらいフラグ
 		bool	m_hitEst { F };			//攻撃成立フラグ
 		bool	m_guardEst { F };		//ガード成立フラグ
@@ -126,7 +126,7 @@ namespace GAME
 		_CLR	m_color { 0xffffffff };	//色
 
 		//Result用
-		int		m_nActTransit { 0 };	//アクション移行回数
+		int32_t		m_nActTransit { 0 };	//アクション移行回数
 
 		bool	m_taikou { F };			//剣撃対抗
 
@@ -187,15 +187,16 @@ namespace GAME
 		GET_SET ( float, GetVg, SetVg, m_vg )		//重力(計算用)
 		GET_SET ( float, GetHitDrop, SetHitDrop, m_hitDrop )	//空中ヒット時落下補正
 
-		GET_SET ( int, GetLife, SetLife, m_life	)			//ライフ
-		GET_SET ( int, GetBalance, SetBalance, m_balance )	//バランス
-		GET_SET ( int, GetMana, SetMana, m_mana )			//マナ
-		GET_SET ( int, GetAccel, SetAccel, m_accel )		//アクセル ( -500 ~ +1000 )
-		GET_SET ( int, GetBalanceMax, SetBalanceMax, m_balance_max )	//バランス最大値
-		GET_SET ( int, GetWhiteDamage, SetWhiteDamage, m_white_damage )	//白ダメージ
-		GET_SET ( int, GetRedDamage, SetRedDamage, m_red_damage )	//赤ダメージ
-		GET_SET ( int, GetRecoveringStamina, SetRecoveringStamina, m_recovering_stamina )	//スタミナ回復制限
-		GET_SET ( int, GetPower, SetPower, m_power )		//実効攻撃値
+		GET_SET ( int32_t, GetLife, SetLife, m_life	)			//ライフ
+		GET_SET ( int32_t, GetBalance, SetBalance, m_balance )	//バランス
+		GET_SET ( int32_t, GetMana, SetMana, m_mana )			//マナ
+		GET_SET ( int32_t, GetAccel, SetAccel, m_accel )		//アクセル ( -500 ~ +1000 )
+		GET_SET ( int32_t, GetBalanceMax, SetBalanceMax, m_balance_max )	//バランス最大値
+		GET_SET ( int32_t, GetWhiteDamage, SetWhiteDamage, m_white_damage )	//白ダメージ
+		GET_SET ( int32_t, GetRedDamage, SetRedDamage, m_red_damage )	//赤ダメージ
+		GET_SET ( int32_t, GetRecoveringStamina, SetRecoveringStamina, m_recovering_stamina )	//スタミナ回復制限
+		GET_SET ( int32_t, GetPower, SetPower, m_power )		//実効攻撃値
+		GET_SET ( int32_t, GetBreak, SetBreak, m_break )		//ブレイク値
 		
 		//--------------------------------------------------------------------
 		//単純フラグ { get; set; }
@@ -223,7 +224,7 @@ namespace GAME
 		GET_SET ( bool, GetWallBreak, SetWallBreak, m_wall_break )	//壁割り
 
 		//--------------------------------------------------------------------
-		GET_SET ( int, GetNActTrs, SetNActTrs, m_nActTransit )	//アクション移行回数
+		GET_SET ( int32_t, GetNActTrs, SetNActTrs, m_nActTransit )	//アクション移行回数
 		GET_SET ( UINT, GetNAirDash, SetNAirDash, mn_AirDash )	//空中ダッシュ移行回数
 
 		GET_SET ( float, GetAccRecoil, SetAccRecoil, m_acc_recoil )
@@ -234,7 +235,7 @@ namespace GAME
 
 		GET_SET ( _CLR, GetColor, SetColor, m_color )
 
-		GET_SET ( int, GetTaikou, SetTaikou, m_taikou )	//剣撃対抗
+		GET_SET ( int32_t, GetTaikou, SetTaikou, m_taikou )	//剣撃対抗
 		GET_SET ( float, GetReviseThrow, SetReviseThrow, m_reviseThrow )
 		GET_SET ( float, GetReviseOverDrive, SetReviseOverDrive, m_reviseOverDrive )
 		GET_SET ( float, GetCnfmRvs, SetCnfmRvs, m_confirmed_revise )
@@ -270,21 +271,22 @@ namespace GAME
 
 		//====
 		//増減用
-		void AddLife ( int n );
-		void AddBalance ( int n );
-		void AddMana ( int n );
-		void AddAccel ( int n );
-		void DirZeroAccel ( int n );	//０方向に向かう
-		void AddNActTrs ( int n ) { m_nActTransit += n; }
+		void AddLife ( int32_t n );
+		void AddBalance ( int32_t n );
+		void AddMana ( int32_t n );
+		void AddAccel ( int32_t n );
+		void DirZeroAccel ( int32_t n );	//０方向に向かう
+		void AddNActTrs ( int32_t n ) { m_nActTransit += n; }
 		void AddChainDamage ( int32 n ) { m_chainDamage += n; }
 		void IncChainHitNum ();
+		void AddBreak ( int32_t n );
 
 		//----
 		//処理まとめ
 		void OnHit ();	//ヒット時
 		void HitPitchWaitStart ( UINT time );	//ヒット間隔再スタート
 		void CalcBalance ( P_Frame pFrm );
-		void OnDamage ( int damage );	//ダメージ時
+		void OnDamage ( int32_t damage );	//ダメージ時
 		void OnGuard ();	//ガード時
 
 		void OnOffset_AA ();	//相殺時 (自分：攻撃、相手：攻撃)
@@ -326,9 +328,9 @@ namespace GAME
 		void DecreaseInertial ( float d, VEC2 & inertial );
 
 		//白ダメージ
-		static const int RecoveryWhiteDamage_Time;
-		static const int RecoveryWhiteDamage;
-		static const int RecoveryRedDamage_Time;
+		static const int32_t RecoveryWhiteDamage_Time;
+		static const int32_t RecoveryWhiteDamage;
+		static const int32_t RecoveryRedDamage_Time;
 	};
 
 

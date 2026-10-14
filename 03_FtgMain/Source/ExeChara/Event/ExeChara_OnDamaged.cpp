@@ -298,16 +298,6 @@ namespace GAME
 
 		m_btlPrm.OnDamage ( - confirmed_damage );	//power は＋の値、ダメージ計算はマイナスにして加算
 
-		//剣撃ゲージ反映（くらい時増加、ガード時減少）
-		if ( bGuard )
-		{
-			m_btlPrm.AddBalance ( (int)( -10.f * confirmed_damage ) );
-		}
-		else
-		{
-			m_btlPrm.AddBalance ( (int)(confirmed_damage * 0.4f ) );
-		}
-
 
 
 		//◆ 相手・攻撃 → 自分・くらい
@@ -341,10 +331,27 @@ namespace GAME
 		}
 
 		//-------------------------------------------------
-		//バランス処理
+		// ゲージ関連
+
+		//剣撃ゲージ反映（くらい時増加、ガード時減少）
+		if ( bGuard )
+		{
+			m_btlPrm.AddBalance ( (int)( -10.f * confirmed_damage ) );
+		}
+		else
+		{
+			m_btlPrm.AddBalance ( (int)(confirmed_damage * 0.4f ) );
+		}
+		
+		//バランス処理(攻撃側)
 		int b_e = pScpOther->Get_FP_B().Balance_E.Get();
 		int bl = m_btlPrm.GetBalance ();
 		m_btlPrm.SetBalance ( bl - b_e );
+
+
+		//ブレイク値
+		m_btlPrm.AddBreak ( - confirmed_damage );
+
 
 		//-------------------------------------------------
 		//ヒットストップ
@@ -551,6 +558,10 @@ namespace GAME
 		// 攻撃中は不可
 		bool bAttacking = pSelf->IsAttacking ();
 		if ( bAttacking ) { return F; }
+
+		//硬直着地は不可
+		bool bStunLanding = pSelf->IsNameAction ( U"硬直着地" );
+		if ( bStunLanding ) { return F; }
 
 
 		//----------------------------------------------

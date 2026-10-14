@@ -69,6 +69,8 @@ namespace GAME
 #endif // 0
 		m_frontEnd->LoadPlayer ( playerID );
 		m_gauge_all->LoadPlayer ( playerID );
+
+		m_dispBreak->LoadPlayer ( playerID );
 	}
 
 
@@ -118,6 +120,9 @@ namespace GAME
 
 		//アクション名更新
 		m_frontEnd->UpdateActionName ( pAct->Name.Get().c_str (), pFrm->Index.Get() );
+
+		//ブレイクゲージ更新
+		m_dispBreak->Update ( btlPrm.GetBreak () );
 	}
 
 

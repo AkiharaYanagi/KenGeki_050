@@ -21,7 +21,10 @@ namespace GAME
 	{
 		PLAYER_ID	m_playerID {_PLAYER_NUM };		//プレイヤ表示側
 
-		P_Grp	m_gaugeBreak;		//ブレイクゲージ
+		int32_t		m_value { 10000 };	//ブレイクゲージ値
+		P_Grp		m_gaugeBreak;		//ブレイクゲージ
+		P_GrpStr	m_strValue;			//数値
+
 
 	public:
 		DispBreak ();
