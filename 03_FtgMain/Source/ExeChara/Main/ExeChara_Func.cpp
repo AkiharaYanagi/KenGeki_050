@@ -85,7 +85,7 @@ namespace GAME
 
 		case GAME::TaikouState::Normal:
 			//相手の入力が合った場合
-			bAchieved = pOther->m_pCharaInput->PushSomething ();
+			bAchieved = pOther->m_pCharaInput->PushSomething_Btl ();
 		break;
 
 		case GAME::TaikouState::Random:

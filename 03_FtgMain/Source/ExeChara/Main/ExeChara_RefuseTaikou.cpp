@@ -24,6 +24,7 @@ namespace GAME
 		//ヒット発生(攻撃成立側)
 		//==========================================
 		P_ExeChara pOther =  m_pOther.lock();
+		const BtlParam & otherPrm = pOther->GetrBtlPrm ();
 	
 		//==========================================
 		//★★★ 剣撃対抗 (打撃時にいずれかの入力で距離離し)
@@ -80,6 +81,13 @@ namespace GAME
 		//全キャラ投げ
 		if ( IsNameAction ( U"投げ発生") ) { return T; }
 		if ( IsNameAction ( U"投げ成立0") ) { return T; }
+
+
+		//ブレイク状態
+		if ( otherPrm.GetBreak () < 0 )
+		{
+			return T;
+		}
 
 
 		//特定キャラ

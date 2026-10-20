@@ -122,7 +122,7 @@ namespace GAME
 		m_frontEnd->UpdateActionName ( pAct->Name.Get().c_str (), pFrm->Index.Get() );
 
 		//ブレイクゲージ更新
-		m_dispBreak->Update ( btlPrm.GetBreak () );
+		m_dispBreak->Update ( btlPrm );
 	}
 
 

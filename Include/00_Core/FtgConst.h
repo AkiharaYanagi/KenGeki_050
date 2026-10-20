@@ -147,7 +147,7 @@ namespace GAME
 		ACCEL_MIN = -500,
 
 		BREAK_MAX = 10000,
-		BREAK_START = 0,
+		BREAK_START = 5000,
 		BREAK_MIN = -10000,
 
 		//停止

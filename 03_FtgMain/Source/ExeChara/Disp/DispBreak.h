@@ -9,6 +9,7 @@
 // ヘッダファイルのインクルード
 //-------------------------------------------------------------------------------------------------
 #include "Game.h"
+#include "../BtlParam.h"
 
 
 //-------------------------------------------------------------------------------------------------
@@ -22,8 +23,9 @@ namespace GAME
 		PLAYER_ID	m_playerID {_PLAYER_NUM };		//プレイヤ表示側
 
 		int32_t		m_value { 10000 };	//ブレイクゲージ値
-		P_Grp		m_gaugeBreak;		//ブレイクゲージ
 		P_GrpStr	m_strValue;			//数値
+
+		P_PrmCircle	m_ccl;				//円形表示
 
 
 	public:
@@ -35,7 +37,7 @@ namespace GAME
 		void LoadPlayer ( PLAYER_ID playerID );
 
 		//更新
-		void Update ( int value );
+		void Update ( const BtlParam & btlPrm );
 
 		//表示切替
 		void On ();

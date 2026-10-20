@@ -98,6 +98,9 @@ namespace GAME
 
 		//何れかのキーが押された瞬間かどうか
 		bool PushSomething () const;
+
+		//何れかのキーが押された瞬間かどうか(戦闘)
+		bool PushSomething_Btl () const;
 	};
 
 	using P_CharaInput = std::shared_ptr < CharaInput >;

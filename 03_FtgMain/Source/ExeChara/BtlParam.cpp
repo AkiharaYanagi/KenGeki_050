@@ -168,10 +168,12 @@ namespace GAME
 		m_balance_max = BALANCE_START;
 		m_mana = MANA_START;
 		m_accel = ACCEL_START;
-		m_break = BREAK_START;
 		m_white_damage = 0;
 		m_red_damage = 0;
 		m_recovering_stamina = T;
+		m_break = BREAK_START;
+		m_bBreak = F;
+		m_bBreakOn = F;
 
 		m_power = 0;
 
@@ -227,28 +229,21 @@ namespace GAME
 
 	void BtlParam::TimerMove ()
 	{
-#if 0
-
-		if ( PLAYER_ID_1 == m_playerID )
-		{
-			//DBGOUT_WND_F ( DBGOUT_3, U"TaikouNG = {}"_fmt(m_tmrTaikouNG->GetTime() ) );
-			bool bActive = m_tmrThrowInv->IsActive ();
-			UINT time = m_tmrThrowInv->GetTime ();
-			//DBGOUT_WND_F ( DBGOUT_3, U"ThrowInv = {},{}"_fmt( bActive ? 1:0, time ) );
-		}
-
-#endif // 0
 		//手動ムーブ
 		m_tmrTaikouOn->Move ();
 		m_tmrTaikouNG->Move ();
 		m_tmrTrainingGuard->Move ();
 		m_tmrThrowInv->Move ();
 
-
 		for ( P_Timer ptmr : m_timers )
 		{
 			ptmr->Move ();
 		}
+
+		//--------------------------------
+		//毎フレーム、ヒットストップ時も計算するためここで処理
+		//ある意味タイマ処理
+		BreakGauge ();
 	}
 
 	//------------------------------------------------
@@ -308,7 +303,7 @@ namespace GAME
 
 	//------------------------------------------------
 	//位置計算
-	// ■ 毎フレーム１回
+	// ■ 毎フレーム１回　（ヒットストップ時は計算しない）
 	void BtlParam::CalcPos ( P_Frame pFrm )
 	{
 		//------------------------
@@ -371,13 +366,6 @@ namespace GAME
 		// 被・剣撃対抗 時　水平補正
 		P_Timer pTmrTK_On = m_pOther.lock ()->GetrBtlPrm().GetTmr_TaikouOn ();
 
-#if 0
-		if ( PLAYER_ID_1 == m_playerID )
-		{
-			//DBGOUT_WND_F ( DBGOUT_2, U"m_tmrTaikouOn = {}"_fmt ( pTmrTK_On->GetTime() ) );
-		}
-#endif // 0
-
 		if ( pTmrTK_On->IsActive () )
 		{
 				//ダッシュ時特殊処理
@@ -398,7 +386,7 @@ namespace GAME
 
 		//------------------------------
 		//個別
-		//-----------------------------------------------------
+		//------------------------------
 		//レイナ
 		P_ExeChara pSelf = m_pExeChara.lock ();
 		if ( pSelf->GetCharaName() == CHARA_REINA )
@@ -413,7 +401,6 @@ namespace GAME
 				}
 			}
 		}
-
 
 
 		//------------------------
@@ -465,7 +452,6 @@ namespace GAME
 
 		default: break;
 		}
-
 
 
 		//---------------
@@ -523,9 +509,6 @@ namespace GAME
 			}
 		}
 
-		//DBGOUT_WND_F( DBGOUT_0, U"diff = {}"_fmt( diff ) );
-
-
 
 		//------------------------------------------------
 		//演出・個別振動
@@ -580,16 +563,6 @@ namespace GAME
 			m_white_damage = 0; 
 		}
 
-#if 0
-
-		//DBGOUT_WND_F ( DBGOUT_3, U"m_tmrWhiteDamage = {}/{}"_fmt (
-		//	m_tmrWhiteDamage->GetTime()
-		//,	m_tmrWhiteDamage->GetTargetTime() )
-		//);
-
-#endif // 0
-
-
 		//赤ダメージ
 		if (0 < m_red_damage)
 		{
@@ -620,13 +593,6 @@ namespace GAME
 			AddBalance ( balance_recovery );
 		}
 
-		//ブレイクゲージ
-		const int32_t BREAK_RECOVERY = 100;	//回復値[/F]
-		if ( m_break < BREAK_MAX )
-		{
-			m_break += BREAK_RECOVERY;
-			if ( BREAK_MAX < m_break ) { m_break = BREAK_MAX; }
-		}
 	}
 
 
@@ -635,11 +601,6 @@ namespace GAME
 	void BtlParam::Move_Input ()
 	{
 #if 0
-		if ( PLAYER_ID_1 == m_playerID )
-		{
-			//DBGOUT_WND_F ( DBGOUT_2, U"mn_AirDash = {}"_fmt ( mn_AirDash ) );
-		}
-#endif // 0
 
 		if ( PLAYER_ID_1 == m_playerID )
 		{
@@ -651,8 +612,7 @@ namespace GAME
 			DBGOUT_WND_F ( DBGOUT_4, U"相殺キャンセル:{}"_fmt ( OfstCncl ) );
 		}
 
-
-
+#endif // 0
 	}
 
 
@@ -705,20 +665,6 @@ namespace GAME
 	void BtlParam::Landing ()
 	{
 		VEC2 pos = GetPos ();
-
-#if 0
-
-		if ( GetPlayerID () == PLAYER_ID_1 )
-		{
-			//DBGOUT_WND_F ( DBGOUT_0, U"1p_pos = {},{}"_fmt( pos.x, pos.y ) );
-		}
-		else
-		{
-			//DBGOUT_WND_F ( DBGOUT_1, U"2p_pos = {},{}"_fmt( pos.x, pos.y ) );
-		}
-
-#endif // 0
-
 
 
 		//位置が基準より下だったら
@@ -1237,6 +1183,66 @@ namespace GAME
 	{
 		m_white_damage = 0;
 		m_life = 0;
+	}
+
+	//------------------------------------------------
+	//ブレイクゲージ
+	void BtlParam::BreakGauge ()
+	{
+		// 毎フレーム、ヒットストップ時も計算する
+		
+		const int32_t BREAK_RECOVERY = 10;	//自然回復値[/F]
+		const int32_t BREAK_RECOVERY_KEY = 1000;	//能動回復値[回数]
+		const int32_t BREAK_TIME_PITCH = 20;	//ブレイク状態からカウント[/F]
+
+		//ブレイク状態
+		if ( m_break < 0 )
+		{
+			//減算
+			m_break -= BREAK_TIME_PITCH;
+
+			//最小値まで減算したら、初期値に戻す
+			if ( m_break < BREAK_MIN )
+			{
+				m_break = BREAK_START; 
+				m_bBreak = F;
+			}
+			
+			m_bBreakOn = F;	//初回オフ
+		}
+		//通常状態
+		else
+		{
+			//開始状態
+			if ( m_bBreak )
+			{
+				//入力
+				P_CharaInput pInput = m_pExeChara.lock ()->GetpCharaInput ();
+				//いずれかの入力があったら
+				if ( pInput->PushSomething_Btl () )
+				{
+					//能動回復
+					m_break += BREAK_RECOVERY_KEY;
+				}
+
+
+				//自然回復
+				if ( m_break < BREAK_MAX )
+				{
+					m_break += BREAK_RECOVERY;
+					
+				}
+
+				//回復しきったら初期値に戻す
+				if ( BREAK_MAX <= m_break )
+				{
+					m_break = BREAK_START;
+					m_bBreak = F;
+					m_bBreakOn = F;	//初回オフ
+				}
+
+			}
+		}
 	}
 }
 

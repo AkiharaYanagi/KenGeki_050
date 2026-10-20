@@ -41,7 +41,7 @@ namespace GAME
 		P_Chara			m_pChara;		//キャラデータ
 		WP_ExeChara		m_pExeChara;	//自エグゼキャラ(循環参照なのでweak_ptr)
 		WP_ExeChara		m_pOther;		//相手エグゼキャラ(循環参照なのでweak_ptr)
-		P_Sequence		m_pSequence;		//現在アクション
+		P_Sequence		m_pSequence;	//現在アクション
 		P_Frame			m_pFrame;		//現在スクリプト
 		P_Param			m_pParam;		//全体パラメータ
 
@@ -66,6 +66,8 @@ namespace GAME
 		int32_t		m_accel { 0 };		//アクセル ( -500 ~ +1000 )
 
 		int32_t		m_break { 0 };		//ブレイク ( -10000 ~ +10000 )
+		bool		m_bBreak { F };		//ブレイク状態フラグ
+		bool		m_bBreakOn { F };	//ブレイク開始フラグ
 
 		int32_t		m_balance_max { 0 };	//バランスゲージ変動上限
 		int32_t		m_white_damage { 0 };	//白ダメージ(回復分)
@@ -197,6 +199,8 @@ namespace GAME
 		GET_SET ( int32_t, GetRecoveringStamina, SetRecoveringStamina, m_recovering_stamina )	//スタミナ回復制限
 		GET_SET ( int32_t, GetPower, SetPower, m_power )		//実効攻撃値
 		GET_SET ( int32_t, GetBreak, SetBreak, m_break )		//ブレイク値
+		GET_SET ( bool, GetbBreak, SetbBreak, m_bBreak )		//ブレイク中フラグ
+		GET_SET ( bool, GetbBreakOn, SetbBreakOn, m_bBreakOn )	//ブレイク開始フラグ
 		
 		//--------------------------------------------------------------------
 		//単純フラグ { get; set; }
@@ -331,6 +335,9 @@ namespace GAME
 		static const int32_t RecoveryWhiteDamage_Time;
 		static const int32_t RecoveryWhiteDamage;
 		static const int32_t RecoveryRedDamage_Time;
+
+		//ブレイクゲージ
+		void BreakGauge ();
 	};
 
 

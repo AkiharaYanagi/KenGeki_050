@@ -350,7 +350,24 @@ namespace GAME
 
 
 		//ブレイク値
-		m_btlPrm.AddBreak ( - confirmed_damage );
+		if ( m_btlPrm.GetbBreak () )
+		{
+			//ブレイク状態
+			if ( m_btlPrm.GetBreak () < 0 )
+			{
+				m_btlPrm.SetbBreakOn ( T );
+			}
+			else
+			{
+				m_btlPrm.AddBreak ( - confirmed_damage );
+			}
+		}
+		else
+		{
+			//初回チェック
+			m_btlPrm.SetbBreak ( T );
+			m_btlPrm.AddBreak ( - confirmed_damage );
+		}
 
 
 		//-------------------------------------------------

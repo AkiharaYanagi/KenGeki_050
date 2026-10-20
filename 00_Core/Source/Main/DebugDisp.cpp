@@ -109,6 +109,7 @@ namespace GAME
 	const bool g_bDEBUG_DISP = F;
 	const bool g_bCMDPRMPT_DISP = F;
 	const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
+//	const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
 	const bool g_bSTART_CURSOR_POS = F;
 
 #endif // G_DEBUG_FLAG

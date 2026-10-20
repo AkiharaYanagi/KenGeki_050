@@ -18,15 +18,6 @@
 namespace GAME
 {
 
-constexpr float D3DX_PI_BY4 = 0.7853981635f;
-
-
-inline double mapRange
-	( double value, double inMin, double inMax, double outMin, double outMax )
-{
-	if ( inMax == inMin ) { return outMin; }	// 範囲がゼロの場合、出力範囲の最小値を返す
-	return outMin + (outMax - outMin) * ((value - inMin) / (inMax - inMin));
-}
 
 
 
@@ -358,7 +349,7 @@ inline double mapRange
 			double x2 = x0 - r;
 			double y2 = y0;
 
-			double theta = mapRange ( accel, ACCEL_MIN, ACCEL_MAX, 0, D3DX_PI_BY4 );
+			double theta = MapRange ( accel, ACCEL_MIN, ACCEL_MAX, 0, D3DX_PI_BY4 );
 			double x = r * std::cos ( theta );
 			double y = r * std::sin ( theta );
 
@@ -378,7 +369,7 @@ inline double mapRange
 			double x2 = x0 + r;
 			double y2 = y0;
 
-			double theta = mapRange ( accel, ACCEL_MIN, ACCEL_MAX, 0, D3DX_PI_BY4 );
+			double theta = MapRange ( accel, ACCEL_MIN, ACCEL_MAX, 0, D3DX_PI_BY4 );
 			double x = r * std::cos ( theta );
 			double y = r * std::sin ( theta );
 
