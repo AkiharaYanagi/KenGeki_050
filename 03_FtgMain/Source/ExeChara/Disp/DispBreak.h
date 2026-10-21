@@ -44,6 +44,13 @@ namespace GAME
 		void Off ();
 
 	private:
+
+		void CLR ( bool bBreakOn, int32_t value );
+		void CLR_Red ();
+		void CLR_Blue ();
+		void CLR_White ();
+
+
 		static const float BG_POS_X_1P;
 		static const float BG_POS_X_2P;
 		static const float BG_POS_Y;

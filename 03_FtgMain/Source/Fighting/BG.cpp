@@ -28,6 +28,7 @@ namespace GAME
 
 	BG::BG ()
 	{
+#if BG_GRP
 		//------------------------------------------------
 		//背景 中
 		m_bg_C = std::make_shared < GameGraphic > ();
@@ -51,6 +52,15 @@ namespace GAME
 		m_bg_R->SetZ ( Z_BG );
 		AddpTask ( m_bg_R );
 		GRPLST_INSERT ( m_bg_R );
+#endif // BG_GRP
+
+
+
+		m_bg = std::make_shared < GameGraphicAsset > ();
+		s3d::TextureAsset::Register ( U"BG_hara_noon", U"BG\\BG_hara_noon.png" );
+		s3d::Texture tx = s3d::TextureAsset ( U"BG_hara_noon" );
+		GRPLST_INSERT ( m_bg );
+
 
 		//------------------------------------------------
 
@@ -175,6 +185,7 @@ namespace GAME
 	{
 		m_stage_name = pParam->GetGameSetting().GetStage_Name ();
 
+#if BG_GRP
 		switch ( m_stage_name )
 		{
 		case STAGE_ASAHINO_HARA:
@@ -235,6 +246,7 @@ namespace GAME
 		break;
 
 		}
+#endif // BG_GRP
 	}
 
 
@@ -331,6 +343,7 @@ namespace GAME
 
 		//DBGOUT_WND_F( DBGOUT_9, U"G_BASE_POS.y = {}"_fmt( y ) );
 
+#if BG_GRP
 		//Left
 		if ( disp_bg_x < POINT )
 		{
@@ -360,6 +373,7 @@ namespace GAME
 		{
 			m_bg_R->SetPos ( (float)(disp_bg_x + 2048), y );
 		}
+#endif // BG_GRP
 
 
 #if 0

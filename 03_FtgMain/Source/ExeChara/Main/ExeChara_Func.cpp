@@ -83,11 +83,13 @@ namespace GAME
 		//無効
 		case GAME::TaikouState::None: bAchieved = F; break;
 
+		//通常時
 		case GAME::TaikouState::Normal:
-			//相手の入力が合った場合
+			//相手の入力があった場合
 			bAchieved = pOther->m_pCharaInput->PushSomething_Btl ();
 		break;
 
+		//ランダム
 		case GAME::TaikouState::Random:
 			bAchieved = s3d::Random ( 0, 1 ) == 0;
 			//自身の受付時間を解除
@@ -166,20 +168,26 @@ namespace GAME
 		//剣撃ゲージ消費で移項可能かチェック
 		//現在値と比較
 		const int COST = 1000;
+
+		//ブレイクゲージ補正
+		float break_rate_cost = (float)m_btlPrm.GetBreak() / (float)BREAK_MAX;
+		int COST_revise = ( int ) ( break_rate_cost * COST );
+		
+		//現在値
 		int balance = pOther->m_btlPrm.GetBalance ();
 
 		//足りないとき何もしない
-		if ( balance < COST )
+		if ( balance < COST_revise )
 		{
 			return;
 		}
 
-		//アクセル値に必要量があれば消費して遷移する
-		pOther->m_btlPrm.AddBalance ( -1 * COST );
+		//剣撃ゲージに必要量があれば消費して遷移する
+		pOther->m_btlPrm.AddBalance ( -1 * COST_revise );
 
 
 		//超必殺技ゲージにプラス
-		pOther->m_btlPrm.AddMana ( 1000 );
+		pOther->m_btlPrm.AddMana ( COST_revise );
 
 
 		//-----------------------------------------------------
@@ -293,6 +301,7 @@ namespace GAME
 		//---------------------------------------------
 		//ノックバック量を計算済みの値
 		// 
+		// ・基礎値は通常ノックバックでm_btlPrm.m_acc_recoilに保存されている
 		// ・方向はゲーム上の正負が左右になっている
 		// ・スクリプトの値は正負が前後
 		// 
@@ -326,7 +335,19 @@ namespace GAME
 		accRecoil = std::abs ( accRecoil ) * dir;
 
 		//値を大きくする
-		accRecoil *= 10;
+
+		//ブレイク値補正
+		float break_revise = 10;
+		float break_rate = (float)m_btlPrm.GetBreak() / (float)BREAK_MAX;
+
+		//m_btlPrm.AddBreakPush ( 1 );
+		//float break_push = 1 + ( 0.1f * m_btlPrm.GetBreakPush () );
+		//break_revise *= break_rate * break_push;
+
+		break_revise *= break_rate;
+
+
+		accRecoil *= break_revise;
 		//accRecoil *= 5;
 
 		//移動量を向きに合わせる

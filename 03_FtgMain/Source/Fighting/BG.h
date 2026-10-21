@@ -24,10 +24,19 @@ namespace GAME
 		//種類
 		STAGE_NAME		m_stage_name { STAGE_YUUHINO_HARA };
 		
+
+#define		BG_GRP		0
+
+#if BG_GRP
 		//背景
 		P_Grp			m_bg_C;
 		P_Grp			m_bg_L;
 		P_Grp			m_bg_R;
+#endif // BG_GRP
+
+		P_GrpAst		m_bg;
+
+
 
 #if 0
 

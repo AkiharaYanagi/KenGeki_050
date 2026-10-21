@@ -17,7 +17,7 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
-	const float DispBreak::BG_POS_X_1P = 30.f;
+	const float DispBreak::BG_POS_X_1P = 100.f;
 	const float DispBreak::BG_POS_X_2P = 1280 - 300 -BG_POS_X_1P;
 	const float DispBreak::BG_POS_Y = 835.f;
 
@@ -38,7 +38,7 @@ namespace GAME
 		//-----------------------------------------
 		//円形表示
 		m_ccl = std::make_shared < GamePrimitiveCircle > ();
-		m_ccl->SetOuterThickness ( 20 );
+		m_ccl->SetOuterThickness ( 16 );
 		m_ccl->SetZ ( Z_EFF );
 		m_ccl->SetValid ( F );
 		AddpTask ( m_ccl );
@@ -70,15 +70,13 @@ namespace GAME
 		}
 		else if ( PLAYER_ID_2 == m_playerID )
 		{
-			m_strValue->SetPos ( VEC2 ( 1000, 400 ) );
+			m_strValue->SetPos ( VEC2 ( 1100, 400 ) );
 			m_strValue->SetStr ( U"P2_Break" );
 		}
 	}
 
 	void DispBreak::Update ( const BtlParam & btlPrm )
 	{
-		//超必殺のときOFF
-		
 		//非稼働状態は非表示
 		if ( ! btlPrm.GetbBreak () )
 		{
@@ -119,27 +117,11 @@ namespace GAME
 
 
 		//色
-		if ( btlPrm.GetbBreakOn () ) //初回
-		{
-			m_ccl->SetColor0 ( _CLR( 1.0f, 1.0f, 1.0f, 1.0f ) );
-			m_ccl->SetColor1 ( _CLR( 1.0f, 1.0f, 1.0f, 1.0f ) );
-		}
-		else
-		{
-			if ( value < 0 )
-			{
-				m_ccl->SetColor0 ( _CLR( 1.0f, 1.0f, 1.0f, 0.5f ) );
-				m_ccl->SetColor1 ( _CLR( 1.0f, 0.5f, 0.5f, 0.8f ) );
-			}
-			else
-			{
-				m_ccl->SetColor0 ( _CLR( 0.8f, 0.8f, 1.0f, 0.5f ) );
-				m_ccl->SetColor1 ( _CLR( 0.5f, 0.5f, 1.0f, 0.8f ) );
-			}
-		}
+		CLR ( btlPrm.GetbBreakHit (), value );
+		//m_ccl->Draw ();
 
 		//値から角度に変換
-		double theta = MapRange ( value, 0, 10000, 0_deg, 360_deg );
+		double theta = MapRange ( value, 0, BREAK_MAX, 0_deg, 360_deg );
 
 		//角度を反映
 		
@@ -180,6 +162,45 @@ namespace GAME
 
 	void DispBreak::Off ()
 	{
+	}
+
+
+	void DispBreak::CLR ( bool bBreakHit, int32_t value )
+	{
+		//色
+		if ( value < 0 ) //ブレイク状態
+		{
+			CLR_Red ();
+		}
+		else //開始状態
+		{
+			if ( bBreakHit ) //初回
+			{
+				CLR_White ();
+			}
+			else
+			{
+				CLR_Blue ();
+			}
+		}
+	}
+
+	void DispBreak::CLR_Red ()
+	{
+		m_ccl->SetColor0 ( _CLR( 1.0f, 1.0f, 1.0f, 0.5f ) );
+		m_ccl->SetColor1 ( _CLR( 1.0f, 0.5f, 0.5f, 0.8f ) );
+	}
+
+	void DispBreak::CLR_Blue ()
+	{
+		m_ccl->SetColor0 ( _CLR( 0.8f, 0.8f, 1.0f, 0.5f ) );
+		m_ccl->SetColor1 ( _CLR( 0.5f, 0.5f, 1.0f, 0.8f ) );
+	}
+
+	void DispBreak::CLR_White ()
+	{
+		m_ccl->SetColor0 ( _CLR( 1.0f, 1.0f, 1.0f, 1.0f ) );
+		m_ccl->SetColor1 ( _CLR( 1.0f, 1.0f, 1.0f, 1.0f ) );
 	}
 
 

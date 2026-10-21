@@ -67,7 +67,9 @@ namespace GAME
 
 		int32_t		m_break { 0 };		//ブレイク ( -10000 ~ +10000 )
 		bool		m_bBreak { F };		//ブレイク状態フラグ
+		bool		m_bBreakHit { F };	//ブレイク状態ヒットフラグ
 		bool		m_bBreakOn { F };	//ブレイク開始フラグ
+		int32_t		m_breakPush { 0 };	//ブレイク中ボタン回数
 
 		int32_t		m_balance_max { 0 };	//バランスゲージ変動上限
 		int32_t		m_white_damage { 0 };	//白ダメージ(回復分)
@@ -167,6 +169,9 @@ namespace GAME
 		//フレーム処理開始時
 		void FrameInit ();
 
+		//フレーム処理終了時
+		void FrameEnd ();
+
 		//位置計算
 		void CalcPos ( P_Frame pFrm );
 
@@ -198,9 +203,12 @@ namespace GAME
 		GET_SET ( int32_t, GetRedDamage, SetRedDamage, m_red_damage )	//赤ダメージ
 		GET_SET ( int32_t, GetRecoveringStamina, SetRecoveringStamina, m_recovering_stamina )	//スタミナ回復制限
 		GET_SET ( int32_t, GetPower, SetPower, m_power )		//実効攻撃値
+
 		GET_SET ( int32_t, GetBreak, SetBreak, m_break )		//ブレイク値
 		GET_SET ( bool, GetbBreak, SetbBreak, m_bBreak )		//ブレイク中フラグ
+		GET_SET ( bool, GetbBreakHit, SetbBreakHit, m_bBreakHit )	//ブレイク状態ヒットフラグ
 		GET_SET ( bool, GetbBreakOn, SetbBreakOn, m_bBreakOn )	//ブレイク開始フラグ
+		GET_SET ( int32_t, GetBreakPush, SetBreakPush, m_breakPush )	//ブレイク中ボタン回数
 		
 		//--------------------------------------------------------------------
 		//単純フラグ { get; set; }
@@ -284,6 +292,7 @@ namespace GAME
 		void AddChainDamage ( int32 n ) { m_chainDamage += n; }
 		void IncChainHitNum ();
 		void AddBreak ( int32_t n );
+		void AddBreakPush ( int32_t n );
 
 		//----
 		//処理まとめ
@@ -338,6 +347,8 @@ namespace GAME
 
 		//ブレイクゲージ
 		void BreakGauge ();
+	public:
+		void BreakReset ();
 	};
 
 

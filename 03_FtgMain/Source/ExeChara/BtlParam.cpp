@@ -49,6 +49,12 @@ namespace GAME
 		m_mana = rhs.m_mana;		//マナ
 		m_accel = rhs.m_accel;		//アクセル
 
+		m_break = rhs.m_break;		//ブレイク
+		m_bBreak = rhs.m_bBreak;		//ブレイク状態フラグ
+		m_bBreakHit = rhs.m_bBreakHit;	//ブレイク状態ヒットフラグ
+		m_bBreakOn = rhs.m_bBreakOn;	//ブレイク開始フラグ
+		m_breakPush = rhs.m_breakPush;	//ブレイク中ボタン回数
+
 		m_balance_max = rhs.m_balance_max;	//バランス最大値
 		m_white_damage = rhs.m_white_damage;	//白ダメージ
 		m_red_damage = rhs.m_red_damage;	//赤ダメージ
@@ -171,9 +177,12 @@ namespace GAME
 		m_white_damage = 0;
 		m_red_damage = 0;
 		m_recovering_stamina = T;
+
 		m_break = BREAK_START;
 		m_bBreak = F;
+		m_bBreakHit = F;
 		m_bBreakOn = F;
+		m_breakPush = 0;
 
 		m_power = 0;
 
@@ -281,6 +290,13 @@ namespace GAME
 	{
 		m_taikou = F;
 	}
+
+	//フレーム処理開始時
+	void BtlParam::FrameEnd ()
+	{
+		m_bBreakHit = F;
+	}
+
 
 	//連続ヒット関連リセット
 	void BtlParam::ChainReset ()
@@ -886,13 +902,6 @@ namespace GAME
 		}
 	}
 
-	void BtlParam::AddBreak ( int32_t n )
-	{
-		m_break += n;
-		if ( m_break < BREAK_MIN ) { m_break = BREAK_MIN; }
-		if ( BREAK_MAX < m_break ) { m_break = BREAK_MAX; }
-	}
-
 
 	//-------------------------------------------------------------------
 	// イベント
@@ -1191,9 +1200,36 @@ namespace GAME
 	{
 		// 毎フレーム、ヒットストップ時も計算する
 		
+		const int32_t BR_MAX = 5000;		//最大
+		const int32_t BR_START = 2500;		//開始
+		const int32_t BR_MIN = -5000;		//最小
+
 		const int32_t BREAK_RECOVERY = 10;	//自然回復値[/F]
-		const int32_t BREAK_RECOVERY_KEY = 1000;	//能動回復値[回数]
-		const int32_t BREAK_TIME_PITCH = 20;	//ブレイク状態からカウント[/F]
+		const int32_t BREAK_RECOVERY_KEY = 100;	//能動回復値[回数]
+		const int32_t BREAK_TIME_PITCH = 10;	//ブレイク状態からカウント[/F]
+
+#if 0
+
+		//終了チェック
+		P_ExeChara pOhter = m_pOther.lock ();
+		bool bOD = pOhter->IsOverdrive ();			//相手が超必殺のときOFF
+		bool bDown = m_pExeChara.lock()->IsNameAction ( U"ダウン" );	//自身がダウン時にもOFF
+
+		if ( bOD || bDown )
+		{
+			BreakReset ();
+			return;
+		}
+
+#endif // 0
+
+
+		//通常処理
+		if ( m_bBreakHit )
+		{ 
+			m_bBreakHit = F; 
+		}	//ヒット時は初回のみ
+	
 
 		//ブレイク状態
 		if ( m_break < 0 )
@@ -1202,10 +1238,9 @@ namespace GAME
 			m_break -= BREAK_TIME_PITCH;
 
 			//最小値まで減算したら、初期値に戻す
-			if ( m_break < BREAK_MIN )
+			if ( m_break < BR_MIN )
 			{
-				m_break = BREAK_START; 
-				m_bBreak = F;
+				BreakReset ();
 			}
 			
 			m_bBreakOn = F;	//初回オフ
@@ -1218,6 +1253,7 @@ namespace GAME
 			{
 				//入力
 				P_CharaInput pInput = m_pExeChara.lock ()->GetpCharaInput ();
+
 				//いずれかの入力があったら
 				if ( pInput->PushSomething_Btl () )
 				{
@@ -1225,25 +1261,44 @@ namespace GAME
 					m_break += BREAK_RECOVERY_KEY;
 				}
 
-
 				//自然回復
-				if ( m_break < BREAK_MAX )
+				if ( m_break < BR_MAX )
 				{
 					m_break += BREAK_RECOVERY;
-					
 				}
 
 				//回復しきったら初期値に戻す
-				if ( BREAK_MAX <= m_break )
+				if ( BR_MAX <= m_break )
 				{
-					m_break = BREAK_START;
-					m_bBreak = F;
-					m_bBreakOn = F;	//初回オフ
+					BreakReset ();
 				}
 
 			}
 		}
 	}
+
+	void BtlParam::BreakReset ()
+	{
+		m_break = BREAK_START;
+		m_bBreak = F;
+		m_bBreakOn = F;	//初回オフ
+		m_bBreakHit = F;	//初回オフ
+		m_breakPush = 0;	//初回オフ
+	}
+
+	void BtlParam::AddBreak ( int32_t n )
+	{
+		m_break += n;
+		if ( m_break < BREAK_MIN ) { m_break = BREAK_MIN; }
+		if ( BREAK_MAX < m_break ) { m_break = BREAK_MAX; }
+	}
+
+	void BtlParam::AddBreakPush ( int32_t n )
+	{
+		m_breakPush += n;
+	}
+
+
 }
 
 //namespace GAME

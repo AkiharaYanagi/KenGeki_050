@@ -349,25 +349,29 @@ namespace GAME
 		m_btlPrm.SetBalance ( bl - b_e );
 
 
-		//ブレイク値
-		if ( m_btlPrm.GetbBreak () )
+		//-------------------------------------------------
+		//ブレイク状態
+
+		//超必殺技のときオフ
+		if ( pOther->IsOverdrive () )
 		{
-			//ブレイク状態
+			m_btlPrm.BreakReset ();
+		}
+		else
+		{
 			if ( m_btlPrm.GetBreak () < 0 )
 			{
 				m_btlPrm.SetbBreakOn ( T );
 			}
-			else
+			else //開始状態
 			{
+				//初回チェック
+				m_btlPrm.SetbBreak ( T );
+				m_btlPrm.SetbBreakHit ( T );
 				m_btlPrm.AddBreak ( - confirmed_damage );
 			}
 		}
-		else
-		{
-			//初回チェック
-			m_btlPrm.SetbBreak ( T );
-			m_btlPrm.AddBreak ( - confirmed_damage );
-		}
+
 
 
 		//-------------------------------------------------
