@@ -38,7 +38,7 @@ namespace GAME
 		//-----------------------------------------
 		//円形表示
 		m_ccl = std::make_shared < GamePrimitiveCircle > ();
-		m_ccl->SetOuterThickness ( 16 );
+		m_ccl->SetOuterThickness ( 12 );
 		m_ccl->SetZ ( Z_EFF );
 		m_ccl->SetValid ( F );
 		AddpTask ( m_ccl );
@@ -158,10 +158,12 @@ namespace GAME
 
 	void DispBreak::On ()
 	{
+		m_strValue->SetValid ( T );
 	}
 
 	void DispBreak::Off ()
 	{
+		m_strValue->SetValid ( F );
 	}
 
 
@@ -194,7 +196,7 @@ namespace GAME
 	void DispBreak::CLR_Blue ()
 	{
 		m_ccl->SetColor0 ( _CLR( 0.8f, 0.8f, 1.0f, 0.5f ) );
-		m_ccl->SetColor1 ( _CLR( 0.5f, 0.5f, 1.0f, 0.8f ) );
+		m_ccl->SetColor1 ( _CLR( 0.5f, 0.5f, 1.0f, 0.5f ) );
 	}
 
 	void DispBreak::CLR_White ()

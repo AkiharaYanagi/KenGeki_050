@@ -712,6 +712,7 @@ namespace GAME
 			if ( m_pScript->Index.Is ( 0 ) )
 			{
 				pOther->TopByZ ();
+				SetPosEachOther ( VEC2 ( 250.f, 0 ) );
 			}
 		}
 

@@ -32,7 +32,6 @@ namespace GAME
 		//------------------------------------------------
 		//背景 中
 		m_bg_C = std::make_shared < GameGraphic > ();
-		m_bg_C->SetPos ( 0, BG_POS_Y );
 		m_bg_C->SetZ ( Z_BG );
 		AddpTask ( m_bg_C );
 		GRPLST_INSERT ( m_bg_C );
@@ -55,11 +54,27 @@ namespace GAME
 #endif // BG_GRP
 
 
+#if 0
 
 		m_bg = std::make_shared < GameGraphicAsset > ();
-		s3d::TextureAsset::Register ( U"BG_hara_noon", U"BG\\BG_hara_noon.png" );
+		s3d::TextureAsset::Register ( U"BG_hara_noon", U"archive\\BG\\BG_hara_noon.png" );
 		s3d::Texture tx = s3d::TextureAsset ( U"BG_hara_noon" );
+		m_bg->AddTexture ( tx );
+
 		GRPLST_INSERT ( m_bg );
+		
+		m_grpBg =  std::make_shared < GameGraphic > ();
+		P_Tx pTx = std::make_shared < s3d::Texture > ( s3d::TextureAsset ( U"BG_hara_noon" ) );
+		m_grpBg->SetpTexture ( pTx );
+#endif // 0
+
+		m_txBg = std::make_shared < GameGraphicTx > ();
+		//s3d::TextureAsset::Register ( U"BG_hara_noon", U"Grp\\BG\\BG_hara_noon.png" );
+		//s3d::Texture tx = s3d::TextureAsset ( U"BG_hara_noon" );
+		m_txBg->SetZ ( Z_BG );
+		//m_txBg->AddTexture ( tx );
+		GRPLST_INSERT ( m_txBg );
+		
 
 
 		//------------------------------------------------
@@ -183,6 +198,7 @@ namespace GAME
 
 	void BG::ParamInit ( P_Param pParam )
 	{
+		//パラメータから名前を取得
 		m_stage_name = pParam->GetGameSetting().GetStage_Name ();
 
 #if BG_GRP
@@ -239,7 +255,7 @@ namespace GAME
 			m_bg_R->AddTexture_FromArchive ( U"16_16_Padding.png" );
 		break;
 
-		case STAGE_TAISHOU_NINGT:
+		case STAGE_TAISHOU_NIGHT:
 			m_bg_C->AddTexture_FromArchive ( U"BG\\BG_Taishou_night.png" );
 			m_bg_L->AddTexture_FromArchive ( U"16_16_Padding.png" );
 			m_bg_R->AddTexture_FromArchive ( U"16_16_Padding.png" );
@@ -247,6 +263,9 @@ namespace GAME
 
 		}
 #endif // BG_GRP
+
+		s3d::Texture tx = pParam->GetTxBg ( m_stage_name );
+		m_txBg->AddTexture ( tx );
 	}
 
 
@@ -374,6 +393,16 @@ namespace GAME
 			m_bg_R->SetPos ( (float)(disp_bg_x + 2048), y );
 		}
 #endif // BG_GRP
+
+		if ( disp_bg_x < POINT - 2048 )
+		{
+			m_txBg->SetPos ( (float)(disp_bg_x + 4096 + 2048), y );
+		}
+		else
+		{
+			m_txBg->SetPos ( (float)disp_bg_x, y );
+		}
+
 
 
 #if 0
@@ -582,7 +611,7 @@ namespace GAME
 		case STAGE_SCHOOL_NIGHT:	ret = _CLR ( 0xff232f83 ); break;
 		case STAGE_TAISHOU_MORNING:	ret = _CLR ( 0xffe5d4bf ); break;
 		case STAGE_TAISHOU_NOON:	ret = _CLR ( 0xffa8d7f8 ); break;
-		case STAGE_TAISHOU_NINGT:	ret = _CLR ( 0xff474964 ); break;
+		case STAGE_TAISHOU_NIGHT:	ret = _CLR ( 0xff474964 ); break;
 		}
 
 		return ret;

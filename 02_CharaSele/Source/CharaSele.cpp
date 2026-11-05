@@ -420,7 +420,7 @@ namespace GAME
 				case STAGE_SCHOOL_NIGHT:	vc_name = VC_91_23_STAGE_RDG_E;		break;
 				case STAGE_TAISHOU_MORNING:	vc_name = VC_91_31_STAGE_TKS_D;		break;
 				case STAGE_TAISHOU_NOON:	vc_name = VC_91_32_STAGE_TKS_M;		break;
-				case STAGE_TAISHOU_NINGT:	vc_name = VC_91_33_STAGE_TKS_N;		break;
+				case STAGE_TAISHOU_NIGHT:	vc_name = VC_91_33_STAGE_TKS_N;		break;
 				}
 				s3d::AudioAsset::Wait ( vc_name );
 				AUD_PLAY_ONESHOT_VC ( vc_name );

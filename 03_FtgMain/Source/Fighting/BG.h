@@ -34,9 +34,9 @@ namespace GAME
 		P_Grp			m_bg_R;
 #endif // BG_GRP
 
-		P_GrpAst		m_bg;
-
-
+		//P_GrpAst		m_bg;
+		//P_Grp			m_grpBg;	
+		P_GrpTx			m_txBg;
 
 #if 0
 

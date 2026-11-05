@@ -58,8 +58,8 @@ namespace GAME
 		case STAGE_SCHOOL_NOON:		stageName = STAGE_SCHOOL_NIGHT;		break;
 		case STAGE_SCHOOL_NIGHT:	stageName = STAGE_TAISHOU_MORNING;	break;
 		case STAGE_TAISHOU_MORNING:	stageName = STAGE_TAISHOU_NOON;		break;
-		case STAGE_TAISHOU_NOON:	stageName = STAGE_TAISHOU_NINGT;	break;
-		case STAGE_TAISHOU_NINGT:	stageName = STAGE_ASAHINO_HARA;		break;
+		case STAGE_TAISHOU_NOON:	stageName = STAGE_TAISHOU_NIGHT;	break;
+		case STAGE_TAISHOU_NIGHT:	stageName = STAGE_ASAHINO_HARA;		break;
 		}
 
 
@@ -69,6 +69,9 @@ namespace GAME
 
 		//値の保存
 		m_pParam->GetGameSetting ().SetStage_Name ( stageName );
+
+		//非同期ロード開始
+		m_pParam->TxBg_LoadAsync ( stageName );
 	}
 
 	void CharaSele_Stage::Prev ()
@@ -76,7 +79,7 @@ namespace GAME
 		STAGE_NAME stageName = m_pParam->GetGameSetting().GetStage_Name ();
 		switch ( stageName )
 		{
-		case STAGE_ASAHINO_HARA:	stageName = STAGE_TAISHOU_NINGT;	break;
+		case STAGE_ASAHINO_HARA:	stageName = STAGE_TAISHOU_NIGHT;	break;
 		case STAGE_YUUHINO_HARA:	stageName = STAGE_ASAHINO_HARA;		break;
 		case STAGE_YORUNO_HARA :	stageName = STAGE_YUUHINO_HARA;		break;
 		case STAGE_SCHOOL_MORNING:	stageName = STAGE_YORUNO_HARA;		break;
@@ -84,7 +87,7 @@ namespace GAME
 		case STAGE_SCHOOL_NIGHT:	stageName = STAGE_SCHOOL_NOON;		break;
 		case STAGE_TAISHOU_MORNING:	stageName = STAGE_SCHOOL_NIGHT;		break;
 		case STAGE_TAISHOU_NOON:	stageName = STAGE_TAISHOU_MORNING;	break;
-		case STAGE_TAISHOU_NINGT:	stageName = STAGE_TAISHOU_NOON;		break;
+		case STAGE_TAISHOU_NIGHT:	stageName = STAGE_TAISHOU_NOON;		break;
 		}
 
 		//表示の更新
@@ -99,7 +102,7 @@ namespace GAME
 		STAGE_NAME stageName = m_pParam->GetGameSetting().GetStage_Name ();
 
 		int startID = static_cast < int > ( STAGE_NAME::STAGE_ASAHINO_HARA );
-		int endID = static_cast < int > ( STAGE_NAME::STAGE_TAISHOU_NINGT );
+		int endID = static_cast < int > ( STAGE_NAME::STAGE_TAISHOU_NIGHT );
 		int i = s3d::Random ( startID, endID );
 		stageName = static_cast < STAGE_NAME > ( i );
 

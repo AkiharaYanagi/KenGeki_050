@@ -1201,10 +1201,11 @@ namespace GAME
 		// 毎フレーム、ヒットストップ時も計算する
 		
 		const int32_t BR_MAX = 5000;		//最大
-		const int32_t BR_START = 2500;		//開始
+		//const int32_t BR_START = 2500;		//開始
 		const int32_t BR_MIN = -5000;		//最小
 
-		const int32_t BREAK_RECOVERY = 10;	//自然回復値[/F]
+		//const int32_t BREAK_RECOVERY = 10;	//自然回復値[/F]
+		const int32_t BREAK_RECOVERY = 1;	//自然回復値[/F]
 		const int32_t BREAK_RECOVERY_KEY = 100;	//能動回復値[回数]
 		const int32_t BREAK_TIME_PITCH = 10;	//ブレイク状態からカウント[/F]
 
@@ -1271,8 +1272,11 @@ namespace GAME
 				if ( BR_MAX <= m_break )
 				{
 					BreakReset ();
-				}
 
+					//回復時にボーナス
+					const int32_t BREAK_RECOVERY_BONUS = 1000;
+					AddBalance ( BREAK_RECOVERY_BONUS );
+				}
 			}
 		}
 	}

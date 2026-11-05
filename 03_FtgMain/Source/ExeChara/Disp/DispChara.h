@@ -93,10 +93,12 @@ namespace GAME
 		void OnFrontEnd ()
 		{
 			m_frontEnd->On ();
+			m_dispBreak->On ();
 		}
 		void OffFrontEnd ()
 		{
 			m_frontEnd->Off ();
+			m_dispBreak->Off ();
 		}
 
 		void On_DispPlayerInput ()
