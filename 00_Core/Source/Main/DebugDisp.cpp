@@ -16,15 +16,17 @@
 //-------------------------------------------------------------------------------------------------
 namespace GAME
 {
+
 	//extern 実体
 
 
 	//====================================================
+
 	//バージョン表記
 	s3d::String g_VERSION = U"ver_0.78";
 
 #if 0
-//	ver 0.78	2026/09/28(月) システム改修
+//	ver 0.78	2026/11/00(曜) バトル優先修正
 //	ver 0.77	2026/09/28(月) 微修正
 //	ver 0.76	2026/09/28(月) 大幅修正
 //	ver 0.75	2026/08/14(金) 緊急修正
@@ -33,6 +35,107 @@ namespace GAME
 //	ver 0.72	2026/07/11(土) レイナ2Pカラー＋その他色々
 //	ver 0.71	2026/06/13(土) 主にレイナの調整＋その他色々
 //	ver 0.70	2026/06/07(日) 新キャラクター「レイナ」追加
+#endif // 0
+
+
+	//バージョン初期化（日付＋時刻）
+	void InitVersion ( const char* DATE, const char* TIME )
+	{
+#define BETA_DATE_TIME 1
+#if BETA_DATE_TIME
+
+		//std::ostringstream oss;
+		//oss << "beta " << __DATE__ << " " << __TIME__;
+		//g_VERSION.assign ( s3d::Unicode::FromUTF8 ( oss.str ().c_str () ) );
+		DBGOUT_WND ()->DebugOutWnd_Build_Time ( DATE, TIME );
+#else
+		( void ) DATE;
+		( void ) TIME;
+#endif // BETA_DATE_TIME
+	}
+
+	//====================================================
+
+
+
+
+//デバッグ表示切替
+#define G_DEBUG_FLAG	0
+
+
+
+#if G_DEBUG_FLAG
+
+	//ゲーム内ウィンドウへのデバッグ表示切替
+	const bool g_bDEBUG_DISP = T;
+
+	//デバッグ用コマンドプロンプト表示切替
+	const bool g_bCMDPRMPT_DISP = T;
+
+	//タイトル画面で全キャラ読込
+	const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
+	//const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
+
+	//カーソル位置のモニタの中心から開始
+	const bool g_bSTART_CURSOR_POS = T;
+
+#else
+	const bool g_bDEBUG_DISP = F;
+	const bool g_bCMDPRMPT_DISP = F;
+	const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
+//	const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
+	const bool g_bSTART_CURSOR_POS = F;
+
+#endif // G_DEBUG_FLAG
+
+
+#if 0
+	//====================================================
+	//ゲーム内ウィンドウへのデバッグ表示切替
+
+//	const bool g_bDEBUG_DISP = T;
+	const bool g_bDEBUG_DISP = F;
+	//====================================================
+
+	//====================================================
+	//デバッグ用コマンドプロンプト表示切替
+
+//	const bool g_bCMDPRMPT_DISP = T;
+	const bool g_bCMDPRMPT_DISP = F;
+	//====================================================
+
+	//====================================================
+	//タイトル画面で全キャラ読込
+
+//	const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
+	const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
+	//====================================================
+
+	//====================================================
+	//カーソル位置のモニタの中心から開始
+
+//	const bool g_bSTART_CURSOR_POS = T;
+	const bool g_bSTART_CURSOR_POS = F;
+	//====================================================
+#endif // 0
+
+	//====================================================
+	//開始時　一時停止スタート　切替
+
+//	const bool g_bWAIT_START = T;
+	const bool g_bWAIT_START = F;
+	//====================================================
+
+	//====================================================
+	//体験版切替
+
+//	const bool g_bTRIAL = T;
+	const bool g_bTRIAL = F;
+	//====================================================
+
+
+
+#if 0
 //	--------------------------------------------------------------
 //	ver 0.67	2026/04/30(木) EVOJ前修正の修正
 //	ver 0.66	2026/04/24(金) EVOJ前修正
@@ -62,109 +165,6 @@ namespace GAME
 //	ver 0.12	2024/11/	　 バグ修正
 //	ver 0.10	2024/11/03(日) デジゲー博2024 公開
 #endif // 0
-
-
-	//バージョン初期化（日付＋時刻）
-	void InitVersion ( const char* DATE, const char* TIME )
-	{
-#define BETA_DATE_TIME 1
-#if BETA_DATE_TIME
-
-		//std::ostringstream oss;
-		//oss << "beta " << __DATE__ << " " << __TIME__;
-		//g_VERSION.assign ( s3d::Unicode::FromUTF8 ( oss.str ().c_str () ) );
-		DBGOUT_WND ()->DebugOutWnd_Build_Time ( DATE, TIME );
-#else
-		( void ) DATE;
-		( void ) TIME;
-#endif // BETA_DATE_TIME
-	}
-
-	//====================================================
-
-
-
-
-//デバッグ表示切替
-#define G_DEBUG_FLAG	1
-
-
-
-#if G_DEBUG_FLAG
-
-	//ゲーム内ウィンドウへのデバッグ表示切替
-	const bool g_bDEBUG_DISP = T;
-
-	//デバッグ用コマンドプロンプト表示切替
-	const bool g_bCMDPRMPT_DISP = T;
-
-	//タイトル画面で全キャラ読込
-	const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
-	//const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
-
-	//カーソル位置のモニタの中心から開始
-	const bool g_bSTART_CURSOR_POS = T;
-
-#else
-	const bool g_bDEBUG_DISP = F;
-	const bool g_bCMDPRMPT_DISP = F;
-	const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
-//	const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
-	const bool g_bSTART_CURSOR_POS = F;
-
-#endif // G_DEBUG_FLAG
-
-#if 0
-
-	//====================================================
-	//ゲーム内ウィンドウへのデバッグ表示切替
-
-//	const bool g_bDEBUG_DISP = T;
-	const bool g_bDEBUG_DISP = F;
-	//====================================================
-
-
-	//====================================================
-	//デバッグ用コマンドプロンプト表示切替
-
-//	const bool g_bCMDPRMPT_DISP = T;
-	const bool g_bCMDPRMPT_DISP = F;
-	//====================================================
-
-
-	//====================================================
-	//タイトル画面で全キャラ読込
-
-//	const bool g_bALL_CHARA_LOAD_IN_TITLE = T;
-	const bool g_bALL_CHARA_LOAD_IN_TITLE = F;
-	//====================================================
-
-
-	//====================================================
-	//カーソル位置のモニタの中心から開始
-
-//	const bool g_bSTART_CURSOR_POS = T;
-	const bool g_bSTART_CURSOR_POS = F;
-	//====================================================
-
-#endif // 0
-
-
-	//====================================================
-	//開始時　一時停止スタート　切替
-
-//	const bool g_bWAIT_START = T;
-	const bool g_bWAIT_START = F;
-	//====================================================
-
-
-	//====================================================
-	//体験版切替
-
-//	const bool g_bTRIAL = T;
-	const bool g_bTRIAL = F;
-	//====================================================
-
 
 }	//namespace GAME
 
