@@ -146,6 +146,10 @@ namespace GAME
 		ACCEL_START = -0,
 		ACCEL_MIN = -500,
 
+		BREAK_MAX = 5000,
+		BREAK_START = 2500,
+		BREAK_MIN = -5000,
+
 		//停止
 //		HITSTOP_TIME = 15,
 		HITSTOP_TIME = 10,

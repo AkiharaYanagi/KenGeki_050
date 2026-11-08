@@ -465,5 +465,30 @@ namespace GAME
 		return F;
 	}
 
+
+	//何れかのキーが押された瞬間かどうか(戦闘)
+	bool CharaInput::PushSomething_Btl () const
+	{
+		if ( m_vGameKey [ 0 ].PushLvr ( GameKey::LVR_1 ) ) { return T; }	//1
+		if ( m_vGameKey [ 0 ].PushLvr ( GameKey::LVR_2 ) ) { return T; }	//2
+		if ( m_vGameKey [ 0 ].PushLvr ( GameKey::LVR_3 ) ) { return T; }	//3
+		if ( m_vGameKey [ 0 ].PushLvr ( GameKey::LVR_6 ) ) { return T; }	//6
+		if ( m_vGameKey [ 0 ].PushLvr ( GameKey::LVR_9 ) ) { return T; }	//9
+		if ( m_vGameKey [ 0 ].PushLvr ( GameKey::LVR_8 ) ) { return T; }	//8
+		if ( m_vGameKey [ 0 ].PushLvr ( GameKey::LVR_7 ) ) { return T; }	//7
+		if ( m_vGameKey [ 0 ].PushLvr ( GameKey::LVR_4 ) ) { return T; }	//4
+
+		if ( m_vGameKey [ 0 ].PushBtn ( GameKey::BTN_0 ) ) { return T; }	//L 弱
+		if ( m_vGameKey [ 0 ].PushBtn ( GameKey::BTN_1 ) ) { return T; }	//M 中
+		if ( m_vGameKey [ 0 ].PushBtn ( GameKey::BTN_2 ) ) { return T; }	//H 強
+		if ( m_vGameKey [ 0 ].PushBtn ( GameKey::BTN_3 ) ) { return T; }	//S 特大
+		if ( m_vGameKey [ 0 ].PushBtn ( GameKey::BTN_4 ) ) { return T; }	//SP 必殺
+		if ( m_vGameKey [ 0 ].PushBtn ( GameKey::BTN_5 ) ) { return T; }	//T 投げ
+//		if ( m_vGameKey [ 0 ].PushBtn ( GameKey::BTN_6 ) ) { return T; }	//ポーズ
+//		if ( m_vGameKey [ 0 ].PushBtn ( GameKey::BTN_7 ) ) { return T; }	//リセット
+
+		return F;
+	}
+
 }	//namespace GAME
 

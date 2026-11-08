@@ -14,6 +14,7 @@
 #include "GameConst.h"
 #include "SoundConst.h"
 #include "Chara_TxSet.h"
+#include "Tx_Bg.h"
 
 #include "Chara.h"
 #include "Prm_Chara.h"
@@ -42,6 +43,7 @@ namespace GAME
 
 		//共通キャラテクスチャ
 		P_Ch_TxSet		m_chTxSet;
+		TxBg			m_txBg;
 
 	public:
 		Param ();
@@ -81,6 +83,23 @@ namespace GAME
 		//共通キャラテクスチャ
 		void SetpChara_TxSet ( P_Ch_TxSet p );
 		P_Ch_TxSet GetpChara_TxSet ();
+
+		s3d::Texture GetTxBg ( STAGE_NAME stagename )
+		{
+			return m_txBg.GetTx ( stagename );
+		}
+		s3d::Texture GetTxBg ( const s3d::String & assetname )
+		{
+			return m_txBg.GetTx ( assetname );
+		}
+		void TxBg_LoadAsync ( STAGE_NAME stagename )
+		{
+			m_txBg.LoadAsync ( stagename );
+		}
+		void TxBg_LoadAsync ( const s3d::String & assetname )
+		{
+			m_txBg.LoadAsync ( assetname );
+		}
 	};
 
 	using P_Param = std::shared_ptr < Param >;

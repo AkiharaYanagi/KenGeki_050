@@ -146,6 +146,16 @@ namespace GAME
 		if ( CFG_PUSH_KEY_12 ( PLY_BTN5 ) )
 		{
 			RandomStartChara ();
+#if 0
+
+
+			CHARA_NAME name1p = m_pParam->GetGameSetting ().GetCharaName ( PLAYER_ID_1 );
+			CHARA_COLOR clr1p = m_pParam->GetGameSetting ().GetCharaColor ( PLAYER_ID_1 );
+			CHARA_NAME name2p = m_pParam->GetGameSetting ().GetCharaName ( PLAYER_ID_2 );
+			CHARA_COLOR clr2p = m_pParam->GetGameSetting ().GetCharaColor ( PLAYER_ID_2 );
+			SetChara ( name1p, clr1p, name2p, clr2p );
+#endif // 0
+
 			m_tmr1->Start ();
 		}
 

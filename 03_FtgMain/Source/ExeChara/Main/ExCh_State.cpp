@@ -137,6 +137,7 @@ namespace GAME
 
 		//m_sw.Disp ( DBGOUT_0, U"pExe->PreMove_Effect ();" );
 
+#if 0
 
 		if ( pExe->Is1P () )
 		{
@@ -153,6 +154,8 @@ namespace GAME
 			
 			DBGOUT_WND_F( DBGOUT_1, U"bOfs1p = {}, bOfs2p = {}"_fmt( bOfs1p, bOfs2p ) );
 		}
+
+#endif // 0
 
 		pExe->PreMove_Effect ();	//エフェクト動作
 

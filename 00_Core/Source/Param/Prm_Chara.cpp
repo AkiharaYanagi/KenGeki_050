@@ -355,6 +355,7 @@ namespace GAME
 	void Prm_Chara_all::_Load_Doxt ( Prm_Chara_all * pThis )
 	{
 		PRINT_F_S ( U"Start Prm_Chara_all::_Load_Doxt" );
+		(void)pThis;
 		//pThis->m_Dox.Load ();
 		PRINT_F_S ( U"End Prm_Chara_all::_Load_Doxt" );
 	}

@@ -20,9 +20,9 @@
 namespace GAME
 {
 	//クラス内定数
-	const int BtlParam::RecoveryWhiteDamage_Time = 360;
-	const int BtlParam::RecoveryWhiteDamage = 4;
-	const int BtlParam::RecoveryRedDamage_Time = 10;
+	const int32_t BtlParam::RecoveryWhiteDamage_Time = 360;
+	const int32_t BtlParam::RecoveryWhiteDamage = 4;
+	const int32_t BtlParam::RecoveryRedDamage_Time = 10;
 
 
 	BtlParam::BtlParam ()
@@ -48,6 +48,12 @@ namespace GAME
 		m_balance = rhs.m_balance;	//バランス
 		m_mana = rhs.m_mana;		//マナ
 		m_accel = rhs.m_accel;		//アクセル
+
+		m_break = rhs.m_break;		//ブレイク
+		m_bBreak = rhs.m_bBreak;		//ブレイク状態フラグ
+		m_bBreakHit = rhs.m_bBreakHit;	//ブレイク状態ヒットフラグ
+		m_bBreakOn = rhs.m_bBreakOn;	//ブレイク開始フラグ
+		m_breakPush = rhs.m_breakPush;	//ブレイク中ボタン回数
 
 		m_balance_max = rhs.m_balance_max;	//バランス最大値
 		m_white_damage = rhs.m_white_damage;	//白ダメージ
@@ -172,6 +178,12 @@ namespace GAME
 		m_red_damage = 0;
 		m_recovering_stamina = T;
 
+		m_break = BREAK_START;
+		m_bBreak = F;
+		m_bBreakHit = F;
+		m_bBreakOn = F;
+		m_breakPush = 0;
+
 		m_power = 0;
 
 		m_hitEst = false;
@@ -226,28 +238,21 @@ namespace GAME
 
 	void BtlParam::TimerMove ()
 	{
-#if 0
-
-		if ( PLAYER_ID_1 == m_playerID )
-		{
-			//DBGOUT_WND_F ( DBGOUT_3, U"TaikouNG = {}"_fmt(m_tmrTaikouNG->GetTime() ) );
-			bool bActive = m_tmrThrowInv->IsActive ();
-			UINT time = m_tmrThrowInv->GetTime ();
-			//DBGOUT_WND_F ( DBGOUT_3, U"ThrowInv = {},{}"_fmt( bActive ? 1:0, time ) );
-		}
-
-#endif // 0
 		//手動ムーブ
 		m_tmrTaikouOn->Move ();
 		m_tmrTaikouNG->Move ();
 		m_tmrTrainingGuard->Move ();
 		m_tmrThrowInv->Move ();
 
-
 		for ( P_Timer ptmr : m_timers )
 		{
 			ptmr->Move ();
 		}
+
+		//--------------------------------
+		//毎フレーム、ヒットストップ時も計算するためここで処理
+		//ある意味タイマ処理
+		BreakGauge ();
 	}
 
 	//------------------------------------------------
@@ -286,6 +291,13 @@ namespace GAME
 		m_taikou = F;
 	}
 
+	//フレーム処理開始時
+	void BtlParam::FrameEnd ()
+	{
+		m_bBreakHit = F;
+	}
+
+
 	//連続ヒット関連リセット
 	void BtlParam::ChainReset ()
 	{
@@ -307,7 +319,7 @@ namespace GAME
 
 	//------------------------------------------------
 	//位置計算
-	// ■ 毎フレーム１回
+	// ■ 毎フレーム１回　（ヒットストップ時は計算しない）
 	void BtlParam::CalcPos ( P_Frame pFrm )
 	{
 		//------------------------
@@ -370,13 +382,6 @@ namespace GAME
 		// 被・剣撃対抗 時　水平補正
 		P_Timer pTmrTK_On = m_pOther.lock ()->GetrBtlPrm().GetTmr_TaikouOn ();
 
-#if 0
-		if ( PLAYER_ID_1 == m_playerID )
-		{
-			//DBGOUT_WND_F ( DBGOUT_2, U"m_tmrTaikouOn = {}"_fmt ( pTmrTK_On->GetTime() ) );
-		}
-#endif // 0
-
 		if ( pTmrTK_On->IsActive () )
 		{
 				//ダッシュ時特殊処理
@@ -397,7 +402,7 @@ namespace GAME
 
 		//------------------------------
 		//個別
-		//-----------------------------------------------------
+		//------------------------------
 		//レイナ
 		P_ExeChara pSelf = m_pExeChara.lock ();
 		if ( pSelf->GetCharaName() == CHARA_REINA )
@@ -412,7 +417,6 @@ namespace GAME
 				}
 			}
 		}
-
 
 
 		//------------------------
@@ -464,7 +468,6 @@ namespace GAME
 
 		default: break;
 		}
-
 
 
 		//---------------
@@ -522,9 +525,6 @@ namespace GAME
 			}
 		}
 
-		//DBGOUT_WND_F( DBGOUT_0, U"diff = {}"_fmt( diff ) );
-
-
 
 		//------------------------------------------------
 		//演出・個別振動
@@ -579,16 +579,6 @@ namespace GAME
 			m_white_damage = 0; 
 		}
 
-#if 0
-
-		//DBGOUT_WND_F ( DBGOUT_3, U"m_tmrWhiteDamage = {}/{}"_fmt (
-		//	m_tmrWhiteDamage->GetTime()
-		//,	m_tmrWhiteDamage->GetTargetTime() )
-		//);
-
-#endif // 0
-
-
 		//赤ダメージ
 		if (0 < m_red_damage)
 		{
@@ -610,7 +600,7 @@ namespace GAME
 		}
 
 		//アクセル値が他ゲージに影響
-		int balance_recovery = 1 * m_accel / 100;
+		int32_t balance_recovery = 1 * m_accel / 100;
 
 
 		//通常スタミナ値回復
@@ -618,6 +608,7 @@ namespace GAME
 		{
 			AddBalance ( balance_recovery );
 		}
+
 	}
 
 
@@ -626,11 +617,6 @@ namespace GAME
 	void BtlParam::Move_Input ()
 	{
 #if 0
-		if ( PLAYER_ID_1 == m_playerID )
-		{
-			//DBGOUT_WND_F ( DBGOUT_2, U"mn_AirDash = {}"_fmt ( mn_AirDash ) );
-		}
-#endif // 0
 
 		if ( PLAYER_ID_1 == m_playerID )
 		{
@@ -642,8 +628,7 @@ namespace GAME
 			DBGOUT_WND_F ( DBGOUT_4, U"相殺キャンセル:{}"_fmt ( OfstCncl ) );
 		}
 
-
-
+#endif // 0
 	}
 
 
@@ -696,20 +681,6 @@ namespace GAME
 	void BtlParam::Landing ()
 	{
 		VEC2 pos = GetPos ();
-
-#if 0
-
-		if ( GetPlayerID () == PLAYER_ID_1 )
-		{
-			//DBGOUT_WND_F ( DBGOUT_0, U"1p_pos = {},{}"_fmt( pos.x, pos.y ) );
-		}
-		else
-		{
-			//DBGOUT_WND_F ( DBGOUT_1, U"2p_pos = {},{}"_fmt( pos.x, pos.y ) );
-		}
-
-#endif // 0
-
 
 
 		//位置が基準より下だったら
@@ -887,7 +858,7 @@ namespace GAME
 
 	//------------------------------------------------------------------------
 	//ゲージ類
-	void BtlParam::AddLife ( int n )
+	void BtlParam::AddLife ( int32_t n )
 	{
 		m_life += n;
 		if ( m_life < 0 ) { m_life = 0; }
@@ -895,28 +866,28 @@ namespace GAME
 	}
 
 	//加算後、最大最小値でチェック
-	void BtlParam::AddBalance ( int n )
+	void BtlParam::AddBalance ( int32_t n )
 	{
 		m_balance += n;
 		if ( m_balance < 0 ) { m_balance = 1; }
 		if ( m_balance_max < m_balance ) { m_balance = m_balance_max; }
 	}
 
-	void BtlParam::AddMana ( int n )
+	void BtlParam::AddMana ( int32_t n )
 	{
 		m_mana += n;
 		if ( m_mana < 0 ) { m_mana = 1; }
 		if ( MANA_MAX < m_mana ) { m_mana = MANA_MAX; }
 	}
 
-	void BtlParam::AddAccel ( int n )
+	void BtlParam::AddAccel ( int32_t n )
 	{
 		m_accel += n;
 		if ( m_accel < ACCEL_MIN ) { m_accel = ACCEL_MIN; }
 		if ( ACCEL_MAX < m_accel ) { m_accel = ACCEL_MAX; }
 	}
 
-	void BtlParam::DirZeroAccel ( int n )
+	void BtlParam::DirZeroAccel ( int32_t n )
 	{
 		//方向
 		if ( m_accel < 0 )
@@ -940,7 +911,7 @@ namespace GAME
 	// ダメージ確定後
 	//くらい状態・ダメージ処理
 	//==========================================
-	void BtlParam::OnDamage ( int damage )
+	void BtlParam::OnDamage ( int32_t damage )
 	{
 		//--------------------------------------------
 		// ＜！＞　方向に注意
@@ -1023,7 +994,7 @@ namespace GAME
 		HitPitchWaitStart ( OFFSET_TIME );
 
 		//-------------------------------------------------
-		//ノックバック処理		// 値は (float) = (int)1/10
+		//ノックバック処理		// 値は (float) = (int32_t)1/10
 		float recoil_i = 0.1f * m_pFrame->Get_FP_B().Recoil_I.Get();
 #if 0
 		SetAccRecoil ( recoil_i );
@@ -1199,9 +1170,9 @@ namespace GAME
 	void BtlParam::CalcBalance ( P_Frame pFrm )
 	{
 		//バランス処理
-		int sb = pFrm->Get_FP_B().Balance_I.Get();
+		int32_t sb = pFrm->Get_FP_B().Balance_I.Get();
 #if 0
-		int b = GetBalance ();
+		int32_t b = GetBalance ();
 		b -= sb;
 		SetBalance ( b );
 #endif // 0
@@ -1222,6 +1193,116 @@ namespace GAME
 		m_white_damage = 0;
 		m_life = 0;
 	}
+
+	//------------------------------------------------
+	//ブレイクゲージ
+	void BtlParam::BreakGauge ()
+	{
+		// 毎フレーム、ヒットストップ時も計算する
+		
+		const int32_t BR_MAX = 5000;		//最大
+		//const int32_t BR_START = 2500;		//開始
+		const int32_t BR_MIN = -5000;		//最小
+
+		const int32_t BREAK_RECOVERY = 10;	//自然回復値[/F]
+		//const int32_t BREAK_RECOVERY = 1;	//自然回復値[/F]
+		const int32_t BREAK_RECOVERY_KEY = 100;	//能動回復値[回数]
+		const int32_t BREAK_TIME_PITCH = 10;	//ブレイク状態からカウント[/F]
+
+#if 0
+
+		//終了チェック
+		P_ExeChara pOhter = m_pOther.lock ();
+		bool bOD = pOhter->IsOverdrive ();			//相手が超必殺のときOFF
+		bool bDown = m_pExeChara.lock()->IsNameAction ( U"ダウン" );	//自身がダウン時にもOFF
+
+		if ( bOD || bDown )
+		{
+			BreakReset ();
+			return;
+		}
+
+#endif // 0
+
+
+		//通常処理
+		if ( m_bBreakHit )
+		{ 
+			m_bBreakHit = F; 
+		}	//ヒット時は初回のみ
+	
+
+		//ブレイク状態
+		if ( m_break < 0 )
+		{
+			//減算
+			m_break -= BREAK_TIME_PITCH;
+
+			//最小値まで減算したら、初期値に戻す
+			if ( m_break < BR_MIN )
+			{
+				BreakReset ();
+			}
+			
+			m_bBreakOn = F;	//初回オフ
+		}
+		//通常状態
+		else
+		{
+			//開始状態
+			if ( m_bBreak )
+			{
+				//入力
+				P_CharaInput pInput = m_pExeChara.lock ()->GetpCharaInput ();
+
+				//いずれかの入力があったら
+				if ( pInput->PushSomething_Btl () )
+				{
+					//能動回復
+					m_break += BREAK_RECOVERY_KEY;
+				}
+
+				//自然回復
+				if ( m_break < BR_MAX )
+				{
+					m_break += BREAK_RECOVERY;
+				}
+
+				//回復しきったら初期値に戻す
+				if ( BR_MAX <= m_break )
+				{
+					BreakReset ();
+
+					//回復時にボーナス
+					const int32_t BREAK_RECOVERY_BONUS = 1000;
+					AddBalance ( BREAK_RECOVERY_BONUS );
+				}
+			}
+		}
+	}
+
+	void BtlParam::BreakReset ()
+	{
+		m_break = BREAK_START;
+		m_bBreak = F;
+		m_bBreakOn = F;	//初回オフ
+		m_bBreakHit = F;	//初回オフ
+		m_breakPush = 0;	//初回オフ
+	}
+
+	void BtlParam::AddBreak ( int32_t n )
+	{
+		m_break += n;
+		if ( m_break < BREAK_MIN ) { m_break = BREAK_MIN; }
+		if ( BREAK_MAX < m_break ) { m_break = BREAK_MAX; }
+	}
+
+	void BtlParam::AddBreakPush ( int32_t n )
+	{
+		m_breakPush += n;
+	}
+
+
 }
 
 //namespace GAME

@@ -430,6 +430,7 @@
     <ClInclude Include="..\Include\00_Core\SeConst.h" />
     <ClInclude Include="..\Include\00_Core\SelectArrow.h" />
     <ClInclude Include="..\Include\00_Core\SoundConst.h" />
+    <ClInclude Include="..\Include\00_Core\Tx_Bg.h" />
     <ClInclude Include="..\Include\00_Core\VoiceConst.h" />
     <ClInclude Include="..\KenGeki_050\Source\90_GameMain\old\Scene.h" />
   </ItemGroup>
@@ -444,6 +445,7 @@
     <ClCompile Include="Source\Common\Menu\TrainingMenuItem.cpp" />
     <ClCompile Include="Source\Common\Menu\YesNo_Menu.cpp" />
     <ClCompile Include="Source\Common\SelectArrow.cpp" />
+    <ClCompile Include="Source\Common\Tx_Bg.cpp" />
     <ClCompile Include="Source\Const\SoundConst.cpp" />
     <ClCompile Include="Source\Main\DebugDisp.cpp" />
     <ClCompile Include="Source\Main\Scene_lib.cpp" />
