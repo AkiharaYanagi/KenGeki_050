@@ -18,7 +18,7 @@
 namespace GAME
 {
 
-constexpr float D3DX_PI_BY4 = 0.7853981635f;
+//constexpr float D3DX_PI_BY4 = 0.7853981635f;
 
 
 inline double mapRange
