@@ -77,22 +77,28 @@ namespace GAME
 
 	void DispBreak::Update ( const BtlParam & btlPrm )
 	{
+		//値は毎回セットする
+		int32_t value = btlPrm.GetBreak ();
+		m_strValue->SetStr ( U"{}"_fmt( value ) );
+
+
 		//非稼働状態は非表示
 		if ( ! btlPrm.GetbBreak () )
 		{
-			int32_t value = btlPrm.GetBreak ();
-			m_strValue->SetStr ( U"{}"_fmt( value ) );
+			m_ccl->SetValid ( F );
+			return; 
+		}
+
+		//稼働状態でも非表示の場合
+		if ( ! btlPrm.GetbBreakDisp () )
+		{
 			m_ccl->SetValid ( F );
 			return; 
 		}
 
 
-		//表示
+		//ゲージ表示オン
 		m_ccl->SetValid ( T );
-
-		//値
-		int32_t value = btlPrm.GetBreak ();
-		m_strValue->SetStr ( U"{}"_fmt( value ) );
 
 
 		float bx = G_BASE_POS ().x;	//基準位置

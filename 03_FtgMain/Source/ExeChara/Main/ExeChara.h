@@ -644,7 +644,9 @@ namespace GAME
 		//背景変更
 		void StartAerial () { m_pFtgGrp->StartAerial (); };
 
-		//
+		//ブレイクゲージ表示を設定（互いに判定後の反映）Decisionで行う
+		void DispBreakGauge ( bool b ) { m_btlPrm.SetbBreakDisp ( b ); }
+
 
 	};
 

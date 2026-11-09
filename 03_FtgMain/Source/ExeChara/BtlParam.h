@@ -70,6 +70,7 @@ namespace GAME
 		bool		m_bBreakHit { F };	//ブレイク状態ヒットフラグ
 		bool		m_bBreakOn { F };	//ブレイク開始フラグ
 		int32_t		m_breakPush { 0 };	//ブレイク中ボタン回数
+		bool		m_bBreakDisp { F };	//ブレイクゲージ表示
 
 		int32_t		m_balance_max { 0 };	//バランスゲージ変動上限
 		int32_t		m_white_damage { 0 };	//白ダメージ(回復分)
@@ -209,7 +210,8 @@ namespace GAME
 		GET_SET ( bool, GetbBreakHit, SetbBreakHit, m_bBreakHit )	//ブレイク状態ヒットフラグ
 		GET_SET ( bool, GetbBreakOn, SetbBreakOn, m_bBreakOn )	//ブレイク開始フラグ
 		GET_SET ( int32_t, GetBreakPush, SetBreakPush, m_breakPush )	//ブレイク中ボタン回数
-		
+		GET_SET ( bool, GetbBreakDisp, SetbBreakDisp, m_bBreakDisp )	//ブレイクゲージ表示
+
 		//--------------------------------------------------------------------
 		//単純フラグ { get; set; }
 		GET_SET ( bool, GetDamaged, SetDamaged, m_damaged )		//くらい

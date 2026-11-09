@@ -447,6 +447,37 @@ namespace GAME
 			m_pExeChara2p->ChangeOhter ();
 		}
 
+
+		//ブレイクゲージの表示
+		bool bBreakHit1p = m_pExeChara1p->GetrBtlPrm().GetbBreakHit ();
+		bool bBreakDisp1p = m_pExeChara1p->GetrBtlPrm ().GetbBreakDisp ();
+		bool bBreakHit2p = m_pExeChara2p->GetrBtlPrm().GetbBreakHit ();
+		bool bBreakDisp2p = m_pExeChara2p->GetrBtlPrm ().GetbBreakDisp ();
+
+		//ヒット時に自分の表示を消す
+		if ( bBreakHit1p && bBreakHit2p )
+		{
+			//両者同時ヒットは両方表示
+			m_pExeChara1p->DispBreakGauge ( T );
+			m_pExeChara2p->DispBreakGauge ( T );
+		}
+		else
+		{
+			//2p喰らい時に、1pの表示を消す
+			if ( bBreakHit2p && bBreakDisp1p )
+			{
+				m_pExeChara1p->DispBreakGauge ( F );
+				m_pExeChara2p->DispBreakGauge ( T );
+			}
+			//1p喰らい時に、2pの表示を消す
+			if ( bBreakHit1p && bBreakDisp2p )
+			{
+				m_pExeChara1p->DispBreakGauge ( T );
+				m_pExeChara2p->DispBreakGauge ( F );
+			}
+		}
+
+
 		//================================================================
 		//強制変更
 		s3d::String nameActionCRC_1p = m_pExeChara1p->Check_TransitAction_Condition_str ( BRC_COERACION );

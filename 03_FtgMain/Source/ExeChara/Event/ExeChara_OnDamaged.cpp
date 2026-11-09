@@ -368,6 +368,7 @@ namespace GAME
 				//初回チェック
 				m_btlPrm.SetbBreak ( T );
 				m_btlPrm.SetbBreakHit ( T );
+				m_btlPrm.SetbBreakDisp ( T );
 				m_btlPrm.AddBreak ( - confirmed_damage );
 			}
 		}

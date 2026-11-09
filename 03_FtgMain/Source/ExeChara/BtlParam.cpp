@@ -183,6 +183,7 @@ namespace GAME
 		m_bBreakHit = F;
 		m_bBreakOn = F;
 		m_breakPush = 0;
+		m_bBreakDisp = F;
 
 		m_power = 0;
 
@@ -1288,6 +1289,7 @@ namespace GAME
 		m_bBreakOn = F;	//初回オフ
 		m_bBreakHit = F;	//初回オフ
 		m_breakPush = 0;	//初回オフ
+		m_bBreakDisp = F;	//オフ
 	}
 
 	void BtlParam::AddBreak ( int32_t n )
